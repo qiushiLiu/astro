@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest
+END
+ASIHTTPRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIHTTPRequest.m
+END
+ASICacheDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASICacheDelegate.h
+END
+ASINetworkQueue.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASINetworkQueue.h
+END
+ASIDataDecompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIDataDecompressor.h
+END
+ASIAuthenticationDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIAuthenticationDialog.h
+END
+ASIProgressDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIProgressDelegate.h
+END
+ASIDownloadCache.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIDownloadCache.m
+END
+ASINetworkQueue.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASINetworkQueue.m
+END
+Reachability.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/Reachability.h
+END
+ASIDataDecompressor.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIDataDecompressor.m
+END
+ASIAuthenticationDialog.m
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIAuthenticationDialog.m
+END
+ASIFormDataRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIFormDataRequest.h
+END
+Reachability.m
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/Reachability.m
+END
+ASIFormDataRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIFormDataRequest.m
+END
+ASIInputStream.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIInputStream.h
+END
+ASIHTTPRequestConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIHTTPRequestConfig.h
+END
+ASIInputStream.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIInputStream.m
+END
+ASIHTTPRequestDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIHTTPRequestDelegate.h
+END
+ASIDataCompressor.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIDataCompressor.h
+END
+ASIHTTPRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIHTTPRequest.h
+END
+ASIDownloadCache.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIDownloadCache.h
+END
+ASIDataCompressor.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/iphone/!svn/ver/9117/4-2-1/Classes/Frame/ASIHTTPRequest/ASIDataCompressor.m
+END
