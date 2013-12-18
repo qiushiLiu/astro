@@ -20,6 +20,8 @@
     return [outputStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-
+- (NSString *)trim{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
 
 @end

@@ -10,4 +10,5 @@
 
 @interface NSString (Addition)
 - (NSString *)stringByDecodingURLFormat;
+- (NSString *)trim;
 @end
