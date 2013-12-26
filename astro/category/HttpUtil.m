@@ -8,25 +8,31 @@
 
 
 @implementation HttpUtil
+
++ (HttpUtil *)shared{
+    static HttpUtil *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[HttpUtil alloc] init];
+    });
+    return instance;
+}
+
 + (ASIHTTPRequest *)http:(NSString *)url
                   method:(emHttpMethod)method
                   params:(NSMutableDictionary *)params
-                    data:(NSData *)data
                  timeOut:(NSInteger)sec
+                delegate:(id)delegate
        didFinishSelector:(SEL)didFinishSelector
          didFailSelector:(SEL)didFailSelector
-                delegate:(id)delegate
-                     tag:(int)tag{
+{
     //开始请求
     NSString *completeUrl = [self completeQueryString:url params:params];
     if (kAppDebug) {
         NSLog(@">>%@", completeUrl);
     }
     
-    NSAssert([params count] > 0 && data, @"http请求中params和data不能同时有效");
-    
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:completeUrl]];
-    req.tag = tag;
     //超时时间
     if (sec <= 0) {
         sec = kDefaultTimeOut;
@@ -47,8 +53,6 @@
             NSString *postData = [params JSONString];
             [req addRequestHeader: @"Content-Type" value:@"application/json; charset=utf-8"];
             [req appendPostData:[postData dataUsingEncoding:NSUTF8StringEncoding]];
-        } else if (data) {
-            [req appendPostData:data];
         }
     }
     //ASIHTTPRequest ASIHTTPRequest 有bug 这个不能开启

@@ -10,5 +10,5 @@
 
 @interface NSObject (JSON)
 - (id)initFromJsonString:(NSString *)str;
-
+- (void)appendFromJsonObject:(NSDictionary *)entry;
 @end

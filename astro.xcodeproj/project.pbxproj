@@ -40,6 +40,7 @@
 		1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012BC2185F35160046AD7A /* ASAppConst.m */; };
 		1B012BC6185F40A80046AD7A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012BC5185F40A80046AD7A /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */; };
+		1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EE91865C65300278E62 /* ASObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,9 @@
 		1B012BC5185F40A80046AD7A /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		1B9F1EB11861BD6D00278E62 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
+		1B9F1EE81865C65300278E62 /* ASObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASObject.h; sourceTree = "<group>"; };
+		1B9F1EE91865C65300278E62 /* ASObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASObject.m; sourceTree = "<group>"; };
+		1B9F1EEB186C4DE700278E62 /* ASObjectDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASObjectDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +302,9 @@
 			children = (
 				1B012BBB185F2D230046AD7A /* ASBaseViewController.h */,
 				1B012BBC185F2D230046AD7A /* ASBaseViewController.m */,
+				1B9F1EE81865C65300278E62 /* ASObject.h */,
+				1B9F1EE91865C65300278E62 /* ASObject.m */,
+				1B9F1EEB186C4DE700278E62 /* ASObjectDelegate.h */,
 			);
 			path = Frame;
 			sourceTree = "<group>";
@@ -408,6 +415,7 @@
 				1B012B41185DCB4B0046AD7A /* ASViewController.m in Sources */,
 				1B012B6E185DD4ED0046AD7A /* UIView+Layout.m in Sources */,
 				1B012BB2185DDC240046AD7A /* ASIInputStream.m in Sources */,
+				1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
 				1B012BB1185DDC240046AD7A /* ASIHTTPRequest.m in Sources */,
 				1B012B37185DCB4B0046AD7A /* main.m in Sources */,

@@ -18,14 +18,12 @@ extern double const kDefaultTimeOut;
 @interface HttpUtil : NSObject
 
 + (ASIHTTPRequest *)http:(NSString *)url
-                  method:(emHttpMethod)typeTag
-                 params:(NSMutableDictionary *)params
-                   data:(NSData *)data
-                timeOut:(NSInteger)sec
-      didFinishSelector:(SEL)didFinishSelector
-        didFailSelector:(SEL)didFailSelector
-               delegate:(id)delegate
-                    tag:(int)tag;
+                  method:(emHttpMethod)method
+                  params:(NSMutableDictionary *)params
+                 timeOut:(NSInteger)sec
+                delegate:(id)delegate
+       didFinishSelector:(SEL)didFinishSelector
+         didFailSelector:(SEL)didFailSelector;
 
 
 +(NSString *)completeQueryString:(NSString *)url params:(NSMutableDictionary *)params;

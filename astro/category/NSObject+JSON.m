@@ -19,37 +19,41 @@
 
 - (id)initFromJsonObject:(NSDictionary *)entry {
 	if ((self = [self init])) {
-        if(entry){
-            for(id key in [entry allKeys]){
-                id obj = [entry objectForKey:key];
-                if(!obj)
-                    continue;
-                
-                BOOL hasVar = [self hasCorrspondingVariableForkey:key];
-                if (hasVar) {
-                    if ([obj isKindOfClass:[NSArray class]]) {
-                        Class class = [[self class] classForJsonObjectsByKey:key];
-                        if (class) {
-                            NSArray *subResults = [[self class] createObjectsWithClass:class fromJsonArray:obj];
-                            [self setValue:subResults forKey:key];
-                        } else {
-                            [self setValue:obj forKey:key];
-                        }
-                    }else {
-                        Class class = [[self class] classForJsonObjectByKey:key];
-                        
-                        if (class) {
-                            id dsObject = [NSObject createObjectWithClass:class fromJsonObject:obj];
-                            [self setValue:dsObject forKey:key];
-                        } else {
-                            [self setValue:obj forKey:key];
-                        }
+        [self appendFromJsonObject:entry];
+	}
+	return self;
+}
+
+- (void)appendFromJsonObject:(NSDictionary *)entry{
+    if(entry){
+        for(id key in [entry allKeys]){
+            id obj = [entry objectForKey:key];
+            if(!obj)
+                continue;
+            
+            BOOL hasVar = [self hasCorrspondingVariableForkey:key];
+            if (hasVar) {
+                if ([obj isKindOfClass:[NSArray class]]) {
+                    Class class = [[self class] classForJsonObjectsByKey:key];
+                    if (class) {
+                        NSArray *subResults = [[self class] createObjectsWithClass:class fromJsonArray:obj];
+                        [self setValue:subResults forKey:key];
+                    } else {
+                        [self setValue:obj forKey:key];
+                    }
+                }else {
+                    Class class = [[self class] classForJsonObjectByKey:key];
+                    
+                    if (class) {
+                        id dsObject = [NSObject createObjectWithClass:class fromJsonObject:obj];
+                        [self setValue:dsObject forKey:key];
+                    } else {
+                        [self setValue:obj forKey:key];
                     }
                 }
             }
         }
-	}
-	return self;
+    }
 }
 
 - (BOOL)hasCorrspondingVariableForkey:(NSString*)key{
