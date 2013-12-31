@@ -49,6 +49,7 @@
 		1B9F1F2E1872622500278E62 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1F271872622400278E62 /* FMDatabaseQueue.m */; };
 		1B9F1F301872622500278E62 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1F2A1872622500278E62 /* FMResultSet.m */; };
 		1B9F1F321872624B00278E62 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9F1F311872624B00278E62 /* libsqlite3.dylib */; };
+		1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1F3418726CBB00278E62 /* ASCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,8 @@
 		1B9F1F291872622500278E62 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		1B9F1F2A1872622500278E62 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		1B9F1F311872624B00278E62 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		1B9F1F3318726CBB00278E62 /* ASCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCache.h; sourceTree = "<group>"; };
+		1B9F1F3418726CBB00278E62 /* ASCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +337,8 @@
 				1B9F1EEB186C4DE700278E62 /* ASObjectDelegate.h */,
 				1B9F1EEF186C54DB00278E62 /* ASUrlImageView.h */,
 				1B9F1EF0186C54DB00278E62 /* ASUrlImageView.m */,
+				1B9F1F3318726CBB00278E62 /* ASCache.h */,
+				1B9F1F3418726CBB00278E62 /* ASCache.m */,
 			);
 			path = Frame;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 				1B012BAE185DDC240046AD7A /* ASIDataDecompressor.m in Sources */,
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
 				1B012BB3185DDC240046AD7A /* ASINetworkQueue.m in Sources */,
+				1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */,
 				1B9F1F2E1872622500278E62 /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
