@@ -16,3 +16,6 @@ NSString *const kAppAgent = @"";
 NSString *const kAppVerify = @"";
 double const kDefaultTimeOut = 3.0f;
 
+
+CGFloat const kProgressViewHeight = 10.0f;
+

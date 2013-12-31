@@ -4618,7 +4618,7 @@ static NSOperationQueue *sharedQueue = nil;
 	bandwidthMeasurementDate = [[NSDate dateWithTimeIntervalSinceNow:1] retain];
 	bandwidthUsedInLastSecond = 0;
 	
-	NSUInteger measurements = [bandwidthUsageTracker count];
+	NSUInteger measurements = MAX(1, [bandwidthUsageTracker count]);
 	unsigned long totalBytes = 0;
 	for (NSNumber *bytes in bandwidthUsageTracker) {
 		totalBytes += [bytes unsignedLongValue];

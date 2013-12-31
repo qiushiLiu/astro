@@ -17,6 +17,8 @@
     }
 }
 
+#pragma mark - HttpRequest
+
 - (void)load:(NSString *)url params:(NSMutableDictionary *)params{
     if(_request){
         [_request cancel];
