@@ -17,11 +17,8 @@
 @property (nonatomic, strong) NSDate *expire;
 @end
 
-@implementation ASCacheObject
-
-@end
-
-NSInteger const kMemoryCachedMaxNum = 1000;
+extern NSInteger const kMemoryCachedMaxNum;
+extern NSInteger const kImageCacheMaxNum;
 
 @interface ASCache : NSObject{
     //数据库连接
@@ -30,6 +27,9 @@ NSInteger const kMemoryCachedMaxNum = 1000;
     NSMutableDictionary *_valuesCached;
     //二级缓存顺序列表
     NSMutableArray *_valuesKeyList;
+    //图片二级缓存
+    NSMutableDictionary *_imagesCached;
+    NSMutableArray *_imagesKeyList;
 }
 
 + (ASCache *)shared;
@@ -37,5 +37,9 @@ NSInteger const kMemoryCachedMaxNum = 1000;
 - (void)cleanAllValueCache;
 - (void)storeValue:(NSString *)value dir:(NSString *)dir key:(NSString *)key;
 - (void)storeValue:(NSString *)value dir:(NSString *)dir key:(NSString *)key expire:(NSDate *)expire;
+
+- (BOOL)chkExistImageWithDir:(NSString *)dir url:(NSString *)url;
+- (UIImage *)readImageWithDir:(NSString *)dir url:(NSString *)url;
+- (BOOL)storeImageData:(NSData *)data dir:(NSString *)dir url:(NSString *)url;
 - (ASCacheObject *)readDicFiledsWithDir:(NSString *)dir key:(NSString *)key;
 @end

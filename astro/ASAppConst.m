@@ -21,4 +21,6 @@ NSInteger const A_DAY_SECONDS = A_HOUR_SECONDS * 24;
 
 
 CGFloat const kProgressViewHeight = 10.0f;
-
+NSString *const kLoadFaildImageName = @"";
+NSInteger const kMemoryCachedMaxNum = 1000;
+NSInteger const kImageCacheMaxNum = 500;

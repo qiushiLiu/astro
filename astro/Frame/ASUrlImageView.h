@@ -10,6 +10,7 @@
 #import "ASIHTTPRequest.h"
 
 extern CGFloat const kProgressViewHeight;
+extern NSString *const kLoadFaildImageName;
 
 @interface ASUrlImageView : UIView{
     //图片view
@@ -20,6 +21,12 @@ extern CGFloat const kProgressViewHeight;
     UIProgressView *_progressView;
     //http请求
     ASIHTTPRequest *_req;
+    
+    //缓存目录和url
+    NSString *_url;
+    NSString *_dir;
 }
+
 - (void)load:(NSString *)url cacheDir:(NSString *)dir;
+- (void)load:(NSString *)url cacheDir:(NSString *)dir failImageName:(NSString *)imageName;
 @end

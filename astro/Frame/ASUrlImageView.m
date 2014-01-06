@@ -7,7 +7,7 @@
 //
 
 #import "ASUrlImageView.h"
-
+#import "ASCache.h"
 @interface ASUrlImageView()
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
@@ -26,25 +26,35 @@
 }
 
 - (void)load:(NSString *)url cacheDir:(NSString *)dir{
+    if([dir length] == 0){
+        dir = NSStringFromClass([self class]);
+    }
+    [self load:url cacheDir:dir failImageName:kLoadFaildImageName];
+}
+
+- (void)load:(NSString *)url cacheDir:(NSString *)dir failImageName:(NSString *)imageName{
     if(_req){
-        [_req cancel];
+        [_req clearDelegatesAndCancel];
     }
-    _req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-//    [_req setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
-    //ASIHTTPRequest ASIHTTPRequest 有bug 这个不能开启
-    [_req setShouldAttemptPersistentConnection:NO];
-    //设置代理
+    _dir = [dir trim];
+    _url = [url trim];
+    BOOL isCached =[[ASCache shared] chkExistImageWithDir:_dir url:_url];
+    
+    //如果 dir url为空 或者 已经存在文件
+    if (isCached) {
+        [self loadImage];
+    }else{
+        [self downLoad];
+    }
+}
+
+- (void)downLoad{
+    _req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:_url]];
     _req.delegate = self;
-    
-    if(self.progressView){
-        self.progressView.hidden = NO;
-        self.progressView.bottom = self.height;
-        [_req setDownloadProgressDelegate:self.progressView];
-    }
-    
-    //开始异步调用
+    [_req setTimeOutSeconds:15];//超时为15秒
     [_req startAsynchronous];
 }
+
 
 - (UIImageView *)imageView{
     if(!_imageView){
@@ -81,28 +91,59 @@
         self.activityView.center = CGPointMake(self.width/2.0f, self.height/2.0f);
         [self bringSubviewToFront:self.activityView];
     }
+    
+    if(self.progressView){
+        self.progressView.hidden = NO;
+        self.progressView.bottom = self.height;
+        [_req setDownloadProgressDelegate:self.progressView];
+    }
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request{
-    self.imageView.image = [UIImage imageWithData:request.responseData];
-//    CGSize newSize = self.size;
-//    [UIView animateWithDuration:0.1 animations:^{
-//        self.imageView.size = newSize;
-//    } completion:^(BOOL finished) {
-//        self.imageView.center = CGPointMake(self.width/2.0f, self.height/2.0f);
-//    }];
-    if(self.progressView){
-        self.progressView.hidden = NO;
-    }
+    NSData *data = [request responseData];
+    [[ASCache shared] storeImageData:data dir:_dir url:_url];
+    [self hideLoadAnimating];
+    [self loadImage];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request{
+    [self hideLoadAnimating];
+}
+
+- (void)hideLoadAnimating{
     if(self.activityView){
         [self.activityView stopAnimating];
         self.activityView.hidden = YES;
     }
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request{
-    if(self.activityView){
-        self.activityView.hidden = YES;
+    if(self.progressView){
+        self.progressView.hidden = YES;
     }
 }
+
+- (void)loadImage{
+    UIImage *img = [[ASCache shared] readImageWithDir:_dir url:_url];
+    CGSize imageSize = img.size;
+    CGSize targetSize = self.size;
+    CGSize scaledSize = CGSizeZero;
+    CGFloat scaleFactor = 0.0f;
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+    {
+        CGFloat widthFactor = targetSize.width / imageSize.width;
+        CGFloat heightFactor = targetSize.height / imageSize.height;
+        
+        if (widthFactor < heightFactor){
+            scaleFactor = widthFactor; // scale to fit height
+        } else {
+            scaleFactor = heightFactor; // scale to fit width
+        }
+        scaledSize.width  = imageSize.width * scaleFactor;
+        scaledSize.height = imageSize.height * scaleFactor;
+    }
+    
+    self.imageView.size = scaledSize;
+    self.imageView.image = img;
+}
+
+
 @end
