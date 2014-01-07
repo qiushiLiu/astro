@@ -7,6 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ASTopView.h"
 
-@interface ASBaseViewController : UIViewController
+typedef enum {
+    NavStyleDefault = 0,
+    NavStyleBottomToTop,
+    NavStyleTopToBottom,
+    NavStyleLeftToRight,
+    NavStyleFadeIn,
+    NavStyleFadeOut,
+    NavStyleNoEffect,
+} NavStyle;
+
+@interface ASBaseViewController : UIViewController<ASTopViewDelegate>
+
+@property (nonatomic, strong) ASTopView *topView;
+@property (nonatomic, strong) NSString *pageKey;
+
+
+- (void)changeRightButtonTitle:(NSString *)title;
+- (void)changeTitle:(NSString *)title;
 @end

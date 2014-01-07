@@ -7,12 +7,53 @@
 //
 
 #import "ASAppDelegate.h"
+#import "ASNav.h"
 
 @implementation ASAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    //第一次活跃
+//    self.firstActiveTag = YES;
+    //设置状态栏
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleBlackOpaque;
+    //可以接收服务器推送消息
+    [UIApplication.sharedApplication registerForRemoteNotificationTypes:(UIRemoteNotificationTypeSound |
+                                                                         UIRemoteNotificationTypeBadge |
+                                                                         UIRemoteNotificationTypeAlert)];
+    
+    //设置时区
+    NSTimeZone *tzGMT = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
+    [NSTimeZone setDefaultTimeZone:tzGMT];
+    
+    //解析
+    if (launchOptions) {
+        //推送的消息
+        NSDictionary *p1 = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (p1) {
+        }
+    }
+    
+    //初始化window
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    //初始化导航
+    UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
+    self.nav = nc;
+    
+    //设置rootViewController
+    self.window.rootViewController = self.nav;
+    [self.window makeKeyAndVisible];
+    
+    //兼容ios7
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+        [application setStatusBarStyle:UIStatusBarStyleLightContent];
+        self.window.clipsToBounds =YES;
+        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height - 20);
+        self.window.bounds = CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height);
+    }
+    
     return YES;
 }
 							
