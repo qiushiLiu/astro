@@ -22,9 +22,12 @@ typedef enum {
 @interface ASBaseViewController : UIViewController<ASTopViewDelegate>
 
 @property (nonatomic, strong) ASTopView *topView;
+@property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) NSString *pageKey;
 
 
 - (void)changeRightButtonTitle:(NSString *)title;
 - (void)changeTitle:(NSString *)title;
+
+- (void)alert:(NSString *)msg;
 @end

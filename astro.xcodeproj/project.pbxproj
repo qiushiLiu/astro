@@ -230,6 +230,7 @@
 				1B5D5E97187A53520030A7E8 /* Class */,
 				1B012BBA185F2CAB0046AD7A /* Frame */,
 				1B012B42185DCB4B0046AD7A /* Images.xcassets */,
+				1B5D5EA2187BC8360030A7E8 /* Model */,
 				1B012B31185DCB4B0046AD7A /* Supporting Files */,
 			);
 			path = astro;
@@ -374,6 +375,13 @@
 				1B5D5EA0187A5F2C0030A7E8 /* ASTopView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1B5D5EA2187BC8360030A7E8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		1B9F1F1F1872618200278E62 /* FMDB */ = {

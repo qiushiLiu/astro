@@ -10,8 +10,6 @@
 #import "ASNav.h"
 
 @interface ASBaseViewController ()
-@property (strong, nonatomic) UIView *_topView;
-
 
 @end
 
@@ -24,8 +22,6 @@
         // Custom initialization
 
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_dl"]];
-
-        
         
     }
     return self;
@@ -34,7 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     //topview
     self.topView = [[ASTopView alloc] initWithVc:self];
     self.topView.delegate = self;
@@ -42,9 +39,14 @@
 }
 
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    // Do any additional setup after loading the view.
+    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topView.bottom, self.view.width, self.view.height - self.topView.bottom)];
+    self.contentView.contentSize = self.contentView.size;
+    self.contentView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.contentView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,6 +55,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - BaseLayout Called on ViewDidLoad
 - (void)changeRightButtonTitle:(NSString *)title{
     NSString *t = [title copy];
     [self.topView.btnRight setTitle:t forState:UIControlStateNormal];
@@ -61,6 +64,12 @@
 - (void)changeTitle:(NSString *)title{
     NSString *t = [title copy];
     [self.topView.lbTitle setText:t];
+}
+
+#pragma mark - BaseAlert
+- (void)alert:(NSString *)msg{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - ASTopViewDelegate

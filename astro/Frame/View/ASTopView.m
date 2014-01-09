@@ -59,7 +59,7 @@
 - (UIButton *)newButton:(CGRect)frame{
     UIButton *btn = [[UIButton alloc] initWithFrame:frame];
     [btn setBackgroundImage:[[UIImage imageNamed:@"btn_darkred"] stretchableImageWithLeftCapWidth:5 topCapHeight:5] forState:UIControlStateNormal];
-    [btn setBackgroundImage:[[UIImage imageNamed:@"btn_darkred_hl"] stretchableImageWithLeftCapWidth:5 topCapHeight:5] forState:UIControlStateHighlighted];
+//    [btn setBackgroundImage:[[UIImage imageNamed:@"btn_darkred_hl"] stretchableImageWithLeftCapWidth:5 topCapHeight:5] forState:UIControlStateHighlighted];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     return btn;

@@ -8,6 +8,5 @@
 
 #import "ASBaseViewController.h"
 
-@interface ASLoginVc : ASBaseViewController
-
+@interface ASLoginVc : ASBaseViewController<UITextFieldDelegate>
 @end
