@@ -30,12 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    //topview
-    self.topView = [[ASTopView alloc] initWithVc:self];
-    self.topView.delegate = self;
-    [self.view addSubview:self.topView];
 }
 
 
@@ -43,7 +38,7 @@
 {
     [super viewWillAppear:animated];
     // Do any additional setup after loading the view.
-    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.topView.bottom, self.view.width, self.view.height - self.topView.bottom)];
+    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     self.contentView.contentSize = self.contentView.size;
     self.contentView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.contentView];
@@ -53,17 +48,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - BaseLayout Called on ViewDidLoad
-- (void)changeRightButtonTitle:(NSString *)title{
-    NSString *t = [title copy];
-    [self.topView.btnRight setTitle:t forState:UIControlStateNormal];
-}
-
-- (void)changeTitle:(NSString *)title{
-    NSString *t = [title copy];
-    [self.topView.lbTitle setText:t];
 }
 
 #pragma mark - BaseAlert

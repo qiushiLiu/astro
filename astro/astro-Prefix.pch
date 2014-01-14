@@ -20,6 +20,8 @@
     #import "ASAppConst.h"
     #import "ASNavKeyConst.h"
 
+    #import "ASControls.h"
+
     #import "ASBaseViewController.h"
 #endif
 

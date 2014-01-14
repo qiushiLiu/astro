@@ -41,7 +41,6 @@
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
-		1B5D5EA1187A5F2C0030A7E8 /* ASTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5EA0187A5F2C0030A7E8 /* ASTopView.m */; };
 		1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */; };
 		1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EE91865C65300278E62 /* ASObject.m */; };
 		1B9F1EF1186C54DB00278E62 /* ASUrlImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EF0186C54DB00278E62 /* ASUrlImageView.m */; };
@@ -53,6 +52,7 @@
 		1B9F1F301872622500278E62 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1F2A1872622500278E62 /* FMResultSet.m */; };
 		1B9F1F321872624B00278E62 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9F1F311872624B00278E62 /* libsqlite3.dylib */; };
 		1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1F3418726CBB00278E62 /* ASCache.m */; };
+		1BA69372187FD1B900478D08 /* ASControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA69371187FD1B900478D08 /* ASControls.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,8 +129,6 @@
 		1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoginVc.m; sourceTree = "<group>"; };
 		1B5D5E9B187A54AF0030A7E8 /* ASNavKeyConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNavKeyConst.h; sourceTree = "<group>"; };
 		1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNavKeyConst.m; sourceTree = "<group>"; };
-		1B5D5E9F187A5F2C0030A7E8 /* ASTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTopView.h; sourceTree = "<group>"; };
-		1B5D5EA0187A5F2C0030A7E8 /* ASTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTopView.m; sourceTree = "<group>"; };
 		1B9F1EB11861BD6D00278E62 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
 		1B9F1EE81865C65300278E62 /* ASObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASObject.h; sourceTree = "<group>"; };
@@ -152,6 +150,8 @@
 		1B9F1F311872624B00278E62 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1B9F1F3318726CBB00278E62 /* ASCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCache.h; sourceTree = "<group>"; };
 		1B9F1F3418726CBB00278E62 /* ASCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCache.m; sourceTree = "<group>"; };
+		1BA69370187FD1B900478D08 /* ASControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASControls.h; sourceTree = "<group>"; };
+		1BA69371187FD1B900478D08 /* ASControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASControls.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +355,8 @@
 				1B9F1F3418726CBB00278E62 /* ASCache.m */,
 				1B5D5E94187A4C850030A7E8 /* ASNav.h */,
 				1B5D5E95187A4C850030A7E8 /* ASNav.m */,
+				1BA69370187FD1B900478D08 /* ASControls.h */,
+				1BA69371187FD1B900478D08 /* ASControls.m */,
 			);
 			path = Frame;
 			sourceTree = "<group>";
@@ -371,8 +373,6 @@
 		1B5D5E9E187A5B280030A7E8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1B5D5E9F187A5F2C0030A7E8 /* ASTopView.h */,
-				1B5D5EA0187A5F2C0030A7E8 /* ASTopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -507,6 +507,7 @@
 				1B012B41185DCB4B0046AD7A /* ASViewController.m in Sources */,
 				1B012B6E185DD4ED0046AD7A /* UIView+Layout.m in Sources */,
 				1B012BB2185DDC240046AD7A /* ASIInputStream.m in Sources */,
+				1BA69372187FD1B900478D08 /* ASControls.m in Sources */,
 				1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
 				1B012BB1185DDC240046AD7A /* ASIHTTPRequest.m in Sources */,
@@ -520,7 +521,6 @@
 				1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */,
 				1B012BAF185DDC240046AD7A /* ASIDownloadCache.m in Sources */,
 				1B9F1EF1186C54DB00278E62 /* ASUrlImageView.m in Sources */,
-				1B5D5EA1187A5F2C0030A7E8 /* ASTopView.m in Sources */,
 				1B012BC6185F40A80046AD7A /* JSONKit.m in Sources */,
 				1B012B6B185DD4ED0046AD7A /* NSString+Addition.m in Sources */,
 				1B012B6C185DD4ED0046AD7A /* UIDevice+Addition.m in Sources */,

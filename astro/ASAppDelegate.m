@@ -35,6 +35,11 @@
         }
     }
     
+    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x80776d)];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor whiteColor], NSForegroundColorAttributeName, nil]];
+    
     //初始化window
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
@@ -46,13 +51,13 @@
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];
     
-    //兼容ios7
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        [application setStatusBarStyle:UIStatusBarStyleLightContent];
-        self.window.clipsToBounds =YES;
-        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height - 20);
-        self.window.bounds = CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height);
-    }
+//    //兼容ios7
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+//        [application setStatusBarStyle:UIStatusBarStyleLightContent];
+//        self.window.clipsToBounds =YES;
+//        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height - 20);
+//        self.window.bounds = CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height);
+//    }
     
     return YES;
 }

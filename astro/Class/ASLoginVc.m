@@ -23,8 +23,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self changeTitle:@"登录"];
-    [self changeRightButtonTitle:@"分享"];
+    [self setTitle:@"登录"];
     
     //添加键盘监听事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
@@ -40,7 +39,7 @@
     
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
     icon.centerX = self.view.width * 0.5;
-    icon.top = 15;
+    icon.top = 20;
     [self.contentView addSubview:icon];
     
     CGFloat left = icon.left - 20;
@@ -56,40 +55,18 @@
     self.tfPsw.returnKeyType = UIReturnKeyDone;
     [self.contentView addSubview:self.tfPsw];
     
-    self.btnSumbit = [[UIButton alloc] initWithFrame:CGRectMake(self.tfPsw.left, self.tfPsw.bottom + 10, self.tfPsw.width, 40)];
-    [self.btnSumbit setBackgroundImage:[[UIImage imageNamed:@"btn_red"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-//    [self.btnSumbit setBackgroundImage:[[UIImage imageNamed:@"btn_red_hl"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateHighlighted];
-    self.btnSumbit.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [self.btnSumbit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.btnSumbit setTitle:@"登录" forState:UIControlStateNormal];
+    self.btnSumbit = [ASControls newRedButton:CGRectMake(self.tfPsw.left, self.tfPsw.bottom + 10, self.tfPsw.width, 40) title:@"登陆"];
     [self.btnSumbit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnSumbit];
     
-    self.btnRegister = [[UIButton alloc] initWithFrame:CGRectMake(self.btnSumbit.left, self.btnSumbit.bottom + 10, self.btnSumbit.width, 40)];
-    [self.btnRegister setBackgroundImage:[[UIImage imageNamed:@"btn_mm"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-//    [self.btnRegister setBackgroundImage:[[UIImage imageNamed:@"btn_mm_hl"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]  forState:UIControlStateHighlighted];
-    self.btnRegister.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [self.btnRegister setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.btnRegister setTitle:@"注册" forState:UIControlStateNormal];
+    self.btnRegister = [ASControls newMMButton:CGRectMake(self.btnSumbit.left, self.btnSumbit.bottom + 10, self.btnSumbit.width/2 - 5, 40) title:@"注册"];
     [self.btnRegister addTarget:self action:@selector(toRegister) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnRegister];
     
-    self.btnForgot = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 36)];
-    self.btnForgot.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
-    self.btnForgot.backgroundColor = [UIColor clearColor];
-    self.btnForgot.titleLabel.font = [UIFont systemFontOfSize:14];
-    self.btnForgot.right = self.btnRegister.right;
-    self.btnForgot.top = self.btnRegister.bottom;
-    [self.btnForgot setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.btnForgot setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [self.btnForgot setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    self.btnForgot = [ASControls newMMButton:CGRectMake(self.btnRegister.right + 10, self.btnRegister.top, self.btnRegister.width, 40) title:@"忘记密码"];
     [self.btnForgot addTarget:self action:@selector(goForgotPwd) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnForgot];
-    //下划线
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.btnForgot.width - 4, 1)];
-    line.bottom = self.btnForgot.height;
-    line.backgroundColor = [UIColor blackColor];
-    [self.btnForgot addSubview:line];
+
 
     //其他登录分割线
     UILabel *lb = [[UILabel alloc] init];
@@ -103,7 +80,7 @@
     [self.contentView addSubview:lb];
     
     CGFloat lineMargin = 4;
-    line = [[UIView alloc] initWithFrame:CGRectMake(self.btnSumbit.left, 0, lb.left - self.btnSumbit.left - lineMargin, 1)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(self.btnSumbit.left, 0, lb.left - self.btnSumbit.left - lineMargin, 1)];
     line.centerY = lb.centerY;
     line.backgroundColor = [UIColor blackColor];
     [self.contentView addSubview:line];
@@ -178,11 +155,10 @@
     CGRect keyboardFrame;
     [[[sender userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
     if([sender.name isEqualToString:UIKeyboardWillHideNotification]){
-        self.contentView.height = self.view.height - self.topView.height;
+        self.contentView.height = self.view.height;
     }else{
-        self.contentView.height = self.view.height + self.topView.height - keyboardFrame.size.height;
+        self.contentView.height = self.view.height - keyboardFrame.size.height;
         [self.contentView setContentOffset:CGPointMake(0, self.tfName.top - 10) animated:YES];
-        
     }
     self.contentView.contentSize = cSize;
 }

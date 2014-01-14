@@ -39,7 +39,6 @@
     
     //配置页面到导航vc
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    nc.navigationBarHidden = YES;
     
     return nc;
 }

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASTopView.h"
 
 typedef enum {
     NavStyleDefault = 0,
@@ -19,15 +18,10 @@ typedef enum {
     NavStyleNoEffect,
 } NavStyle;
 
-@interface ASBaseViewController : UIViewController<ASTopViewDelegate>
+@interface ASBaseViewController : UIViewController
 
-@property (nonatomic, strong) ASTopView *topView;
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) NSString *pageKey;
-
-
-- (void)changeRightButtonTitle:(NSString *)title;
-- (void)changeTitle:(NSString *)title;
 
 - (void)alert:(NSString *)msg;
 @end
