@@ -38,7 +38,9 @@
     [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x80776d)];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor whiteColor], NSForegroundColorAttributeName, nil]];
+                                                           [UIColor whiteColor], NSForegroundColorAttributeName
+                                                           ,[UIFont boldSystemFontOfSize:18], NSFontAttributeName
+                                                           ,nil]];
     
     //初始化window
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];

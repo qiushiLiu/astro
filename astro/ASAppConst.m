@@ -10,11 +10,13 @@
 
 NSString *const kAppVersion = @"1.1";
 NSString *const kAppChannel = @"0";
+NSString *const kAppHost = @"http://api.ssqian.com/app.svc";
 BOOL kAppDebug = YES;
 
-NSString *const kAppAgent = @"";
-NSString *const kAppVerify = @"";
+NSString *const kAppAgent = @"ssqianAgent";
+NSString *const kAppVerify = @"ssqianVerify";
 double const kDefaultTimeOut = 3.0f;
+NSString *const kDefalutLoadingText = @"正在加载..";
 
 NSInteger const A_HOUR_SECONDS = 3600;
 NSInteger const A_DAY_SECONDS = A_HOUR_SECONDS * 24;

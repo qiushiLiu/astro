@@ -25,6 +25,9 @@
 	// Do any additional setup after loading the view.
     [self setTitle:@"登录"];
     
+    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 64, 28) title:@"分享"];
+    [btn addTarget:self action:@selector(shareTo) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     //添加键盘监听事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
@@ -43,13 +46,13 @@
     [self.contentView addSubview:icon];
     
     CGFloat left = icon.left - 20;
-    self.tfName = [self newTextField:CGRectMake(left, icon.bottom + 10, icon.width + 40, 36)];
+    self.tfName = [ASControls newTextField:CGRectMake(left, icon.bottom + 10, icon.width + 40, 36)];
     self.tfName.placeholder = @"Email/手机号";
     self.tfName.returnKeyType = UIReturnKeyNext;
     self.tfName.keyboardType = UIKeyboardTypeEmailAddress;
     [self.contentView addSubview:self.tfName];
     
-    self.tfPsw = [self newTextField:CGRectMake(left, self.tfName.bottom + 10, icon.width + 40, 36)];
+    self.tfPsw = [ASControls newTextField:CGRectMake(left, self.tfName.bottom + 10, icon.width + 40, 36)];
     self.tfPsw.secureTextEntry = YES;
     self.tfPsw.placeholder = @"请输入密码";
     self.tfPsw.returnKeyType = UIReturnKeyDone;
@@ -121,6 +124,10 @@
     
 }
 
+- (void)shareTo{
+    
+}
+
 - (void)login{
     if([self.tfName.text length] == 0){
         [self alert:@"请输入登录Email/手机号"];
@@ -147,6 +154,7 @@
 
 - (void)goForgotPwd{
     [self hideKeyboard];
+    [self navTo:vcForgetPsw];
 }
 
 #pragma mark - KeyBoardEvent Method
@@ -170,22 +178,6 @@
 }
 
 #pragma mark - UITextFieldDelegate Method
-- (UITextField *)newTextField:(CGRect)frame{
-    UITextField *tf = [[UITextField alloc] initWithFrame:frame];
-    tf.backgroundColor = [UIColor whiteColor];
-    tf.borderStyle = UITextBorderStyleBezel;
-    tf.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    tf.layer.borderWidth = 1;
-
-    tf.textColor = [UIColor blackColor];
-    tf.font = [UIFont systemFontOfSize:14];
-    tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, tf.height)];
-    tf.leftViewMode = UITextFieldViewModeAlways;
-    tf.clearButtonMode = UITextFieldViewModeAlways;
-    tf.delegate = self;
-    return tf;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if(textField == self.tfName){
         [self.tfPsw becomeFirstResponder];

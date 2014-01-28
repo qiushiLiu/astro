@@ -8,7 +8,7 @@
 
 #import "ASNav.h"
 #import "ASLoginVc.h"
-
+#import "ASForgetPswVc.h"
 @implementation ASNav
 
 + (ASNav *)shared{
@@ -30,6 +30,7 @@
 
 - (void)configPageKey{
     [_vcDic setObject:[ASLoginVc class] forKey:vcLogin];
+    [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
 }
 
 - (UINavigationController *)newNav:(NSString *)key{

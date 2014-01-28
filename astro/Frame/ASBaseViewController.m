@@ -10,7 +10,7 @@
 #import "ASNav.h"
 
 @interface ASBaseViewController ()
-
+@property (nonatomic, strong) ASWaitingView *_wtView;
 @end
 
 @implementation ASBaseViewController
@@ -20,9 +20,10 @@
     self = [super init];
     if (self) {
         // Custom initialization
-
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_dl"]];
         
+        self._wtView = [[ASWaitingView alloc] initWithBaseViewController:self];
+        self._wtView.delegate = self;
     }
     return self;
 }
@@ -63,6 +64,36 @@
 
 - (void)topViewRightBtnClicked{
     
+}
+
+#pragma mark - Wating Method
+
+- (void)showWaiting{
+    [self showWaitingTitle:nil];
+}
+
+- (void)showWaitingTitle:(NSString *)title{
+    [self._wtView showWating:title];
+}
+
+- (void)hideWaiting{
+    [self._wtView hideWaiting];
+}
+
+- (void)didShowWaiting{
+}
+
+- (void)didHideWaiting{
+    
+}
+
+#pragma mark - ASWaitingView Delegate Method
+- (void)asWaitingViewDidHide:(ASWaitingView *)wv{
+    [self didHideWaiting];
+}
+
+- (void)asWaitingViewDidShow:(ASWaitingView *)wv{
+    [self didShowWaiting];
 }
 
 #pragma mark - Nav
@@ -156,4 +187,15 @@
         [self.navigationController popToViewController:vc animated:YES];
     }
 }
+
+#pragma mark - Model Load Delegate
+- (void)modelBeginLoad:(ASObject *)sender{
+}
+
+- (void)modelLoadFinished:(ASObject *)sender{
+}
+
+- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
+}
+
 @end

@@ -10,6 +10,7 @@
 
 extern NSString * const kAppVersion;
 extern NSString * const kAppChannel;
+extern NSString * const kAppHost;
 extern BOOL kAppDebug;
 
 extern NSInteger const A_HOUR_SECONDS;

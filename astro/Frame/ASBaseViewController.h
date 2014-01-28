@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ASWaitingView.h"
+#import "ASObjectDelegate.h"
 typedef enum {
     NavStyleDefault = 0,
     NavStyleBottomToTop,
@@ -18,10 +19,18 @@ typedef enum {
     NavStyleNoEffect,
 } NavStyle;
 
-@interface ASBaseViewController : UIViewController
+@interface ASBaseViewController : UIViewController<ASWaitingViewDelegate, ASObjectDelegate>
 
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) NSString *pageKey;
 
+- (void)navTo:(NSString *)key;
+
 - (void)alert:(NSString *)msg;
+
+- (void)showWaiting;
+- (void)showWaitingTitle:(NSString *)title;
+- (void)hideWaiting;
+- (void)didShowWaiting;
+- (void)didHideWaiting;
 @end

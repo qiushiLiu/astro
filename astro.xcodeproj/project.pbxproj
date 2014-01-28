@@ -41,6 +41,10 @@
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
+		1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */; };
+		1B7ACF95189740AB000C59C0 /* ASWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF94189740AB000C59C0 /* ASWaitingView.m */; };
+		1B7ACF991897A51E000C59C0 /* ASReturnValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF981897A51E000C59C0 /* ASReturnValue.m */; };
+		1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */; };
 		1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */; };
 		1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EE91865C65300278E62 /* ASObject.m */; };
 		1B9F1EF1186C54DB00278E62 /* ASUrlImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EF0186C54DB00278E62 /* ASUrlImageView.m */; };
@@ -129,6 +133,14 @@
 		1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoginVc.m; sourceTree = "<group>"; };
 		1B5D5E9B187A54AF0030A7E8 /* ASNavKeyConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNavKeyConst.h; sourceTree = "<group>"; };
 		1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNavKeyConst.m; sourceTree = "<group>"; };
+		1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASForgetPswVc.h; sourceTree = "<group>"; };
+		1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASForgetPswVc.m; sourceTree = "<group>"; };
+		1B7ACF93189740AB000C59C0 /* ASWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWaitingView.h; sourceTree = SOURCE_ROOT; };
+		1B7ACF94189740AB000C59C0 /* ASWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWaitingView.m; sourceTree = SOURCE_ROOT; };
+		1B7ACF971897A51E000C59C0 /* ASReturnValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASReturnValue.h; sourceTree = "<group>"; };
+		1B7ACF981897A51E000C59C0 /* ASReturnValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASReturnValue.m; sourceTree = "<group>"; };
+		1B7ACF9A1897A9BD000C59C0 /* ASAppUrlConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAppUrlConst.h; sourceTree = "<group>"; };
+		1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAppUrlConst.m; sourceTree = "<group>"; };
 		1B9F1EB11861BD6D00278E62 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
 		1B9F1EE81865C65300278E62 /* ASObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASObject.h; sourceTree = "<group>"; };
@@ -221,6 +233,8 @@
 				1B012BC2185F35160046AD7A /* ASAppConst.m */,
 				1B012B39185DCB4B0046AD7A /* ASAppDelegate.h */,
 				1B012B3A185DCB4B0046AD7A /* ASAppDelegate.m */,
+				1B7ACF9A1897A9BD000C59C0 /* ASAppUrlConst.h */,
+				1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */,
 				1B012B92185DDC240046AD7A /* ASIHTTPRequest */,
 				1B5D5E9B187A54AF0030A7E8 /* ASNavKeyConst.h */,
 				1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */,
@@ -230,7 +244,6 @@
 				1B5D5E97187A53520030A7E8 /* Class */,
 				1B012BBA185F2CAB0046AD7A /* Frame */,
 				1B012B42185DCB4B0046AD7A /* Images.xcassets */,
-				1B5D5EA2187BC8360030A7E8 /* Model */,
 				1B012B31185DCB4B0046AD7A /* Supporting Files */,
 			);
 			path = astro;
@@ -364,8 +377,11 @@
 		1B5D5E97187A53520030A7E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				1B7ACF961897A4FC000C59C0 /* Model */,
 				1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */,
 				1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */,
+				1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */,
+				1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -373,13 +389,17 @@
 		1B5D5E9E187A5B280030A7E8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1B7ACF93189740AB000C59C0 /* ASWaitingView.h */,
+				1B7ACF94189740AB000C59C0 /* ASWaitingView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		1B5D5EA2187BC8360030A7E8 /* Model */ = {
+		1B7ACF961897A4FC000C59C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1B7ACF971897A51E000C59C0 /* ASReturnValue.h */,
+				1B7ACF981897A51E000C59C0 /* ASReturnValue.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -498,8 +518,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */,
 				1B012B6D185DD4ED0046AD7A /* UIImage+Scale.m in Sources */,
 				1B012BAC185DDC240046AD7A /* ASIAuthenticationDialog.m in Sources */,
+				1B7ACF991897A51E000C59C0 /* ASReturnValue.m in Sources */,
 				1B012B3B185DCB4B0046AD7A /* ASAppDelegate.m in Sources */,
 				1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */,
 				1B9F1F2C1872622500278E62 /* FMDatabaseAdditions.m in Sources */,
@@ -511,6 +533,8 @@
 				1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
 				1B012BB1185DDC240046AD7A /* ASIHTTPRequest.m in Sources */,
+				1B7ACF95189740AB000C59C0 /* ASWaitingView.m in Sources */,
+				1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */,
 				1B012B37185DCB4B0046AD7A /* main.m in Sources */,
 				1B012BB0185DDC240046AD7A /* ASIFormDataRequest.m in Sources */,
 				1B012BB4185DDC240046AD7A /* Reachability.m in Sources */,

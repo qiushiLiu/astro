@@ -40,4 +40,19 @@
     return btn;
 }
 
++ (UITextField *)newTextField:(CGRect)frame{
+    UITextField *tf = [[UITextField alloc] initWithFrame:frame];
+    tf.backgroundColor = [UIColor whiteColor];
+    tf.borderStyle = UITextBorderStyleBezel;
+    tf.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    tf.layer.borderWidth = 1;
+    
+    tf.textColor = [UIColor blackColor];
+    tf.font = [UIFont systemFontOfSize:14];
+    tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, tf.height)];
+    tf.leftViewMode = UITextFieldViewModeAlways;
+    tf.clearButtonMode = UITextFieldViewModeAlways;
+    return tf;
+}
+
 @end

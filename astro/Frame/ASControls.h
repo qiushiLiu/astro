@@ -13,4 +13,6 @@
 + (UIButton *)newRedButton:(CGRect)frame title:(NSString *)title;
 + (UIButton *)newDarkRedButton:(CGRect)frame title:(NSString *)title;
 + (UIButton *)newMMButton:(CGRect)frame title:(NSString *)title;
+
++ (UITextField *)newTextField:(CGRect)frame;
 @end
