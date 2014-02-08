@@ -32,6 +32,12 @@
 {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    //左侧按钮
+    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 60, 28) title:nil];
+    [btn setImage:[UIImage imageNamed:@"icon_navback"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 
@@ -57,13 +63,15 @@
     [alert show];
 }
 
-#pragma mark - ASTopViewDelegate
-- (void)topViewBackBtnClicked{
-    [self navBack];
+#pragma mark - NavBackButton
+- (BOOL)viewControllerShouldNavBack{
+    return YES;
 }
 
-- (void)topViewRightBtnClicked{
-    
+- (void)btnClick_navBack:(UIButton *)sender{
+    if([self viewControllerShouldNavBack]){
+        [self navBack];
+    }
 }
 
 #pragma mark - Wating Method
@@ -193,9 +201,11 @@
 }
 
 - (void)modelLoadFinished:(ASObject *)sender{
+    [self hideWaiting];
 }
 
 - (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
+    [self hideWaiting];
 }
 
 @end

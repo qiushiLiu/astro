@@ -9,4 +9,5 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const vcLogin;
+extern NSString * const vcRegister;
 extern NSString * const vcForgetPsw;

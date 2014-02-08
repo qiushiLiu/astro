@@ -52,6 +52,7 @@
     tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, tf.height)];
     tf.leftViewMode = UITextFieldViewModeAlways;
     tf.clearButtonMode = UITextFieldViewModeAlways;
+    tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
     return tf;
 }
 

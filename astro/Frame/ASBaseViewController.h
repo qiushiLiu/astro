@@ -25,6 +25,8 @@ typedef enum {
 @property (nonatomic, strong) NSString *pageKey;
 
 - (void)navTo:(NSString *)key;
+- (void)navBack;
+- (BOOL)viewControllerShouldNavBack;
 
 - (void)alert:(NSString *)msg;
 

@@ -47,12 +47,14 @@
     
     CGFloat left = icon.left - 20;
     self.tfName = [ASControls newTextField:CGRectMake(left, icon.bottom + 10, icon.width + 40, 36)];
+    self.tfName.delegate = self;
     self.tfName.placeholder = @"Email/手机号";
     self.tfName.returnKeyType = UIReturnKeyNext;
     self.tfName.keyboardType = UIKeyboardTypeEmailAddress;
     [self.contentView addSubview:self.tfName];
     
     self.tfPsw = [ASControls newTextField:CGRectMake(left, self.tfName.bottom + 10, icon.width + 40, 36)];
+    self.tfPsw.delegate = self;
     self.tfPsw.secureTextEntry = YES;
     self.tfPsw.placeholder = @"请输入密码";
     self.tfPsw.returnKeyType = UIReturnKeyDone;
@@ -120,8 +122,6 @@
     [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(loginBySina) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:btn];
-    
-    
 }
 
 - (void)shareTo{
@@ -150,6 +150,7 @@
 
 - (void)toRegister{
     [self hideKeyboard];
+    [self navTo:vcRegister];
 }
 
 - (void)goForgotPwd{

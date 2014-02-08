@@ -8,6 +8,7 @@
 
 #import "ASNav.h"
 #import "ASLoginVc.h"
+#import "ASRegisterVc.h"
 #import "ASForgetPswVc.h"
 @implementation ASNav
 
@@ -30,6 +31,7 @@
 
 - (void)configPageKey{
     [_vcDic setObject:[ASLoginVc class] forKey:vcLogin];
+    [_vcDic setObject:[ASRegisterVc class] forKey:vcRegister];
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
 }
 

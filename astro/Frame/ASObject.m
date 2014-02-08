@@ -38,15 +38,15 @@
     }
     
     NSDictionary *re = [[req responseString] objectFromJSONString];
-    NSInteger code = [[re objectForKey:@"code"] intValue];
+    NSInteger code = [[re objectForKey:@"Code"] intValue];
     if (code == 200) {
-        [self appendFromJsonObject:[re objectForKey:@"value"]];
+        [self appendFromJsonObject:[re objectForKey:@"Value"]];
         if([self.delegate respondsToSelector:@selector(modelLoadFinished:)]){
             [self.delegate modelLoadFinished:self];
         }
     } else {
         if([self.delegate respondsToSelector:@selector(modelLoadFaild:message:)]){
-            [self.delegate modelLoadFaild:self message:[re objectForKey:@"msg"]];
+            [self.delegate modelLoadFaild:self message:[re objectForKey:@"Message"]];
         }
     }
 }

@@ -84,6 +84,11 @@
 }
 
 - (void)btnClick_next{
+    if([self.tfPhone.text length] == 0){
+        [self alert:@"请输入您的Email或手机号"];
+        return;
+    }
+    [self.tfPhone resignFirstResponder];
     [self showWaiting];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     self.tfPhone.text, @"username", nil];
@@ -100,11 +105,18 @@
 }
 
 - (void)modelLoadFinished:(ASObject *)sender{
-    [self hideWaiting];
+    [super modelLoadFinished:sender];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.vFirst.alpha = 0.1;
+    } completion:^(BOOL finished) {
+        self.vFirst.hidden = YES;
+        self.vNext.hidden = NO;
+    }];
 }
 
 - (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
-    [self hideWaiting];
+    [super modelLoadFaild:sender message:msg];
+    [self alert:msg];
 }
 
 @end
