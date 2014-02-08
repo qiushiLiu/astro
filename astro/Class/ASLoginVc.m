@@ -25,7 +25,7 @@
 	// Do any additional setup after loading the view.
     [self setTitle:@"登录"];
     
-    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 64, 28) title:@"分享"];
+    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"分享"];
     [btn addTarget:self action:@selector(shareTo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     //添加键盘监听事件

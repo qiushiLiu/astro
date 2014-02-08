@@ -19,7 +19,7 @@ typedef enum {
 @protocol ASToolBarDelegate <NSObject>
 
 @optional
-- (void)toolBarDidClick:(emModule)tag;
+- (void)toolBarDidChange:(emModule)tag;
 @end
 
 @interface ASToolBar : UIView

@@ -8,26 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "ASWaitingView.h"
+#import "ASToolBar.h"
 #import "ASObjectDelegate.h"
-typedef enum {
-    NavStyleDefault = 0,
-    NavStyleBottomToTop,
-    NavStyleTopToBottom,
-    NavStyleLeftToRight,
-    NavStyleFadeIn,
-    NavStyleFadeOut,
-    NavStyleNoEffect,
-} NavStyle;
-
-@interface ASBaseViewController : UIViewController<ASWaitingViewDelegate, ASObjectDelegate>
+@interface ASBaseViewController : UIViewController<ASWaitingViewDelegate, ASObjectDelegate, ASToolBarDelegate>
 
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) NSString *pageKey;
 
-- (void)navTo:(NSString *)key;
-- (void)navBack;
-- (BOOL)viewControllerShouldNavBack;
+- (void)setNavToParams:(NSMutableDictionary *)params;
+- (void)setNavBackParams:(NSMutableDictionary *)params;
+- (ASBaseViewController *)navTo:(NSString *)key;
+- (ASBaseViewController *)navBack;
+- (ASBaseViewController *)navBackTo:(NSString *)key params:(NSMutableDictionary *)params;
 
+- (BOOL)viewControllerShouldNavBack;
 - (void)alert:(NSString *)msg;
 
 - (void)showWaiting;

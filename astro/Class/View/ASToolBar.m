@@ -9,7 +9,7 @@
 #import "ASToolBar.h"
 
 @implementation ASToolBar
-
+static CGFloat kBarItemWidth = 64;
 - (id)init
 {
     self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -17,12 +17,13 @@
         // Initialization code
         self.backgroundColor = UIColorFromRGB(0xCECABB);
         for (int i = emModuleApp; i <= emModuleSet; i++) {
-            CGFloat left = (i - 1)*64;
-            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, left, self.height)];
+            CGFloat left = (i - 1) * kBarItemWidth;
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(left, 0, kBarItemWidth, self.height)];
             btn.tag = i;
             [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_mod_%d", i]] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_mod_%d_hl", i]] forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:btn];
         }
         
     }
@@ -30,8 +31,12 @@
 }
 
 - (void)btnClick:(UIButton *)sender{
-    if([self.delegate respondsToSelector:@selector(toolBarDidClick:)]){
-        [self.delegate toolBarDidClick:sender.tag];
+    if(self.selected == sender.tag){
+        return;
+    }
+    self.selected = sender.tag;
+    if([self.delegate respondsToSelector:@selector(toolBarDidChange:)]){
+        [self.delegate toolBarDidChange:sender.tag];
     }
 }
 

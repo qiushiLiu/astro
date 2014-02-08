@@ -8,6 +8,7 @@
 
 #import "ASNavKeyConst.h"
 
+NSString * const vcMain = @"vcMain";
 NSString * const vcLogin = @"vcLogin";
 NSString * const vcRegister = @"vcRegister";
 NSString * const vcForgetPsw = @"vcForgetPsw";
