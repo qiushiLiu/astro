@@ -36,7 +36,7 @@ static CGFloat kBarItemWidth = 64;
     }
     self.selected = sender.tag;
     if([self.delegate respondsToSelector:@selector(toolBarDidChange:)]){
-        [self.delegate toolBarDidChange:sender.tag];
+        [self.delegate toolBarDidChange:(emModule)sender.tag];
     }
 }
 

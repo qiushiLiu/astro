@@ -44,6 +44,11 @@
     [btn setImage:[UIImage imageNamed:@"icon_navback"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    //内容页面
+    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
+    self.contentView.contentSize = self.contentView.size;
+    self.contentView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.contentView];
 }
 
 
@@ -56,10 +61,7 @@
         self.toolBar.bottom = self.view.height;
         cH = self.toolBar.top;
     }
-    self.contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, cH)];
-    self.contentView.contentSize = self.contentView.size;
-    self.contentView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.contentView];
+    self.contentView.height = cH;
 }
 
 - (void)didReceiveMemoryWarning
@@ -172,7 +174,7 @@
         return nil;
     }
     
-    for (int i = [vcs count] - 2; i >= 0; i--) {
+    for (NSInteger i = [vcs count] - 2; i >= 0; i--) {
         ASBaseViewController *bc = [vcs objectAtIndex:i];
         if([key length] == 0
            ||[bc.pageKey isEqualToString:key]){

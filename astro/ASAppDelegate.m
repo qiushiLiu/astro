@@ -8,6 +8,7 @@
 
 #import "ASAppDelegate.h"
 #import "ASNav.h"
+#import "ASTabMainVc.h"
 
 @implementation ASAppDelegate
 
@@ -45,9 +46,11 @@
     //初始化window
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
-    //初始化导航
-    UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
+    ASTabMainVc *vc = [[ASTabMainVc alloc] init];
+    //配置页面到导航vc
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     self.nav = nc;
+    self.nav.navigationBarHidden = YES;
     
     //设置rootViewController
     self.window.rootViewController = self.nav;

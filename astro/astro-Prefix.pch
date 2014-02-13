@@ -20,7 +20,7 @@
     #import "ASAppConst.h"
     #import "ASAppUrlConst.h"
     #import "ASNavKeyConst.h"
-
+    #import "ASUrlImageView.h"
     #import "ASControls.h"
 
     #import "ASBaseViewController.h"

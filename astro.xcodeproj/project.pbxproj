@@ -59,6 +59,9 @@
 		1B9F1F321872624B00278E62 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9F1F311872624B00278E62 /* libsqlite3.dylib */; };
 		1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1F3418726CBB00278E62 /* ASCache.m */; };
 		1BA69372187FD1B900478D08 /* ASControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA69371187FD1B900478D08 /* ASControls.m */; };
+		1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */; };
+		1BBF581118AB60E50081D93A /* ASAskerVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581018AB60E50081D93A /* ASAskerVc.m */; };
+		1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581318AB65B20081D93A /* ASAskerCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +173,12 @@
 		1B9F1F3418726CBB00278E62 /* ASCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCache.m; sourceTree = "<group>"; };
 		1BA69370187FD1B900478D08 /* ASControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASControls.h; sourceTree = "<group>"; };
 		1BA69371187FD1B900478D08 /* ASControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASControls.m; sourceTree = "<group>"; };
+		1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTabMainVc.h; sourceTree = "<group>"; };
+		1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTabMainVc.m; sourceTree = "<group>"; };
+		1BBF580F18AB60E50081D93A /* ASAskerVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskerVc.h; sourceTree = "<group>"; };
+		1BBF581018AB60E50081D93A /* ASAskerVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskerVc.m; sourceTree = "<group>"; };
+		1BBF581218AB65B20081D93A /* ASAskerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskerCell.h; sourceTree = "<group>"; };
+		1BBF581318AB65B20081D93A /* ASAskerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskerCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -391,6 +400,10 @@
 				1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */,
 				1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */,
 				1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */,
+				1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */,
+				1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */,
+				1BBF580F18AB60E50081D93A /* ASAskerVc.h */,
+				1BBF581018AB60E50081D93A /* ASAskerVc.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -418,6 +431,8 @@
 			children = (
 				1B9DF44E18A614A900D4DCF4 /* ASToolBar.h */,
 				1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */,
+				1BBF581218AB65B20081D93A /* ASAskerCell.h */,
+				1BBF581318AB65B20081D93A /* ASAskerCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -560,6 +575,7 @@
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
+				1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */,
 				1B9F1F2B1872622500278E62 /* FMDatabase.m in Sources */,
 				1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */,
 				1B012BAF185DDC240046AD7A /* ASIDownloadCache.m in Sources */,
@@ -571,7 +587,9 @@
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
 				1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */,
 				1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */,
+				1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */,
 				1B012BB3185DDC240046AD7A /* ASINetworkQueue.m in Sources */,
+				1BBF581118AB60E50081D93A /* ASAskerVc.m in Sources */,
 				1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */,
 				1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */,
 				1B9F1F2E1872622500278E62 /* FMDatabaseQueue.m in Sources */,

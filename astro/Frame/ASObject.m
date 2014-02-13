@@ -56,7 +56,7 @@
         NSLog(@">%@",[req responseString]);
     }
     
-    int code = [[req error] code];
+    NSInteger code = [[req error] code];
     if([self.delegate respondsToSelector:@selector(modelLoadFaild:message:)]){
         if (code == 1) {
             [self.delegate modelLoadFaild:self message:@"似乎已断开与互联网的连接"];

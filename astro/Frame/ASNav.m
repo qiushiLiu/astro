@@ -7,9 +7,11 @@
 //
 
 #import "ASNav.h"
+#import "ASTabMainVc.h"
 #import "ASLoginVc.h"
 #import "ASRegisterVc.h"
 #import "ASForgetPswVc.h"
+#import "ASAskerVc.h"
 @implementation ASNav
 
 + (ASNav *)shared{
@@ -30,9 +32,11 @@
 }
 
 - (void)configPageKey{
+    [_vcDic setObject:[ASTabMainVc class] forKey:vcMain];
     [_vcDic setObject:[ASLoginVc class] forKey:vcLogin];
     [_vcDic setObject:[ASRegisterVc class] forKey:vcRegister];
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
+    [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];
 }
 
 - (UINavigationController *)newNav:(NSString *)key{
