@@ -21,7 +21,7 @@
 
 - (id)init{
     if(self = [super init]){
-        self.vcLogin = [[ASNav shared] newNav:vcForgetPsw];
+        self.vcLogin = [[ASNav shared] newNav:vcLogin];
         self.vcLogin.tabBarItem =[[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"icon_mod_1"] selectedImage:[UIImage imageNamed:@"icon_mod_1_hl"]];
         self.ncAsk = [[ASNav shared] newNav:vcAsk];
         self.ncAsk.tabBarItem =[[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"icon_mod_2"] selectedImage:[UIImage imageNamed:@"icon_mod_2_hl"]];

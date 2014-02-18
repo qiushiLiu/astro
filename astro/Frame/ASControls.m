@@ -42,10 +42,11 @@
 
 + (UITextField *)newTextField:(CGRect)frame{
     UITextField *tf = [[UITextField alloc] initWithFrame:frame];
-    tf.backgroundColor = [UIColor whiteColor];
-    tf.borderStyle = UITextBorderStyleBezel;
-    tf.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    tf.layer.borderWidth = 1;
+    tf.backgroundColor = [UIColor clearColor];
+    tf.background = [[UIImage imageNamed:@"input_white_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+//    tf.borderStyle = UITextBorderStyleBezel;
+//    tf.layer.borderColor = [UIColor darkGrayColor].CGColor;
+//    tf.layer.borderWidth = 1;
     
     tf.textColor = [UIColor blackColor];
     tf.font = [UIFont systemFontOfSize:14];

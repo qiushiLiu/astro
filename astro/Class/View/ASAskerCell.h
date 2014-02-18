@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ASAskerCell : UITableViewCell
+@property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) ASUrlImageView *icon;
 @property (nonatomic, strong) UILabel *lbTitle;
 @property (nonatomic, strong) UILabel *lbSummary;
+@property (nonatomic, strong) UIImageView *arrow;
 @end

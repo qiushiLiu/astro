@@ -15,7 +15,7 @@ static CGFloat kBarItemWidth = 64;
     self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
     if (self) {
         // Initialization code
-        self.backgroundColor = UIColorFromRGB(0xCECABB);
+        self.backgroundColor = [UIColor brownColor];
         for (int i = emModuleApp; i <= emModuleSet; i++) {
             CGFloat left = (i - 1) * kBarItemWidth;
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(left, 0, kBarItemWidth, self.height)];

@@ -14,38 +14,50 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.accessoryType = UITableViewCellAccessoryNone;
         // Initialization code
-        UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(5, 10, 300, 60)];
-        bg.backgroundColor = [UIColor whiteColor];
-        bg.layer.borderWidth = 1;
-        bg.layer.borderColor = UIColorFromRGB(0x584D46).CGColor;
-        bg.layer.cornerRadius = 8;
-        [self.contentView addSubview:bg];
+        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 10, 300, 70)];
+        self.bgView.backgroundColor = [UIColor whiteColor];
+        self.bgView.layer.borderWidth = 1;
+        self.bgView.layer.borderColor = [UIColor grayColor].CGColor;
+        self.bgView.layer.cornerRadius = 8;
+        [self.contentView addSubview:self.bgView];
         
-        self.icon = [[ASUrlImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
+        self.icon = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 20, 50, 50)];
         [self.contentView addSubview:self.icon];
         
-        self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.icon.top, 200, 20)];
+        self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.icon.top, 220, 16)];
         self.lbTitle.backgroundColor = [UIColor clearColor];
-        self.lbTitle.textColor = UIColorFromRGB(0x863321);
-        self.lbTitle.font = [UIFont systemFontOfSize:14];
+        self.lbTitle.textColor = ASColorDarkRed;
+        self.lbTitle.font = [UIFont systemFontOfSize:12];
         [self.contentView addSubview:self.lbTitle];
         
-        self.lbSummary = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.lbTitle.bottom + 5, 200, 40)];
+        self.lbSummary = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.lbTitle.bottom + 2, 205, 32)];
         self.lbSummary.backgroundColor = [UIColor clearColor];
         self.lbSummary.textColor = [UIColor blackColor];
-        self.lbSummary.font = [UIFont systemFontOfSize:14];
+        self.lbSummary.font = [UIFont systemFontOfSize:12];
         self.lbSummary.numberOfLines = 2;
         [self.contentView addSubview:self.lbSummary];
+        
+        self.arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_right"]];
+        self.arrow.highlightedImage = [UIImage imageNamed:@"arrow_right_hl"];
+        self.arrow.right = self.width - 20;
+        self.arrow.centerY = self.icon.centerY;
+        [self.contentView addSubview:self.arrow];
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    self.arrow.highlighted = highlighted;
+    if(highlighted){
+        self.bgView.backgroundColor = [UIColor lightGrayColor];
+    }else{
+        self.bgView.backgroundColor= [UIColor whiteColor];
+    }
+    [super setHighlighted:highlighted animated:animated];
 }
 
 @end

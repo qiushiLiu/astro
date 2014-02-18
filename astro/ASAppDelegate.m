@@ -36,7 +36,7 @@
         }
     }
     
-    [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0x80776d)];
+    [[UINavigationBar appearance] setBarTintColor:ASColorDarkGray];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor whiteColor], NSForegroundColorAttributeName
