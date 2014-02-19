@@ -34,35 +34,15 @@
 
 static CGFloat kStepWidth = 103;
 static CGFloat kInputWith = 220;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@"注册"];
     
-    //添加键盘监听事件
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
-    
     self.vSteps = [[NSMutableArray alloc] init];
     self.lbSteps = [[NSMutableArray alloc] init];
-}
-
-- (BOOL)viewControllerShouldNavBack{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您尚未完成注册流程，确定要返回吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert show];
-    return NO;
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex != alertView.cancelButtonIndex){
-        [self navBack];
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    // Do View Layout
     //添加手指点击事件
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.contentView addGestureRecognizer:tap];
@@ -127,7 +107,7 @@ static CGFloat kInputWith = 220;
     self.btnFetchCode.enabled = NO;
     [self.btnFetchCode addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     [vNewStep addSubview:self.btnFetchCode];
-
+    
     self.lbCountdown = [self newInfoLabel];
     self.lbCountdown.top = self.btnFetchCode.bottom;
     self.lbCountdown.backgroundColor = [UIColor clearColor];
@@ -188,8 +168,27 @@ static CGFloat kInputWith = 220;
     [vNewStep addSubview:btn];
     vNewStep.height = btn.bottom;
     
+    //添加键盘监听事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     //切换到第一页
     [self setCurrentStep:0];
+}
+
+- (BOOL)viewControllerShouldNavBack{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您尚未完成注册流程，确定要返回吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
+    return NO;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex != alertView.cancelButtonIndex){
+        [self navBack];
+    }
 }
 
 #pragma mark - 

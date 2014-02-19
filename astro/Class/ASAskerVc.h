@@ -9,6 +9,6 @@
 #import "ASBaseViewController.h"
 #import "ASAskerHeaderView.h"
 
-@interface ASAskerVc : ASBaseViewController<UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate, ASAskerHeaderViewDelegate>
+@interface ASAskerVc : ASBaseViewController<UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ASAskerHeaderViewDelegate>
 
 @end

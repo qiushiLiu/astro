@@ -11,7 +11,6 @@
 
 @interface ASBaseViewController ()
 @property (nonatomic, strong) ASWaitingView *watingView;
-@property (nonatomic, strong) ASToolBar *toolBar;
 @end
 
 @implementation ASBaseViewController
@@ -26,10 +25,6 @@
         self.watingView = [[ASWaitingView alloc] initWithBaseViewController:self];
         self.watingView.delegate = self;
         
-        self.toolBar = [[ASToolBar alloc] init];
-        self.toolBar.hidden = YES;
-        self.toolBar.delegate = self;
-        [self.view addSubview:self.toolBar];
     }
     return self;
 }
@@ -57,10 +52,6 @@
     [super viewWillAppear:animated];
     // Do any additional setup after loading the view.
     CGFloat cH = self.view.height;
-    if(![self.toolBar isHidden]){
-        self.toolBar.bottom = self.view.height;
-        cH = self.toolBar.top;
-    }
     self.contentView.height = cH;
 }
 
@@ -106,10 +97,6 @@
 
 - (void)didHideWaiting{
     
-}
-
-#pragma mark - ASToolBar Delegate Method
-- (void)toolBarDidChange:(emModule)tag{
 }
 
 #pragma mark - ASWaitingView Delegate Method

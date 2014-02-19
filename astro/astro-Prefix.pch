@@ -33,4 +33,4 @@
 #define ASColorDarkGray UIColorFromRGB(0x80776d)
 #define ASColorDarkRed UIColorFromRGB(0x863321)
 
-#define NSLog NSLog(@"[%s] #%d#", strrchr(__FILE__,'/'), __LINE__);NSLog
+#define NSLog NSLog(@"[%s] #%d#", strrchr(__FILE__, '/'), __LINE__);NSLog

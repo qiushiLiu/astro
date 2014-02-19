@@ -11,10 +11,10 @@
 #import "ASBaseSingleTableView.h"
 
 @interface ASAskerVc ()
+@property (nonatomic, strong) UIView *barView;
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UITableView *tbList;
 @property (nonatomic, strong) ASAskerHeaderView *header;
-@property (nonatomic, strong) UISearchDisplayController *shResult;
 @end
 
 @implementation ASAskerVc
@@ -31,18 +31,20 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     //搜索框
-    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    barView.backgroundColor = [UIColor clearColor];
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 6, 210, 32)];
+    self.barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 210, 44)];
+    self.barView.backgroundColor = [UIColor clearColor];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 6, 210, 28)];
     self.searchBar.placeholder = @"搜索内容";
     self.searchBar.backgroundImage = [[UIImage imageNamed:@"input_white_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
     [self.searchBar setBarTintColor:[UIColor clearColor]];
     self.searchBar.backgroundColor = [UIColor clearColor];
     self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.searchBar.showsCancelButton = NO;
     self.searchBar.delegate = self;
-    [barView addSubview:self.searchBar];
-    self.navigationItem.titleView = barView;
+    self.searchBar.clipsToBounds = YES;
+    [self.barView addSubview:self.searchBar];
+    self.navigationItem.titleView = self.barView;
     
     //tableheader view
     self.header = [[ASAskerHeaderView alloc] init];
@@ -56,18 +58,6 @@
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
     [self.contentView addSubview:self.tbList];
-    
-    //search Table
-    self.shResult = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-    [self.shResult.searchResultsTableView setSeparatorColor:[UIColor clearColor]];
-    self.shResult.delegate = self;
-	self.shResult.searchResultsDataSource = self;
-	self.shResult.searchResultsDelegate = self;
-    
-    //添加键盘监听事件
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -75,13 +65,17 @@
     self.tbList.frame = self.contentView.bounds;
 }
 
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 - (void)btnClick_myTopic:(UIButton *)sender{
-    
 }
 
 #pragma mark - 
 - (void)askerHeaderSelected:(NSInteger)tag{
-    
+
 }
 
 #pragma mark - UITableView Delegate & Data Source
@@ -104,19 +98,13 @@
     return cell;
 }
 
-#pragma mark - UISearchBar  keyboardBar
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self.searchBar resignFirstResponder];
+}
+
+#pragma mark - UISearchBar
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     return range.location < 70;
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-}
-
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView{
-}
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
-    return YES;
 }
 
 @end

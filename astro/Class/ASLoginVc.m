@@ -28,14 +28,7 @@
     UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"分享"];
     [btn addTarget:self action:@selector(shareTo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    //添加键盘监听事件
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    // Do View Layout
+    
     //添加手指点击事件
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.contentView addGestureRecognizer:tap];
@@ -71,8 +64,8 @@
     self.btnForgot = [ASControls newMMButton:CGRectMake(self.btnRegister.right + 10, self.btnRegister.top, self.btnRegister.width, 40) title:@"忘记密码"];
     [self.btnForgot addTarget:self action:@selector(goForgotPwd) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnForgot];
-
-
+    
+    
     //其他登录分割线
     UILabel *lb = [[UILabel alloc] init];
     lb.backgroundColor = [UIColor clearColor];
@@ -94,10 +87,10 @@
     line.centerY = lb.centerY;
     line.backgroundColor = [UIColor blackColor];
     [self.contentView addSubview:line];
-
+    
     //其他登录button
     CGFloat buttonLeft = self.btnSumbit.left;
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(buttonLeft, lb.bottom + 10, 40, 60)];
+    btn = [[UIButton alloc] initWithFrame:CGRectMake(buttonLeft, lb.bottom + 10, 40, 60)];
     btn.titleLabel.font = [UIFont systemFontOfSize:10];
     btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 20, 0);
     [btn setImage:[UIImage imageNamed:@"icon_dl_qq"] forState:UIControlStateNormal];
@@ -122,6 +115,10 @@
     [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(loginBySina) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:btn];
+    
+    //添加键盘监听事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)shareTo{

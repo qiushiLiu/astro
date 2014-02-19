@@ -15,34 +15,23 @@
 @end
 
 @implementation ASForgetPswVc
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@"找回密码"];
     
-    //model
     self.model = [[ASReturnValue alloc] init];
     self.model.delegate = self;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    // Dispose of any resources that can be recreated.
+    
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
     icon.centerX = self.view.width * 0.5;
     icon.top = 20;
     [self.contentView addSubview:icon];
     
-    
-    self.vFirst = [[UIView alloc] initWithFrame:CGRectMake(0, icon.bottom, self.contentView.width, self.contentView.height - icon.bottom)];
+    self.vFirst = [[UIView alloc] initWithFrame:CGRectMake(0, icon.bottom, self.view.width, 1)];
     self.vFirst.hidden = NO;
     [self.contentView addSubview:self.vFirst];
-    self.vNext = [[UIView alloc] initWithFrame:self.vFirst.frame];
-    self.vNext.hidden = YES;
-    [self.contentView addSubview:self.vNext];
     
     //--- First View
     self.tfPhone = [ASControls newTextField:CGRectMake(icon.left - 10, 20, icon.width + 20, 36)];
@@ -51,12 +40,16 @@
     self.tfPhone.delegate = self;
     [self.vFirst addSubview:self.tfPhone];
     
-    
     UIButton *btn = [ASControls newRedButton:CGRectMake(self.tfPhone.left, self.tfPhone.bottom + 50, self.tfPhone.width, 36) title:@"确定"];
     [btn addTarget:self action:@selector(btnClick_next) forControlEvents:UIControlEventTouchUpInside];
     [self.vFirst addSubview:btn];
+    self.vFirst.height = btn.bottom;
     
     //--- Next View
+    self.vNext = [[UIView alloc] initWithFrame:CGRectMake(0, icon.bottom, self.view.width, 1)];
+    self.vNext.hidden = YES;
+    [self.contentView addSubview:self.vNext];
+    
     UILabel *lbTitle = [[UILabel alloc] init];
     lbTitle.textAlignment = NSTextAlignmentLeft;
     lbTitle.backgroundColor = [UIColor clearColor];
@@ -81,6 +74,12 @@
     btn = [ASControls newRedButton:CGRectMake(icon.left, lbDetail.bottom + 30, icon.width, 36) title:@"重新登录"];
     [btn addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.vNext addSubview:btn];
+    self.vNext.height = btn.bottom;
+}
+
+- (BOOL)viewControllerShouldNavBack{
+    [self.tfPhone resignFirstResponder];
+    return YES;
 }
 
 - (void)btnClick_next{
