@@ -30,7 +30,6 @@
         [self addSubview:bg];
         
         self.cursor = [[UIImageView alloc] initWithFrame:CGRectMake(bg.left, bg.top, 100, bg.height + 2)];
-        [self.cursor setImage:[[UIImage imageNamed:@"ask_dh_selected"] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
         [self addSubview:self.cursor];
         
         for(int i = 0; i < 3 ; i++){
@@ -62,6 +61,8 @@
         UIButton *btnLast = [self.buttons objectAtIndex:_selected];
         [btnLast setTitleColor:ASColorDarkGray forState:UIControlStateNormal];
     }
+    [self.cursor setImage:[[UIImage imageNamed:[NSString stringWithFormat:@"ask_dh_selected_%d", selected]] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
+    
     UIButton *btnSelected = [self.buttons objectAtIndex:selected];
     [btnSelected setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     

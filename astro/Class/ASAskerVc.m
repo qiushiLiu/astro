@@ -11,8 +11,7 @@
 #import "ASBaseSingleTableView.h"
 
 @interface ASAskerVc ()
-@property (nonatomic, strong) UIView *barView;
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UITextField *tfSearch;
 @property (nonatomic, strong) UITableView *tbList;
 @property (nonatomic, strong) ASAskerHeaderView *header;
 @end
@@ -31,20 +30,16 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     //搜索框
-    self.barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 210, 44)];
-    self.barView.backgroundColor = [UIColor clearColor];
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 6, 210, 28)];
-    self.searchBar.placeholder = @"搜索内容";
-    self.searchBar.backgroundImage = [[UIImage imageNamed:@"input_white_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-    [self.searchBar setBarTintColor:[UIColor clearColor]];
-    self.searchBar.backgroundColor = [UIColor clearColor];
-    self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	self.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.searchBar.showsCancelButton = NO;
-    self.searchBar.delegate = self;
-    self.searchBar.clipsToBounds = YES;
-    [self.barView addSubview:self.searchBar];
-    self.navigationItem.titleView = self.barView;
+    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 210, 44)];
+    barView.backgroundColor = [UIColor clearColor];
+    self.tfSearch = [ASControls newTextField:CGRectMake(0, 8, 210, 28)];
+    self.tfSearch.placeholder = @"搜索内容";
+    self.tfSearch.font = [UIFont systemFontOfSize:14];
+    self.tfSearch.backgroundColor = [UIColor clearColor];
+    self.tfSearch.returnKeyType = UIReturnKeySearch;
+    self.tfSearch.delegate = self;
+    [barView addSubview:self.tfSearch];
+    self.navigationItem.titleView = barView;
     
     //tableheader view
     self.header = [[ASAskerHeaderView alloc] init];
@@ -67,7 +62,6 @@
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)btnClick_myTopic:(UIButton *)sender{
@@ -98,13 +92,22 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self.searchBar resignFirstResponder];
+    [self.tfSearch resignFirstResponder];
 }
 
 #pragma mark - UISearchBar
-- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     return range.location < 70;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.tfSearch resignFirstResponder];
+    return YES;
 }
 
 @end

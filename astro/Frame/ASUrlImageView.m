@@ -12,6 +12,8 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 @property (nonatomic, strong) UIProgressView *progressView;
+
+@property (nonatomic, strong) ASIHTTPRequest *req;
 @end
 
 @implementation ASUrlImageView
@@ -21,6 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.showProgress = NO;
     }
     return self;
 }
@@ -33,12 +36,12 @@
 }
 
 - (void)load:(NSString *)url cacheDir:(NSString *)dir failImageName:(NSString *)imageName{
-    if(_req){
-        [_req clearDelegatesAndCancel];
+    if(self.req){
+        [self.req clearDelegatesAndCancel];
     }
-    _dir = [dir trim];
-    _url = [url trim];
-    BOOL isCached =[[ASCache shared] chkExistImageWithDir:_dir url:_url];
+    self.dir = [dir trim];
+    self.url = [url trim];
+    BOOL isCached =[[ASCache shared] chkExistImageWithDir:self.dir url:self.url];
     
     //如果 dir url为空 或者 已经存在文件
     if (isCached) {
@@ -49,10 +52,10 @@
 }
 
 - (void)downLoad{
-    _req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:_url]];
-    _req.delegate = self;
-    [_req setTimeOutSeconds:15];//超时为15秒
-    [_req startAsynchronous];
+    self.req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:_url]];
+    self.req.delegate = self;
+    [self.req setTimeOutSeconds:15];//超时为15秒
+    [self.req startAsynchronous];
 }
 
 
@@ -75,14 +78,13 @@
 }
 
 - (UIProgressView *)progressView{
-    if(!_progressView){
+    if(self.showProgress && !_progressView){
         _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, self.width, kProgressViewHeight)];
         _progressView.progressViewStyle = UIProgressViewStyleDefault;
         [self addSubview:_progressView];
     }
     return _progressView;
 }
-
 
 - (void)requestStarted:(ASIHTTPRequest *)request{
     if(self.activityView){
@@ -115,9 +117,7 @@
         [self.activityView stopAnimating];
         self.activityView.hidden = YES;
     }
-    if(self.progressView){
-        self.progressView.hidden = YES;
-    }
+    [self.progressView setHidden:YES];
 }
 
 - (void)loadImage{

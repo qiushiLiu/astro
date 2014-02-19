@@ -56,13 +56,14 @@
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];
     
-//    //兼容ios7
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+    //兼容ios7
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+        [[UITextField appearance] setTintColor:ASColorDarkGray];
 //        [application setStatusBarStyle:UIStatusBarStyleLightContent];
 //        self.window.clipsToBounds =YES;
 //        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height - 20);
 //        self.window.bounds = CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height);
-//    }
+    }
     
     return YES;
 }
