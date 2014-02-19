@@ -22,12 +22,11 @@
 - (id)init{
     if(self = [super init]){
         self.vcLogin = [[ASNav shared] newNav:vcLogin];
-        self.vcLogin.tabBarItem =[[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"icon_mod_1"] selectedImage:[UIImage imageNamed:@"icon_mod_1_hl"]];
+        self.vcLogin.tabBarItem =[[UITabBarItem alloc] initWithTitle:@"应用" image:[[UIImage imageNamed:@"icon_mod_1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_1_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         self.ncAsk = [[ASNav shared] newNav:vcAsk];
-        self.ncAsk.tabBarItem =[[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"icon_mod_2"] selectedImage:[UIImage imageNamed:@"icon_mod_2_hl"]];
+        self.ncAsk.tabBarItem =[[UITabBarItem alloc] initWithTitle:@"咨询" image:[[UIImage imageNamed:@"icon_mod_2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_2_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         self.vcRegister = [[ASNav shared] newNav:vcRegister];
-        self.vcRegister.tabBarItem = [[UITabBarItem alloc] initWithTitle:nil image:[UIImage imageNamed:@"icon_mod_3"] selectedImage:[UIImage imageNamed:@"icon_mod_3_hl"]];
-        
+        self.vcRegister.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"排盘" image:[[UIImage imageNamed:@"icon_mod_3"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_3_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         [self setViewControllers:[NSArray arrayWithObjects:self.vcLogin, self.ncAsk, self.vcRegister, nil]];
     }
     return self;

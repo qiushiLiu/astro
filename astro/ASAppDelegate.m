@@ -43,6 +43,15 @@
                                                            ,[UIFont boldSystemFontOfSize:18], NSFontAttributeName
                                                            ,nil]];
     
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       [UIFont boldSystemFontOfSize:12], UITextAttributeFont,
+                                                       ASColorDarkGray, UITextAttributeTextColor,
+                                                       nil] forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       [UIFont boldSystemFontOfSize:12], UITextAttributeFont,
+                                                       ASColorBlue, UITextAttributeTextColor,
+                                                       nil] forState:UIControlStateSelected];
+    
     //初始化window
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
