@@ -17,6 +17,6 @@
     ASIHTTPRequest *_request;
 }
 @property (nonatomic, assign) id<ASObjectDelegate> delegate;
-
+- (NSString *)toJsonString;
 - (void)load:(NSString *)url params:(NSMutableDictionary *)params;
 @end

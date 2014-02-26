@@ -23,6 +23,11 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
     return instance;
 }
 
++ (void)login:(ASUsr_Customer *)user{
+    [[ASCache shared] storeValue:[user toJsonString] dir:kCacheDir key:kCacheKeyForUserInfo];
+    [self shared].user = [user copy];
+}
+
 - (id)init{
     if(self = [super init]){
         [self loadCachedUser];

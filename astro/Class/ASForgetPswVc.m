@@ -91,8 +91,7 @@
     [self showWaiting];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     self.tfPhone.text, @"username", nil];
-//    [self.model load:kUrlGetPasssWord params:params];
-    [self.model load:@"test" params:params];
+    [self.model load:kUrlGetPasssWord params:params];
 }
 
 - (void)login{

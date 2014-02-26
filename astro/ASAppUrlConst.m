@@ -12,3 +12,4 @@ NSString * const kUrlGetPasssWord = @"FindPass";
 NSString * const kUrlGetPhoneCode = @"CheckPhone";
 NSString * const kUrlCheckCode = @"CheckSMSVerifyCode";
 NSString * const kUrlRegister = @"Register";
+NSString * const kUrlLogin = @"login";

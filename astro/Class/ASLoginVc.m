@@ -7,7 +7,7 @@
 //
 
 #import "ASLoginVc.h"
-
+#import "ASUsr_Customer.h"
 @interface ASLoginVc ()
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) UITextField *tfName;
@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UIButton *btnSumbit;
 @property (nonatomic, strong) UIButton *btnRegister;
 @property (nonatomic, strong) UIButton *btnForgot;
+
+@property (nonatomic, strong) ASUsr_Customer *modelUser;
 @end
 
 @implementation ASLoginVc
@@ -22,6 +24,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.modelUser = [[ASUsr_Customer alloc] init];
+    self.modelUser.delegate = self;
+    
 	// Do any additional setup after loading the view.
     [self setTitle:@"登录"];
     
@@ -135,6 +140,10 @@
         return;
     }
     [self hideKeyboard];
+    [self showWaiting];
+    [self.modelUser load:kUrlLogin params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                           self.tfName.text, @"uname",
+                                           self.tfPsw.text, @"pwd", nil]];
 }
 
 - (void)loginByQQ{
@@ -153,6 +162,21 @@
 - (void)goForgotPwd{
     [self hideKeyboard];
     [self navTo:vcForgetPsw];
+}
+
+#pragma mark - Model Load Delegate
+- (void)modelLoadFinished:(ASObject *)sender{
+    [super modelLoadFinished:sender];
+    if(self.modelUser == sender){
+        [ASGlobal login:self.modelUser];
+        [self hideKeyboard];
+        [self alert:@"登录成功"];
+    }
+}
+
+- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
+    [super modelLoadFaild:sender message:msg];
+    [self alert:msg];
 }
 
 #pragma mark - KeyBoardEvent Method

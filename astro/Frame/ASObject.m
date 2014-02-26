@@ -17,6 +17,24 @@
     }
 }
 
+- (NSDictionary *)properties_aps {
+    NSMutableDictionary *props = [NSMutableDictionary dictionary];
+    unsigned int outCount, i;
+    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+    for (i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding] ;
+        id propertyValue = [self valueForKey:(NSString *)propertyName];
+        if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+    }
+    free(properties);
+    return props;
+}
+
+- (NSString *)toJsonString{
+    return [[self properties_aps] JSONString];
+}
+
 #pragma mark - HttpRequest
 
 - (void)load:(NSString *)url params:(NSMutableDictionary *)params{
@@ -30,7 +48,6 @@
     }
     _request = [HttpUtil http:requestUrl method:emHttpGet params:params timeOut:kDefaultTimeOut delegate:self didFinishSelector:@selector(_requestFinished:) didFailSelector:@selector(_requestFailed:)];
 }
-
 
 - (void)_requestFinished:(ASIHTTPRequest *)req{
     if (kAppDebug) {

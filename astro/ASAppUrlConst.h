@@ -12,3 +12,4 @@ extern NSString * const kUrlGetPasssWord;
 extern NSString * const kUrlGetPhoneCode;
 extern NSString * const kUrlCheckCode;
 extern NSString * const kUrlRegister;
+extern NSString * const kUrlLogin;
