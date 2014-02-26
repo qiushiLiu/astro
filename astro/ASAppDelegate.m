@@ -76,7 +76,37 @@
     
     return YES;
 }
-							
+
+#pragma mark - DeviceToken
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+//    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+}
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSString *str = [NSString stringWithFormat: @"Error: %@", err];
+    NSLog(@"Error:%@",str);
+}
+
+
+//接收到服务器消息
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    //重置软件角标
+    [UIApplication.sharedApplication setApplicationIconBadgeNumber:0];
+    
+    //获得推送数据
+    //容错
+    if (userInfo==nil) {
+        return;
+    }
+    NSDictionary *param = [userInfo objectForKey:@"acme"];
+    //容错
+    if (param==nil) {
+        return;
+    }
+}
+
+#pragma mark - Application Active Changed
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

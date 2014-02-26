@@ -8,4 +8,7 @@
 
 #import "ASAppUrlConst.h"
 
-NSString *const kUrlGetPasssWord = @"FindPass";
+NSString * const kUrlGetPasssWord = @"FindPass";
+NSString * const kUrlGetPhoneCode = @"CheckPhone";
+NSString * const kUrlCheckCode = @"CheckSMSVerifyCode";
+NSString * const kUrlRegister = @"Register";

@@ -36,17 +36,27 @@
     if (kAppDebug) {
         NSLog(@">%@",[req responseString]);
     }
-    
     NSDictionary *re = [[req responseString] objectFromJSONString];
-    NSInteger code = [[re objectForKey:@"Code"] intValue];
-    if (code == 200) {
-        [self appendFromJsonObject:[re objectForKey:@"Value"]];
-        if([self.delegate respondsToSelector:@selector(modelLoadFinished:)]){
-            [self.delegate modelLoadFinished:self];
+    
+    if([re objectForKey:@"Code"]){
+        NSInteger code = [[re objectForKey:@"Code"] intValue];
+        if (code == 200) {
+            if([NSStringFromClass([self class]) isEqualToString:@"ASReturnValue"]){
+                [self appendFromJsonObject:re];
+            }else{
+                [self appendFromJsonObject:[re objectForKey:@"Value"]];
+            }
+            if([self.delegate respondsToSelector:@selector(modelLoadFinished:)]){
+                [self.delegate modelLoadFinished:self];
+            }
+        } else {
+            if([self.delegate respondsToSelector:@selector(modelLoadFaild:message:)]){
+                [self.delegate modelLoadFaild:self message:[re objectForKey:@"Message"]];
+            }
         }
-    } else {
+    }else{
         if([self.delegate respondsToSelector:@selector(modelLoadFaild:message:)]){
-            [self.delegate modelLoadFaild:self message:[re objectForKey:@"Message"]];
+            [self.delegate modelLoadFaild:self message:@"请求服务器失败"];
         }
     }
 }

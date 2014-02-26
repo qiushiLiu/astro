@@ -12,6 +12,7 @@
 #import "HttpUtil.h"
 #import "ASObjectDelegate.h"
 
+@class ASReturnValue;
 @interface ASObject : NSObject<ASIHTTPRequestDelegate>{
     ASIHTTPRequest *_request;
 }

@@ -5,7 +5,7 @@
  */
 
 #import "HttpUtil.h"
-
+#import "Cipher.h"
 
 @implementation HttpUtil
 
@@ -72,32 +72,14 @@
 }
 
 + (NSString *)appAgentStr{
-//    NSString *haveGpsTag = kEmptyStr;
-//    if (Global.instance.haveGpsTag) {
-//        haveGpsTag = @"1";
-//    } else {
-//        haveGpsTag = @"0";
-//    }
-//    NSString *needCorrectGpsTag = kEmptyStr;
-//    if ([@"iPhone 3GS" isEqualToString:Global.instance.deviceType]) {
-//        needCorrectGpsTag = @"1";
-//    } else {
-//        if (Global.instance.haveMkGpsTag) {
-//            needCorrectGpsTag = @"0";
-//        } else {
-//            needCorrectGpsTag = @"1";
-//        }
-//    }
-//    NSString *lon = [JsonTransUtil doubleToJson:Global.instance.lon];
-//    NSString *lat = [JsonTransUtil doubleToJson:Global.instance.lat];
-    
-    //buddleId/version(ios[version];deviceType;deviceId;kAppChannelId)
-    NSString *re = [NSString stringWithFormat:@"%@/%@(ios%.2f;apple/%@;%@;%@;)",
+    //buddleId/version([iosSystem][systemVerson];deviceType;deviceId;AppChannelId)
+    NSString *re = [NSString stringWithFormat:@"%@/%@(%@,%@;apple/%@;%@;%@;)",
                     [[NSBundle mainBundle] bundleIdentifier],
                     kAppVersion,
-                    7.0,
-                    @"deviceType",
-                    @"deviceNumberStr",
+                    [UIDevice currentDevice].systemName,
+                    [UIDevice currentDevice].systemVersion,
+                    [UIDevice currentDevice].model,
+                    [ASGlobal shared].deviceNumber,
                     kAppChannel
                     ];
     return re;
@@ -129,19 +111,18 @@
 
 + (NSString *)restEcName{
     //将 设备号+时间戳 放入请求头
-//    NSMutableString *token = [NSMutableString string];
-//    [token appendString:Global.instance.deviceNumberStr];
-//    [token appendString:@","];
-//    [token appendString:[DateUtil dateNumberFrom1970WithNow]];
-//    Cipher* cipher = [[Cipher alloc] initWithKey:@""];
-//    NSData* plainData = [token dataUsingEncoding: NSUTF8StringEncoding];
-//    NSData* encryptedData = [cipher encrypt:plainData ];
-//    NSCharacterSet *charsToRemove = [NSCharacterSet characterSetWithCharactersInString:@" <>"];
-//    NSString *hexRepresentation = [[encryptedData description] stringByTrimmingCharactersInSet:charsToRemove] ;
-//    hexRepresentation = [hexRepresentation stringByReplacingOccurrencesOfString:@" " withString:@""];
-//    [cipher release];
-//    return [hexRepresentation uppercaseString];
-    return @"";
+    NSMutableString *ecName = [NSMutableString string];
+    [ecName appendString:[ASGlobal shared].deviceNumber];
+    [ecName appendString:@","];
+    NSTimeInterval time=[[NSDate date] timeIntervalSince1970];
+    [ecName appendString:[NSString stringWithFormat:@"%.0f",time]];
+    Cipher* cipher = [[Cipher alloc] initWithKey:@""];
+    NSData* plainData = [ecName dataUsingEncoding: NSUTF8StringEncoding];
+    NSData* encryptedData = [cipher encrypt:plainData];
+    NSCharacterSet *charsToRemove = [NSCharacterSet characterSetWithCharactersInString:@" <>"];
+    NSString *hexRepresentation = [[encryptedData description] stringByTrimmingCharactersInSet:charsToRemove] ;
+    hexRepresentation = [hexRepresentation stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return [hexRepresentation uppercaseString];
 }
 
 @end

@@ -22,7 +22,7 @@
     #import "ASNavKeyConst.h"
     #import "ASUrlImageView.h"
     #import "ASControls.h"
-
+    #import "ASGlobal.h"
     #import "ASBaseViewController.h"
 #endif
 

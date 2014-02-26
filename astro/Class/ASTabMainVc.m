@@ -14,7 +14,9 @@
 @interface ASTabMainVc ()
 @property (nonatomic, strong)UINavigationController *vcLogin;
 @property (nonatomic, strong)UINavigationController *ncAsk;
-@property (nonatomic, strong)UINavigationController *vcRegister;
+@property (nonatomic, strong)UINavigationController *ncRegister;
+@property (nonatomic, strong)UINavigationController *ncUserCenter;
+@property (nonatomic, strong)UINavigationController *ncLesson;
 @end
 
 @implementation ASTabMainVc
@@ -25,9 +27,13 @@
         self.vcLogin.tabBarItem =[[UITabBarItem alloc] initWithTitle:@"应用" image:[[UIImage imageNamed:@"icon_mod_1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_1_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         self.ncAsk = [[ASNav shared] newNav:vcAsk];
         self.ncAsk.tabBarItem =[[UITabBarItem alloc] initWithTitle:@"咨询" image:[[UIImage imageNamed:@"icon_mod_2"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_2_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        self.vcRegister = [[ASNav shared] newNav:vcRegister];
-        self.vcRegister.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"排盘" image:[[UIImage imageNamed:@"icon_mod_3"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_3_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-        [self setViewControllers:[NSArray arrayWithObjects:self.vcLogin, self.ncAsk, self.vcRegister, nil]];
+        self.ncRegister = [[ASNav shared] newNav:vcRegister];
+        self.ncRegister.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"排盘" image:[[UIImage imageNamed:@"icon_mod_3"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_3_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        self.ncUserCenter = [[ASNav shared] newNav:vcRegister];
+        self.ncUserCenter.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"课程" image:[[UIImage imageNamed:@"icon_mod_4"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_4_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        self.ncLesson = [[ASNav shared] newNav:vcRegister];
+        self.ncLesson.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:[[UIImage imageNamed:@"icon_mod_5"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"icon_mod_5_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        [self setViewControllers:[NSArray arrayWithObjects:self.vcLogin, self.ncAsk, self.ncRegister, self.ncUserCenter, self.ncLesson, nil]];
     }
     return self;
 }

@@ -40,7 +40,7 @@
     self.tfPhone.delegate = self;
     [self.vFirst addSubview:self.tfPhone];
     
-    UIButton *btn = [ASControls newRedButton:CGRectMake(self.tfPhone.left, self.tfPhone.bottom + 50, self.tfPhone.width, 36) title:@"确定"];
+    UIButton *btn = [ASControls newRedButton:CGRectMake(self.tfPhone.left, self.tfPhone.bottom + 35, self.tfPhone.width, 36) title:@"确定"];
     [btn addTarget:self action:@selector(btnClick_next) forControlEvents:UIControlEventTouchUpInside];
     [self.vFirst addSubview:btn];
     self.vFirst.height = btn.bottom;
@@ -91,7 +91,8 @@
     [self showWaiting];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     self.tfPhone.text, @"username", nil];
-    [self.model load:kUrlGetPasssWord params:params];
+//    [self.model load:kUrlGetPasssWord params:params];
+    [self.model load:@"test" params:params];
 }
 
 - (void)login{
@@ -116,6 +117,13 @@
 - (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
     [super modelLoadFaild:sender message:msg];
     [self alert:msg];
+}
+
+#pragma mark - UITextFiledDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self btnClick_next];
+    return YES;
 }
 
 @end

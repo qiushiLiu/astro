@@ -9,5 +9,7 @@
 #import "ASObject.h"
 
 @interface ASReturnValue : ASObject
-
+@property (nonatomic) NSInteger Code;
+@property (nonatomic, strong) NSString *Message;
+@property (nonatomic, strong) id Value;
 @end
