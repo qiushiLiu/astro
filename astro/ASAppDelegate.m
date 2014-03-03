@@ -9,6 +9,7 @@
 #import "ASAppDelegate.h"
 #import "ASNav.h"
 #import "ASTabMainVc.h"
+#import "ASShareBindVc.h"
 
 @implementation ASAppDelegate
 
@@ -75,6 +76,33 @@
     }
     
     return YES;
+}
+
+#pragma mark -  解析url
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation{
+    NSString *aburl = [url absoluteString];
+    if (aburl.length<3) {
+        return NO;
+    }
+    if([aburl hasPrefix:@"sinaweibosso"]) {
+        [ASShareBindVc handleOpenURL:url];
+        return NO;
+    }
+//    else if([aburl hasPrefix:@"xms-alipay"]) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kMsgForAppSchemeLinkForAlipay object:url];
+//        return NO;
+//    }
+//    else if ([aburl hasPrefix:@"wx"]) {
+//        [WXApi handleOpenURL:url delegate:self];
+//        return NO;
+//    }
+    else {
+//        [SchemePushUtil notifyToProcessAppSchemeUrl:aburl];
+        return YES;
+    }
 }
 
 #pragma mark - DeviceToken

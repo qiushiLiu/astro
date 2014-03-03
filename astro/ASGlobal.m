@@ -25,7 +25,7 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
 
 + (void)login:(ASUsr_Customer *)user{
     [[ASCache shared] storeValue:[user toJsonString] dir:kCacheDir key:kCacheKeyForUserInfo];
-    [self shared].user = [user copy];
+    [self shared].user = user;
 }
 
 - (id)init{

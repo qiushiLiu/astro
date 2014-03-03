@@ -38,5 +38,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sinaweibosso.3097902199</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>weibo</string>
+		</dict>
+	</array>
 </dict>
 </plist>

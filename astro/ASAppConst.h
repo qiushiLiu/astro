@@ -15,3 +15,7 @@ extern BOOL kAppDebug;
 
 extern NSInteger const A_HOUR_SECONDS;
 extern NSInteger const A_DAY_SECONDS;
+
+extern NSString *const kSinaiPadSSOUrl;
+extern NSString *const kSinaiPhoneSSOUrl;
+extern NSString *const kInterceptURL;

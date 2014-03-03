@@ -148,10 +148,14 @@
 
 - (void)loginByQQ{
     [self hideKeyboard];
+    [self navTo:vcShareBind params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                    @"2", @"type", nil]];
 }
 
 - (void)loginBySina{
     [self hideKeyboard];
+    [self navTo:vcShareBind params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                    @"1", @"type", nil]];
 }
 
 - (void)toRegister{

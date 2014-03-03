@@ -72,7 +72,7 @@
         [_db executeUpdate:@"delete from cachetb where cdir=? and ckey=?", newDir, newKey];
     }
     //存储数据
-    [_db executeUpdate:@"insert into cachetb (cdir, ckey, cvalue, cexpireminute) VALUES (?,?,?,DATE(?))", newDir, newKey, value, expire];
+    [_db executeUpdate:@"insert into cachetb (cdir, ckey, cvalue, cexpire) VALUES (?,?,?,DATE(?))", newDir, newKey, value, expire];
     //从二级缓存中移除
     [self removeCacheFieldsFromValueDic:[self createSecondCachedKeyForDir:dir key:key]];
 }

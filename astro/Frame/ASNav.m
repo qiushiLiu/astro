@@ -12,6 +12,8 @@
 #import "ASRegisterVc.h"
 #import "ASForgetPswVc.h"
 #import "ASAskerVc.h"
+#import "ASShareBindVc.h"
+
 @implementation ASNav
 
 + (ASNav *)shared{
@@ -37,6 +39,7 @@
     [_vcDic setObject:[ASRegisterVc class] forKey:vcRegister];
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
     [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];
+    [_vcDic setObject:[ASShareBindVc class] forKey:vcShareBind];
 }
 
 - (UINavigationController *)newNav:(NSString *)key{

@@ -68,6 +68,7 @@
 		1BC6066018BC3F20004D317A /* ASUsr_Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC6065F18BC3F20004D317A /* ASUsr_Customer.m */; };
 		1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC6066218BC44C2004D317A /* ASGlobal.m */; };
 		1BC6066618BC7F14004D317A /* Cipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC6066518BC7F14004D317A /* Cipher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +198,8 @@
 		1BC6066218BC44C2004D317A /* ASGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASGlobal.m; sourceTree = "<group>"; };
 		1BC6066418BC7F14004D317A /* Cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cipher.h; sourceTree = "<group>"; };
 		1BC6066518BC7F14004D317A /* Cipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cipher.m; sourceTree = "<group>"; };
+		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
+		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +429,8 @@
 				1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */,
 				1BBF580F18AB60E50081D93A /* ASAskerVc.h */,
 				1BBF581018AB60E50081D93A /* ASAskerVc.m */,
+				1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */,
+				1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */,
+				1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */,
 				1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */,
 				1B012B6D185DD4ED0046AD7A /* UIImage+Scale.m in Sources */,
 				1B012BAC185DDC240046AD7A /* ASIAuthenticationDialog.m in Sources */,

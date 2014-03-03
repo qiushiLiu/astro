@@ -17,6 +17,7 @@
 - (void)setNavToParams:(NSMutableDictionary *)params;
 - (void)setNavBackParams:(NSMutableDictionary *)params;
 - (ASBaseViewController *)navTo:(NSString *)key;
+- (ASBaseViewController *)navTo:(NSString *)key params:(NSMutableDictionary *)params;
 - (ASBaseViewController *)navBack;
 - (ASBaseViewController *)navBackTo:(NSString *)key params:(NSMutableDictionary *)params;
 
