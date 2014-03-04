@@ -38,6 +38,8 @@
 		1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012BBF185F31910046AD7A /* HttpUtil.m */; };
 		1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012BC2185F35160046AD7A /* ASAppConst.m */; };
 		1B012BC6185F40A80046AD7A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012BC5185F40A80046AD7A /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1B035F0418C5580E006F3A7E /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035F0118C5580D006F3A7E /* libWeiboSDK.a */; };
+		1B035F0518C5580E006F3A7E /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */; };
 		1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
@@ -139,6 +141,9 @@
 		1B012BC2185F35160046AD7A /* ASAppConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAppConst.m; sourceTree = "<group>"; };
 		1B012BC4185F40A80046AD7A /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		1B012BC5185F40A80046AD7A /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		1B035F0118C5580D006F3A7E /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		1B035F0318C5580E006F3A7E /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRegisterVc.h; sourceTree = "<group>"; };
 		1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRegisterVc.m; sourceTree = "<group>"; };
 		1B1F7D0518B2E48A00186229 /* ASLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoadMoreView.h; sourceTree = "<group>"; };
@@ -210,6 +215,7 @@
 				1B9F1F321872624B00278E62 /* libsqlite3.dylib in Frameworks */,
 				1B012BB6185DE0410046AD7A /* libz.dylib in Frameworks */,
 				1B9F1EF3186C5A8100278E62 /* CFNetwork.framework in Frameworks */,
+				1B035F0418C5580E006F3A7E /* libWeiboSDK.a in Frameworks */,
 				1B012B2D185DCB4B0046AD7A /* CoreGraphics.framework in Frameworks */,
 				1B012B2F185DCB4B0046AD7A /* UIKit.framework in Frameworks */,
 				1B012B2B185DCB4B0046AD7A /* Foundation.framework in Frameworks */,
@@ -393,6 +399,7 @@
 		1B012BBA185F2CAB0046AD7A /* Frame */ = {
 			isa = PBXGroup;
 			children = (
+				1B035F0018C5580D006F3A7E /* libWeiboSDK */,
 				1B012BBB185F2D230046AD7A /* ASBaseViewController.h */,
 				1B012BBC185F2D230046AD7A /* ASBaseViewController.m */,
 				1B9F1F3318726CBB00278E62 /* ASCache.h */,
@@ -412,6 +419,16 @@
 				1B5D5E9E187A5B280030A7E8 /* View */,
 			);
 			path = Frame;
+			sourceTree = "<group>";
+		};
+		1B035F0018C5580D006F3A7E /* libWeiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				1B035F0118C5580D006F3A7E /* libWeiboSDK.a */,
+				1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */,
+				1B035F0318C5580E006F3A7E /* WeiboSDK.h */,
+			);
+			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
 		1B5D5E97187A53520030A7E8 /* Class */ = {
@@ -571,6 +588,7 @@
 			files = (
 				1B012B43185DCB4B0046AD7A /* Images.xcassets in Resources */,
 				1B012B35185DCB4B0046AD7A /* InfoPlist.strings in Resources */,
+				1B035F0518C5580E006F3A7E /* WeiboSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +780,10 @@
 				GCC_PREFIX_HEADER = "astro/astro-Prefix.pch";
 				INFOPLIST_FILE = "astro/astro-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kjubo/Desktop/astro/astro/Frame/libWeiboSDK,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -778,6 +800,10 @@
 				GCC_PREFIX_HEADER = "astro/astro-Prefix.pch";
 				INFOPLIST_FILE = "astro/astro-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/kjubo/Desktop/astro/astro/Frame/libWeiboSDK,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
