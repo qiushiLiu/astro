@@ -49,6 +49,18 @@
     _request = [HttpUtil http:requestUrl method:emHttpGet params:params timeOut:kDefaultTimeOut delegate:self didFinishSelector:@selector(_requestFinished:) didFailSelector:@selector(_requestFailed:)];
 }
 
+- (void)post:(NSString *)url params:(NSMutableDictionary *)params{
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/%@", kAppHost, url];
+    if(_request){
+        [_request cancel];
+    }
+    
+    if([self.delegate respondsToSelector:@selector(modelBeginLoad:)]){
+        [self.delegate modelBeginLoad:self];
+    }
+    _request = [HttpUtil http:requestUrl method:emHttpPost params:params timeOut:kDefaultTimeOut delegate:self didFinishSelector:@selector(_requestFinished:) didFailSelector:@selector(_requestFailed:)];
+}
+
 - (void)_requestFinished:(ASIHTTPRequest *)req{
     if (kAppDebug) {
         NSLog(@">%@",[req responseString]);

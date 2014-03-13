@@ -13,6 +13,7 @@
 #import "ASForgetPswVc.h"
 #import "ASAskerVc.h"
 #import "ASShareBindVc.h"
+#import "ASBaziPanVc.h"
 
 @implementation ASNav
 
@@ -40,6 +41,7 @@
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
     [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];
     [_vcDic setObject:[ASShareBindVc class] forKey:vcShareBind];
+    [_vcDic setObject:[ASBaziPanVc class] forKey:vcBaziPan];
 }
 
 - (UINavigationController *)newNav:(NSString *)key{

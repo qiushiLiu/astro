@@ -19,4 +19,5 @@
 @property (nonatomic, assign) id<ASObjectDelegate> delegate;
 - (NSString *)toJsonString;
 - (void)load:(NSString *)url params:(NSMutableDictionary *)params;
+- (void)post:(NSString *)url params:(NSMutableDictionary *)params;
 @end

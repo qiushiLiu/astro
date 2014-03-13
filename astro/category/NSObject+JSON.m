@@ -12,15 +12,43 @@
 
 @implementation NSObject (JSON)
 
++ (NSRegularExpression *)regDate{
+    static NSRegularExpression *reg = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        reg = [NSRegularExpression regularExpressionWithPattern:@"Date\\((\\d+)\\+\\d+\\)"
+                                                        options:NSRegularExpressionCaseInsensitive
+                                                          error:NULL];
+    });
+    return reg;
+}
+
+
 - (id)initFromJsonString:(NSString *)str{
     id entry = [str objectFromJSONString];
     return [self initFromJsonObject:entry];
 }
 
-- (id)initFromJsonObject:(NSDictionary *)entry {
-	if ((self = [self init])) {
-        [self appendFromJsonObject:entry];
-	}
+- (id)initFromJsonObject:(id)entry {
+    if([entry isKindOfClass:[NSDictionary class]]){
+        if ((self = [self init])) {
+            [self appendFromJsonObject:entry];
+        }
+        return self;
+    }else if([entry isKindOfClass:[NSString class]]){
+        NSArray *matches = [[self class].regDate matchesInString:entry
+                                                         options:0
+                                                           range:NSMakeRange(0, [entry length])];
+        if([matches count] == 1){
+            NSTextCheckingResult *rs = [matches objectAtIndex:0];
+            NSTimeInterval time = [[entry substringWithRange:[rs rangeAtIndex:1]] longLongValue] / 1000;
+            self = [NSDate dateWithTimeIntervalSince1970:time];
+        }else{
+            self = entry;
+        }
+    }else{
+        self = entry;
+    }
 	return self;
 }
 
@@ -70,8 +98,7 @@
 }
 
 + (id)createObjectWithClass:(Class)class fromJsonObject:(id)object {
-	if (!object
-        ||![object isKindOfClass:[NSDictionary class]]) {
+	if (!object) {
 		return nil;
 	}
 	id obj = [[class alloc] initFromJsonObject:object];
