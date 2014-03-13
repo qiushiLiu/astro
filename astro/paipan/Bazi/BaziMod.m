@@ -53,9 +53,9 @@
     NSDictionary *redAttributes     = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [UIFont systemFontOfSize:fontSize], NSFontAttributeName,
                                        [UIColor redColor], NSForegroundColorAttributeName,nil];
-//    NSDictionary *greenAttributes   = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                       [UIFont systemFontOfSize:fontSize], NSFontAttributeName,
-//                                       UIColorFromRGB(0x149e11), NSForegroundColorAttributeName,nil];
+    NSDictionary *greenAttributes   = [NSDictionary dictionaryWithObjectsAndKeys:
+                                       [UIFont systemFontOfSize:fontSize], NSFontAttributeName,
+                                       UIColorFromRGB(0x149e11), NSForegroundColorAttributeName,nil];
     NSDictionary *pinkAttributes    = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [UIFont systemFontOfSize:fontSize], NSFontAttributeName,
                                        UIColorFromRGB(0xfe30d9), NSForegroundColorAttributeName,nil];
@@ -119,7 +119,7 @@
     jieqi = [[self.JieQiName objectAtIndex:1] intValue];
     date = [self.JieQi objectAtIndex:1];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@:", [self getJieQi:jieqi]] attributes:textAttributes]];
-    temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日hh时mm分ss秒"] attributes:textAttributes];
+    temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日HH时mm分ss秒"] attributes:textAttributes];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(5, 2)];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
@@ -138,7 +138,7 @@
 
     // line9 交运
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n交运:" attributes:prefixAttributes]];
-    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"于公历%@交运", [self.JiaoYun toStrFormat:@"yyyy年MM月dd日hh时mm分"]] attributes:textAttributes];
+    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"于公历%@交运", [self.JiaoYun toStrFormat:@"yyyy年MM月dd日HH时mm分"]] attributes:textAttributes];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(3, 4)];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(11, 2)];
@@ -187,11 +187,10 @@
     }
 
     //line 17 纳音
-//    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n纳音: " attributes:prefixAttributes]];
-//    for(int i = 0; i < 3; i++){
-//        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  ", [self getNayin:[[self.NaYin objectAtIndex:i] intValue]]] attributes:greenAttributes]];
-//    }
-//    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n纳音:\t" attributes:prefixAttributes]];
+    for(int i = 0; i < 4; i++){
+        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getNayin:[[self.NaYin objectAtIndex:i] intValue]]] attributes:greenAttributes]];
+    }
 
     //line 18 纳音 大运
 //    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n纳音:\t" attributes:prefixAttributes]];
@@ -201,7 +200,7 @@
 //    }
 
     //line 19 旺衰 大运
-    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n旺衰:\t" attributes:prefixAttributes]];
+    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n旺衰:\t" attributes:prefixAttributes]];
     for(int i = 0; i < 8; i++){
         BaziDayun *dy = [self.Dayun objectAtIndex:i];
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getZiWeiChangSheng:dy.WangShuai]] attributes:textAttributes]];

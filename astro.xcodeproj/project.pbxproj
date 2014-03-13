@@ -76,6 +76,9 @@
 		1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CEE18D1636B00FD9C34 /* BaziDayun.m */; };
 		1BC74CF418D1636B00FD9C34 /* BaziMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CF018D1636B00FD9C34 /* BaziMod.m */; };
 		1BC74CF518D1636B00FD9C34 /* DateEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CF218D1636B00FD9C34 /* DateEntity.m */; };
+		1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365618D171A3001D0F30 /* ZiWeiMod.m */; };
+		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
+		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
 /* End PBXBuildFile section */
 
@@ -221,6 +224,12 @@
 		1BC74CF018D1636B00FD9C34 /* BaziMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaziMod.m; sourceTree = "<group>"; };
 		1BC74CF118D1636B00FD9C34 /* DateEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateEntity.h; sourceTree = "<group>"; };
 		1BC74CF218D1636B00FD9C34 /* DateEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateEntity.m; sourceTree = "<group>"; };
+		1BD5365518D171A3001D0F30 /* ZiWeiMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiMod.h; sourceTree = "<group>"; };
+		1BD5365618D171A3001D0F30 /* ZiWeiMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiMod.m; sourceTree = "<group>"; };
+		1BD5365818D17385001D0F30 /* ZiWeiGong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiGong.h; sourceTree = "<group>"; };
+		1BD5365918D17385001D0F30 /* ZiWeiGong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiGong.m; sourceTree = "<group>"; };
+		1BD5365B18D17435001D0F30 /* ZiWeiStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiStar.h; sourceTree = "<group>"; };
+		1BD5365C18D17435001D0F30 /* ZiWeiStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiStar.m; sourceTree = "<group>"; };
 		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
 		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -489,6 +498,7 @@
 		1B6CF43118C570D2005F1A70 /* paipan */ = {
 			isa = PBXGroup;
 			children = (
+				1BD5365418D17163001D0F30 /* ZiWei */,
 				1BC74CEC18D1632C00FD9C34 /* Bazi */,
 				1B6CF43B18C5BDFF005F1A70 /* Paipan.h */,
 			);
@@ -551,6 +561,19 @@
 				1BC74CF218D1636B00FD9C34 /* DateEntity.m */,
 			);
 			path = Bazi;
+			sourceTree = "<group>";
+		};
+		1BD5365418D17163001D0F30 /* ZiWei */ = {
+			isa = PBXGroup;
+			children = (
+				1BD5365818D17385001D0F30 /* ZiWeiGong.h */,
+				1BD5365918D17385001D0F30 /* ZiWeiGong.m */,
+				1BD5365518D171A3001D0F30 /* ZiWeiMod.h */,
+				1BD5365618D171A3001D0F30 /* ZiWeiMod.m */,
+				1BD5365B18D17435001D0F30 /* ZiWeiStar.h */,
+				1BD5365C18D17435001D0F30 /* ZiWeiStar.m */,
+			);
+			path = ZiWei;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -679,12 +702,14 @@
 				1B7ACF95189740AB000C59C0 /* ASWaitingView.m in Sources */,
 				1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */,
 				1B012B37185DCB4B0046AD7A /* main.m in Sources */,
+				1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */,
 				1B012BB0185DDC240046AD7A /* ASIFormDataRequest.m in Sources */,
 				1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */,
 				1B012BB4185DDC240046AD7A /* Reachability.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
+				1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */,
 				1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */,
 				1B9F1F2B1872622500278E62 /* FMDatabase.m in Sources */,
 				1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */,
@@ -694,6 +719,7 @@
 				1B012B6B185DD4ED0046AD7A /* NSString+Addition.m in Sources */,
 				1BC74CF518D1636B00FD9C34 /* DateEntity.m in Sources */,
 				1B012B6C185DD4ED0046AD7A /* UIDevice+Addition.m in Sources */,
+				1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */,
 				1B012BAE185DDC240046AD7A /* ASIDataDecompressor.m in Sources */,
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
 				1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */,
