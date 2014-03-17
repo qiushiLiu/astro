@@ -61,7 +61,7 @@
                                        UIColorFromRGB(0xfe30d9), NSForegroundColorAttributeName,nil];
     
     
-    CGSize size = CGSizeMake(320, 485);
+    CGSize size = CGSizeMake(320, 460);
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     [UIColorFromRGB(0xf7f4ee) setFill];
     UIRectFill(CGRectMake(0, 0, size.width, size.height));
@@ -106,7 +106,7 @@
     NSInteger jieqi = [[self.JieQiName objectAtIndex:0] intValue];
     NSDate *date = [self.JieQi objectAtIndex:0];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@:", [self getJieQi:jieqi]] attributes:textAttributes]];
-    temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日hh时mm分ss秒(高精度天文算法)"] attributes:textAttributes];
+    temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日HH时mm分ss秒(高精度天文算法)"] attributes:textAttributes];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(5, 2)];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
@@ -200,7 +200,7 @@
 //    }
 
     //line 19 旺衰 大运
-    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n旺衰:\t" attributes:prefixAttributes]];
+    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n旺衰:\t" attributes:prefixAttributes]];
     for(int i = 0; i < 8; i++){
         BaziDayun *dy = [self.Dayun objectAtIndex:i];
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getZiWeiChangSheng:dy.WangShuai]] attributes:textAttributes]];

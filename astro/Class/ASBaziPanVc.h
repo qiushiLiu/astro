@@ -8,6 +8,8 @@
 
 #import "ASBaseViewController.h"
 #import "BaziMod.h"
+#import "ZiWeiMod.h"
 @interface ASBaziPanVc : ASBaseViewController
 @property (nonatomic, strong) BaziMod *mod;
+@property (nonatomic, strong) ZiWeiMod *ziwei;
 @end

@@ -20,22 +20,29 @@
     
     self.mod = [[BaziMod alloc] init];
     self.mod.delegate = self;
+    
+    self.ziwei = [[ZiWeiMod alloc] init];
+    self.ziwei.delegate = self;
 	// Do any additional setup after loading the view.
     
-    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 485)];
+    self.pan = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.contentView addSubview:self.pan];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     [self showWaiting];
-    [self.mod load:@"pp/TimeToBaZi" params:nil];
+    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
+//    [self.mod load:@"pp/TimeToBaZi" params:nil];
 }
 
 - (void)modelLoadFinished:(ASObject *)sender{
     [super modelLoadFinished:sender];
+    self.pan.image = [self.ziwei paipan];
+    self.pan.size = self.pan.image.size;
+    self.contentView.contentSize = self.pan.size;
     [self hideWaiting];
-    self.pan.image = [self.mod paipan];
 }
 
 @end

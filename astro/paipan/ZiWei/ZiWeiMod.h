@@ -34,4 +34,6 @@
 @property (nonatomic) NSInteger LiuYueGong;
 @property (nonatomic, strong) NSMutableArray *LiuYao;
 @property (nonatomic, strong) NSMutableArray *YunYao;
+
+- (UIImage *)paipan;
 @end
