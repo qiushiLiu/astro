@@ -43,6 +43,7 @@
 		1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
+		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
@@ -159,6 +160,8 @@
 		1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoadMoreView.m; sourceTree = "<group>"; };
 		1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaseSingleTableView.h; sourceTree = "<group>"; };
 		1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaseSingleTableView.m; sourceTree = "<group>"; };
+		1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Universal.h"; sourceTree = "<group>"; };
+		1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Universal.m"; sourceTree = "<group>"; };
 		1B5D5E94187A4C850030A7E8 /* ASNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNav.h; sourceTree = "<group>"; };
 		1B5D5E95187A4C850030A7E8 /* ASNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNav.m; sourceTree = "<group>"; };
 		1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoginVc.h; sourceTree = "<group>"; };
@@ -359,6 +362,8 @@
 				1B012BBF185F31910046AD7A /* HttpUtil.m */,
 				1B012BC4185F40A80046AD7A /* JSONKit.h */,
 				1B012BC5185F40A80046AD7A /* JSONKit.m */,
+				1B6CF43F18C6FBA2005F1A70 /* NSDate+Addition.h */,
+				1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */,
 				1B9F1EB11861BD6D00278E62 /* NSObject+JSON.h */,
 				1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */,
 				1B012B62185DD4ED0046AD7A /* NSString+Addition.h */,
@@ -367,10 +372,10 @@
 				1B012B65185DD4ED0046AD7A /* UIDevice+Addition.m */,
 				1B012B66185DD4ED0046AD7A /* UIImage+Scale.h */,
 				1B012B67185DD4ED0046AD7A /* UIImage+Scale.m */,
+				1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */,
+				1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */,
 				1B012B68185DD4ED0046AD7A /* UIView+Layout.h */,
 				1B012B69185DD4ED0046AD7A /* UIView+Layout.m */,
-				1B6CF43F18C6FBA2005F1A70 /* NSDate+Addition.h */,
-				1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -705,6 +710,7 @@
 				1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */,
 				1B012BB0185DDC240046AD7A /* ASIFormDataRequest.m in Sources */,
 				1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */,
+				1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */,
 				1B012BB4185DDC240046AD7A /* Reachability.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,

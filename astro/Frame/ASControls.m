@@ -44,7 +44,7 @@
     UITextField *tf = [[UITextField alloc] initWithFrame:frame];
     tf.backgroundColor = [UIColor clearColor];
     tf.background = [[UIImage imageNamed:@"input_white_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-    
+    tf.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     tf.textColor = [UIColor blackColor];
     tf.font = [UIFont systemFontOfSize:14];
     tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, tf.height)];

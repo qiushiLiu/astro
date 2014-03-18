@@ -16,8 +16,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    //第一次活跃
-//    self.firstActiveTag = YES;
     //设置状态栏
     UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleBlackOpaque;
     //可以接收服务器推送消息
@@ -36,13 +34,6 @@
         if (p1) {
         }
     }
-    
-    [[UINavigationBar appearance] setBarTintColor:ASColorDarkGray];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor whiteColor], NSForegroundColorAttributeName
-                                                           ,[UIFont boldSystemFontOfSize:18], NSFontAttributeName
-                                                           ,nil]];
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                        [UIFont boldSystemFontOfSize:12], UITextAttributeFont,
@@ -66,13 +57,23 @@
     self.window.rootViewController = self.nav;
     [self.window makeKeyAndVisible];
     
+    [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                            NSFontAttributeName : [UIFont boldSystemFontOfSize:18],
+                                                            UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetZero]
+                                                            }];
     //兼容ios7
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        [[UITextField appearance] setTintColor:ASColorDarkGray];
-//        [application setStatusBarStyle:UIStatusBarStyleLightContent];
-//        self.window.clipsToBounds =YES;
-//        self.window.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height - 20);
-//        self.window.bounds = CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height);
+    if (IOS7_OR_LATER) {
+        [[UINavigationBar appearance] setBarTintColor:ASColorDarkGray];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    }else{
+        [[UINavigationBar appearance] setTintColor:ASColorDarkGray];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:ASColorDarkGray size:CGSizeMake(1, 44)]
+                                           forBarMetrics:UIBarMetricsDefault];
+        [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new]
+                                                forState:UIControlStateNormal
+                                              barMetrics:UIBarMetricsDefault];
+        [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(0xCECABA) size:CGSizeMake(1, 49)]];
+        [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
     }
     
     return YES;
