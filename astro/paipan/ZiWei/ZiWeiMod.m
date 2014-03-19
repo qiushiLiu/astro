@@ -120,7 +120,16 @@ static NSMutableArray *cellAuchor;
         [self drawStar:star withIndex:i gongIndex:gsCount[star.Gong]];
         gsCount[star.Gong]++;
     }
-    //十二神
+    //十二宫神
+    [self drawGong];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+
+- (void)drawGong{
     for(int i = 0; i < 12; i++){
         NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
@@ -146,19 +155,14 @@ static NSMutableArray *cellAuchor;
         }
         NSAttributedString *gongName = [[NSAttributedString alloc] initWithString:gn attributes:rAttribute];
         NSMutableAttributedString *tran = nil;
-        NSUnderlineStyle ulStyle = (self.DaYunGong == i) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
         if(g.TransitA > 0){
             tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02d-%02d", g.TransitA, g.TransitB]];
             [tran addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:10],
-                                 NSForegroundColorAttributeName : ZWColorGray,
-                                 NSParagraphStyleAttributeName : paragraphStyle,
-                                 NSUnderlineStyleAttributeName : @(ulStyle)
+                                  NSParagraphStyleAttributeName : paragraphStyle,
+                                  NSForegroundColorAttributeName : ZWColorGray,
                                   } range:NSMakeRange(0, tran.length)];
-            if([[[UIDevice currentDevice] systemVersion] floatValue] > 7){
-                [tran addAttributes:@{NSUnderlineColorAttributeName : [UIColor blackColor]} range:NSMakeRange(0, tran.length)];
-            }
         }
-
+        
         NSAttributedString *tgdz = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [__TianGan objectAtIndex:g.TG], [__DiZhi objectAtIndex:g.DZ]] attributes:bAttribute];
         NSAttributedString *changsheng = [[NSAttributedString alloc] initWithString:[__ZiWeiChangSheng objectAtIndex:g.ChangSheng] attributes:bAttribute];
         
@@ -171,12 +175,8 @@ static NSMutableArray *cellAuchor;
         
         [tgdz drawInRect:CGRectMake(p.x + 5.2 * __FontSize, p.y - 4*__FontSize, __FontSize, __FontSize * 2)];
         [changsheng drawInRect:CGRectMake(p.x + 5.2 * __FontSize, p.y - 2*__FontSize, __FontSize, __FontSize * 2)];
-
+        
     }
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
 }
 
 - (void)drawStar:(ZiWeiStar *)star withIndex:(int)index gongIndex:(int)gongIndex{

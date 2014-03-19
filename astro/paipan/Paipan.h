@@ -158,191 +158,13 @@ static int const __WuXing[10][10] = {
     {3,2,9,8,7,6,4,5,0,1},
     {2,3,8,9,6,7,5,4,1,0},
 };
-//#region 占星术基础
-//public enum AstroType
-//{
-//    [Description("本命盘")]
-//    benming = 1,
-//    [Description("合盘")]
-//    hepan = 2,
-//    [Description("推运盘")]
-//    tuiyun = 3,
-//}
-//
-//public static SortedList GetAstroType()
-//{
-//    return GetStatus(typeof(AstroType));
-//}
-//public static string GetAstroType(object v)
-//{
-//    return GetDescription(typeof(AstroType), v);
-//}
-//
-//public enum AstroZuhe
-//{
-//    [Description("比较盘(comparison)")]
-//    bijiao = 1,
-//    [Description("组合盘(composite)")]
-//    zuhe = 2,
-//    [Description("时空中点盘(midpoint)")]
-//    shikong = 3,
-//    [Description("合并盘(synastry)")]
-//    hebing = 4,
-//}
-//
-//public static SortedList GetAstroZuhe()
-//{
-//    return GetStatus(typeof(AstroZuhe));
-//}
-//public static string GetAstroZuhe(object v)
-//{
-//    return GetDescription(typeof(AstroZuhe), v);
-//}
-//
-//public enum AstroTuiyun
-//{
-//    [Description("行运VS本命(Transit)")]
-//    xingyun = 1,
-//    [Description("月亮次限法(365.25636)")]
-//    cixian = 2,
-//    [Description("月亮三限法(29.530588)")]
-//    sanxian = 3,
-//    [Description("月亮三限法(27.321582)")]
-//    sanxian1 = 4,
-//    [Description("太阳反照法(Solar Return)")]
-//    rifanzhao = 5,
-//    [Description("月亮反照法(Lunar Return)")]
-//    yuefanzhao = 6,
-//    [Description("太阳弧法(Solar Arc)")]
-//    taiyanghu = 7,
-//}
-//
-//public static SortedList GetAstroTuiyun()
-//{
-//    return GetStatus(typeof(AstroTuiyun));
-//}
-//public static string GetAstroTuiyun(object v)
-//{
-//    return GetDescription(typeof(AstroTuiyun), v);
-//}
-//
-//public enum AstroStar
-//{
-//    [Description("太阳")]
-//    Sun = 1,
-//    [Description("月亮")]
-//    Moo = 2,
-//    [Description("水星")]
-//    Mer = 3,
-//    [Description("金星")]
-//    Ven = 4,
-//    [Description("火星")]
-//    Mar = 5,
-//    [Description("木星")]
-//    Jup = 6,
-//    [Description("土星")]
-//    Sat = 7,
-//    [Description("天王星")]
-//    Ura = 8,
-//    [Description("海王星")]
-//    Nep = 9,
-//    [Description("冥王星")]
-//    Plu = 10,
-//    [Description("凯龙星")]
-//    Chi = 11,
-//    [Description("谷神星")]
-//    Cer = 12,
-//    [Description("智神星")]
-//    Pal = 13,
-//    [Description("婚神星")]
-//    Jun = 14,
-//    [Description("灶神星")]
-//    Ves = 15,
-//    [Description("北交点")]
-//    Nod = 16,
-//    [Description("莉莉丝")]
-//    Lil = 17,
-//    [Description("福点")]
-//    For = 18,
-//    [Description("宿命点")]
-//    Ver = 19,
-//    [Description("东升点")]
-//    Eas = 20,
-//    [Description("上升点")]
-//    Asc = 21,
-//    [Description("二宫头")]
-//    Second = 22,
-//    [Description("三宫头")]
-//    Third = 23,
-//    [Description("天底")]
-//    Nad = 24,
-//    [Description("五宫头")]
-//    Fifth = 25,
-//    [Description("六宫头")]
-//    Sixth = 26,
-//    [Description("下降点")]
-//    Des = 27,
-//    [Description("八宫头")]
-//    Eighth = 28,
-//    [Description("九宫头")]
-//    Ninth = 29,
-//    [Description("中天")]
-//    Mid = 30,
-//    [Description("十一宫头")]
-//    Eleventh = 31,
-//    [Description("十二宫头")]
-//    Twelveth = 32,
-//    [Description("南交点")]
-//    AntiNod = 33,
-//}
-//
-//public static SortedList GetAstroStar()
-//{
-//    return GetStatus(typeof(AstroStar));
-//}
-//public static string GetAstroStar(object v)
-//{
-//    return GetDescription(typeof(AstroStar), v);
-//}
-//
-//public enum Constellation
-//{
-//    [Description("白羊座")]
-//    Ari = 1,
-//    [Description("金牛座")]
-//    Tau = 2,
-//    [Description("双子座")]
-//    Gem = 3,
-//    [Description("巨蟹座")]
-//    Can = 4,
-//    [Description("狮子座")]
-//    Leo = 5,
-//    [Description("处女座")]
-//    Vir = 6,
-//    [Description("天秤座")]
-//    Lib = 7,
-//    [Description("天蝎座")]
-//    Sco = 8,
-//    [Description("射手座")]
-//    Sag = 9,
-//    [Description("摩羯座")]
-//    Cap = 10,
-//    [Description("水瓶座")]
-//    Aqu = 11,
-//    [Description("双鱼座")]
-//    Pis = 12,
-//    
-//}
-//
-//public static SortedList GetConstellation()
-//{
-//    return GetStatus(typeof(Constellation));
-//}
-//public static string GetConstellation(object v)
-//{
-//    return GetDescription(typeof(Constellation), v);
-//}
-//
+
+// 占星术基础
+#define __AstroType     @[@"", @"本命盘", @"合盘", @"推运盘"]
+#define __AstroZuhe     @[@"", @"比较盘(comparison)", @"组合盘(composite)", @"时空中点盘(midpoint)", @"合并盘(synastry)"]
+#define __AstroTuiyun   @[@"", @"行运VS本命(Transit)", @"月亮次限法(365.25636)", @"月亮三限法(29.530588)", @"月亮三限法(27.321582)", @"太阳反照法(Solar Return)", @"月亮反照法(Lunar Return)", @"太阳弧法(Solar Arc)"]
+#define __AstroStar     @[@"", @"太阳", @"月亮", @"水星", @"金星", @"火星", @"木星", @"土星", @"天王星", @"海王星", @"冥王星", @"凯龙星", @"谷神星", @"智神星", @"婚神星", @"灶神星", @"北交点", @"莉莉丝", @"福点", @"宿命点", @"东升点", @"上升点", @"二宫头", @"天底", "五宫头", @"六宫头", @"下降点", @"八宫头", @"九宫头", @"中天", @"十一宫头", @"十二宫头", @"南交点"]
+#define __Constellation @[@"", @"白羊座", @"金牛座", @"双子座", @"巨蟹座", @"狮子座", @"处女座", @"天秤座", @"天蝎座", @"射手座", @"摩羯座", @"水瓶座", @"双鱼座"]
 //public enum Element
 //{
 //    [Description("风")]
@@ -354,18 +176,7 @@ static int const __WuXing[10][10] = {
 //    [Description("土")]
 //    earth = 2,
 //    
-//    
-//}
-//
-//public static SortedList GetElement()
-//{
-//    return GetStatus(typeof(Element));
-//}
-//public static string GetElement(object v)
-//{
-//    return GetDescription(typeof(Element), v);
-//}
-//
+
 //public enum Phase
 //{
 //    [Description("合")]
@@ -380,19 +191,4 @@ static int const __WuXing[10][10] = {
 //    bangong = 60,
 //    
 //}
-//
-//public static SortedList GetPhase()
-//{
-//    return GetStatus(typeof(Phase));
-//}
-//public static string GetPhase(object v)
-//{
-//    return GetDescription(typeof(Phase), v);
-//}
-//
-//
-//
-//#endregion
-//
-//
 #endif

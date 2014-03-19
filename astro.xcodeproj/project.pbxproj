@@ -44,6 +44,7 @@
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
+		1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */; };
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
@@ -162,6 +163,8 @@
 		1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaseSingleTableView.m; sourceTree = "<group>"; };
 		1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Universal.h"; sourceTree = "<group>"; };
 		1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Universal.m"; sourceTree = "<group>"; };
+		1B4DA2E618D8241800E6E039 /* ASZiWeiGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiGrid.h; sourceTree = "<group>"; };
+		1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZiWeiGrid.m; sourceTree = "<group>"; };
 		1B5D5E94187A4C850030A7E8 /* ASNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNav.h; sourceTree = "<group>"; };
 		1B5D5E95187A4C850030A7E8 /* ASNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNav.m; sourceTree = "<group>"; };
 		1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoginVc.h; sourceTree = "<group>"; };
@@ -577,6 +580,8 @@
 				1BD5365618D171A3001D0F30 /* ZiWeiMod.m */,
 				1BD5365B18D17435001D0F30 /* ZiWeiStar.h */,
 				1BD5365C18D17435001D0F30 /* ZiWeiStar.m */,
+				1B4DA2E618D8241800E6E039 /* ASZiWeiGrid.h */,
+				1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */,
 			);
 			path = ZiWei;
 			sourceTree = "<group>";
@@ -689,6 +694,7 @@
 				1B012BAC185DDC240046AD7A /* ASIAuthenticationDialog.m in Sources */,
 				1B7ACF991897A51E000C59C0 /* ASReturnValue.m in Sources */,
 				1B012B3B185DCB4B0046AD7A /* ASAppDelegate.m in Sources */,
+				1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */,
 				1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */,
 				1B9F1F2C1872622500278E62 /* FMDatabaseAdditions.m in Sources */,
 				1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */,
