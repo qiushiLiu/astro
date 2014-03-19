@@ -41,6 +41,8 @@
 		1B035F0418C5580E006F3A7E /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035F0118C5580D006F3A7E /* libWeiboSDK.a */; };
 		1B035F0518C5580E006F3A7E /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */; };
 		1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */; };
+		1B1A970518D929320039413E /* AstroStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970418D929320039413E /* AstroStar.m */; };
+		1B1A970B18D929F40039413E /* AstroMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970A18D929F40039413E /* AstroMod.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
@@ -157,6 +159,10 @@
 		1B035F0318C5580E006F3A7E /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRegisterVc.h; sourceTree = "<group>"; };
 		1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRegisterVc.m; sourceTree = "<group>"; };
+		1B1A970318D929320039413E /* AstroStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroStar.h; sourceTree = "<group>"; };
+		1B1A970418D929320039413E /* AstroStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AstroStar.m; sourceTree = "<group>"; };
+		1B1A970918D929F40039413E /* AstroMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroMod.h; sourceTree = "<group>"; };
+		1B1A970A18D929F40039413E /* AstroMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AstroMod.m; sourceTree = "<group>"; };
 		1B1F7D0518B2E48A00186229 /* ASLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoadMoreView.h; sourceTree = "<group>"; };
 		1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoadMoreView.m; sourceTree = "<group>"; };
 		1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaseSingleTableView.h; sourceTree = "<group>"; };
@@ -471,6 +477,17 @@
 			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
+		1B1A970218D9291E0039413E /* Astro */ = {
+			isa = PBXGroup;
+			children = (
+				1B1A970318D929320039413E /* AstroStar.h */,
+				1B1A970418D929320039413E /* AstroStar.m */,
+				1B1A970918D929F40039413E /* AstroMod.h */,
+				1B1A970A18D929F40039413E /* AstroMod.m */,
+			);
+			path = Astro;
+			sourceTree = "<group>";
+		};
 		1B5D5E97187A53520030A7E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +523,7 @@
 		1B6CF43118C570D2005F1A70 /* paipan */ = {
 			isa = PBXGroup;
 			children = (
+				1B1A970218D9291E0039413E /* Astro */,
 				1BD5365418D17163001D0F30 /* ZiWei */,
 				1BC74CEC18D1632C00FD9C34 /* Bazi */,
 				1B6CF43B18C5BDFF005F1A70 /* Paipan.h */,
@@ -695,6 +713,7 @@
 				1B7ACF991897A51E000C59C0 /* ASReturnValue.m in Sources */,
 				1B012B3B185DCB4B0046AD7A /* ASAppDelegate.m in Sources */,
 				1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */,
+				1B1A970B18D929F40039413E /* AstroMod.m in Sources */,
 				1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */,
 				1B9F1F2C1872622500278E62 /* FMDatabaseAdditions.m in Sources */,
 				1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */,
@@ -704,6 +723,7 @@
 				1B012B6E185DD4ED0046AD7A /* UIView+Layout.m in Sources */,
 				1B012BB2185DDC240046AD7A /* ASIInputStream.m in Sources */,
 				1BA69372187FD1B900478D08 /* ASControls.m in Sources */,
+				1B1A970518D929320039413E /* AstroStar.m in Sources */,
 				1B9F1EEA1865C65300278E62 /* ASObject.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
 				1B6CF44418C88216005F1A70 /* ASBaziPanVc.m in Sources */,

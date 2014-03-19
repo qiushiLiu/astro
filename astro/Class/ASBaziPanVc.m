@@ -25,11 +25,14 @@
     
     self.gongs = [[NSMutableArray alloc] init];
     
-    self.mod = [[BaziMod alloc] init];
-    self.mod.delegate = self;
+    self.bazi = [[BaziMod alloc] init];
+    self.bazi.delegate = self;
     
     self.ziwei = [[ZiWeiMod alloc] init];
     self.ziwei.delegate = self;
+    
+    self.astro = [[AstroMod alloc] init];
+    self.astro.delegate = self;
 	// Do any additional setup after loading the view.
     
     self.pan = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -42,41 +45,42 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self showWaiting];
-    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
+    [self.astro load:@"pp/TimeToAstro" params:nil];
+//    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
 //    [self.mod load:@"pp/TimeToBaZi" params:nil];
 }
 
 - (void)modelLoadFinished:(ASObject *)sender{
     [super modelLoadFinished:sender];
-//    self.pan.image = [self.ziwei paipan];
-//    self.pan.size = self.pan.image.size;
+    self.pan.image = [self.astro paipan];
+    self.pan.size = self.pan.image.size;
     self.contentView.contentSize = CGSizeMake(self.contentView.width, 560);
     
-    for(int i = 0; i < 12; i++){
-        ZiWeiGong *g = [self.ziwei.Gong objectAtIndex:i] ;
-        ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithGong:g index:i];
-        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
-        NSMutableString *gn = [[NSMutableString alloc] initWithString:[__ZiWeiGong objectAtIndex:g.GongName]];
-        if(self.ziwei.Shen == i){
-            if(self.ziwei.Ming == i){
-                [gn replaceCharactersInRange:NSMakeRange(0, 1) withString:@"命"];
-            }
-            [gn replaceCharactersInRange:NSMakeRange(1, 1) withString:@"★"];
-            [gn replaceCharactersInRange:NSMakeRange(2, 1) withString:@"身"];
-        }
-        [gd setGongName:gn];
-        [self.gongs addObject:gd];
-        [self.contentView addSubview:gd];
-    }
-    
-    for(int i = 0; i < [self.ziwei.Xing count]; i++){
-        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
-            continue;
-        }
-        ZiWeiStar *star = [self.ziwei.Xing objectAtIndex:i];
-        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
-        [gd addStar:star withIndex:i];
-    }
+//    for(int i = 0; i < 12; i++){
+//        ZiWeiGong *g = [self.ziwei.Gong objectAtIndex:i] ;
+//        ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithGong:g index:i];
+//        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
+//        NSMutableString *gn = [[NSMutableString alloc] initWithString:[__ZiWeiGong objectAtIndex:g.GongName]];
+//        if(self.ziwei.Shen == i){
+//            if(self.ziwei.Ming == i){
+//                [gn replaceCharactersInRange:NSMakeRange(0, 1) withString:@"命"];
+//            }
+//            [gn replaceCharactersInRange:NSMakeRange(1, 1) withString:@"★"];
+//            [gn replaceCharactersInRange:NSMakeRange(2, 1) withString:@"身"];
+//        }
+//        [gd setGongName:gn];
+//        [self.gongs addObject:gd];
+//        [self.contentView addSubview:gd];
+//    }
+//    
+//    for(int i = 0; i < [self.ziwei.Xing count]; i++){
+//        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
+//            continue;
+//        }
+//        ZiWeiStar *star = [self.ziwei.Xing objectAtIndex:i];
+//        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
+//        [gd addStar:star withIndex:i];
+//    }
     [self hideWaiting];
 }
 
