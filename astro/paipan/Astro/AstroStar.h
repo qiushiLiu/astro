@@ -15,4 +15,6 @@
 @property (nonatomic) double Cent;
 @property (nonatomic) NSInteger Constellation;
 @property (nonatomic) double Progress;
+
+@property (nonatomic, readonly) CGFloat DegreeHD;
 @end

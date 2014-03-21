@@ -9,5 +9,7 @@
 #import "AstroStar.h"
 
 @implementation AstroStar
-
+- (CGFloat)DegreeHD{
+    return self.Degree + self.Cent/60.0;
+}
 @end

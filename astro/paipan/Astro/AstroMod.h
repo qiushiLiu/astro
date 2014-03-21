@@ -10,5 +10,11 @@
 
 @interface AstroMod : ASObject
 @property (nonatomic, strong) NSMutableArray *Stars;
+
+
+@property (nonatomic, strong) NSMutableArray *__gong;
+@property (nonatomic) CGFloat __constellationStart;
+
 - (UIImage *)paipan;
++ (CGPoint)pointByRadius:(CGFloat)radius andDegree:(CGFloat)degree;
 @end
