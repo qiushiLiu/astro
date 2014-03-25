@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DateEntity : NSObject
+@interface DateEntity : NSObject <NSCopying>
 @property (nonatomic, strong) NSDate *Date;
 @property (nonatomic, strong) NSMutableArray *BeginMonth;
 @property (nonatomic, strong) NSMutableArray *BeginZodiac;

@@ -6,27 +6,16 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
+#import "Paipan.h"
+#import "NSDate+Addition.h"
 #import "ZiWeiMod.h"
 #import "ZiWeiStar.h"
 #import "ZiWeiGong.h"
-#import "Paipan.h"
+#import "BaziMod.h"
 
 @interface XingGong : NSObject
 @property (nonatomic, strong) NSMutableArray *stars;
 @end
-
-#define __CellSize CGSizeMake(80, 142)
-#define __LineCount 6
-#define __FontSize 12
-
-
-#define ZWColorBlue UIColorFromRGB(0x26ae6)
-#define ZWColorRed UIColorFromRGB(0xff3301)
-#define ZWColorGreen UIColorFromRGB(0x038516)
-#define ZWColorFu UIColorFromRGB(0xfe02d1)
-#define ZWColorXiong UIColorFromRGB(0x6700e6)
-#define ZWColorXiao UIColorFromRGB(0x9c552d)
-#define ZWColorGray UIColorFromRGB(0x646464)
 
 static NSMutableArray *cellAuchor;
 
@@ -50,186 +39,133 @@ static NSMutableArray *cellAuchor;
     return nil;
 }
 
-- (UIImage *)paipan
+- (UIImage *)centerImage:(BOOL)lxTag
 {
-    if(cellAuchor == nil){
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            cellAuchor = [[NSMutableArray alloc] init];
-            // 0 - 3
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width, __CellSize.height * 3)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width, __CellSize.height * 2)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width, __CellSize.height)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width, 0)]];
-            
-            // 4 - 6
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 2, 0)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 3, 0)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 4, 0)]];
-            
-            // 7 - 9
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 4, __CellSize.height)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 4, __CellSize.height * 2)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 4, __CellSize.height * 3)]];
-            
-            // 10 - 11
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 3, __CellSize.height * 3)]];
-            [cellAuchor addObject:[NSValue valueWithCGPoint:CGPointMake(__CellSize.width * 2, __CellSize.height * 3)]];
-        });
+    NSDictionary *bAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : [UIColor blackColor]};
+    NSDictionary *blAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorBlue};
+    NSDictionary *rAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorRed};
+    NSDictionary *gAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorGreen};
+    
+    CGSize size = CGSizeZero;
+    if(lxTag){
+        size = CGSizeMake(__LxCellSize.width * 2, __LxCellSize.height *2);
+    }else{
+        size = CGSizeMake(__CellSize.width * 2, __CellSize.height * 2);
     }
-    CGSize size = CGSizeMake(__CellSize.width * 4, __CellSize.height * 4);
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0);
-    [UIColorFromRGB(0xf7f4ee) setFill];
-    UIRectFill(CGRectMake(0, 0, size.width, size.height));
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+
+    CGFloat top = 15;
+    UIImage *logo = [UIImage imageNamed:@"logo_pan"];
+    CGFloat left = size.width/2 - logo.size.width/2;
+    [logo drawInRect:CGRectMake(left, top, logo.size.width, logo.size.height)];
+    top += logo.size.height + 10;
+    
+    //line1
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] init];
+    if(false){ //姓名
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" " attributes:blAttribute]];
+    }
+    NSString *tmp = [NSString stringWithFormat:@"%@%@  虚岁: %d", [__ShuXing objectAtIndex:self.ShuXing], [__Gender objectAtIndex:self.Gender], self.Age];
+    [str appendAttributedString:[[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute]];
+    [str drawAtPoint:CGPointMake(10, top)];
+    top += __FontSize;
+    
+    //line2
+    tmp = [NSString stringWithFormat:@"公历: %@", [self.BirthTime.Date toStrFormat:@"yyyy-M-d HH:mm"]];
+    str = [[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute];
+    [str addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorRed} range:NSMakeRange(3, [tmp length] - 3)];
+    [str drawAtPoint:CGPointMake(10, top)];
+    top += __FontSize;
+    
+    //line3
+    str = [[NSMutableAttributedString alloc] initWithString:@"阴历:" attributes:bAttribute];
+    tmp = [NSString stringWithFormat:@"%@%@", GetTianGan(self.BirthTime.NongliTG), GetDiZhi(self.BirthTime.NongliDZ)];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:tmp attributes:rAttribute]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"年" attributes:bAttribute]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:GetNongliMonth(self.BirthTime.NongliMonth) attributes:rAttribute]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"月" attributes:bAttribute]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", GetNongliDay(self.BirthTime.NongliDay), GetDiZhi(self.BirthTime.NongliHour)] attributes:rAttribute]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"时生" attributes:bAttribute]];
+    [str drawAtPoint:CGPointMake(10, top)];
+    top += __FontSize;
+    
+    //line4
+    tmp = [NSString stringWithFormat:@"子年斗君: %@  %@", GetDiZhi(self.ZiDou), [__ZiWeiMingJu objectForKey:@(self.MingJu)]];
+    str = [[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute];
+    [str drawAtPoint:CGPointMake(10, top)];
+    top += __FontSize;
+    
+    //line5
+    tmp = [NSString stringWithFormat:@"命主: %@  身主: %@", GetZiWeiStar(self.MingZhu), GetZiWeiStar(self.ShenZhu)];
+    str = [[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute];
+    [str drawAtPoint:CGPointMake(10, top)];
+    top += __FontSize;
+    
+    BaziMod *m_bazi = [[BaziMod alloc] initWithDateEntity:self.BirthTime];
+    
+    //line6
+    CGFloat tableft = 10;
+    top += __FontSize;
+    str = [[NSMutableAttributedString alloc] initWithString:GetShiChenByTg(m_bazi.YearTG, m_bazi.DayTG) attributes:gAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    tableft += 38;
+    str = [[NSMutableAttributedString alloc] initWithString:GetShiChenByTg(m_bazi.MonthTG, m_bazi.DayTG) attributes:gAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    tableft += 38;
+    str = [[NSMutableAttributedString alloc] initWithString:@"日主" attributes:gAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    tableft += 38;
+    str = [[NSMutableAttributedString alloc] initWithString:GetShiChenByTg(m_bazi.DayTG, m_bazi.DayTG) attributes:gAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    
+    //line7
+    top += __FontSize;
+    tableft = 10;
+    str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", GetTianGan(m_bazi.YearTG), GetDiZhi(m_bazi.YearDZ)] attributes:rAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    tableft += 38;
+    str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", GetTianGan(m_bazi.MonthTG), GetDiZhi(m_bazi.MonthDZ)] attributes:rAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    tableft += 38;
+    str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", GetTianGan(m_bazi.DayTG), GetDiZhi(m_bazi.DayDZ)] attributes:rAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    tableft += 38;
+    str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", GetTianGan(m_bazi.HourTG), GetDiZhi(m_bazi.HourDZ)] attributes:rAttribute];
+    [str drawAtPoint:CGPointMake(tableft, top)];
+    
+    //line8 - 10
+    tableft = 10;
+    for(int j = 0; j < 3 ; j++){
+        top += __FontSize;
+        for(int i = 0; i < 4; i++){
+            int cg = [m_bazi getCangGanByX:i andY:j];
+            if(!(j != 0 && cg == 0)){
+                str = [[NSMutableAttributedString alloc] init];
+                [str appendAttributedString:[[NSAttributedString alloc] initWithString:GetTianGan(cg) attributes:bAttribute]];
+                [str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@   ", GetShiChenByTg(cg,m_bazi.DayTG)] attributes:blAttribute]];
+                [str drawAtPoint:CGPointMake(tableft + i * 38, top)];
+            }
+        }
+    }
+    
+    //旬空
+    top += __FontSize;
+    str = [[NSMutableAttributedString alloc] init];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"旬空: " attributes:bAttribute]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", GetTianGan(m_bazi.XunKong0), GetDiZhi(m_bazi.XunKong1)] attributes:rAttribute]];
+    [str drawAtPoint:CGPointMake(10, top)];
+    
+    //边框
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(ctx, 1.0);
-    CGContextSetStrokeColorWithColor(ctx, UIColorFromRGB(0x888888).CGColor);
-    
-    for(int i = 0; i <= 4; i++){
-        CGFloat y = __CellSize.height * i;
-        CGContextMoveToPoint(ctx, 0, y);
-        if(i != 2){
-            CGContextAddLineToPoint(ctx, size.width, y);
-        }else{
-            CGContextAddLineToPoint(ctx, __CellSize.width, y);
-            CGContextMoveToPoint(ctx, __CellSize.width*3, y);
-            CGContextAddLineToPoint(ctx, size.width, y);
-        }
-    }
-    
-    for(int i = 0; i <= 4; i++){
-        CGFloat x = __CellSize.width * i;
-        CGContextMoveToPoint(ctx, x, 0);
-        if(i != 2){
-            CGContextAddLineToPoint(ctx, x, size.height);
-        }else{
-            CGContextAddLineToPoint(ctx, x, __CellSize.height);
-            CGContextMoveToPoint(ctx, x, __CellSize.height*3);
-            CGContextAddLineToPoint(ctx, x, size.height);
-        }
-    }
+    CGContextSetLineWidth(ctx, 1);
+    CGContextSetStrokeColorWithColor(ctx, ASColorDarkGray.CGColor);
+    CGContextMoveToPoint(ctx, size.width, 0);
+    CGContextAddLineToPoint(ctx, size.width, size.height);
+    CGContextAddLineToPoint(ctx, 0, size.height);
     CGContextStrokePath(ctx);
-    
-    //星
-    int gsCount[12] = {0};
-    for(int i = 0; i < [self.Xing count]; i++){
-        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
-            continue;
-        }
-        ZiWeiStar *star = [self.Xing objectAtIndex:i];
-        [self drawStar:star withIndex:i gongIndex:gsCount[star.Gong]];
-        gsCount[star.Gong]++;
-    }
-    //十二宫神
-    [self drawGong];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
-}
-
-
-- (void)drawGong{
-    for(int i = 0; i < 12; i++){
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-        paragraphStyle.alignment = NSTextAlignmentCenter;
-        
-        CGPoint auchor = [[cellAuchor objectAtIndex:i] CGPointValue];
-        CGPoint p = CGPointMake(auchor.x - __CellSize.width + 2, auchor.y + __CellSize.height - 4);
-        ZiWeiGong *g = [self.Gong objectAtIndex:i];
-        NSDictionary *bAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:10], NSForegroundColorAttributeName : [UIColor blackColor],NSParagraphStyleAttributeName : paragraphStyle};
-        NSDictionary *rAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:10], NSForegroundColorAttributeName : ZWColorRed,NSParagraphStyleAttributeName : paragraphStyle};
-        
-        NSAttributedString *boShi = [[NSAttributedString alloc] initWithString:[__ZiWeiBoShi objectAtIndex:g.BoShi] attributes:bAttribute];
-        NSAttributedString *taiSui = [[NSAttributedString alloc] initWithString:[__ZiWeiBoShi objectAtIndex:g.TaiSui] attributes:bAttribute];
-        NSAttributedString *jianQian = [[NSAttributedString alloc] initWithString:[__ZiWeiJiangQian objectAtIndex:g.JiangQian] attributes:bAttribute];
-        
-        NSMutableString *gn = [[NSMutableString alloc] initWithString:[__ZiWeiGong objectAtIndex:g.GongName]];
-        if(self.Shen == i){
-            if(self.Ming == i){
-                [gn stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"命"];
-            }
-            [gn stringByReplacingCharactersInRange:NSMakeRange(1, 1) withString:@"★"];
-            [gn stringByReplacingCharactersInRange:NSMakeRange(2, 1) withString:@"身"];
-        }
-        NSAttributedString *gongName = [[NSAttributedString alloc] initWithString:gn attributes:rAttribute];
-        NSMutableAttributedString *tran = nil;
-        if(g.TransitA > 0){
-            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02d-%02d", g.TransitA, g.TransitB]];
-            [tran addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:10],
-                                  NSParagraphStyleAttributeName : paragraphStyle,
-                                  NSForegroundColorAttributeName : ZWColorGray,
-                                  } range:NSMakeRange(0, tran.length)];
-        }
-        
-        NSAttributedString *tgdz = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [__TianGan objectAtIndex:g.TG], [__DiZhi objectAtIndex:g.DZ]] attributes:bAttribute];
-        NSAttributedString *changsheng = [[NSAttributedString alloc] initWithString:[__ZiWeiChangSheng objectAtIndex:g.ChangSheng] attributes:bAttribute];
-        
-        [jianQian drawInRect:CGRectMake(p.x, p.y - __FontSize, __FontSize * 2, __FontSize)];
-        [boShi drawInRect:CGRectMake(p.x, p.y - 2 * __FontSize, __FontSize * 2, __FontSize)];
-        [taiSui drawInRect:CGRectMake(p.x , p.y - 3 * __FontSize, __FontSize * 2, __FontSize)];
-        
-        [gongName drawInRect:CGRectMake(p.x + 2 * __FontSize, p.y - __FontSize, __FontSize * 3, __FontSize)];
-        [tran drawInRect:CGRectMake(p.x + 2 * __FontSize, p.y - 2 * __FontSize, __FontSize * 3, __FontSize)];
-        
-        [tgdz drawInRect:CGRectMake(p.x + 5.2 * __FontSize, p.y - 4*__FontSize, __FontSize, __FontSize * 2)];
-        [changsheng drawInRect:CGRectMake(p.x + 5.2 * __FontSize, p.y - 2*__FontSize, __FontSize, __FontSize * 2)];
-        
-    }
-}
-
-- (void)drawStar:(ZiWeiStar *)star withIndex:(int)index gongIndex:(int)gongIndex{
-    UIColor *cl = nil;
-    if(index <= 13){    //主星颜色
-        cl = ZWColorRed;
-    } else if(index <= 21){
-        cl = ZWColorFu;
-    } else if(index <= 27){
-        cl = ZWColorXiong;
-    } else{
-        cl = ZWColorXiao;
-    }
-    
-    CGFloat lh = 46;
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    
-    CGPoint auchor = [[cellAuchor objectAtIndex:star.Gong] CGPointValue];
-    CGPoint p = CGPointMake(auchor.x - __FontSize, auchor.y);
-    if(gongIndex < __LineCount){
-        p.x -= __FontSize * gongIndex;
-        NSMutableAttributedString *miaoWang = [[NSMutableAttributedString alloc] initWithString:[__ZiWeiMiaowang objectAtIndex:star.Wang]];
-        [miaoWang addAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10],
-                                 NSForegroundColorAttributeName : [UIColor blackColor],
-                                 NSParagraphStyleAttributeName : paragraphStyle,
-                                  } range:NSMakeRange(0, miaoWang.length)];
-        if([miaoWang length] > 0){
-            [miaoWang drawInRect:CGRectMake(p.x, p.y + 23, __FontSize, 13)];
-        }
-        
-        NSMutableAttributedString *siHua = [[NSMutableAttributedString alloc] initWithString:[__ZiWeiSihua objectAtIndex:star.Hua]];
-        if(![[siHua mutableString] isEqualToString:@" "]){
-            [siHua addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:10],
-                                  NSForegroundColorAttributeName : [UIColor whiteColor],
-                                  NSParagraphStyleAttributeName : paragraphStyle,
-                                   } range:NSMakeRange(0, siHua.length)];
-            CGRect siHuaRect = CGRectMake(p.x, p.y + 35, __FontSize, 13);
-            [[UIColor redColor] setFill];
-            UIRectFill(siHuaRect);
-            [siHua drawInRect:siHuaRect];
-        }
-    }else{
-        p.y += lh;
-        p.x = __FontSize * (gongIndex - __LineCount);
-    }
-    
-    NSMutableAttributedString *name = [[NSMutableAttributedString alloc] initWithString:[__ZiWeiStar objectAtIndex:star.StarName]];
-    [name addAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:10],
-                          NSForegroundColorAttributeName : cl,
-                          NSParagraphStyleAttributeName : paragraphStyle,
-                          } range:NSMakeRange(0, name.length)];
-    [name drawInRect:CGRectMake(p.x, p.y, __FontSize, lh)];
 }
 @end

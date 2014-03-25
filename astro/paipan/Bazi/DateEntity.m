@@ -26,4 +26,17 @@
     return nil;
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    DateEntity *entity = [[[self class] allocWithZone:zone] init];
+    [entity setDate:[self.Date copy]];
+    [entity setBeginMonth:[self.BeginMonth copy]];
+    [entity setBeginZodiac:[self.BeginZodiac copy]];
+    entity.NongliDay = self.NongliDay;
+    entity.NongliDZ = self.NongliDZ;
+    entity.NongliHour = self.NongliHour;
+    entity.NongliMonth = self.NongliMonth;
+    entity.NongliTG = self.NongliTG;
+    return entity;
+}
+
 @end

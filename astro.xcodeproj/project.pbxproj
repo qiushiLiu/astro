@@ -84,6 +84,7 @@
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
+		1BF467C418DC246600CB3E4B /* Paipan.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF467C318DC246600CB3E4B /* Paipan.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,7 +178,6 @@
 		1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoginVc.m; sourceTree = "<group>"; };
 		1B5D5E9B187A54AF0030A7E8 /* ASNavKeyConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNavKeyConst.h; sourceTree = "<group>"; };
 		1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNavKeyConst.m; sourceTree = "<group>"; };
-		1B6CF43B18C5BDFF005F1A70 /* Paipan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Paipan.h; sourceTree = "<group>"; };
 		1B6CF43F18C6FBA2005F1A70 /* NSDate+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addition.h"; sourceTree = "<group>"; };
 		1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addition.m"; sourceTree = "<group>"; };
 		1B6CF44218C88216005F1A70 /* ASBaziPanVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaziPanVc.h; sourceTree = "<group>"; };
@@ -244,6 +244,8 @@
 		1BD5365C18D17435001D0F30 /* ZiWeiStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiStar.m; sourceTree = "<group>"; };
 		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
 		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
+		1BF467C218DC246600CB3E4B /* Paipan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paipan.h; sourceTree = "<group>"; };
+		1BF467C318DC246600CB3E4B /* Paipan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Paipan.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -526,7 +528,8 @@
 				1B1A970218D9291E0039413E /* Astro */,
 				1BD5365418D17163001D0F30 /* ZiWei */,
 				1BC74CEC18D1632C00FD9C34 /* Bazi */,
-				1B6CF43B18C5BDFF005F1A70 /* Paipan.h */,
+				1BF467C218DC246600CB3E4B /* Paipan.h */,
+				1BF467C318DC246600CB3E4B /* Paipan.m */,
 			);
 			path = paipan;
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				1B012BB0185DDC240046AD7A /* ASIFormDataRequest.m in Sources */,
 				1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */,
 				1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */,
+				1BF467C418DC246600CB3E4B /* Paipan.m in Sources */,
 				1B012BB4185DDC240046AD7A /* Reachability.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,

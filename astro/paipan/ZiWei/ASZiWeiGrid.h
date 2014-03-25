@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ZiWeiStar.h"
 #import "ZiWeiGong.h"
+#import "ZiWeiMod.h"
 
 @interface ASZiWeiGrid : UIButton
-@property (nonatomic, strong)ZiWeiGong *gong;
-@property (nonatomic, strong)NSString *gongName;
+@property (nonatomic, weak)ZiWeiMod *ziwei;
+@property (nonatomic, weak)ZiWeiGong *gong;
+@property (nonatomic) BOOL lx;
+- (id)initWithZiWei:(ZiWeiMod *)mod index:(NSInteger)gongIndex lx:(BOOL)lx;
 
-- (id)initWithGong:(ZiWeiGong *)gong index:(NSInteger)gongIndex;
 - (void)addStar:(ZiWeiStar *)star withIndex:(NSInteger)index;
+- (void)addYunYao:(int)tag;
+- (void)addLiuYao:(int)tag;
 @end

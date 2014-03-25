@@ -38,5 +38,7 @@
 @property (nonatomic, strong) NSString *Longitude;
 @property (nonatomic) long RealTimeSpanShow;
 
+- (id)initWithDateEntity:(DateEntity *)entity;
+- (NSInteger)getCangGanByX:(NSInteger)x andY:(NSInteger)y;
 - (UIImage *)paipan;
 @end

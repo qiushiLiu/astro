@@ -1,4 +1,14 @@
 //
+//  Paipan.h
+//  astro
+//
+//  Created by kjubo on 14-3-21.
+//  Copyright (c) 2014年 kjubo. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+//
 //  Baizi.h
 //  astro
 //
@@ -13,6 +23,7 @@
 #define __DiZhi   @[@"子", @"丑", @"寅", @"卯", @"辰", @"巳", @"午", @"未", @"申", @"酉", @"戌", @"亥"]
 #define __ShiShen @[@"比肩", @"劫财", @"正印", @"枭神", @"食神", @"伤官", @"正财", @"偏财", @"正官", @"七杀"]
 #define __ShuXing @[@"阴", @"阳"]
+#define __Gender  @[@"女", @"男", @"保密"]
 
 #define __Nayin   @{\
 @10000 : @"海中金",\
@@ -138,12 +149,13 @@
 @"天伤", @"天使", @"恩光", @"天贵", @"天厨", @"天空", @"天哭", @"天虚", @"劫杀", @"大耗",\
 @"蜚廉", @"破碎", @"华盖", @"咸池", @"龙德", @"月德", @"天德", @"年解"]
 
-#define __ZiWeiSihua      @[@" ", @"禄", @"权", @"科", @"忌"]
-#define __ZiWeiMiaowang   @[@" ", @"庙", @"旺", @"平", @"地", @"闲", @"陷"]
+#define __ZiWeiSihua      @[@"", @"禄", @"权", @"科", @"忌"]
+#define __ZiWeiMiaowang   @[@"", @"庙", @"旺", @"平", @"地", @"闲", @"陷"]
 #define __ZiWeiChangSheng @[@"长生", @"沐浴", @"冠带", @"临官", @"帝旺", @"衰", @"病", @"死", @"墓", @"绝", @"胎", @"养"]
 #define __ZiWeiTaiSui     @[@"岁建", @"晦气", @"丧门", @"贯索", @"官符", @"小耗", @"大耗", @"龙德", @"白虎", @"天德", @"吊客", @"病符"]
 #define __ZiWeiJiangQian  @[@"将星", @"攀鞍", @"岁驿", @"息神", @"华盖", @"劫煞", @"灾煞", @"天煞", @"指背", @"咸池", @"月煞", @"亡神"]
 #define __ZiWeiBoShi      @[@"博士", @"力士", @"青龙", @"小耗", @"将军", @"奏书", @"飞廉", @"喜神", @"病符", @"大耗", @"伏兵", @"官府"]
+#define __ZiWeiLiuYao     @[@"昌", @"曲", @"魁", @"钺", @"羊", @"陀", @"禄"]
 
 //extern int const __WuXing[10][10];
 static int const __WuXing[10][10] = {
@@ -165,30 +177,19 @@ static int const __WuXing[10][10] = {
 //#define __AstroTuiyun   @[@"", @"行运VS本命(Transit)", @"月亮次限法(365.25636)", @"月亮三限法(29.530588)", @"月亮三限法(27.321582)", @"太阳反照法(Solar Return)", @"月亮反照法(Lunar Return)", @"太阳弧法(Solar Arc)"]
 #define __AstroStar @[@"", @"太阳", @"月亮", @"水星", @"金星", @"火星", @"木星", @"土星", @"天王星", @"海王星", @"冥王星", @"凯龙星", @"谷神星", @"智神星", @"婚神星", @"灶神星", @"北交点", @"莉莉丝", @"福点", @"宿命点", @"东升点", @"上升点", @"二宫头", @"天底", @"五宫头", @"六宫头", @"下降点", @"八宫头", @"九宫头", @"中天", @"十一宫头", @"十二宫头", @"南交点"]
 //#define __Constellation @[@"", @"白羊座", @"金牛座", @"双子座", @"巨蟹座", @"狮子座", @"处女座", @"天秤座", @"天蝎座", @"射手座", @"摩羯座", @"水瓶座", @"双鱼座"]
-//public enum Element
-//{
-//    [Description("风")]
-//    wind = 3,
-//    [Description("火")]
-//    fire = 1,
-//    [Description("水")]
-//    aqua = 4,
-//    [Description("土")]
-//    earth = 2,
-//    
 
-//public enum Phase
-//{
-//    [Description("合")]
-//    he = 0,
-//    [Description("刑")]
-//    xing = 90,
-//    [Description("拱")]
-//    gong = 120,
-//    [Description("冲")]
-//    chong = 180,
-//    [Description("半拱")]
-//    bangong = 60,
-//    
-//}
+
+NSString* GetTianGan(NSInteger tag);
+NSString* GetDiZhi(NSInteger tag);
+NSString* GetNongliMonth(NSInteger tag);
+NSString* GetNongliDay(NSInteger tag);
+NSString* GetShiShen(NSInteger tag);
+NSString* GetShiChenByTg(NSInteger tg1, NSInteger tg2);
+
+NSString* GetZiWeiStar(NSInteger tag);
+NSString* GetZiWeiGong(NSInteger tag);
+NSString* GetZiWeiLiuYao(NSInteger tag);
+
+
 #endif
+

@@ -35,8 +35,202 @@
     return nil;
 }
 
-- (void)drawCalendar{
+- (id)initWithDateEntity:(DateEntity *)entity{
+    if (self = [super init]) {
+        self.BirthTime = [entity copy];
+        int year = self.BirthTime.Date.year;
+        int mon = self.BirthTime.Date.month;
+        int day = self.BirthTime.Date.day;
+        int hour = self.BirthTime.Date.hour;
+        
+        int daytemp = day;
+        if(hour == 23)
+        {
+            daytemp--;
+        }
+        self.DayTG = _GetDayTG(year, mon, daytemp);
+        self.DayDZ = _GetDayDZ(year, mon, daytemp);
+        
+        self.HourTG = _GetHourTG(self.DayTG, hour);
+        self.HourDZ = _GetHourDZ(hour);
+        
+        int montemp = [self checkMon:self.BirthTime];
+        self.MonthTG = _GetMonthTG(year, montemp);
+        self.MonthDZ = _GetMonthDZ(montemp);
+        
+        int yeartemp = [self checkYear:self.BirthTime];
+        self.YearTG = _GetYearTG(yeartemp);
+        self.YearDZ = _GetYearDZ(yeartemp);
+        
+        [self calXunKongDay];
+        [self calYinYang];
+        [self calNayin];
+        [self calCangGan];
+        [self calWangShuai];
+        
+    }
+    return self;
+}
+
+#pragma mark - Year Month Day TG & DZ
+int _GetDayTG(int year, int mon, int day){
+    int c = year / 100;
+    int y = year % 100;
+    if(mon <= 2){
+        mon = mon + 12;
+        y = y - 1;
+    }
+    int tmp = 4 * c + (c / 4) + 5 * y + (y / 4) + (3 * (mon + 1) / 5) + day - 4;
+    return tmp % 10;
+}
+
+int _GetDayDZ(int year, int mon, int day){
+    int c = year / 100;
+    int y = year % 100;
+    int i = 0;
+    if(mon <= 2){
+        mon = mon + 12;
+        y = y - 1;
+    }
+    if(mon % 2 == 0){
+        i = 6;
+    }
+    int tmp = 8 * c + (c / 4) + 5 * y + (y / 4) + (3 * (mon + 1) / 5) + day + i + 6;
+    return tmp % 12;
+}
+
+int _GetHourTG(int dayTG, int hour){
+    int flag = dayTG % 5 * 2;
+    return (flag + (hour + 1)/2)%10;
+}
+
+int _GetHourDZ(int hour){
+    return (hour + 1) / 2 % 12;
+}
+
+int _GetMonthTG(int year, int mon){
+    return (year * 12 + mon + 2) % 10;
+}
+
+int _GetMonthDZ(int mon){
+    return mon % 12;
+}
+
+int _GetYearTG(int year){
+    return  (year + 6) % 10;
+}
+
+int _GetYearDZ(int year){
+    return (year + 8) % 12;
+}
+
+- (int)checkMon:(DateEntity *)entity{
+    int mon = entity.Date.month;
+    if(entity.Date < entity.BeginMonth[mon - 1]){
+        mon--;
+    }
+    if(mon == 0){
+        mon = 12;
+    }
+    return mon;
+}
+
+- (int)checkYear:(DateEntity *)entity{
+    int year = entity.Date.year;
+    if(entity.Date < entity.BeginMonth[1]){
+        year--;
+    }
+    return year;
+}
+
+#pragma mark - cal
+- (void)calXunKongDay{
+    int temp = (9 - self.DayTG + self.DayDZ + 1) % 12;
+    self.XunKong0 = temp;
+    self.XunKong1 = temp + 1;
+}
+
+- (void)calYinYang{
+    if(self.YearTG % 2 == 0){
+        self.YinYang = 1;
+    }else{
+        self.YinYang = 0;
+    }
+}
+
+- (void)calNayin{
+    self.NaYin = [[NSMutableArray alloc] init];
+    [self.NaYin addObject:@(10000 + self.YearTG * 100 + self.YearDZ)];
+    [self.NaYin addObject:@(10000 + self.MonthTG * 100 + self.MonthDZ)];
+    [self.NaYin addObject:@(10000 + self.DayTG * 100 + self.DayDZ)];
+    [self.NaYin addObject:@(10000 + self.HourTG * 100 + self.HourDZ)];
+}
+
+#define __cang @[@"9", @"975", @"024", @"1", @"149", @"624", @"35", @"153", @"468", @"7", @"734", @"08"]
+- (void)calCangGan{
+    self.CangGanShow = [[NSMutableArray alloc] init];
+    for(int i = 0; i < 4; i++){
+        [self.CangGanShow addObject:[NSMutableArray array]];
+    }
     
+    NSString *str = [__cang objectAtIndex:self.YearDZ];
+    NSMutableArray *arr = [self.CangGanShow objectAtIndex:0];
+    for(int j = 0 ; j < 3; j++){
+        if(j < [str length]){
+            [arr addObject:@([[str substringWithRange:NSMakeRange(j, 1)] intValue])];
+        }else{
+            [arr addObject:@0];
+        }
+    }
+    
+    str = [__cang objectAtIndex:self.MonthDZ];
+    arr = [self.CangGanShow objectAtIndex:1];
+    for(int j = 0 ; j < 3; j++){
+        if(j < [str length]){
+            [arr addObject:@([[str substringWithRange:NSMakeRange(j, 1)] intValue])];
+        }else{
+            [arr addObject:@0];
+        }
+    }
+    
+    str = [__cang objectAtIndex:self.DayDZ];
+    arr = [self.CangGanShow objectAtIndex:2];
+    for(int j = 0 ; j < 3; j++){
+        if(j < [str length]){
+            [arr addObject:@([[str substringWithRange:NSMakeRange(j, 1)] intValue])];
+        }else{
+            [arr addObject:@0];
+        }
+    }
+    
+    str = [__cang objectAtIndex:self.HourDZ];
+    arr = [self.CangGanShow objectAtIndex:3];
+    for(int j = 0 ; j < 3; j++){
+        if(j < [str length]){
+            [arr addObject:@([[str substringWithRange:NSMakeRange(j, 1)] intValue])];
+        }else{
+            [arr addObject:@0];
+        }
+    }
+    
+}
+
+- (void)calWangShuai{
+    self.WangShuai = [[NSMutableArray alloc] init];
+    [self.WangShuai addObject:@(_GetWangShuai(self.YearDZ, self.DayTG))];
+    [self.WangShuai addObject:@(_GetWangShuai(self.MonthDZ, self.DayTG))];
+    [self.WangShuai addObject:@(_GetWangShuai(self.DayDZ, self.DayTG))];
+    [self.WangShuai addObject:@(_GetWangShuai(self.HourDZ, self.DayTG))];
+}
+
+#define __wsbegin @[@11, @6, @2, @9, @2, @9, @5, @0, @8, @3]
+int _GetWangShuai(int source, int riyuan){
+    int begin = [[__wsbegin objectAtIndex:riyuan] intValue];
+    if(riyuan % 2 == 0){    //阳干
+        return (source - begin + 12) % 12;
+    }else{
+        return (begin - source + 12) % 12;
+    }
 }
 
 - (UIImage *)paipan
@@ -99,7 +293,7 @@
     // line5
     NSInteger nayin = 10000 + self.BirthTime.NongliTG * 100 + self.BirthTime.NongliDZ;
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n阴历:" attributes:prefixAttributes]];
-    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@年[%@]%@月%@%@时", [self getTianGan:self.BirthTime.NongliTG], [self getDiZhi:self.BirthTime.NongliDZ], [self getNayin:nayin], [self getNongliMonth:self.BirthTime.NongliMonth], [self getNongliDay:self.BirthTime.NongliDay], [self getDiZhi:self.BirthTime.NongliHour]] attributes:textAttributes];
+    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@年[%@]%@月%@%@时", GetTianGan(self.BirthTime.NongliTG), GetDiZhi(self.BirthTime.NongliDZ), [self getNayin:nayin], GetNongliMonth(self.BirthTime.NongliMonth), GetNongliDay(self.BirthTime.NongliDay), GetDiZhi(self.BirthTime.NongliHour)] attributes:textAttributes];
     [ret appendAttributedString:temp];
 
     // line6
@@ -147,7 +341,7 @@
     [ret appendAttributedString:temp];
 
     // line10
-    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n\n\t%@\t\t%@\t\t日主\t\t%@", [self getShiChenByTg:self.YearTG and:self.DayTG], [self getShiChenByTg:self.MonthTG and:self.DayTG], [self getShiChenByTg:self.HourTG and:self.DayTG]] attributes:blueAttributes];
+    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n\n\t%@\t\t%@\t\t日主\t\t%@", GetShiChenByTg(self.YearTG, self.DayTG), GetShiChenByTg(self.MonthTG, self.DayTG), GetShiChenByTg(self.HourTG, self.DayTG)] attributes:blueAttributes];
     [ret appendAttributedString:temp];
     
     // line11
@@ -157,14 +351,14 @@
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n坤造:\t" attributes:prefixAttributes]];
     }
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:self.Longitude attributes:textAttributes]];
-    NSString *str = [NSString stringWithFormat:@"%@\t\t%@\t\t%@\t\t%@", [self getTianGan:self.YearTG], [self getTianGan:self.MonthTG], [self getTianGan:self.DayTG], [self getTianGan:self.HourTG]];
+    NSString *str = [NSString stringWithFormat:@"%@\t\t%@\t\t%@\t\t%@", GetTianGan(self.YearTG), GetTianGan(self.MonthTG), GetTianGan(self.DayTG), GetTianGan(self.HourTG)];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:redAttributes]];
-    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t(%@%@空)", [self getDiZhi:self.XunKong0], [self getDiZhi:self.XunKong1]] attributes:textAttributes];
+    temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t(%@%@空)", GetDiZhi(self.XunKong0), GetDiZhi(self.XunKong1)] attributes:textAttributes];
     [temp addAttribute:UITextAttributeTextColor value:UIColorFromRGB(0xfe30d9) range:NSMakeRange(2, 2)];
     [ret appendAttributedString:temp];
     
     // line12
-    str = [NSString stringWithFormat:@"\n\t%@\t\t%@\t\t%@\t\t%@\n", [self getDiZhi:self.YearDZ], [self getDiZhi:self.MonthDZ], [self getDiZhi:self.DayDZ], [self getDiZhi:self.HourDZ]];
+    str = [NSString stringWithFormat:@"\n\t%@\t\t%@\t\t%@\t\t%@\n", GetDiZhi(self.YearDZ), GetDiZhi(self.MonthDZ), GetDiZhi(self.DayDZ), GetDiZhi(self.HourDZ)];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:redAttributes]];
 
     // line13 - 15
@@ -173,8 +367,8 @@
         for(int i = 0; i < 4; i++){
             int cg = [self getCangGanByX:i andY:j];
             if(!(j != 0 && cg == 0)){
-                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[self getTianGan:cg] attributes:textAttributes]];
-                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getShiChenByTg:cg and:self.DayTG]] attributes:blueAttributes]];
+                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:GetTianGan(cg) attributes:textAttributes]];
+                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetShiChenByTg(cg,self.DayTG)] attributes:blueAttributes]];
             }
         }
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
@@ -210,14 +404,14 @@
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n十神:\t" attributes:prefixAttributes]];
     for(int i = 0; i < 8; i++){
         BaziDayun *dy = [self.Dayun objectAtIndex:i];
-        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getShiShen:dy.ShiShen]] attributes:blueAttributes]];
+        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetShiShen(dy.ShiShen)] attributes:blueAttributes]];
     }
 
     //line 21 大运
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n大运:\t" attributes:prefixAttributes]];
     for(int i = 0; i < 8; i++){
         BaziDayun *dy = [self.Dayun objectAtIndex:i];
-        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@\t", [self getTianGan:dy.YearTG], [self getDiZhi:dy.YearDZ]] attributes:redAttributes]];
+        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@\t", GetTianGan(dy.YearTG), GetDiZhi(dy.YearDZ)] attributes:redAttributes]];
     }
 
     //line 22 岁
@@ -244,12 +438,12 @@
                 BaziDayun *dy = [self.Dayun objectAtIndex:j];
                 int tg = [self detailYearTG:dy.Begin + i];
                 int dz = [self detailYearDZ:dy.Begin + i];
-                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", [self getTianGan:tg]] attributes:textAttributes]];
+                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", GetTianGan(tg)] attributes:textAttributes]];
                 if(dz == self.XunKong0
                    || dz == self.XunKong1){
-                    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getDiZhi:dz]] attributes:pinkAttributes]];
+                    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetDiZhi(dz)] attributes:pinkAttributes]];
                 }else{
-                    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", [self getDiZhi:dz]] attributes:textAttributes]];
+                    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetDiZhi(dz)] attributes:textAttributes]];
                 }
                 
             }
@@ -290,17 +484,8 @@
     return [[arr objectAtIndex:y] intValue];
 }
 
-- (NSString *)getShiShen:(NSInteger)tag{
-    return [__ShiShen objectAtIndex:tag];
-}
-
 - (NSString *)getZiWeiChangSheng:(NSInteger)tag{
     return [__ZiWeiChangSheng objectAtIndex:tag];
-}
-
-- (NSString *)getShiChenByTg:(NSInteger)tg1 and:(NSInteger)tg2{
-    int shichen = __WuXing[tg1][tg2];
-    return [__ShiShen objectAtIndex:shichen];
 }
 
 - (NSString *)getAllDayTimeSpan:(long)time{
@@ -310,27 +495,12 @@
     return [NSString stringWithFormat:@"%4d天%2d小时%2d分钟", day, hour, min];
 }
 
-- (NSString *)getTianGan:(NSInteger)tag{
-    return [__TianGan objectAtIndex:tag];
-}
-
-- (NSString *)getDiZhi:(NSInteger)tag{
-    return [__DiZhi objectAtIndex:tag];
-}
-
 - (NSString *)getNayin:(NSInteger)tag{
     return [__Nayin objectForKey:[NSNumber numberWithInteger:tag]];
-}
-
-- (NSString *)getNongliMonth:(NSInteger)tag{
-    return [__NongliMonth objectForKey:[NSNumber numberWithInteger:tag]];
-}
-
-- (NSString *)getNongliDay:(NSInteger)tag{
-    return [__NongliDay objectAtIndex:tag];
 }
 
 - (NSString *)getJieQi:(NSInteger)tag{
     return [__AllJieQi objectAtIndex:tag];
 }
 @end
+
