@@ -34,7 +34,7 @@ static CGFloat kBarItemWidth = 64;
     if(self.selected == sender.tag){
         return;
     }
-    self.selected = sender.tag;
+    self.selected = (int)sender.tag;
     if([self.delegate respondsToSelector:@selector(toolBarDidChange:)]){
         [self.delegate toolBarDidChange:(emModule)sender.tag];
     }

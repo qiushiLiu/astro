@@ -8,8 +8,8 @@
 
 #import "Paipan.h"
 
-NSString* GetTianGan(NSInteger tag) { return [__TianGan objectAtIndex:tag];}
-NSString* GetDiZhi(NSInteger tag){ return [__DiZhi objectAtIndex:tag];}
+NSString* GetTianGan(NSInteger tag) { return [__TianGan objectAtIndex:(tag%10)];}
+NSString* GetDiZhi(NSInteger tag){ return [__DiZhi objectAtIndex:(tag%12)];}
 NSString* GetNongliMonth(NSInteger tag){ return [__NongliMonth objectForKey:[NSNumber numberWithInteger:tag]]; }
 NSString* GetNongliDay(NSInteger tag){ return [__NongliDay objectAtIndex:tag]; }
 NSString* GetShiShen(NSInteger tag){ return [__ShiShen objectAtIndex:tag]; }

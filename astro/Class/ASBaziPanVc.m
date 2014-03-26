@@ -53,58 +53,59 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self showWaiting];
-//    [self.astro load:@"pp/TimeToAstro" params:nil];
-    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
+    [self.astro load:@"pp/TimeToAstro" params:nil];
+//    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
 //    [self.mod load:@"pp/TimeToBaZi" params:nil];
 }
 
 - (void)modelLoadFinished:(ASObject *)sender{
     [super modelLoadFinished:sender];
-//    self.pan.image = [self.ziwei paipan];
-//    self.pan.size = self.pan.image.size;
+    self.pan.image = [self.astro paipan];
+    self.pan.size = self.pan.image.size;
     
-    self.panCenter.image = [self.ziwei centerImage:self.lxTag];
-    if(self.lxTag){
-        self.panCenter.origin = CGPointMake(__LxCellSize.width, __LxCellSize.height);
-    }else{
-        self.panCenter.origin = CGPointMake(__CellSize.width, __CellSize.height);
-    }
-    self.panCenter.size = self.panCenter.image.size;
-    [self.contentView bringSubviewToFront:self.panCenter];
-    
-    self.contentView.contentSize = CGSizeMake(self.contentView.width, 560);
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_paipan"]];
-    
-    for(int i = 0; i < 12; i++){
-        ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:self.ziwei index:i lx:self.lxTag];
-        gd.tag = i + 100;
-        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
-        [self.gongs addObject:gd];
-        [self.contentView addSubview:gd];
-    }
-    
-    //星旺宫
-    for(int i = 0; i < [self.ziwei.Xing count]; i++){
-        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
-            continue;
-        }
-        ZiWeiStar *star = [self.ziwei.Xing objectAtIndex:i];
-        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
-        [gd addStar:star withIndex:i];
-    }
-    
-    if(self.lxTag){
-        //流耀
-        for(int i = 0; i < 7; i++){
-            int gong = [[self.ziwei.YunYao objectAtIndex:i] intValue];
-            ASZiWeiGrid *gd = [self.gongs objectAtIndex:gong];
-            [gd addYunYao:i];
-            
-            gong = [[self.ziwei.LiuYao objectAtIndex:i] intValue];
-            gd = [self.gongs objectAtIndex:gong];
-            [gd addLiuYao:i];
-        }
-    }
+    //紫薇
+//    self.panCenter.image = [self.ziwei centerImage:self.lxTag];
+//    if(self.lxTag){
+//        self.panCenter.origin = CGPointMake(__LxCellSize.width, __LxCellSize.height);
+//    }else{
+//        self.panCenter.origin = CGPointMake(__CellSize.width, __CellSize.height);
+//    }
+//    self.panCenter.size = self.panCenter.image.size;
+//    [self.contentView bringSubviewToFront:self.panCenter];
+//    
+//    self.contentView.contentSize = CGSizeMake(self.contentView.width, 560);
+//    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_paipan"]];
+//    
+//    for(int i = 0; i < 12; i++){
+//        ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:self.ziwei index:i lx:self.lxTag];
+//        gd.tag = i + 100;
+//        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.gongs addObject:gd];
+//        [self.contentView addSubview:gd];
+//    }
+//    
+//    //星旺宫
+//    for(int i = 0; i < [self.ziwei.Xing count]; i++){
+//        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
+//            continue;
+//        }
+//        ZiWeiStar *star = [self.ziwei.Xing objectAtIndex:i];
+//        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
+//        [gd addStar:star withIndex:i];
+//    }
+//    
+//    if(self.lxTag){
+//        //流耀
+//        for(int i = 0; i < 7; i++){
+//            int gong = [[self.ziwei.YunYao objectAtIndex:i] intValue];
+//            ASZiWeiGrid *gd = [self.gongs objectAtIndex:gong];
+//            [gd addYunYao:i];
+//            
+//            gong = [[self.ziwei.LiuYao objectAtIndex:i] intValue];
+//            gd = [self.gongs objectAtIndex:gong];
+//            [gd addLiuYao:i];
+//        }
+//    }
     
     [self hideWaiting];
 }
@@ -119,7 +120,7 @@
 }
 
 - (void)changeTag:(NSInteger)begin on:(BOOL)on{
-    int i = begin - 100;
+    NSInteger i = begin - 100;
     ASZiWeiGrid *item = (ASZiWeiGrid *)[self.contentView viewWithTag:i + 100];
     ASZiWeiGrid *item4 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 4)%12 + 100];
     ASZiWeiGrid *item6 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 6)%12 + 100];

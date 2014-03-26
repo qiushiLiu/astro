@@ -106,7 +106,7 @@
     
     unsigned char result[CC_MD5_DIGEST_LENGTH];  
     
-    CC_MD5(src, strlen(src), result);  
+    CC_MD5(src, (int)strlen(src), result);
     
     return [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];  
 }  

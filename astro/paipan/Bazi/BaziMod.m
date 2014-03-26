@@ -38,12 +38,12 @@
 - (id)initWithDateEntity:(DateEntity *)entity{
     if (self = [super init]) {
         self.BirthTime = [entity copy];
-        int year = self.BirthTime.Date.year;
-        int mon = self.BirthTime.Date.month;
-        int day = self.BirthTime.Date.day;
-        int hour = self.BirthTime.Date.hour;
+        NSInteger year = self.BirthTime.Date.year;
+        NSInteger mon = self.BirthTime.Date.month;
+        NSInteger day = self.BirthTime.Date.day;
+        NSInteger hour = self.BirthTime.Date.hour;
         
-        int daytemp = day;
+        NSInteger daytemp = day;
         if(hour == 23)
         {
             daytemp--;
@@ -54,11 +54,11 @@
         self.HourTG = _GetHourTG(self.DayTG, hour);
         self.HourDZ = _GetHourDZ(hour);
         
-        int montemp = [self checkMon:self.BirthTime];
+        NSInteger montemp = [self checkMon:self.BirthTime];
         self.MonthTG = _GetMonthTG(year, montemp);
         self.MonthDZ = _GetMonthDZ(montemp);
         
-        int yeartemp = [self checkYear:self.BirthTime];
+        NSInteger yeartemp = [self checkYear:self.BirthTime];
         self.YearTG = _GetYearTG(yeartemp);
         self.YearDZ = _GetYearDZ(yeartemp);
         
@@ -73,21 +73,21 @@
 }
 
 #pragma mark - Year Month Day TG & DZ
-int _GetDayTG(int year, int mon, int day){
-    int c = year / 100;
-    int y = year % 100;
+int _GetDayTG(NSInteger year, NSInteger mon, NSInteger day){
+    NSInteger c = year / 100;
+    NSInteger y = year % 100;
     if(mon <= 2){
         mon = mon + 12;
         y = y - 1;
     }
-    int tmp = 4 * c + (c / 4) + 5 * y + (y / 4) + (3 * (mon + 1) / 5) + day - 4;
+    NSInteger tmp = 4 * c + (c / 4) + 5 * y + (y / 4) + (3 * (mon + 1) / 5) + day - 4;
     return tmp % 10;
 }
 
-int _GetDayDZ(int year, int mon, int day){
-    int c = year / 100;
-    int y = year % 100;
-    int i = 0;
+NSInteger _GetDayDZ(NSInteger year, NSInteger mon, NSInteger day){
+    NSInteger c = year / 100;
+    NSInteger y = year % 100;
+    NSInteger i = 0;
     if(mon <= 2){
         mon = mon + 12;
         y = y - 1;
@@ -95,37 +95,37 @@ int _GetDayDZ(int year, int mon, int day){
     if(mon % 2 == 0){
         i = 6;
     }
-    int tmp = 8 * c + (c / 4) + 5 * y + (y / 4) + (3 * (mon + 1) / 5) + day + i + 6;
+    NSInteger tmp = 8 * c + (c / 4) + 5 * y + (y / 4) + (3 * (mon + 1) / 5) + day + i + 6;
     return tmp % 12;
 }
 
-int _GetHourTG(int dayTG, int hour){
+NSInteger _GetHourTG(NSInteger dayTG, NSInteger hour){
     int flag = dayTG % 5 * 2;
     return (flag + (hour + 1)/2)%10;
 }
 
-int _GetHourDZ(int hour){
+NSInteger _GetHourDZ(NSInteger hour){
     return (hour + 1) / 2 % 12;
 }
 
-int _GetMonthTG(int year, int mon){
+NSInteger _GetMonthTG(NSInteger year, NSInteger mon){
     return (year * 12 + mon + 2) % 10;
 }
 
-int _GetMonthDZ(int mon){
+NSInteger _GetMonthDZ(NSInteger mon){
     return mon % 12;
 }
 
-int _GetYearTG(int year){
+NSInteger _GetYearTG(NSInteger year){
     return  (year + 6) % 10;
 }
 
-int _GetYearDZ(int year){
+NSInteger _GetYearDZ(NSInteger year){
     return (year + 8) % 12;
 }
 
-- (int)checkMon:(DateEntity *)entity{
-    int mon = entity.Date.month;
+- (NSInteger)checkMon:(DateEntity *)entity{
+    NSInteger mon = entity.Date.month;
     if(entity.Date < entity.BeginMonth[mon - 1]){
         mon--;
     }
@@ -135,8 +135,8 @@ int _GetYearDZ(int year){
     return mon;
 }
 
-- (int)checkYear:(DateEntity *)entity{
-    int year = entity.Date.year;
+- (NSInteger)checkYear:(DateEntity *)entity{
+    NSInteger year = entity.Date.year;
     if(entity.Date < entity.BeginMonth[1]){
         year--;
     }
@@ -224,8 +224,8 @@ int _GetYearDZ(int year){
 }
 
 #define __wsbegin @[@11, @6, @2, @9, @2, @9, @5, @0, @8, @3]
-int _GetWangShuai(int source, int riyuan){
-    int begin = [[__wsbegin objectAtIndex:riyuan] intValue];
+NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
+    NSInteger begin = [[__wsbegin objectAtIndex:riyuan] intValue];
     if(riyuan % 2 == 0){    //阳干
         return (source - begin + 12) % 12;
     }else{
@@ -365,7 +365,7 @@ int _GetWangShuai(int source, int riyuan){
     for(int j = 0; j < 3; j++){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t"]];
         for(int i = 0; i < 4; i++){
-            int cg = [self getCangGanByX:i andY:j];
+            NSInteger cg = [self getCangGanByX:i andY:j];
             if(!(j != 0 && cg == 0)){
                 [ret appendAttributedString:[[NSAttributedString alloc] initWithString:GetTianGan(cg) attributes:textAttributes]];
                 [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetShiChenByTg(cg,self.DayTG)] attributes:blueAttributes]];
@@ -418,14 +418,14 @@ int _GetWangShuai(int source, int riyuan){
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\t " attributes:prefixAttributes]];
     for(int i = 0; i < 8; i++){
         BaziDayun *dy = [self.Dayun objectAtIndex:i];
-        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d岁\t", dy.Begin - self.BirthTime.Date.year] attributes:textAttributes]];
+        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld岁\t", dy.Begin - self.BirthTime.Date.year] attributes:textAttributes]];
     }
 
     if(true){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n始于:\t" attributes:prefixAttributes]];
         for(int i = 0; i < 8; i++){
             BaziDayun *dy = [self.Dayun objectAtIndex:i];
-            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\t", dy.Begin] attributes:blueAttributes]];
+            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\t", dy.Begin] attributes:blueAttributes]];
         }
         
         //流年
@@ -436,8 +436,8 @@ int _GetWangShuai(int source, int riyuan){
             }
             for(int j = 0; j < 8; j++){
                 BaziDayun *dy = [self.Dayun objectAtIndex:j];
-                int tg = [self detailYearTG:dy.Begin + i];
-                int dz = [self detailYearDZ:dy.Begin + i];
+                NSInteger tg = [self detailYearTG:dy.Begin + i];
+                NSInteger dz = [self detailYearDZ:dy.Begin + i];
                 [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", GetTianGan(tg)] attributes:textAttributes]];
                 if(dz == self.XunKong0
                    || dz == self.XunKong1){
@@ -453,16 +453,9 @@ int _GetWangShuai(int source, int riyuan){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"止于:\t" attributes:prefixAttributes]];
         for(int i = 0; i < 8; i++){
             BaziDayun *dy = [self.Dayun objectAtIndex:i];
-            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\t", dy.End] attributes:blueAttributes]];
+            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld\t", dy.End] attributes:blueAttributes]];
         }
     }
-    
-    //line space
-//    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-//    [paragraphStyle setLineSpacing:8] ;
-//    paragraphStyle.minimumLineHeight = 8;
-//    paragraphStyle.maximumLineHeight = 10;
-//    [ret addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, ret.length)];
     
     [ret drawAtPoint:CGPointMake(10, 6)];
     
@@ -471,11 +464,11 @@ int _GetWangShuai(int source, int riyuan){
     return image;
 }
 
-- (NSInteger)detailYearTG:(int)year{
+- (NSInteger)detailYearTG:(NSInteger)year{
     return (year + 6) % 10;
 }
 
-- (NSInteger)detailYearDZ:(int)year{
+- (NSInteger)detailYearDZ:(NSInteger)year{
     return (year + 8) % 12;
 }
 
@@ -489,10 +482,10 @@ int _GetWangShuai(int source, int riyuan){
 }
 
 - (NSString *)getAllDayTimeSpan:(long)time{
-    int day = time / D_DAY;
-    int hour = (time % D_DAY)/D_HOUR;
-    int min = (time % D_DAY % D_HOUR)/D_MINUTE;
-    return [NSString stringWithFormat:@"%4d天%2d小时%2d分钟", day, hour, min];
+    NSInteger day = time / D_DAY;
+    NSInteger hour = (time % D_DAY)/D_HOUR;
+    NSInteger min = (time % D_DAY % D_HOUR)/D_MINUTE;
+    return [NSString stringWithFormat:@"%4ld天%2ld小时%2ld分钟", day, hour, min];
 }
 
 - (NSString *)getNayin:(NSInteger)tag{

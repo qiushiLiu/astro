@@ -25,6 +25,8 @@
 @property (nonatomic, strong) UILabel *lbLiuGong;
 //当令
 @property (nonatomic, strong) UILabel *lbTransit;
+
+@property (nonatomic) UIEdgeInsets edge;
 @end
 
 @implementation ASZiWeiGrid
@@ -32,7 +34,6 @@
 static NSMutableArray *cellAuchor = nil;
 static NSMutableArray *lxCellAuchor = nil;
 static NSMutableParagraphStyle *style = nil;
-
 - (void)createStatic{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -81,8 +82,8 @@ static NSMutableParagraphStyle *style = nil;
         style = [[NSMutableParagraphStyle alloc] init];
         style.lineBreakMode = NSLineBreakByWordWrapping;
         style.alignment = NSTextAlignmentCenter;
-        style.minimumLineHeight = __FontSize;
-        style.maximumLineHeight = __FontSize;
+        style.minimumLineHeight = __FontSize.height;
+        style.maximumLineHeight = __FontSize.height;
     });
 }
 
@@ -94,6 +95,7 @@ static NSMutableParagraphStyle *style = nil;
     if (self) {
         [self createStatic];
         // Initialization code
+        self.edge = UIEdgeInsetsMake(4, 4, 6, 4);
         self.backgroundColor = [UIColor clearColor];
         self.rAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorRed,NSParagraphStyleAttributeName : style};
         self.wAttribute = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:__TextFont], NSForegroundColorAttributeName : [UIColor whiteColor], NSParagraphStyleAttributeName : style};
@@ -113,7 +115,7 @@ static NSMutableParagraphStyle *style = nil;
         }
         
         CGFloat centerX = self.width/2 + 5;
-        CGFloat bottom = self.height - 4;
+        CGFloat bottom = self.height - self.edge.bottom - 0.5;
         if(self.lx){
             self.lbLiuGong = [self newLabel];
             self.lbLiuGong.centerX = centerX;
@@ -156,7 +158,7 @@ static NSMutableParagraphStyle *style = nil;
         
         NSMutableAttributedString *tran = nil;
         if(self.gong.TransitA > 0){
-            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02d-%02d", self.gong.TransitA, self.gong.TransitB]];
+            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02ld-%02ld", self.gong.TransitA, self.gong.TransitB]];
             [tran addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:__TextFont],
                                   NSParagraphStyleAttributeName : style,
                                   NSForegroundColorAttributeName : ZWColorGray,
@@ -206,7 +208,7 @@ static NSMutableParagraphStyle *style = nil;
 }
 
 - (UILabel *)newLabel{
-    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, __FontSize * 3, __FontSize)];
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, __FontSize.width * 3, __FontSize.height)];
     lb.backgroundColor = [UIColor clearColor];
     lb.font = [UIFont systemFontOfSize:__TextFont];
     lb.textAlignment = NSTextAlignmentCenter;
@@ -216,8 +218,10 @@ static NSMutableParagraphStyle *style = nil;
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     NSDictionary *bAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : [UIColor blackColor],NSParagraphStyleAttributeName : style};
+    NSDictionary *blAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorBlue, NSParagraphStyleAttributeName : style};
     NSDictionary *xAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorXiao,NSParagraphStyleAttributeName : style};
     NSDictionary *wAttribute = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:__TextFont], NSForegroundColorAttributeName : [UIColor whiteColor], NSParagraphStyleAttributeName : style};
+    NSDictionary *gAttribute = @{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSForegroundColorAttributeName : ZWColorGreen,NSParagraphStyleAttributeName : style};
     NSArray *hsColor = @[ZWColorRed, ZWColorGreen, ZWColorBlue];
     
     NSInteger line = 0;
@@ -240,27 +244,27 @@ static NSMutableParagraphStyle *style = nil;
             cl = ZWColorXiao;
         }
         if(i < __LineCount){
-            p.x = self.width - 1.5 - __FontSize * (i + 1);
-            p.y = 2;
+            p.x = self.width - self.edge.right - __FontSize.width * (i + 1);
+            p.y = self.edge.top;
             NSMutableAttributedString *miaoWang = [[NSMutableAttributedString alloc] initWithString:[__ZiWeiMiaowang objectAtIndex:star.Wang]];
             if([miaoWang length] > 0){
                 [miaoWang addAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont],
                                           NSForegroundColorAttributeName : [UIColor blackColor],
                                           NSParagraphStyleAttributeName : style,
                                           } range:NSMakeRange(0, miaoWang.length)];
-                [miaoWang drawInRect:CGRectMake(p.x, p.y + __FontSize * 2, __FontSize, __FontSize)];
+                [miaoWang drawInRect:CGRectMake(p.x, p.y + __FontSize.height * 2, __FontSize.width, __FontSize.height)];
             }
             
             NSArray *hs = @[@(star.Hua), @(star.YunHua), @(star.LiuHua)];
-            int huaCount = self.lx ? [hs count] : 1;
+            NSInteger huaCount = self.lx ? [hs count] : 1;
             for(int j = 0; j < huaCount; j++){
                 NSString *huaStr = [__ZiWeiSihua objectAtIndex:[[hs objectAtIndex:j] intValue]];
                 if([huaStr length] == 0){
                     continue;
                 }
-                linemax = 6 - i;
+                linemax = 6 - i + 1;
                 NSMutableAttributedString *ret = [[NSMutableAttributedString alloc] initWithString:huaStr attributes:wAttribute];
-                CGRect rect = CGRectMake(p.x, p.y + __FontSize * (3 + j), __FontSize, __FontSize);
+                CGRect rect = CGRectMake(p.x, p.y + __FontSize.height * (3 + j), __FontSize.width, __FontSize.height);
                 [[hsColor objectAtIndex:j] setFill];
                 UIRectFill(rect);
                 [ret drawInRect:rect];
@@ -275,13 +279,13 @@ static NSMutableParagraphStyle *style = nil;
                     break;
                 }
             }
-            p.x = 1.5 + __FontSize * (i - linebegin);
+            p.x = self.edge.left + __FontSize.width * (i - linebegin);
             if(line == 0){
-                p.y = 2;
+                p.y = self.edge.top;
             }else if(line == 1){
-                p.y = 2 + __FontSize * 3;
+                p.y = self.edge.top + __FontSize.height * 3;
             }else if(line == 2){
-                p.y = 2 + __FontSize * 5;
+                p.y = self.edge.top + __FontSize.height * 5;
             }
         }
         NSMutableAttributedString *name = [[NSMutableAttributedString alloc] initWithString:GetZiWeiStar(star.StarName)];
@@ -289,38 +293,72 @@ static NSMutableParagraphStyle *style = nil;
                               NSForegroundColorAttributeName : cl,
                               NSParagraphStyleAttributeName : style,
                               } range:NSMakeRange(0, name.length)];
-        [name drawInRect:CGRectMake(p.x, p.y, __FontSize, __FontSize * 2)];
+        [name drawInRect:CGRectMake(p.x, p.y, __FontSize.width, __FontSize.height * 2)];
     }
     
-    p = CGPointMake(1.5, self.height - 4);
+    p = CGPointMake(self.edge.left, self.height - self.edge.bottom);
     // (月) 将前 太岁 博士
     NSAttributedString *boShi = [[NSAttributedString alloc] initWithString:[__ZiWeiBoShi objectAtIndex:self.gong.BoShi] attributes:bAttribute];
     NSAttributedString *taiSui = [[NSAttributedString alloc] initWithString:[__ZiWeiTaiSui objectAtIndex:self.gong.TaiSui] attributes:bAttribute];
     NSAttributedString *jianQian = [[NSAttributedString alloc] initWithString:[__ZiWeiJiangQian objectAtIndex:self.gong.JiangQian] attributes:bAttribute];
-    [jianQian drawInRect:CGRectMake(p.x, p.y - 3 * __FontSize, __FontSize * 2, __FontSize)];
-    [taiSui drawInRect:CGRectMake(p.x , p.y - 2 * __FontSize, __FontSize * 2, __FontSize)];
-    [boShi drawInRect:CGRectMake(p.x, p.y - __FontSize, __FontSize * 2, __FontSize)];
+    [jianQian drawInRect:CGRectMake(p.x, p.y - 3 * __FontSize.height, __FontSize.width * 2, __FontSize.height)];
+    [taiSui drawInRect:CGRectMake(p.x , p.y - 2 * __FontSize.height, __FontSize.width * 2, __FontSize.height)];
+    [boShi drawInRect:CGRectMake(p.x, p.y - __FontSize.height, __FontSize.width * 2, __FontSize.height)];
     if(self.lx){
         NSMutableString *str = [[NSMutableString alloc] initWithString:GetNongliMonth((self.gongIndex - self.ziwei.LiuYueGong + 12) % 12 + 1)];
         if([str length] == 1){
             [str appendString:@"月"];
         }
         NSAttributedString *yue = [[NSAttributedString alloc] initWithString:str attributes:xAttribute];
-        [yue drawInRect:CGRectMake(p.x, p.y - 4 * __FontSize, __FontSize * 2, __FontSize)];
+        [yue drawInRect:CGRectMake(p.x, p.y - 4 * __FontSize.height, __FontSize.width * 2, __FontSize.height)];
     }
     
-    p = CGPointMake(self.width - 2 - __FontSize, self.height - 4);
+    p.x = self.width - self.edge.right - __FontSize.width;
     //天干地支
     //长生
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", [__TianGan objectAtIndex:self.gong.TG], [__DiZhi objectAtIndex:self.gong.DZ], [__ZiWeiChangSheng objectAtIndex:self.gong.ChangSheng]]];
-    [str addAttributes:bAttribute range:NSMakeRange(0, 2)];
-    [str addAttributes:xAttribute range:NSMakeRange(2, str.length - 2)];
-    [str drawInRect:CGRectMake(p.x, p.y - str.length * __FontSize, __FontSize, __FontSize * str.length)];
+    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+    ps.lineBreakMode = NSLineBreakByWordWrapping;
+    ps.alignment = NSTextAlignmentCenter;
+    ps.minimumLineHeight = __FontSize.height;
+    ps.maximumLineHeight = __FontSize.height;
+    
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", [__TianGan objectAtIndex:self.gong.TG], [__DiZhi objectAtIndex:self.gong.DZ], [__ZiWeiChangSheng objectAtIndex:self.gong.ChangSheng]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:__TextFont], NSParagraphStyleAttributeName : ps}];
+    [str addAttributes:@{NSForegroundColorAttributeName : ZWColorXiao} range:NSMakeRange(2, str.length - 2)];
+    [str drawInRect:CGRectMake(p.x, p.y - str.length * __FontSize.height, __FontSize.width, __FontSize.height * str.length)];
+    
+    if(self.lx){
+        CGPoint plx = CGPointMake(p.x, p.y - __FontSize.height * 6);
+        int count = 0;
+        for(int i = 0; i < [self.liuYao count] || i < [self.yunYao count]; i++){
+            if(i < [self.liuYao count]){
+                if(count == 4){
+                    break;
+                }
+                str = [[NSMutableAttributedString alloc] initWithString:[self.liuYao objectAtIndex:i] attributes:gAttribute];
+                [str drawInRect:CGRectMake(plx.x, plx.y, __FontSize.width, __FontSize.height * 2)];
+                plx.x -= __FontSize.width;
+                count++;
+            }
+            if(i < [self.yunYao count]){
+                if(count == 4){
+                    break;
+                }
+                str = [[NSMutableAttributedString alloc] initWithString:[self.yunYao objectAtIndex:i] attributes:blAttribute];
+                [str drawInRect:CGRectMake(plx.x, plx.y, __FontSize.width, __FontSize.height * 2)];
+                plx.x -= __FontSize.width;
+                count++;
+            }
+        }
+    }
     
     //边框
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(ctx, 1.5);
     CGContextSetStrokeColorWithColor(ctx, ASColorDarkGray.CGColor);
+    if(self.gongIndex >=3 && self.gongIndex <= 6){
+        CGContextMoveToPoint(ctx, 0, 0);
+        CGContextAddLineToPoint(ctx, self.width, 0);
+    }
     CGContextMoveToPoint(ctx, self.width, 0);
     CGContextAddLineToPoint(ctx, self.width, self.height);
     CGContextAddLineToPoint(ctx, 0, self.height);

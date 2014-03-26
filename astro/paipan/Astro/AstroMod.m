@@ -37,6 +37,10 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
 {
     [self initDrawData];
     
+    if([self.__gong count] != 12){
+        return nil;
+    }
+    
     UIGraphicsBeginImageContextWithOptions(_Size, YES, 0);
     [[UIColor blackColor] setFill];
     UIRectFill(CGRectMake(0, 0, _Size.width, _Size.height));
@@ -61,7 +65,6 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paragraphStyle.alignment = NSTextAlignmentCenter;
-    
     
     //12宫
     for(int i = 0; i < 12; i++){
@@ -126,6 +129,15 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         }else{
             [self drawSeparated:ctx degree:(self.__constellationStart + i) from:r1 to:r2 lineWidth:0.3];
         }
+        if(i % 30 == 15){
+            int cons = i/30 + 1;
+            UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_cons_%d", cons]];
+            CGSize iSize = CGSizeMake(16, 16);
+            CGFloat cr = (r1 + r0)*0.5;
+            CGPoint ct = [[self class] pointByRadius:cr andDegree:(self.__constellationStart + i)];
+            [icon drawInRect:CGRectMake(ct.x - iSize.width/2, ct.y - iSize.height/2, iSize.width, iSize.height)];
+        }
+        
     }
     
     //星图
@@ -138,6 +150,9 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         degree = fmodf(degree, 360.0);
         CGPoint center = [[self class] pointByRadius:r4 andDegree:degree];
         [self drawArc:ctx center:center radius:1 color:UIColorFromRGB(0xee1100)];
+        
+        
+        
         [st addObject:@(degree)];
     }
     //象限
@@ -152,30 +167,30 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
             
             UIColor *cl = nil;
             CGFloat dd = -1 ;
-            if(2*fabs(delta - 0.0) <= 6.0){
+            if(2*fabs(delta - 0.0) <= 10.0){
                 cl = [UIColor yellowColor];
                 dd = fabs(delta - 0.0);
             }
-            else if(2*fabs(delta - 180.0) <= 5.0){
+            else if(2*fabs(delta - 180.0) <= 10.0){
                 cl = [UIColor blueColor];
                 dd = fabs(delta - 180.0);
             }
-            else if(2*fabs(delta - 90.0) <= 5.0){
-                cl = [UIColor greenColor];
+            else if(2*fabs(delta - 90.0) <= 10.0){
+                cl = [UIColor redColor];
                 dd = fabs(delta - 90.0);
             }
-            else if(2*fabs(delta - 120.0) <= 5.0){
-                cl = [UIColor redColor];
+            else if(2*fabs(delta - 120.0) <= 10.0){
+                cl = [UIColor greenColor];
                 dd = fabs(delta - 120.0);
             }
-            else if(2*fabs(delta - 60.0) <= 3.0){
+            else if(2*fabs(delta - 60.0) <= 10.0){
                 cl = [UIColor cyanColor];
                 dd = fabs(delta - 60.0);
             }
             
             if(dd >= 0){
                 if(dd > 0){
-//                    dd = dd * 2;
+                    dd = dd * 0.5;
                     CGFloat dash[] = {dd, dd};
                     CGContextSetLineDash(ctx, 0, dash, 2);
                 }
@@ -184,7 +199,6 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
             }
         }
     }
-    
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -207,7 +221,7 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
 - (void)drawStarLine:(CGContextRef)ctx radius:(CGFloat)radius from:(CGFloat)fd to:(CGFloat)td{
     CGPoint begin = [[self class] pointByRadius:radius andDegree:fd];
     CGPoint end = [[self class] pointByRadius:radius andDegree:td];
-    CGContextSetLineWidth(ctx, 0.8);
+    CGContextSetLineWidth(ctx, 1.0);
     CGContextMoveToPoint(ctx, begin.x, begin.y);
     CGContextAddLineToPoint(ctx, end.x, end.y);
     CGContextStrokePath(ctx);
@@ -238,12 +252,14 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     for(int i = 20; i < 31; i++){
         AstroStar *star = [self.Stars objectAtIndex:i];
         AstroStar *starNext = [self.Stars objectAtIndex:i + 1];
-        
+        if([star isEqual:[NSNull null]] || [starNext isEqual:[NSNull null]]){
+            continue;
+        }
         if(i == 20){
             self.__constellationStart = last - (star.Constellation - 1)*_ConstellationDegree - star.DegreeHD;
         }
         
-        int cc = 0;
+        NSInteger cc = 0;
         if(starNext.Constellation >= star.Constellation){
             cc = starNext.Constellation - star.Constellation;
         }else{

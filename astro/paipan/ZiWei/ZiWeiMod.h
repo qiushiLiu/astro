@@ -23,8 +23,8 @@
 #define __LxCellSize CGSizeMake(80, 140)
 #define __CellSize CGSizeMake(80, 110)
 #define __LineCount 6
-#define __FontSize 10
-#define __TextFont 9
+#define __FontSize CGSizeMake(12, 10)
+#define __TextFont 10
 #endif
 
 @interface ZiWeiMod : ASObject
