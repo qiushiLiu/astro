@@ -17,4 +17,5 @@
 @property (nonatomic) double Progress;
 
 @property (nonatomic, readonly) CGFloat DegreeHD;
+@property (nonatomic) CGFloat PanDegree;
 @end
