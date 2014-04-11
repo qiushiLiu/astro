@@ -44,6 +44,30 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self showWaiting];
+//    //星盘
+//    [HttpUtil load:@"pp/TimeToAstro" params:nil completion:^(BOOL succ, NSString *message, id json) {
+//        [self hideWaiting];
+//        if(succ){
+//            AstroMod *astro = [[AstroMod alloc] initWithDictionary:json error:NULL];
+//            self.pan.image = [astro paipan];
+//            self.pan.size = self.pan.image.size;
+//
+//        }else{
+//            [self alert:message];
+//        }
+//    }];
+    
+    [HttpUtil load:@"pp/TimeToBaZi" params:nil completion:^(BOOL succ, NSString *message, id json) {
+        [self hideWaiting];
+        if(succ){
+            BaziMod *bazi = [[BaziMod alloc] initWithDictionary:json error:NULL];
+            self.pan.image = [bazi paipan];
+            self.pan.size = self.pan.image.size;
+        }else{
+            [self alert:message];
+        }
+    }];
+    
 //    [self.astro load:@"pp/TimeToAstro" params:nil];
 //    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
 //    [self.mod load:@"pp/TimeToBaZi" params:nil];
@@ -53,7 +77,7 @@
 //    [super modelLoadFinished:sender];
 //    self.pan.image = [self.astro paipan];
 //    self.pan.size = self.pan.image.size;
-    
+
     //紫薇
 //    self.panCenter.image = [self.ziwei centerImage:self.lxTag];
 //    if(self.lxTag){

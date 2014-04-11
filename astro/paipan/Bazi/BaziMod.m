@@ -7,34 +7,11 @@
 //
 
 #import "BaziMod.h"
-#import "BaziDayun.h"
-#import "DateEntity.h"
 #import <CoreText/CoreText.h>
 #import "NSDate+Addition.h"
 #import "Paipan.h"
 
 @implementation BaziMod
-
-+ (Class)classForJsonObjectByKey:(NSString *)key {
-    if([key isEqualToString:@"BirthTime"]){
-        return [DateEntity class];
-    }else if([key isEqualToString:@"JieQi"]){
-        return [NSDate class];
-    }else if([key isEqualToString:@"JiaoYun"]){
-        return [NSDate class];
-    }
-    return nil;
-}
-
-+ (Class)classForJsonObjectsByKey:(NSString *)key {
-    if([key isEqualToString:@"Dayun"]){
-        return [BaziDayun class];
-    } else if([key isEqualToString:@"JieQi"]){
-        return [NSDate class];
-    }
-    return nil;
-}
-
 - (id)initWithDateEntity:(DateEntity *)entity{
     if (self = [super init]) {
         self.BirthTime = [entity copy];
@@ -473,7 +450,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
 }
 
 - (NSInteger)getCangGanByX:(NSInteger)x andY:(NSInteger)y{
-    NSMutableArray *arr = [self.CangGanShow objectAtIndex:x];
+    NSMutableArray *arr = self.CangGanShow[x];
     return [[arr objectAtIndex:y] intValue];
 }
 

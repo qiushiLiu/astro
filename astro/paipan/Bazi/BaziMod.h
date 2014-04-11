@@ -7,6 +7,8 @@
 //
 
 #import "DateEntity.h"
+#import "BaziDayun.h"
+#import "DateEntity.h"
 
 @interface BaziMod : JSONModel
 @property (nonatomic, strong) NSString *Name;
@@ -23,13 +25,13 @@
 @property (nonatomic) NSInteger XunKong1;
 @property (nonatomic) NSInteger YinYang;
 @property (nonatomic) NSInteger Gender;
-@property (nonatomic, strong) NSMutableArray *Dayun;
+@property (nonatomic, strong) NSArray<BaziDayun> *Dayun;
 @property (nonatomic) NSDate *JiaoYun;
 @property (nonatomic) long QiYunShow;
 @property (nonatomic, strong) NSMutableArray *CangGanShow;
-@property (nonatomic, strong) NSMutableArray *NaYin;
-@property (nonatomic, strong) NSMutableArray *WangShuai;
-@property (nonatomic, strong) NSMutableArray *JieQi;
+@property (nonatomic, strong) NSMutableArray<Ignore> *NaYin;
+@property (nonatomic, strong) NSMutableArray<Ignore> *WangShuai;
+@property (nonatomic, strong) NSArray<NSDate> *JieQi;
 @property (nonatomic, strong) NSMutableArray *JieQiName;
 @property (nonatomic) BOOL RealTime;
 @property (nonatomic) NSInteger AreaSysNo;

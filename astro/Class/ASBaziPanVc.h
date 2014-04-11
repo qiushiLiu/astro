@@ -11,9 +11,5 @@
 #import "ZiWeiMod.h"
 #import "AstroMod.h"
 @interface ASBaziPanVc : ASBaseViewController
-@property (nonatomic, strong) BaziMod *bazi;
-@property (nonatomic, strong) ZiWeiMod *ziwei;
-@property (nonatomic, strong) AstroMod *astro;
-
 @property (nonatomic) BOOL lxTag;
 @end

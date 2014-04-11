@@ -18,7 +18,7 @@
     #import "NSString+Addition.h"
     #import "UIView+Layout.h"
     #import "UILabel+VerticalAlign.h"
-
+    #import "NSDate+Addition.h"
     #import "JSONModel.h"
     #import "HttpUtil.h"
     #import "ASAppConst.h"

@@ -6,6 +6,9 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
+@protocol AstroStar
+@end
+
 @interface AstroStar : JSONModel
 @property (nonatomic) NSInteger StarName;
 @property (nonatomic) NSInteger Gong;
@@ -14,7 +17,7 @@
 @property (nonatomic) NSInteger Constellation;
 @property (nonatomic) double Progress;
 
-@property (nonatomic, readonly) CGFloat DegreeHD;
-@property (nonatomic) CGFloat PanDegree;
-@property (nonatomic) CGFloat FixDegree;
+@property (nonatomic, readonly) NSNumber<Ignore> *DegreeHD;
+@property (nonatomic) NSNumber<Ignore> *PanDegree;
+@property (nonatomic) NSNumber<Ignore> *FixDegree;
 @end

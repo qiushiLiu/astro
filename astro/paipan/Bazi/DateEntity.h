@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface DateEntity : NSObject <NSCopying>
+@interface DateEntity : JSONModel <NSCopying>
 @property (nonatomic, strong) NSDate *Date;
-@property (nonatomic, strong) NSMutableArray *BeginMonth;
-@property (nonatomic, strong) NSMutableArray *BeginZodiac;
+@property (nonatomic, strong) NSArray<NSDate> *BeginMonth;
+@property (nonatomic, strong) NSArray<NSDate> *BeginZodiac;
 @property (nonatomic) NSInteger NongliTG;
 @property (nonatomic) NSInteger NongliDZ;
 @property (nonatomic) NSInteger NongliMonth;

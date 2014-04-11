@@ -30,6 +30,10 @@ lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Property Protocols
+@protocol NSDate
+@end
+//@protocol NSArray
+//@end
 /**
  * Protocol for defining properties in a JSON Model class that should not be considered at all
  * neither while importing nor when exporting JSON.

@@ -9,23 +9,6 @@
 #import "DateEntity.h"
 
 @implementation DateEntity
-
-+ (Class)classForJsonObjectByKey:(NSString *)key {
-    if([key isEqualToString:@"Date"]){
-        return [NSDate class];
-    }
-    return nil;
-}
-
-+ (Class)classForJsonObjectsByKey:(NSString *)key {
-    if([key isEqualToString:@"BeginMonth"]){
-        return [NSDate class];
-    } else if([key isEqualToString:@"BeginZodiac"]){
-        return [NSDate class];
-    }
-    return nil;
-}
-
 - (id)copyWithZone:(NSZone *)zone{
     DateEntity *entity = [[[self class] allocWithZone:zone] init];
     [entity setDate:[self.Date copy]];

@@ -316,6 +316,10 @@ static NSString* requestContentType = nil;
 			// So only create the JSON object if there is some response data.
 			if(responseData.length > 0)
 			{
+                if(kAppDebug){
+                    NSString *respStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+                    NSLog(@"%@", respStr);
+                }
 				//convert to an object
 				jsonObject = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
 			}

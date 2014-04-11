@@ -10,8 +10,19 @@
 
 #define CURRENT_CALENDAR [NSCalendar currentCalendar]
 #define DATE_COMPONENTS (NSYearCalendarUnit| NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekCalendarUnit |  NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekdayCalendarUnit | NSWeekdayOrdinalCalendarUnit)
+static NSRegularExpression *regDate;
 
 @implementation NSDate (Addition)
+
++ (void)initialize{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        regDate = [NSRegularExpression regularExpressionWithPattern:@"Date\\((\\d+)\\+\\d+\\)"
+                                                        options:NSRegularExpressionCaseInsensitive
+                                                          error:NULL];
+    });
+}
+
 - (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -22,6 +33,28 @@
     [components setMinute:minute];
     [components setSecond:second];
     return [calendar dateFromComponents:components];
+}
+
++ (NSArray *)dateArrayFromNet:(NSArray *)values{
+    NSMutableArray* list = [NSMutableArray arrayWithCapacity:[values count]];
+    [values enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [list addObject:[self dateFromNet:obj]];
+    }];
+    return list;
+}
+
++ (id)dateFromNet:(NSString *)str{
+    if(str == nil){
+        return nil;
+    }
+    NSArray *matches = [regDate matchesInString:str options:0 range:NSMakeRange(0, [str length])];
+    if([matches count] == 1){
+        NSTextCheckingResult *rs = [matches objectAtIndex:0];
+        NSTimeInterval time = [[str substringWithRange:[rs rangeAtIndex:1]] longLongValue] / 1000;
+        return [NSDate dateWithTimeIntervalSince1970:time];
+    }else{
+        return nil;
+    }
 }
 
 - (NSTimeInterval)compareWithDate:(NSDate *)date{

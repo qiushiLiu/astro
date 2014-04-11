@@ -38,7 +38,6 @@ static NSArray* allowedJSONTypes = nil;
 static NSArray* allowedPrimitiveTypes = nil;
 static JSONValueTransformer* valueTransformer = nil;
 static Class JSONModelClass = NULL;
-
 #pragma mark - model cache
 static JSONKeyMapper* globalKeyMapper = nil;
 
@@ -46,7 +45,6 @@ static JSONKeyMapper* globalKeyMapper = nil;
 @implementation JSONModel
 
 #pragma mark - initialization methods
-
 +(void)load
 {
     static dispatch_once_t once;
@@ -319,8 +317,12 @@ static JSONKeyMapper* globalKeyMapper = nil;
                 
                 //initialize the property's model, store it
                 JSONModelError* initErr = nil;
-                id value = [[property.type alloc] initWithDictionary: jsonValue error:&initErr];
-
+                id value;
+                if(property.type == [NSDate class]){
+                    value = [NSDate dateFromNet:jsonValue];
+                }else{
+                    value = [[property.type alloc] initWithDictionary: jsonValue error:&initErr];
+                }
                 if (!value) {
 					// Propagate the error, including the property name as the key-path component
 					if((err != nil) && (initErr != nil))
@@ -448,6 +450,9 @@ static JSONKeyMapper* globalKeyMapper = nil;
 
 -(BOOL)__isJSONModelSubClass:(Class)class
 {
+    if([NSDate class] == class){
+        return YES;
+    }
 // http://stackoverflow.com/questions/19883472/objc-nsobject-issubclassofclass-gives-incorrect-failure
 #ifdef UNIT_TESTING
     return [@"JSONModel" isEqualToString: NSStringFromClass([class superclass])];
@@ -688,12 +693,16 @@ static JSONKeyMapper* globalKeyMapper = nil;
             } else {
                 //one shot conversion
 				JSONModelError* arrayErr = nil;
-                value = [[protocolClass class] arrayOfModelsFromDictionaries:value error:&arrayErr];
-				if((err != nil) && (arrayErr != nil))
-				{
-					*err = [arrayErr errorByPrependingKeyPathComponent:property.name];
-					return nil;
-				}
+                if([@"NSDate" isEqualToString:property.protocol]){
+                    value = [NSDate dateArrayFromNet:value];
+                }else{
+                    value = [[protocolClass class] arrayOfModelsFromDictionaries:value error:&arrayErr];
+                    if((err != nil) && (arrayErr != nil))
+                    {
+                        *err = [arrayErr errorByPrependingKeyPathComponent:property.name];
+                        return nil;
+                    }
+                }
             }
         }
         
