@@ -6,9 +6,7 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASObject.h"
-
-@interface ASUsr_Customer : ASObject
+@interface ASUsr_Customer : JSONModel
 //@property (nonatomic) NSInteger BestAnswer;
 @property (nonatomic, strong) NSString *BigPhotoShow;
 //@property (nonatomic, strong) NSString *BirthShow;

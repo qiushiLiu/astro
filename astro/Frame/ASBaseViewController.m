@@ -181,16 +181,4 @@
     }
 }
 
-#pragma mark - Model Load Delegate
-- (void)modelBeginLoad:(ASObject *)sender{
-}
-
-- (void)modelLoadFinished:(ASObject *)sender{
-    [self hideWaiting];
-}
-
-- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
-    [self hideWaiting];
-}
-
 @end

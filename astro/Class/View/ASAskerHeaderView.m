@@ -42,9 +42,7 @@
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
             [self.buttons addObject:btn];
-        }
-        [self setSelected:0];
-        
+        }        
     }
     return self;
 }

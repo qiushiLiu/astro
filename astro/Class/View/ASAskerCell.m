@@ -18,14 +18,14 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryNone;
         // Initialization code
-        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 10, 300, 70)];
+        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, 300, 70)];
         self.bgView.backgroundColor = [UIColor whiteColor];
         self.bgView.layer.borderWidth = 1;
         self.bgView.layer.borderColor = [UIColor grayColor].CGColor;
         self.bgView.layer.cornerRadius = 8;
         [self.contentView addSubview:self.bgView];
         
-        self.icon = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 20, 50, 50)];
+        self.icon = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
         [self.contentView addSubview:self.icon];
         
         self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.icon.top, 220, 16)];

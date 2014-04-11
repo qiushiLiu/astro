@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UIButton *btnRegister;
 @property (nonatomic, strong) UIButton *btnForgot;
 
-@property (nonatomic, strong) ASUsr_Customer *modelUser;
 @end
 
 @implementation ASLoginVc
@@ -24,9 +23,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.modelUser = [[ASUsr_Customer alloc] init];
-    self.modelUser.delegate = self;
-    
 	// Do any additional setup after loading the view.
     [self setTitle:@"登录"];
     
@@ -142,9 +138,19 @@
     }
     [self hideKeyboard];
     [self showWaiting];
-    [self.modelUser load:kUrlLogin params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           self.tfName.text, @"uname",
-                                           self.tfPsw.text, @"pwd", nil]];
+    [HttpUtil load:kUrlLogin params:@{@"uname" : self.tfName.text,
+                                      @"pwd" : self.tfPsw.text}
+        completion:^(BOOL succ, NSString *message, id json) {
+            [self hideWaiting];
+            if(succ){
+                ASUsr_Customer *user = [[ASUsr_Customer alloc] initWithDictionary:json error:NULL];
+                [ASGlobal login:user];
+                [self hideKeyboard];
+                [self alert:@"登录成功"];
+            }else{
+                [self alert:message];
+            }
+        }];
 }
 
 - (void)loginByQQ{
@@ -167,21 +173,6 @@
 - (void)goForgotPwd{
     [self hideKeyboard];
     [self navTo:vcForgetPsw];
-}
-
-#pragma mark - Model Load Delegate
-- (void)modelLoadFinished:(ASObject *)sender{
-    [super modelLoadFinished:sender];
-    if(self.modelUser == sender){
-        [ASGlobal login:self.modelUser];
-        [self hideKeyboard];
-        [self alert:@"登录成功"];
-    }
-}
-
-- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
-    [super modelLoadFaild:sender message:msg];
-    [self alert:msg];
 }
 
 #pragma mark - KeyBoardEvent Method

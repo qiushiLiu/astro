@@ -17,3 +17,5 @@ extern NSString * const kUrlGetQQLoginUrl;
 extern NSString * const kUrlGetWeiboLoginUrl;
 extern NSString * const kUrlWeiboLoginByCode;
 extern NSString * const kUrlQQLoginByCode;
+
+extern NSString * const kUrlGetCates;

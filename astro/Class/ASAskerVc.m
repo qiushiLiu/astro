@@ -7,10 +7,11 @@
 //
 
 #import "ASAskerVc.h"
+#import "ASCategory.h"
 #import "ASAskerCell.h"
-#import "ASBaseSingleTableView.h"
 
 @interface ASAskerVc ()
+@property (nonatomic, strong) NSMutableArray *catelist;
 @property (nonatomic, strong) UITextField *tfSearch;
 @property (nonatomic, strong) UITableView *tbList;
 @property (nonatomic, strong) ASAskerHeaderView *header;
@@ -46,7 +47,7 @@
     self.header.delegate = self;
     
     //table
-    self.tbList = [[ASBaseSingleTableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height) style:UITableViewStylePlain];
+    self.tbList = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height) style:UITableViewStylePlain];
     self.tbList.backgroundColor = [UIColor clearColor];
     self.tbList.separatorColor = [UIColor clearColor];
     self.tbList.tableHeaderView = self.header;
@@ -57,6 +58,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.header.selected = 0;
     self.tbList.frame = self.contentView.bounds;
 }
 
@@ -67,14 +69,33 @@
 - (void)btnClick_myTopic:(UIButton *)sender{
 }
 
-#pragma mark - 
+#pragma mark - ASAskerHeaderViewDelegate
 - (void)askerHeaderSelected:(NSInteger)tag{
-
+    int cateId = 0;
+    if(tag == 0){
+        cateId = 1;
+    }else if(tag == 1){
+        cateId = 2;
+    }
+    else{
+        cateId = 17;
+    }
+    NSDictionary *params = @{@"parent" : Int2String(cateId)};
+    [self showWaiting];
+    [HttpUtil http:kUrlGetCates method:emHttpGet params:params timeOut:30 completion:^(BOOL succ, NSString *message, id json) {
+        [self hideWaiting];
+        if(succ){
+            self.catelist = [ASCategory arrayOfModelsFromDictionaries:json];
+            [self.tbList reloadData];
+        }else{
+            [self alert:message];
+        }
+    }];
 }
 
 #pragma mark - UITableView Delegate & Data Source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [self.catelist count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -86,9 +107,12 @@
     if(!cell){
         cell = [[ASAskerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
     }
-    [cell.icon load:@"http://www.ssqian.com/WebResources/IMAGES/icon_zhanxing.jpg" cacheDir:self.pageKey];
-    [cell.lbTitle setText:@"现代占星（200）"];
-    [cell.lbSummary setText:@"占星术是一门古老的学术，因为结合了科学，概念上已经有了新的技术.."];
+    ASCategory *cate = [self.catelist objectAtIndex:indexPath.row];
+    
+    [cell.icon load:cate.Pic cacheDir:self.pageKey];
+    [cell.lbTitle setText:[NSString stringWithFormat:@"%@（%ld）", cate.Name, cate.QuestNum]];
+    [cell.lbSummary setText:[NSString stringWithFormat:@"%@", cate.Intro]];
+    [cell.lbSummary alignTop];
     return cell;
 }
 

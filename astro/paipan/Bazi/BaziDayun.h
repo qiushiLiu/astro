@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BaziDayun : ASObject
+@interface BaziDayun : JSONModel
 @property (nonatomic) NSInteger YearTG;
 @property (nonatomic) NSInteger YearDZ;
 @property (nonatomic) NSInteger ShiShen;

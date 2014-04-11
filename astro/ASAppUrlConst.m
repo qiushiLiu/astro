@@ -17,3 +17,5 @@ NSString * const kUrlGetQQLoginUrl = @"GetQQLoginUrl";
 NSString * const kUrlGetWeiboLoginUrl = @"GetWeiboLoginUrl";
 NSString * const kUrlWeiboLoginByCode = @"WeiboLogin";
 NSString * const kUrlQQLoginByCode = @"QQLogin";
+
+NSString * const kUrlGetCates = @"qa/GetCates";

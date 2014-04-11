@@ -9,66 +9,61 @@
 
 @implementation HttpUtil
 
-+ (HttpUtil *)shared{
-    static HttpUtil *instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[HttpUtil alloc] init];
-    });
-    return instance;
++ (void)load:(NSString *)url params:(NSDictionary *)params completion:(HttpUtilBlock)completeBlock{
+    [self http:url method:emHttpGet params:params timeOut:0 completion:completeBlock];
 }
 
-+ (ASIHTTPRequest *)http:(NSString *)url
-                  method:(emHttpMethod)method
-                  params:(NSMutableDictionary *)params
-                 timeOut:(NSInteger)sec
-                delegate:(id)delegate
-       didFinishSelector:(SEL)didFinishSelector
-         didFailSelector:(SEL)didFailSelector
++ (void)http:(NSString *)url
+      method:(emHttpMethod)method
+      params:(NSDictionary *)params
+     timeOut:(int)sec
+  completion:(HttpUtilBlock)completeBlock
 {
     //开始请求
-    NSString *completeUrl = [self completeQueryString:url params:params];
-    if (kAppDebug) {
-        NSLog(@">>%@", completeUrl);
-    }
+    NSString *completeUrl = [NSString stringWithFormat:@"%@/%@", kAppHost, url];
     
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:completeUrl]];
     //超时时间
     if (sec <= 0) {
-        sec = kDefaultTimeOut;
+        [JSONHTTPClient setTimeoutInSeconds:kDefaultTimeOut];
     }
-    [req setTimeOutSeconds:sec];
-    //启用压缩
-    [req allowCompressedResponse];
-    [req shouldCompressRequestBody];
-    //加密头
-    [req addRequestHeader:kAppVerify value:[self restEcName]];
+    [JSONHTTPClient setTimeoutInSeconds:sec];
+    
     //头部参数
-    [req addRequestHeader:kAppAgent value:[self appAgentStr]];
+    NSMutableDictionary* headers = [JSONHTTPClient requestHeaders];
+    headers[kAppAgent] = [self appAgentStr];
     //token
-//    [req addRequestHeader:kHttpTokenForHeader value:Global.instance.userInfo.token];
+    //    [req addRequestHeader:kHttpTokenForHeader value:Global.instance.userInfo.token];
     //设置data
     if (method == emHttpPost) {
-        if ([params count] > 0) {
-            NSString *postData = [params JSONString];
-            [req addRequestHeader: @"Content-Type" value:@"application/json; charset=utf-8"];
-            [req appendPostData:[postData dataUsingEncoding:NSUTF8StringEncoding]];
+        [JSONHTTPClient setRequestContentType:@"application/json; charset=utf-8"];
+        [JSONHTTPClient JSONFromURLWithString:completeUrl method:@"POST" params:params orBodyString:nil headers:nil completion:^(id json, JSONModelError *err) {
+            [self completionBlock:json error:err completion:completeBlock];
+        }];
+    }else{
+        [JSONHTTPClient JSONFromURLWithString:completeUrl method:@"GET" params:params orBodyString:nil headers:nil completion:^(id json, JSONModelError *err) {
+            [self completionBlock:json error:err completion:completeBlock];
+        }];
+    }
+}
+
++ (void)completionBlock:(id)json error:(JSONModelError *)err completion:(HttpUtilBlock)completeBlock{
+    BOOL succ = NO;
+    NSString *message = nil;
+    id jsonObject = nil;
+    if(err != NULL || json == nil){
+        message = @"系统错误";
+    }else if([json[@"Code"] intValue] != 200){
+        message = json[@"Message"];
+    }else{
+        succ = YES;
+        message = json[@"Message"];
+        jsonObject = json[@"Value"];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (completeBlock) {
+            completeBlock(succ, message, jsonObject);
         }
-    }
-    //ASIHTTPRequest ASIHTTPRequest 有bug 这个不能开启
-    [req setShouldAttemptPersistentConnection:NO];
-    //设置代理
-    [req setDelegate:delegate];
-    //设置选择器
-    if (didFinishSelector) {
-        req.didFinishSelector = didFinishSelector;
-    }
-    if (didFailSelector) {
-        req.didFailSelector = didFailSelector;
-    }
-    //开始异步调用
-    [req startAsynchronous];
-    return req;
+    });
 }
 
 + (NSString *)appAgentStr{
@@ -82,30 +77,6 @@
                     [ASGlobal shared].deviceNumber,
                     kAppChannel
                     ];
-    return re;
-}
-
-
-//完善请求字符串
-+ (NSString *)completeQueryString:(NSString *)url params:(NSMutableDictionary *)params {
-    NSMutableString *result = [NSMutableString string];
-    //循环拼接参数
-    if ([params count] > 0) {
-        ASIFormDataRequest *formDataRequest = [ASIFormDataRequest requestWithURL:nil];
-        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSString *value = [formDataRequest encodeURL:obj];
-            [result appendFormat:@"%@=%@&", key, value];
-        }];
-        [result deleteCharactersInRange:NSMakeRange([result length] - 1, 1)];
-    }
-    //拼接url
-    NSString *re = [url trim];
-    NSRange range = [re rangeOfString:@"?"];
-    if (range.location != NSNotFound) {
-        re = [re stringByAppendingFormat:@"&%@",result];
-    } else {
-        re = [re stringByAppendingFormat:@"?%@",result];
-    }
     return re;
 }
 

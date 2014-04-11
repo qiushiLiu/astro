@@ -6,9 +6,7 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASObject.h"
-
-@interface ZiWeiGong : ASObject
+@interface ZiWeiGong : JSONModel
 @property (nonatomic) NSInteger GongName;
 @property (nonatomic) NSInteger YunGongName;
 @property (nonatomic) NSInteger LiuGongName;

@@ -6,9 +6,7 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASObject.h"
-
-@interface AstroMod : ASObject
+@interface AstroMod : JSONModel
 @property (nonatomic, strong) NSMutableArray *Stars;
 @property (nonatomic) CGFloat __constellationStart;
 

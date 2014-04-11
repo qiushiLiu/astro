@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ASWaitingView.h"
-#import "ASObjectDelegate.h"
-@interface ASBaseViewController : UIViewController<ASWaitingViewDelegate, ASObjectDelegate>
+@interface ASBaseViewController : UIViewController<ASWaitingViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) NSString *pageKey;

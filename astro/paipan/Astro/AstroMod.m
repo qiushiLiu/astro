@@ -147,12 +147,13 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     //画星的中心点
     NSMutableArray *st = [[NSMutableArray alloc] init];
     for (int i = 0; i < [self.Stars count]; i++) {
-        if(i >= 10 && i != 20 /*&& i != 23 && i != 26*/ && i != 29)
+        if(i >= 20 && i != 20 /*&& i != 23 && i != 26*/ && i != 29)
             continue;
         AstroStar *star = [self.Stars objectAtIndex:i];
         CGFloat degree = self.__constellationStart + 30 * (star.Constellation - 1) + star.DegreeHD;
         degree = fmodf(degree, 360.0);
         star.PanDegree = degree;
+        star.FixDegree = degree;
         [st addObject:star];
     }
     
@@ -172,11 +173,11 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
                 AstroStar *lstar = [st objectAtIndex:ee];
                 BOOL tag = NO;
                 if(lastDegree < lstar.PanDegree){
-                    if(360.0 - lstar.PanDegree + lastDegree <= 10.0){
+                    if(360.0 - lstar.PanDegree + lastDegree <= 8.0){
                         tag = YES;
                     }
                 }else{
-                    if(fabs(lastDegree - star.PanDegree) <= 10.0){
+                    if(fabs(lastDegree - star.PanDegree) <= 8.0){
                         tag = YES;
                     }
                 }
@@ -190,7 +191,7 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
             }
             lastDegree = -1;
         }
-        if(lastDegree >= 0 && fabs(lastDegree - star.PanDegree) > 10.0){
+        if(lastDegree >= 0 && fabs(lastDegree - star.PanDegree) > 8.0){
             [self drawGroupStar:ctx group:group radius:r4];
             [group removeAllObjects];
         }
@@ -271,12 +272,12 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         CGFloat degreeFixed = 0;
         NSInteger delta = abs((int)(i - mid));
         if(i < mid){
-            degreeFixed = cc - delta * 8.0;
+            degreeFixed = cc - delta * 4.25;
         }else{
             if(hasCenter){
-                degreeFixed = cc + delta * 8.0;
+                degreeFixed = cc + delta * 4.25;
             }else{
-                degreeFixed = cc + (delta + 1) * 8.0;
+                degreeFixed = cc + (delta + 1) * 4.25;
             }
         }
         AstroStar *star = [group objectAtIndex:i];

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASObject.h"
 #import "DateEntity.h"
 
 #ifndef _ZiWeiMod_H
@@ -27,7 +26,7 @@
 #define __TextFont 10
 #endif
 
-@interface ZiWeiMod : ASObject
+@interface ZiWeiMod : JSONModel
 @property (nonatomic, strong) DateEntity *BirthTime;
 @property (nonatomic, strong) DateEntity *TransitTime;
 @property (nonatomic) NSInteger Gender;

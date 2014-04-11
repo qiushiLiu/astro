@@ -7,7 +7,5 @@
 //
 
 #import "ASBaseViewController.h"
-#import "ASReturnValue.h"
 @interface ASForgetPswVc : ASBaseViewController<UITextFieldDelegate>
-@property (nonatomic, strong) ASReturnValue *model;
 @end

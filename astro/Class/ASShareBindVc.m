@@ -8,10 +8,7 @@
 
 #import "ASShareBindVc.h"
 #import "ASUsr_Customer.h"
-#import "ASReturnValue.h"
 @interface ASShareBindVc ()
-@property (nonatomic, strong) ASReturnValue *modelUrl;
-@property (nonatomic, strong) ASUsr_Customer *modelUser;
 @end
 
 static NSString *WeiboSSONotification = @"WeiboSSONotification";
@@ -19,11 +16,6 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.modelUrl = [[ASReturnValue alloc] init];
-    self.modelUrl.delegate = self;
-    self.modelUser = [[ASUsr_Customer alloc] init];
-    self.modelUser.delegate = self;
-    
 	// Do any additional setup after loading the view
     //web
     self.webView = [[UIWebView alloc] initWithFrame:self.contentView.bounds];
@@ -45,7 +37,24 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
     self.title = [NSString stringWithFormat:@"第三方登录"];
     
     NSString *url = (self.type == emWeiboSina)? kUrlGetWeiboLoginUrl : kUrlGetQQLoginUrl;
-    [self.modelUrl load:url params:nil];
+    [self showWaiting];
+    [HttpUtil load:url params:nil completion:^(BOOL succ, NSString *message, id json) {
+        if(succ){
+            BOOL ssoLoggingIn = NO;
+            if(self.type == emWeiboSina){
+                ssoLoggingIn = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kSinaiPadSSOUrl]];
+                if(!ssoLoggingIn){
+                    ssoLoggingIn = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kSinaiPhoneSSOUrl]];
+                }
+            }
+            if(!ssoLoggingIn){
+                [self openUrl:json];
+            }
+        }else{
+            [self hideWaiting];
+            [self alert:message];
+        }
+    }];
 }
 
 - (void)setNavToParams:(NSMutableDictionary *)params{
@@ -70,34 +79,6 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
     if(self.tag == emBindTypeAccessToken){
         [self goBackWithSuccTag:NO];
     }
-}
-
-#pragma mark - Model Delegate
-//请求成功
-- (void)modelLoadFinished:(ASObject *)sender{
-    [super modelLoadFinished:sender];
-    if(sender == self.modelUrl){
-        BOOL ssoLoggingIn = NO;
-        if(self.type == emWeiboSina){
-            ssoLoggingIn = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kSinaiPadSSOUrl]];
-            if(!ssoLoggingIn){
-                ssoLoggingIn = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kSinaiPhoneSSOUrl]];
-            }
-        }
-        if(!ssoLoggingIn){
-            [self openUrl:self.modelUrl.Value];
-        }
-    }else if(sender == self.modelUser){
-        [ASGlobal login:self.modelUser];
-        [self hideWaiting];
-        [self goBackWithSuccTag:YES];
-    }
-}
-
-//请求失败
-- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg {
-    [super modelLoadFaild:sender message:msg];
-    [self alert:msg];
 }
 
 #pragma mark -
@@ -156,7 +137,22 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
     [self showWaitingTitle:@"绑定中..."];
     self.tag = emBindTypeCode;
     NSString *url = (self.type == emWeiboSina)? kUrlWeiboLoginByCode : kUrlQQLoginByCode;
-    [self.modelUser load:url params:[NSMutableDictionary dictionaryWithObjectsAndKeys:self.code, @"code", nil]];
+    NSDictionary *params = @{@"code": self.code};
+    [self bindWeiboRequest:url params:params];
+}
+
+- (void)bindWeiboRequest:(NSString *)url params:(NSDictionary *)params{
+    [HttpUtil load:url params:params completion:^(BOOL succ, NSString *message, id json) {
+        if(succ){
+            ASUsr_Customer *user = [[ASUsr_Customer alloc] initWithDictionary:json error:NULL];
+            [ASGlobal login:user];
+            [self hideWaiting];
+            [self goBackWithSuccTag:YES];
+        }else{
+            [self hideWaiting];
+            [self alert:message];
+        }
+    }];
 }
 
 //打开页面
@@ -176,10 +172,6 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
             self.expires_in = [sender.userInfo objectForKey:@"expires_in"];
             [self showWaitingTitle:@"绑定中..."];
             self.tag = emBindTypeAccessToken;
-            [self.modelUser load:@"" params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                             self.access_token, @"access_token",
-                                             self.uid, @"uid",
-                                             self.expires_in, @"expires_in", nil]];
         }else{
             [self goBackWithSuccTag:NO];
         }

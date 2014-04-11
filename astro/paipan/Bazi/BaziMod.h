@@ -6,10 +6,9 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASObject.h"
 #import "DateEntity.h"
 
-@interface BaziMod : ASObject
+@interface BaziMod : JSONModel
 @property (nonatomic, strong) NSString *Name;
 @property (nonatomic) NSInteger YearTG;
 @property (nonatomic) NSInteger YearDZ;

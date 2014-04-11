@@ -27,15 +27,6 @@
     [super viewDidLoad];
     
     self.gongs = [[NSMutableArray alloc] init];
-    
-    self.bazi = [[BaziMod alloc] init];
-    self.bazi.delegate = self;
-    
-    self.ziwei = [[ZiWeiMod alloc] init];
-    self.ziwei.delegate = self;
-    
-    self.astro = [[AstroMod alloc] init];
-    self.astro.delegate = self;
 	// Do any additional setup after loading the view.
     
     self.pan = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -53,15 +44,15 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self showWaiting];
-    [self.astro load:@"pp/TimeToAstro" params:nil];
+//    [self.astro load:@"pp/TimeToAstro" params:nil];
 //    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
 //    [self.mod load:@"pp/TimeToBaZi" params:nil];
 }
 
-- (void)modelLoadFinished:(ASObject *)sender{
-    [super modelLoadFinished:sender];
-    self.pan.image = [self.astro paipan];
-    self.pan.size = self.pan.image.size;
+//- (void)modelLoadFinished:(ASObject *)sender{
+//    [super modelLoadFinished:sender];
+//    self.pan.image = [self.astro paipan];
+//    self.pan.size = self.pan.image.size;
     
     //紫薇
 //    self.panCenter.image = [self.ziwei centerImage:self.lxTag];
@@ -107,8 +98,8 @@
 //        }
 //    }
     
-    [self hideWaiting];
-}
+//    [self hideWaiting];
+//}
 
 - (void)gongSelected:(ASZiWeiGrid *)sender{
     if(self.lastSelected

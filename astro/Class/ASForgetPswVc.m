@@ -21,9 +21,6 @@
 	// Do any additional setup after loading the view.
     [self setTitle:@"找回密码"];
     
-    self.model = [[ASReturnValue alloc] init];
-    self.model.delegate = self;
-    
     UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
     icon.centerX = self.view.width * 0.5;
     icon.top = 20;
@@ -91,31 +88,25 @@
     [self showWaiting];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                     self.tfPhone.text, @"username", nil];
-    [self.model load:kUrlGetPasssWord params:params];
+    [self showWaiting];
+    [HttpUtil load:kUrlGetPasssWord params:params completion:^(BOOL succ, NSString *message, id json) {
+        if(succ){
+            [self hideWaiting];
+            [UIView animateWithDuration:0.2 animations:^{
+                self.vFirst.alpha = 0.1;
+            } completion:^(BOOL finished) {
+                self.vFirst.hidden = YES;
+                self.vNext.hidden = NO;
+            }];
+        }else{
+            [self hideWaiting];
+            [self alert:message];
+        }
+    }];
 }
 
 - (void)login{
     
-}
-
-#pragma mark - Model Load Delegate
-- (void)modelBeginLoad:(ASObject *)sender{
-    [self showWaiting];
-}
-
-- (void)modelLoadFinished:(ASObject *)sender{
-    [super modelLoadFinished:sender];
-    [UIView animateWithDuration:0.2 animations:^{
-        self.vFirst.alpha = 0.1;
-    } completion:^(BOOL finished) {
-        self.vFirst.hidden = YES;
-        self.vNext.hidden = NO;
-    }];
-}
-
-- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
-    [super modelLoadFaild:sender message:msg];
-    [self alert:msg];
 }
 
 #pragma mark - UITextFiledDelegate

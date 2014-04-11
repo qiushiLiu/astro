@@ -7,7 +7,6 @@
 //
 
 #import "ASRegisterVc.h"
-#import "ASReturnValue.h"
 #import "ASUsr_Customer.h"
 @interface ASRegisterVc ()
 @property (nonatomic, strong)UIImageView *ivProgress;
@@ -29,10 +28,6 @@
 @property (nonatomic, strong)UITextField *tfPwd;
 @property (nonatomic, strong)UITextField *tfNickName;
 @property (nonatomic, strong)UITextField *tfInvitationCode;
-
-@property (nonatomic, strong)ASReturnValue *modelCheckPhone;
-@property (nonatomic, strong)ASReturnValue *modelCheckCode;
-@property (nonatomic, strong)ASUsr_Customer *modelUser;
 @property (nonatomic, strong)NSString *phoneNumber;
 //@property (nonatomic, strong)
 @end
@@ -46,12 +41,6 @@ static CGFloat kInputWith = 220;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.modelCheckPhone = [[ASReturnValue alloc] init];
-    self.modelCheckPhone.delegate = self;
-    self.modelCheckCode = [[ASReturnValue alloc] init];
-    self.modelCheckCode.delegate = self;
-    self.modelUser = [[ASUsr_Customer alloc] init];
-    self.modelUser.delegate = self;
     
     [self setTitle:@"注册"];
     
@@ -229,7 +218,7 @@ static CGFloat kInputWith = 220;
         self.vCurrent = nextView;
         self.lbCurrent = nextLb;
     }];
-
+    
     if(step == 1){
         [self beginCountDown];
     }
@@ -255,11 +244,16 @@ static CGFloat kInputWith = 220;
     }
     [self hideKeyboard];
     [self showWaiting];
-    [self.modelCheckCode load:kUrlGetPhoneCode params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                       self.phoneNumber, @"phone",
-                                                       self.tfCode.text, @"code",
-                                                        nil]];
-
+    [HttpUtil load:kUrlGetPhoneCode params:@{@"phone" : self.phoneNumber,
+                                             @"code" : self.tfCode.text}
+        completion:^(BOOL succ, NSString *message, id json) {
+            [self hideWaiting];
+            if([json boolValue]){
+                [self setCurrentStep:2];
+            }else{
+                [self alert:message];
+            }
+        }];
 }
 
 - (void)beginCountDown{
@@ -285,10 +279,21 @@ static CGFloat kInputWith = 220;
 
 #pragma mark - HttpRequest
 - (void)getCode{
-    [self.modelCheckPhone load:kUrlGetPhoneCode params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                        self.phoneNumber, @"phone",
-                                                        nil]];
+    [self showWaiting];
     [self beginCountDown];
+    [HttpUtil load:kUrlGetPhoneCode params:@{@"phone": self.phoneNumber} completion:^(BOOL succ, NSString *message, id json) {
+        if(succ){
+            [self hideWaiting];
+            if([json boolValue]){
+                [self setCurrentStep:1];
+            }else{
+                [self alert:message];
+            }
+        }else{
+            [self hideWaiting];
+            [self alert:message];
+        }
+    }];
 }
 
 - (void)submit{
@@ -305,12 +310,23 @@ static CGFloat kInputWith = 220;
     }
     [self hideKeyboard];
     [self showWaiting];
-    [self.modelUser load:kUrlRegister params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                  self.phoneNumber, @"phone",
-                                                  self.tfPwd.text, @"pwd",
-                                                  self.tfNickName.text, @"nickname",
-                                                  @"1", @"fatetype",
-                                                nil]];
+    [HttpUtil load:kUrlRegister params:@{@"phone" : self.phoneNumber,
+                                         @"pwd" : self.tfPwd.text,
+                                         @"nickname" : self.tfNickName.text,
+                                         @"fatetype" : @"1"}
+        completion:^(BOOL succ, NSString *message, id json) {
+            if(succ){
+                [self hideWaiting];
+                ASUsr_Customer *user = [[ASUsr_Customer alloc] initWithDictionary:json error:NULL];
+                [ASGlobal login:user];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                alert.tag = 200;
+                [alert show];
+            }else{
+                [self hideWaiting];
+                [self alert:message];
+            }
+        }];
 }
 
 - (BOOL)isPasswordVerfy:(NSString *)passsword{
@@ -323,34 +339,6 @@ static CGFloat kInputWith = 220;
         return NO;
     }
     
-}
-
-
-#pragma mark ASObject Model Delegate
-- (void)modelLoadFinished:(ASObject *)sender{
-    [super modelLoadFinished:sender];
-    if(sender == self.modelCheckPhone){
-        if([self.modelCheckPhone.Value boolValue]){
-            [self setCurrentStep:1];
-        }else{
-            [self alert:self.modelCheckPhone.Message];
-        }
-    }else if(sender == self.modelCheckCode){
-        if([self.modelCheckCode.Value boolValue]){
-            [self setCurrentStep:2];
-        }else{
-            [self alert:self.modelCheckCode.Message];
-        }
-    } else if (sender == self.modelUser){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        alert.tag = 200;
-        [alert show];
-    }
-}
-
-- (void)modelLoadFaild:(ASObject *)sender message:(NSString *)msg{
-    [super modelLoadFaild:sender message:msg];
-    [self alert:msg];
 }
 
 #pragma mark - KeyBoardEvent Method
