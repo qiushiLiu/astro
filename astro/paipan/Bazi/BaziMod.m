@@ -462,7 +462,6 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     NSString *str = [NSString stringWithFormat:@"%@\t%@\t%@\t%@", GetTianGan(self.YearTG), GetTianGan(self.MonthTG), GetTianGan(self.DayTG), GetTianGan(self.HourTG)];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:blueAttributes]];
     NSMutableAttributedString *temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t(%@%@空)", GetDiZhi(self.XunKong0), GetDiZhi(self.XunKong1)] attributes:blueAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:UIColorFromRGB(0xfe30d9) range:NSMakeRange(2, 2)];
     [ret appendAttributedString:temp];
     
     // line12

@@ -28,7 +28,7 @@
         self.bg.layer.cornerRadius = 8;
         [self.contentView addSubview:self.bg];
         
-        self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 280, 0)];
+        self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 270, 0)];
         self.lbTitle.backgroundColor = [UIColor clearColor];
         self.lbTitle.textColor = ASColorDarkRed;
         self.lbTitle.numberOfLines = 2;
@@ -49,7 +49,7 @@
         [self.contentView addSubview:self.lbDetail];
         
         self.separated = [[UIView alloc] initWithFrame:CGRectMake(self.lbTitle.left, 0, self.lbTitle.width, 1)];
-        self.separated.backgroundColor = [UIColor blackColor];
+        self.separated.backgroundColor = ASColorDarkGray;
         [self.contentView addSubview:self.separated];
         
         //-- bottomView SubView
@@ -85,10 +85,10 @@
         height += 160;
     }else if([model isKindOfClass:[ASQaMinBazi class]]){
         ASQaMinBazi *obj = (ASQaMinBazi *)model;
-        height += 45 *  [obj.Chart count];
+        height += 42 *  [obj.Chart count];
     }
     NSString *temp = [NSString stringWithFormat:@"%@\n%@", model.Title, model.Context];
-    height += [temp sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height += [temp sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(270, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
     height += 40;
     return height;
 }
@@ -96,7 +96,7 @@
 - (void)setModelValue:(ASQaBase *)model{
     self.lbTitle.text = [model.Title copy];
     self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 50) lineBreakMode:NSLineBreakByCharWrapping].height;
-    self.lbTitle.top = 10;
+//    self.lbTitle.top = 25;
     CGFloat top = self.lbTitle.bottom + 5;
     
     if([model isKindOfClass:[ASQaMinAstro class]]){

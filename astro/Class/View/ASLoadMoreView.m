@@ -15,20 +15,19 @@
 @property (nonatomic, strong) UILabel *hint;
 //指示器
 @property (nonatomic, strong) UIActivityIndicatorView *indicator;
-//是否需要刷新
-@property (nonatomic) BOOL needRefreshTag;
 @end
 
 @implementation ASLoadMoreView
 
-- (id)initWithScrollView:(UIScrollView *)scrollView
+- (id)initWithScrollView:(ASBaseSingleTableView *)tableView
 {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 50)];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
     if (self) {
-        self.scrollView = scrollView;
-        [self.scrollView addSubview:self];
+        self.tableView = tableView;
+        [self.tableView addSubview:self];
         //箭头
-        self.arrow = [[UIImageView alloc] initWithFrame:CGRectMake(50, 5, 20, 40)];
+        self.arrow = [[UIImageView alloc] initWithFrame:CGRectMake(50, 0, 17, 27)];
+        self.arrow.centerY = self.height/2;
         self.arrow.image = [UIImage imageNamed:@"loadmore_arrow.png"];
         [self addSubview:self.arrow];
         //加载指示器
@@ -48,12 +47,13 @@
         [self addSubview:self.hint];
         
         self.needRefreshTag = NO;
+        self.hidden = YES;
         _isLoadingTag = NO;
         
-        if(self.scrollView){
-            [self.scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-            [self.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-            [self.scrollView addObserver:self forKeyPath:@"pan.state" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        if(self.tableView){
+            [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+            [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+            [self.tableView addObserver:self forKeyPath:@"pan.state" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         }
     }
     return self;
@@ -63,14 +63,14 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context{
-    if(object == self.scrollView){
+    if(object == self.tableView){
         if([keyPath isEqualToString:@"contentOffset"]){
             if (self.isLoadingTag || self.hidden) {
                 return;
             }
-            float y1 = self.scrollView.contentOffset.y + self.scrollView.height;
-            float y2 = self.scrollView.contentSize.height;
-            if (self.scrollView.isDragging && y1 > y2) {
+            float y1 = self.tableView.contentOffset.y + self.tableView.height;
+            float y2 = self.tableView.contentSize.height;
+            if (self.tableView.isDragging && y1 > y2) {
                 self.needRefreshTag = y1 > (y2 + self.height);
                 [UIView animateWithDuration:0.2 animations:^{
                     if (self.needRefreshTag) {
@@ -87,13 +87,17 @@
         }
         else if([keyPath isEqualToString:@"pan.state"]){
             if(self.needRefreshTag &&
-               self.scrollView.panGestureRecognizer.state == UIGestureRecognizerStateEnded){
+               self.tableView.panGestureRecognizer.state == UIGestureRecognizerStateEnded){
                 //刷新布局
                 [self willLoading];
                 //加载更多
+                if([self.tableView.loadMoreDelegate respondsToSelector:@selector(loadMore)]){
+                    [self.tableView.loadMoreDelegate loadMore];
+                }
+                [self stopLoading];
             }
         }else if([keyPath isEqualToString:@"contentSize"]){
-            self.top = self.scrollView.contentSize.height;
+            self.top = self.tableView.contentSize.height;
         }
     }
 }
@@ -113,7 +117,7 @@
         //设置scrollview的偏移
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.4];
-        self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, self.height, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.height, 0);
         [UIView commitAnimations];
     }
 }

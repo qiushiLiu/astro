@@ -137,10 +137,10 @@
 
 - (void)loadImage{
     UIImage *img = [[ASCache shared] readImageWithDir:_dir url:_url];
-    CGSize imageSize = img.size;
-    CGSize targetSize = self.size;
-    CGSize scaledSize = CGSizeZero;
-    CGFloat scaleFactor = 0.0f;
+//    CGSize imageSize = img.size;
+//    CGSize targetSize = self.size;
+//    CGSize scaledSize = CGSizeZero;
+//    CGFloat scaleFactor = 0.0f;
     
 //    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
 //    {

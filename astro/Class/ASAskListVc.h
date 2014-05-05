@@ -7,7 +7,7 @@
 //
 
 #import "ASBaseViewController.h"
-
-@interface ASAskListVc : ASBaseViewController<UITableViewDataSource, UITableViewDelegate>
+#import "ASBaseSingleTableView.h"
+@interface ASAskListVc : ASBaseViewController<UITableViewDataSource, UITableViewDelegate, ASBaseSingleTableViewDelegate>
 
 @end

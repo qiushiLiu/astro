@@ -7,7 +7,7 @@
 //
 
 #import "ASBaseSingleTableView.h"
-
+#import "ASLoadMoreView.h"
 @interface ASBaseSingleTableView()
 @property (nonatomic, strong) ASLoadMoreView *loadMoreView;
 
@@ -25,11 +25,18 @@
     return self;
 }
 
+- (void)setHasMore:(BOOL)hasMore{
+    if(!hasMore){
+        [self.loadMoreView stopLoading];
+    }
+    self.loadMoreView.hidden = !hasMore;
+    self.loadMoreView.needRefreshTag = hasMore;
+}
+
 - (void)reloadData{
     [self.loadMoreView stopLoading];
     [super reloadData];
 }
-
 
 
 @end

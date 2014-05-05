@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASLoadMoreView.h"
-@interface ASBaseSingleTableView : UITableView
 
+@protocol ASBaseSingleTableViewDelegate <NSObject>
+
+@required
+- (void)loadMore;
+
+@end
+
+@interface ASBaseSingleTableView : UITableView
+@property (nonatomic, assign) id<ASBaseSingleTableViewDelegate> loadMoreDelegate;
+@property (nonatomic, setter = setHasMore:) BOOL hasMore;
 @end

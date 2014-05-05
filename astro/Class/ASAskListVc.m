@@ -7,7 +7,6 @@
 //
 
 #import "ASAskListVc.h"
-#import "ASBaseSingleTableView.h"
 #import "ASUserSimpleView.h"
 #import "ASAskTableViewCell.h"
 
@@ -21,7 +20,9 @@
 
 @property (nonatomic) NSInteger type;
 @property (nonatomic, strong) NSString *cate;
-@property (nonatomic) int pageNo;
+
+@property (nonatomic) NSInteger pageIndex;
+@property (nonatomic) BOOL hasMore;
 
 @property (nonatomic, strong) NSMutableArray *userStars;
 @property (nonatomic, strong) NSMutableArray *list;
@@ -45,9 +46,11 @@
 //    self.tbList.tableHeaderView = [self newHeaderView];
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
+    self.tbList.loadMoreDelegate = self;
     [self.contentView addSubview:self.tbList];
     
-    self.pageNo = 1;
+    self.pageIndex = 1;
+    self.hasMore = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -69,23 +72,6 @@
 
 - (void)postNew{
     
-}
-
-- (void)loadMore{
-    [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListForBaZi" params:@{@"cate" : self.cate,
-                                             @"pagesize" : @"15",
-                                             @"pageindex" : Int2String(self.pageNo)}
-        completion:^(BOOL succ, NSString *message, id json) {
-            if(succ){
-                [self hideWaiting];
-                self.list= [ASQaMinBazi arrayOfModelsFromDictionaries:json[@"list"]];
-                [self.tbList reloadData];
-            }else{
-                [self hideWaiting];
-                [self alert:message];
-            }
-        }];
 }
 
 - (void)loadHeader{
@@ -130,6 +116,26 @@
     self.svPage.pagingEnabled = YES;
     [view addSubview:self.svPage];
     return view;
+}
+
+#pragma mark - ASBaseSingleTableViewDelegate Method
+- (void)loadMore{
+    self.pageIndex = [self.list count] + 1;
+    [self showWaiting];
+    [HttpUtil load:@"qa/GetQuestionListForBaZi" params:@{@"cate" : self.cate,
+                                                         @"pagesize" : @"15",
+                                                         @"pageindex" : [NSString stringWithFormat:@"%ld", self.pageIndex]}
+        completion:^(BOOL succ, NSString *message, id json) {
+            if(succ){
+                [self hideWaiting];
+                self.list= [ASQaMinBazi arrayOfModelsFromDictionaries:json[@"list"]];
+                self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
+                [self.tbList reloadData];
+            }else{
+                [self hideWaiting];
+                [self alert:message];
+            }
+        }];
 }
 
 #pragma mark - UITableViewHeader
