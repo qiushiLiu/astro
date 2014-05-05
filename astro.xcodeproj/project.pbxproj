@@ -45,6 +45,10 @@
 		1B1A970B18D929F40039413E /* AstroMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970A18D929F40039413E /* AstroMod.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
+		1B40FF1318FFA8AC0022B87B /* ASQaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1218FFA8AC0022B87B /* ASQaBase.m */; };
+		1B40FF1618FFA9C50022B87B /* ASQaMinAstro.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */; };
+		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
+		1B40FF1C18FFAC190022B87B /* ASQaAstroList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
 		1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */; };
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
@@ -53,6 +57,8 @@
 		1B6CF44118C6FBA2005F1A70 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */; };
 		1B6CF44418C88216005F1A70 /* ASBaziPanVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44318C88216005F1A70 /* ASBaziPanVc.m */; };
 		1B6CF44618C88AC5005F1A70 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CF44518C88AC5005F1A70 /* CoreText.framework */; };
+		1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */; };
+		1B7A15661915D9EA00AECD59 /* ASQaMinBazi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7A15651915D9EA00AECD59 /* ASQaMinBazi.m */; };
 		1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */; };
 		1B7ACF95189740AB000C59C0 /* ASWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF94189740AB000C59C0 /* ASWaitingView.m */; };
 		1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */; };
@@ -69,6 +75,8 @@
 		1B7CAF0118F6489C005B8C30 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEF518F6489C005B8C30 /* JSONKeyMapper.m */; };
 		1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEF718F6489C005B8C30 /* JSONValueTransformer.m */; };
 		1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */; };
+		1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */; };
+		1B7CAF1118F7CEF8005B8C30 /* ASAskListVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAF1018F7CEF8005B8C30 /* ASAskListVc.m */; };
 		1B7EDF6A18AE3A0A00C82F0C /* ASAskerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7EDF6918AE3A0A00C82F0C /* ASAskerHeaderView.m */; };
 		1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */; };
 		1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */; };
@@ -179,6 +187,14 @@
 		1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoadMoreView.m; sourceTree = "<group>"; };
 		1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaseSingleTableView.h; sourceTree = "<group>"; };
 		1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaseSingleTableView.m; sourceTree = "<group>"; };
+		1B40FF1118FFA8AC0022B87B /* ASQaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaBase.h; sourceTree = "<group>"; };
+		1B40FF1218FFA8AC0022B87B /* ASQaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaBase.m; sourceTree = "<group>"; };
+		1B40FF1418FFA9C50022B87B /* ASQaMinAstro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinAstro.h; sourceTree = "<group>"; };
+		1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinAstro.m; sourceTree = "<group>"; };
+		1B40FF1718FFABE50022B87B /* ASPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPageInfo.h; sourceTree = "<group>"; };
+		1B40FF1818FFABE50022B87B /* ASPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPageInfo.m; sourceTree = "<group>"; };
+		1B40FF1A18FFAC190022B87B /* ASQaAstroList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaAstroList.h; sourceTree = "<group>"; };
+		1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaAstroList.m; sourceTree = "<group>"; };
 		1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Universal.h"; sourceTree = "<group>"; };
 		1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Universal.m"; sourceTree = "<group>"; };
 		1B4DA2E618D8241800E6E039 /* ASZiWeiGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiGrid.h; sourceTree = "<group>"; };
@@ -194,6 +210,10 @@
 		1B6CF44218C88216005F1A70 /* ASBaziPanVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaziPanVc.h; sourceTree = "<group>"; };
 		1B6CF44318C88216005F1A70 /* ASBaziPanVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaziPanVc.m; sourceTree = "<group>"; };
 		1B6CF44518C88AC5005F1A70 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1B7A15611915CA4900AECD59 /* ASAskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskTableViewCell.h; sourceTree = "<group>"; };
+		1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskTableViewCell.m; sourceTree = "<group>"; };
+		1B7A15641915D9EA00AECD59 /* ASQaMinBazi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinBazi.h; sourceTree = "<group>"; };
+		1B7A15651915D9EA00AECD59 /* ASQaMinBazi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinBazi.m; sourceTree = "<group>"; };
 		1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASForgetPswVc.h; sourceTree = "<group>"; };
 		1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASForgetPswVc.m; sourceTree = "<group>"; };
 		1B7ACF93189740AB000C59C0 /* ASWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWaitingView.h; sourceTree = SOURCE_ROOT; };
@@ -227,6 +247,10 @@
 		1B7CAEF718F6489C005B8C30 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
 		1B7CAF0318F77E61005B8C30 /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
 		1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
+		1B7CAF0918F7C99B005B8C30 /* ASUserSimpleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserSimpleView.h; sourceTree = "<group>"; };
+		1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserSimpleView.m; sourceTree = "<group>"; };
+		1B7CAF0F18F7CEF8005B8C30 /* ASAskListVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskListVc.h; sourceTree = "<group>"; };
+		1B7CAF1018F7CEF8005B8C30 /* ASAskListVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskListVc.m; sourceTree = "<group>"; };
 		1B7EDF6818AE3A0A00C82F0C /* ASAskerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskerHeaderView.h; sourceTree = "<group>"; };
 		1B7EDF6918AE3A0A00C82F0C /* ASAskerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskerHeaderView.m; sourceTree = "<group>"; };
 		1B9DF44E18A614A900D4DCF4 /* ASToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASToolBar.h; sourceTree = "<group>"; };
@@ -526,22 +550,24 @@
 		1B5D5E97187A53520030A7E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				1B9DF44D18A6145B00D4DCF4 /* View */,
-				1B7ACF961897A4FC000C59C0 /* Model */,
-				1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */,
-				1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */,
-				1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */,
-				1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */,
-				1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */,
-				1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */,
-				1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */,
-				1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */,
 				1BBF580F18AB60E50081D93A /* ASAskerVc.h */,
 				1BBF581018AB60E50081D93A /* ASAskerVc.m */,
-				1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */,
-				1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */,
+				1B7CAF0F18F7CEF8005B8C30 /* ASAskListVc.h */,
+				1B7CAF1018F7CEF8005B8C30 /* ASAskListVc.m */,
 				1B6CF44218C88216005F1A70 /* ASBaziPanVc.h */,
 				1B6CF44318C88216005F1A70 /* ASBaziPanVc.m */,
+				1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */,
+				1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */,
+				1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */,
+				1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */,
+				1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */,
+				1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */,
+				1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */,
+				1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */,
+				1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */,
+				1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */,
+				1B7ACF961897A4FC000C59C0 /* Model */,
+				1B9DF44D18A6145B00D4DCF4 /* View */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -570,10 +596,20 @@
 		1B7ACF961897A4FC000C59C0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1BC6065E18BC3F20004D317A /* ASUsr_Customer.h */,
-				1BC6065F18BC3F20004D317A /* ASUsr_Customer.m */,
 				1B7CAED918F4F46B005B8C30 /* ASCategory.h */,
 				1B7CAEDA18F4F46B005B8C30 /* ASCategory.m */,
+				1B40FF1718FFABE50022B87B /* ASPageInfo.h */,
+				1B40FF1818FFABE50022B87B /* ASPageInfo.m */,
+				1B40FF1A18FFAC190022B87B /* ASQaAstroList.h */,
+				1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */,
+				1B40FF1118FFA8AC0022B87B /* ASQaBase.h */,
+				1B40FF1218FFA8AC0022B87B /* ASQaBase.m */,
+				1B40FF1418FFA9C50022B87B /* ASQaMinAstro.h */,
+				1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */,
+				1B7A15641915D9EA00AECD59 /* ASQaMinBazi.h */,
+				1B7A15651915D9EA00AECD59 /* ASQaMinBazi.m */,
+				1BC6065E18BC3F20004D317A /* ASUsr_Customer.h */,
+				1BC6065F18BC3F20004D317A /* ASUsr_Customer.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -653,6 +689,10 @@
 				1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */,
 				1B9DF44E18A614A900D4DCF4 /* ASToolBar.h */,
 				1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */,
+				1B7CAF0918F7C99B005B8C30 /* ASUserSimpleView.h */,
+				1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */,
+				1B7A15611915CA4900AECD59 /* ASAskTableViewCell.h */,
+				1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -804,6 +844,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */,
+				1B40FF1C18FFAC190022B87B /* ASQaAstroList.m in Sources */,
 				1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */,
 				1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */,
 				1B012B6D185DD4ED0046AD7A /* UIImage+Scale.m in Sources */,
@@ -823,9 +864,11 @@
 				1B012B6E185DD4ED0046AD7A /* UIView+Layout.m in Sources */,
 				1B012BB2185DDC240046AD7A /* ASIInputStream.m in Sources */,
 				1BA69372187FD1B900478D08 /* ASControls.m in Sources */,
+				1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */,
 				1B1A970518D929320039413E /* AstroStar.m in Sources */,
 				1B7CAEFA18F6489C005B8C30 /* JSONModelArray.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
+				1B7A15661915D9EA00AECD59 /* ASQaMinBazi.m in Sources */,
 				1B6CF44418C88216005F1A70 /* ASBaziPanVc.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
 				1BC74CF418D1636B00FD9C34 /* BaziMod.m in Sources */,
@@ -858,15 +901,20 @@
 				1B012B6C185DD4ED0046AD7A /* UIDevice+Addition.m in Sources */,
 				1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */,
 				1B012BAE185DDC240046AD7A /* ASIDataDecompressor.m in Sources */,
+				1B7CAF1118F7CEF8005B8C30 /* ASAskListVc.m in Sources */,
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
 				1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */,
 				1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */,
+				1B40FF1618FFA9C50022B87B /* ASQaMinAstro.m in Sources */,
+				1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */,
 				1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */,
 				1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */,
 				1B012BB3185DDC240046AD7A /* ASINetworkQueue.m in Sources */,
 				1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */,
 				1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */,
+				1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */,
 				1B7CAEFB18F6489C005B8C30 /* JSONModelClassProperty.m in Sources */,
+				1B40FF1318FFA8AC0022B87B /* ASQaBase.m in Sources */,
 				1B7CAEFC18F6489C005B8C30 /* JSONModelError.m in Sources */,
 				1BC6066018BC3F20004D317A /* ASUsr_Customer.m in Sources */,
 				1B7CAEFF18F6489C005B8C30 /* JSONHTTPClient.m in Sources */,
@@ -1000,7 +1048,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kjubo/Desktop/astro/astro/Frame/libWeiboSDK,
+					"$(PROJECT_DIR)/astro/Frame/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1020,7 +1068,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/kjubo/Desktop/astro/astro/Frame/libWeiboSDK,
+					"$(PROJECT_DIR)/astro/Frame/libWeiboSDK",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

@@ -10,6 +10,9 @@
 #import "BaziDayun.h"
 #import "DateEntity.h"
 
+@protocol BaziMod
+@end
+
 @interface BaziMod : JSONModel
 @property (nonatomic, strong) NSString *Name;
 @property (nonatomic) NSInteger YearTG;
@@ -29,7 +32,7 @@
 @property (nonatomic) NSDate *JiaoYun;
 @property (nonatomic) long QiYunShow;
 @property (nonatomic, strong) NSMutableArray *CangGanShow;
-@property (nonatomic, strong) NSMutableArray<Ignore> *NaYin;
+@property (nonatomic, strong) NSMutableArray *NaYin;
 @property (nonatomic, strong) NSMutableArray<Ignore> *WangShuai;
 @property (nonatomic, strong) NSArray<NSDate> *JieQi;
 @property (nonatomic, strong) NSMutableArray *JieQiName;
@@ -42,4 +45,5 @@
 - (id)initWithDateEntity:(DateEntity *)entity;
 - (NSInteger)getCangGanByX:(NSInteger)x andY:(NSInteger)y;
 - (UIImage *)paipan;
+- (UIImage *)paipanSimple;
 @end

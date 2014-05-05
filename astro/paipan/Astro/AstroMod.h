@@ -7,6 +7,8 @@
 //
 
 #import "AstroStar.h"
+@protocol AstroMod
+@end
 
 @interface AstroMod : JSONModel
 @property (nonatomic, strong) NSArray<AstroStar> *Stars;

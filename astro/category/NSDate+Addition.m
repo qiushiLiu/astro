@@ -43,9 +43,15 @@ static NSRegularExpression *regDate;
     return list;
 }
 
-+ (id)dateFromNet:(NSString *)str{
-    if(str == nil){
++ (id)dateFromNet:(id)obj{
+    if(obj == nil){
         return nil;
+    }
+    NSString *str = nil;
+    if([obj isKindOfClass:[NSString class]]){
+        str = obj;
+    }else{
+        str = [NSString stringWithFormat:@"%@", obj];
     }
     NSArray *matches = [regDate matchesInString:str options:0 range:NSMakeRange(0, [str length])];
     if([matches count] == 1){

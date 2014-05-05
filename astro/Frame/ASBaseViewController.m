@@ -128,7 +128,7 @@
     return [self navTo:key params:nil];
 }
 
-- (ASBaseViewController *)navTo:(NSString *)key params:(NSMutableDictionary *)params{
+- (ASBaseViewController *)navTo:(NSString *)key params:(NSDictionary *)params{
     ASBaseViewController *vc = [[ASNav shared] newVcForKey:key];
     
     if(!vc){
@@ -147,7 +147,7 @@
     return [self navBackTo:nil thenNavTo:nil];
 }
 
-- (ASBaseViewController *)navBackTo:(NSString *)key params:(NSMutableDictionary *)params {
+- (ASBaseViewController *)navBackTo:(NSString *)key params:(NSDictionary *)params {
     return [self navBackTo:key thenNavTo:nil params:params];
 }
 
@@ -155,7 +155,7 @@
     return [self navBackTo:baseKey thenNavTo:key params:nil];
 }
 
-- (ASBaseViewController *)navBackTo:(NSString *)baseKey thenNavTo:(NSString *)key params:(NSMutableDictionary *)params{
+- (ASBaseViewController *)navBackTo:(NSString *)baseKey thenNavTo:(NSString *)key params:(NSDictionary *)params{
     ASBaseViewController *vc;
     NSArray *vcs = self.navigationController.viewControllers;
     

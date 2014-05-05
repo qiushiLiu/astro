@@ -19,3 +19,5 @@ extern NSString * const kUrlWeiboLoginByCode;
 extern NSString * const kUrlQQLoginByCode;
 
 extern NSString * const kUrlGetCates;
+extern NSString * const kUrlGetStarsList;
+extern NSString * const kUrlGetQuestionListForAstro;

@@ -13,12 +13,12 @@
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) NSString *pageKey;
 
-- (void)setNavToParams:(NSMutableDictionary *)params;
-- (void)setNavBackParams:(NSMutableDictionary *)params;
+- (void)setNavToParams:(NSDictionary *)params;
+- (void)setNavBackParams:(NSDictionary *)params;
 - (ASBaseViewController *)navTo:(NSString *)key;
-- (ASBaseViewController *)navTo:(NSString *)key params:(NSMutableDictionary *)params;
+- (ASBaseViewController *)navTo:(NSString *)key params:(NSDictionary *)params;
 - (ASBaseViewController *)navBack;
-- (ASBaseViewController *)navBackTo:(NSString *)key params:(NSMutableDictionary *)params;
+- (ASBaseViewController *)navBackTo:(NSString *)key params:(NSDictionary *)params;
 
 - (BOOL)viewControllerShouldNavBack;
 - (void)alert:(NSString *)msg;

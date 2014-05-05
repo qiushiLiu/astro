@@ -85,6 +85,7 @@
     [HttpUtil http:kUrlGetCates method:emHttpGet params:params timeOut:30 completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
+            [self hideWaiting];
             self.catelist = [ASCategory arrayOfModelsFromDictionaries:json];
             [self.tbList reloadData];
         }else{
@@ -117,7 +118,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    ASCategory *cate = [self.catelist objectAtIndex:indexPath.row];
+    [self navTo:vcAskList params:@{@"cate" : @(cate.SysNo)}];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

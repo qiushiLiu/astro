@@ -19,3 +19,5 @@ NSString * const kUrlWeiboLoginByCode = @"WeiboLogin";
 NSString * const kUrlQQLoginByCode = @"QQLogin";
 
 NSString * const kUrlGetCates = @"qa/GetCates";
+NSString * const kUrlGetStarsList = @"qa/GetStarsList";
+NSString * const kUrlGetQuestionListForAstro = @"qa/GetQuestionListForAstro";

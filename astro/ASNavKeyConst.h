@@ -13,6 +13,8 @@ extern NSString * const vcLogin;
 extern NSString * const vcRegister;
 extern NSString * const vcForgetPsw;
 extern NSString * const vcAsk;
+extern NSString * const vcAskList;
+
 extern NSString * const vcShareBind;
 
 extern NSString * const vcBaziPan;

@@ -29,7 +29,7 @@
 @property (readonly) NSInteger year;
 
 + (NSArray *)dateArrayFromNet:(NSDictionary *)values;
-+ (id)dateFromNet:(NSString *)str;
++ (id)dateFromNet:(id)obj;
 
 - (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second;
 - (NSString *)toStrFormat:(NSString *)format;

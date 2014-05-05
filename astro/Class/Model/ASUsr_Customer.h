@@ -18,7 +18,7 @@
 @property (nonatomic) NSInteger GradeSysNo;
 @property (nonatomic) NSInteger HasNewInfo;
 //@property (nonatomic) NSInteger HomeTown;
-//@property (nonatomic, strong) NSString *Intro;
+@property (nonatomic, strong) NSString *Intro;
 //@property (nonatomic) NSInteger IsShowBirth;
 @property (nonatomic) NSInteger IsStar;
 //@property (nonatomic) long LastLoginTime;

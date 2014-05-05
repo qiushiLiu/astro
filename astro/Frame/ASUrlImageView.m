@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 @property (nonatomic, strong) UIProgressView *progressView;
 
+@property (nonatomic, strong) NSString *failImageName;
 @property (nonatomic, strong) ASIHTTPRequest *req;
 @end
 
@@ -36,11 +37,15 @@
 }
 
 - (void)load:(NSString *)url cacheDir:(NSString *)dir failImageName:(NSString *)imageName{
+    if([url length] == 0){
+        return;
+    }
     if(self.req){
         [self.req clearDelegatesAndCancel];
     }
     self.dir = [dir trim];
     self.url = [url trim];
+    self.failImageName = [imageName copy];
     BOOL isCached =[[ASCache shared] chkExistImageWithDir:self.dir url:self.url];
     
     //如果 dir url为空 或者 已经存在文件
@@ -103,12 +108,22 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request{
     NSData *data = [request responseData];
-    [[ASCache shared] storeImageData:data dir:_dir url:_url];
-    [self hideLoadAnimating];
-    [self loadImage];
+    UIImage *image = [UIImage imageWithData:data];
+    if(image){
+        [[ASCache shared] storeImageData:data dir:_dir url:_url];
+        [self hideLoadAnimating];
+        [self loadImage];
+    }else{
+        [self loadFaildImage];
+    }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request{
+    [self loadFaildImage];
+}
+
+- (void)loadFaildImage{
+    self.imageView.image = [UIImage imageNamed:self.failImageName];
     [self hideLoadAnimating];
 }
 
@@ -127,21 +142,21 @@
     CGSize scaledSize = CGSizeZero;
     CGFloat scaleFactor = 0.0f;
     
-    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
-    {
-        CGFloat widthFactor = targetSize.width / imageSize.width;
-        CGFloat heightFactor = targetSize.height / imageSize.height;
-        
-        if (widthFactor < heightFactor){
-            scaleFactor = widthFactor; // scale to fit height
-        } else {
-            scaleFactor = heightFactor; // scale to fit width
-        }
-        scaledSize.width  = imageSize.width * scaleFactor;
-        scaledSize.height = imageSize.height * scaleFactor;
-    }
-    
-    self.imageView.size = scaledSize;
+//    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+//    {
+//        CGFloat widthFactor = targetSize.width / imageSize.width;
+//        CGFloat heightFactor = targetSize.height / imageSize.height;
+//        
+//        if (widthFactor < heightFactor){
+//            scaleFactor = widthFactor; // scale to fit height
+//        } else {
+//            scaleFactor = heightFactor; // scale to fit width
+//        }
+//        scaledSize.width  = imageSize.width * scaleFactor;
+//        scaledSize.height = imageSize.height * scaleFactor;
+//    }
+//    
+//    self.imageView.size = scaledSize;
     self.imageView.image = img;
 }
 

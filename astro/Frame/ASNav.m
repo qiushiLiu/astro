@@ -12,6 +12,7 @@
 #import "ASRegisterVc.h"
 #import "ASForgetPswVc.h"
 #import "ASAskerVc.h"
+#import "ASAskListVc.h"
 #import "ASShareBindVc.h"
 #import "ASBaziPanVc.h"
 
@@ -40,8 +41,10 @@
     [_vcDic setObject:[ASRegisterVc class] forKey:vcRegister];
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
     [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];
+    [_vcDic setObject:[ASAskListVc class] forKey:vcAskList];
     [_vcDic setObject:[ASShareBindVc class] forKey:vcShareBind];
     [_vcDic setObject:[ASBaziPanVc class] forKey:vcBaziPan];
+    
 }
 
 - (UINavigationController *)newNav:(NSString *)key{

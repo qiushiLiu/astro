@@ -13,6 +13,8 @@ NSString * const vcLogin = @"vcLogin";
 NSString * const vcRegister = @"vcRegister";
 NSString * const vcForgetPsw = @"vcForgetPsw";
 NSString * const vcAsk = @"vcAsk";
+NSString * const vcAskList = @"vcAskList";
+
 NSString * const vcShareBind = @"vcShareBind";
 
 NSString * const vcBaziPan = @"vcBaziPan";
