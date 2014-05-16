@@ -15,7 +15,7 @@ BOOL kAppDebug = YES;
 
 NSString *const kAppAgent = @"app-agent";
 NSString *const kAppVerify = @"Restecname";
-double const kDefaultTimeOut = 3.0f;
+double const kDefaultTimeOut = 6.0f;
 NSString *const kDefalutLoadingText = @"正在加载..";
 
 NSInteger const A_HOUR_SECONDS = 3600;

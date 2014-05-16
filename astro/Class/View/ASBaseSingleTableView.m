@@ -30,7 +30,6 @@
         [self.loadMoreView stopLoading];
     }
     self.loadMoreView.hidden = !hasMore;
-    self.loadMoreView.needRefreshTag = hasMore;
 }
 
 - (void)reloadData{

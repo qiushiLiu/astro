@@ -59,7 +59,7 @@
         UIButton *btnLast = [self.buttons objectAtIndex:_selected];
         [btnLast setTitleColor:ASColorDarkGray forState:UIControlStateNormal];
     }
-    [self.cursor setImage:[[UIImage imageNamed:[NSString stringWithFormat:@"ask_dh_selected_%ld", selected]] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
+    [self.cursor setImage:[[UIImage imageNamed:[NSString stringWithFormat:@"ask_dh_selected_%d", selected]] stretchableImageWithLeftCapWidth:10 topCapHeight:10]];
     
     UIButton *btnSelected = [self.buttons objectAtIndex:selected];
     [btnSelected setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

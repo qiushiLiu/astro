@@ -12,8 +12,6 @@
 @interface ASLoadMoreView : UIView
 //是否正在更新
 @property (nonatomic, readonly) BOOL isLoadingTag;
-//是否需要刷新
-@property (nonatomic) BOOL needRefreshTag;
 //所归属的tableview
 @property (nonatomic, assign)ASBaseSingleTableView *tableView;
 

@@ -9,35 +9,9 @@
 #import "Paipan.h"
 #import "NSDate+Addition.h"
 #import "ZiWeiMod.h"
-#import "ZiWeiStar.h"
-#import "ZiWeiGong.h"
 #import "BaziMod.h"
 
-@interface XingGong : NSObject
-@property (nonatomic, strong) NSMutableArray *stars;
-@end
-
-static NSMutableArray *cellAuchor;
-
-
 @implementation ZiWeiMod
-+ (Class)classForJsonObjectByKey:(NSString *)key {
-    if([key isEqualToString:@"BirthTime"]){
-        return [DateEntity class];
-    }else if([key isEqualToString:@"TransitTime"]){
-        return [DateEntity class];
-    }
-    return nil;
-}
-
-+ (Class)classForJsonObjectsByKey:(NSString *)key {
-    if([key isEqualToString:@"Xing"]){
-        return [ZiWeiStar class];
-    } else if([key isEqualToString:@"Gong"]){
-        return [ZiWeiGong class];
-    }
-    return nil;
-}
 
 - (UIImage *)centerImage:(BOOL)lxTag
 {
@@ -65,7 +39,7 @@ static NSMutableArray *cellAuchor;
     if(false){ //姓名
         [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" " attributes:blAttribute]];
     }
-    NSString *tmp = [NSString stringWithFormat:@"%@%@  虚岁： %ld", [__ShuXing objectAtIndex:self.ShuXing], [__Gender objectAtIndex:self.Gender], self.Age];
+    NSString *tmp = [NSString stringWithFormat:@"%@%@  虚岁： %d", [__ShuXing objectAtIndex:self.ShuXing], [__Gender objectAtIndex:self.Gender], self.Age];
     [str appendAttributedString:[[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute]];
     [str drawAtPoint:CGPointMake(10, top)];
     top += __FontSize.height;
@@ -195,4 +169,5 @@ static NSMutableArray *cellAuchor;
     UIGraphicsEndImageContext();
     return image;
 }
+
 @end

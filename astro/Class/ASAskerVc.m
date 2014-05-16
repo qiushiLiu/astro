@@ -111,7 +111,7 @@
     ASCategory *cate = [self.catelist objectAtIndex:indexPath.row];
     
     [cell.icon load:cate.Pic cacheDir:self.pageKey];
-    [cell.lbTitle setText:[NSString stringWithFormat:@"%@（%ld）", cate.Name, cate.QuestNum]];
+    [cell.lbTitle setText:[NSString stringWithFormat:@"%@（%d）", cate.Name, cate.QuestNum]];
     [cell.lbSummary setText:[NSString stringWithFormat:@"%@", cate.Intro]];
     [cell.lbSummary alignTop];
     return cell;

@@ -6,6 +6,9 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
+@protocol ZiWeiGong
+@end
+
 @interface ZiWeiGong : JSONModel
 @property (nonatomic) NSInteger GongName;
 @property (nonatomic) NSInteger YunGongName;

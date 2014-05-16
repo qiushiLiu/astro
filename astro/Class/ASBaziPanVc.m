@@ -57,10 +57,10 @@
 //        }
 //    }];
     
-    [HttpUtil load:@"pp/TimeToBaZi" params:nil completion:^(BOOL succ, NSString *message, id json) {
+    [HttpUtil load:@"pp/TimeToAstro" params:nil completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
-            BaziMod *bazi = [[BaziMod alloc] initWithDictionary:json error:NULL];
+            AstroMod *bazi = [[AstroMod alloc] initWithDictionary:json error:NULL];
             self.pan.image = [bazi paipan];
             self.pan.size = self.pan.image.size;
         }else{
@@ -98,7 +98,7 @@
 //        [self.gongs addObject:gd];
 //        [self.contentView addSubview:gd];
 //    }
-//    
+//
 //    //星旺宫
 //    for(int i = 0; i < [self.ziwei.Xing count]; i++){
 //        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
@@ -108,7 +108,7 @@
 //        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
 //        [gd addStar:star withIndex:i];
 //    }
-//    
+//
 //    if(self.lxTag){
 //        //流耀
 //        for(int i = 0; i < 7; i++){

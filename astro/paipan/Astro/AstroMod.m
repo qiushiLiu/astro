@@ -284,7 +284,7 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         CGPoint center = [[self class] pointByRadius:r andDegree:[star.PanDegree doubleValue]];
         [self drawArc:ctx center:center radius:1 color:UIColorFromRGB(0xee1100)];
         CGPoint centerFix = [[self class] pointByRadius:r + 18 andDegree:degreeFixed];
-        UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%ld", star.StarName]];
+        UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%d", star.StarName]];
         [icon drawInRect:CGRectMake(centerFix.x - sSize.width/2, centerFix.y - sSize.height/2, sSize.width, sSize.height)];
         
         //指向线

@@ -51,6 +51,7 @@
 		1B40FF1C18FFAC190022B87B /* ASQaAstroList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
 		1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */; };
+		1B5C47A21918704200E200FB /* ASQaMinZiWei.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5C47A11918704200E200FB /* ASQaMinZiWei.m */; };
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
@@ -62,6 +63,7 @@
 		1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */; };
 		1B7ACF95189740AB000C59C0 /* ASWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF94189740AB000C59C0 /* ASWaitingView.m */; };
 		1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */; };
+		1B7C47C0192501BA00924E44 /* ASHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7C47BF192501BA00924E44 /* ASHelper.m */; };
 		1B7CAEDB18F4F46B005B8C30 /* ASCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEDA18F4F46B005B8C30 /* ASCategory.m */; };
 		1B7CAEF818F6489C005B8C30 /* JSONModel+CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEDF18F6489C005B8C30 /* JSONModel+CoreData.m */; };
 		1B7CAEF918F6489C005B8C30 /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEE118F6489C005B8C30 /* JSONModel.m */; };
@@ -199,6 +201,8 @@
 		1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Universal.m"; sourceTree = "<group>"; };
 		1B4DA2E618D8241800E6E039 /* ASZiWeiGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiGrid.h; sourceTree = "<group>"; };
 		1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZiWeiGrid.m; sourceTree = "<group>"; };
+		1B5C47A01918704200E200FB /* ASQaMinZiWei.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinZiWei.h; sourceTree = "<group>"; };
+		1B5C47A11918704200E200FB /* ASQaMinZiWei.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinZiWei.m; sourceTree = "<group>"; };
 		1B5D5E94187A4C850030A7E8 /* ASNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNav.h; sourceTree = "<group>"; };
 		1B5D5E95187A4C850030A7E8 /* ASNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNav.m; sourceTree = "<group>"; };
 		1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoginVc.h; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 		1B7ACF94189740AB000C59C0 /* ASWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASWaitingView.m; sourceTree = SOURCE_ROOT; };
 		1B7ACF9A1897A9BD000C59C0 /* ASAppUrlConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAppUrlConst.h; sourceTree = "<group>"; };
 		1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAppUrlConst.m; sourceTree = "<group>"; };
+		1B7C47BE192501BA00924E44 /* ASHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASHelper.h; sourceTree = "<group>"; };
+		1B7C47BF192501BA00924E44 /* ASHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASHelper.m; sourceTree = "<group>"; };
 		1B7CAED918F4F46B005B8C30 /* ASCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCategory.h; sourceTree = "<group>"; };
 		1B7CAEDA18F4F46B005B8C30 /* ASCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCategory.m; sourceTree = "<group>"; };
 		1B7CAEDE18F6489C005B8C30 /* JSONModel+CoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+CoreData.h"; sourceTree = "<group>"; };
@@ -426,6 +432,8 @@
 		1B012B5F185DCB7D0046AD7A /* category */ = {
 			isa = PBXGroup;
 			children = (
+				1B7C47BE192501BA00924E44 /* ASHelper.h */,
+				1B7C47BF192501BA00924E44 /* ASHelper.m */,
 				1B012BBE185F31910046AD7A /* HttpUtil.h */,
 				1B012BBF185F31910046AD7A /* HttpUtil.m */,
 				1B012BC4185F40A80046AD7A /* JSONKit.h */,
@@ -440,12 +448,12 @@
 				1B012B65185DD4ED0046AD7A /* UIDevice+Addition.m */,
 				1B012B66185DD4ED0046AD7A /* UIImage+Scale.h */,
 				1B012B67185DD4ED0046AD7A /* UIImage+Scale.m */,
+				1B7CAF0318F77E61005B8C30 /* UILabel+VerticalAlign.h */,
+				1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */,
 				1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */,
 				1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */,
 				1B012B68185DD4ED0046AD7A /* UIView+Layout.h */,
 				1B012B69185DD4ED0046AD7A /* UIView+Layout.m */,
-				1B7CAF0318F77E61005B8C30 /* UILabel+VerticalAlign.h */,
-				1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -608,6 +616,8 @@
 				1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */,
 				1B7A15641915D9EA00AECD59 /* ASQaMinBazi.h */,
 				1B7A15651915D9EA00AECD59 /* ASQaMinBazi.m */,
+				1B5C47A01918704200E200FB /* ASQaMinZiWei.h */,
+				1B5C47A11918704200E200FB /* ASQaMinZiWei.m */,
 				1BC6065E18BC3F20004D317A /* ASUsr_Customer.h */,
 				1BC6065F18BC3F20004D317A /* ASUsr_Customer.m */,
 			);
@@ -866,6 +876,7 @@
 				1BA69372187FD1B900478D08 /* ASControls.m in Sources */,
 				1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */,
 				1B1A970518D929320039413E /* AstroStar.m in Sources */,
+				1B5C47A21918704200E200FB /* ASQaMinZiWei.m in Sources */,
 				1B7CAEFA18F6489C005B8C30 /* JSONModelArray.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
 				1B7A15661915D9EA00AECD59 /* ASQaMinBazi.m in Sources */,
@@ -875,6 +886,7 @@
 				1B7CAEFE18F6489C005B8C30 /* JSONAPI.m in Sources */,
 				1B012BB1185DDC240046AD7A /* ASIHTTPRequest.m in Sources */,
 				1B7ACF95189740AB000C59C0 /* ASWaitingView.m in Sources */,
+				1B7C47C0192501BA00924E44 /* ASHelper.m in Sources */,
 				1B7CAF0018F6489C005B8C30 /* JSONModel+networking.m in Sources */,
 				1B7CAF0118F6489C005B8C30 /* JSONKeyMapper.m in Sources */,
 				1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */,

@@ -6,6 +6,9 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
+@protocol ZiWeiStar
+@end
+
 @interface ZiWeiStar : JSONModel
 @property (nonatomic) NSInteger StarName;
 @property (nonatomic) NSInteger Gong;

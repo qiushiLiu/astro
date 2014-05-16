@@ -7,6 +7,8 @@
 //
 
 #import "DateEntity.h"
+#import "ZiWeiStar.h"
+#import "ZiWeiGong.h"
 
 #ifndef _ZiWeiMod_H
 #define _ZiWeiMod_H
@@ -26,6 +28,9 @@
 #define __TextFont 10
 #endif
 
+@protocol ZiWeiMod
+@end
+
 @interface ZiWeiMod : JSONModel
 @property (nonatomic, strong) DateEntity *BirthTime;
 @property (nonatomic, strong) DateEntity *TransitTime;
@@ -35,8 +40,8 @@
 @property (nonatomic) NSInteger Ming;
 @property (nonatomic) NSInteger Shen;
 @property (nonatomic) NSInteger MingJu;
-@property (nonatomic, strong) NSMutableArray *Gong;
-@property (nonatomic, strong) NSMutableArray *Xing;
+@property (nonatomic, strong) NSMutableArray<ZiWeiGong> *Gong;
+@property (nonatomic, strong) NSMutableArray<ZiWeiStar> *Xing;
 @property (nonatomic) NSInteger MingZhu;
 @property (nonatomic) NSInteger ShenZhu;
 @property (nonatomic) NSInteger RunYue;

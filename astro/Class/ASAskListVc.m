@@ -12,6 +12,8 @@
 
 #import "ASUsr_Customer.h"
 #import "ASQaMinBazi.h"
+#import "ASQaMinZiWei.h"
+#import "ASQaMinAstro.h"
 
 @interface ASAskListVc ()
 @property (nonatomic, strong) UILabel *lbHeaderTitle;
@@ -21,7 +23,7 @@
 @property (nonatomic) NSInteger type;
 @property (nonatomic, strong) NSString *cate;
 
-@property (nonatomic) NSInteger pageIndex;
+@property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
 
 @property (nonatomic, strong) NSMutableArray *userStars;
@@ -49,8 +51,9 @@
     self.tbList.loadMoreDelegate = self;
     [self.contentView addSubview:self.tbList];
     
-    self.pageIndex = 1;
+    self.pageNo = 0;
     self.hasMore = YES;
+    self.list = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -120,15 +123,15 @@
 
 #pragma mark - ASBaseSingleTableViewDelegate Method
 - (void)loadMore{
-    self.pageIndex = [self.list count] + 1;
+    self.pageNo++;
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListForBaZi" params:@{@"cate" : self.cate,
-                                                         @"pagesize" : @"15",
-                                                         @"pageindex" : [NSString stringWithFormat:@"%ld", self.pageIndex]}
+    [HttpUtil load:@"qa/GetQuestionListForAstro" params:@{@"cate" : self.cate,
+                                                         @"pagesize" : @"10",
+                                                         @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 [self hideWaiting];
-                self.list= [ASQaMinBazi arrayOfModelsFromDictionaries:json[@"list"]];
+                [self.list addObjectsFromArray:[ASQaMinAstro arrayOfModelsFromDictionaries:json[@"list"]]];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
             }else{

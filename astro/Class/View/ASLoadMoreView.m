@@ -9,6 +9,8 @@
 #import "ASLoadMoreView.h"
 
 @interface ASLoadMoreView()
+//是否需要刷新
+@property (nonatomic) BOOL needRefreshTag;
 //动画图片控件
 @property (nonatomic, strong) UIImageView *arrow;
 //提示标签
@@ -59,6 +61,12 @@
     return self;
 }
 
+- (void)dealloc{
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+    [self.tableView removeObserver:self forKeyPath:@"contentSize"];
+    [self.tableView removeObserver:self forKeyPath:@"pan.state"];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
                         change:(NSDictionary *)change
@@ -90,11 +98,6 @@
                self.tableView.panGestureRecognizer.state == UIGestureRecognizerStateEnded){
                 //刷新布局
                 [self willLoading];
-                //加载更多
-                if([self.tableView.loadMoreDelegate respondsToSelector:@selector(loadMore)]){
-                    [self.tableView.loadMoreDelegate loadMore];
-                }
-                [self stopLoading];
             }
         }else if([keyPath isEqualToString:@"contentSize"]){
             self.top = self.tableView.contentSize.height;
@@ -119,12 +122,20 @@
         [UIView setAnimationDuration:0.4];
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, self.height, 0);
         [UIView commitAnimations];
+        
+        //加载更多
+        if([self.tableView.loadMoreDelegate respondsToSelector:@selector(loadMore)]){
+            [self.tableView.loadMoreDelegate loadMore];
+            [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y + self.height) animated:YES];
+        }
+        [self stopLoading];
     }
 }
 
 - (void)stopLoading{
     self.arrow.hidden = NO;
     self.indicator.hidden = YES;
+    self.tableView.contentInset = UIEdgeInsetsZero;
 }
 
 @end

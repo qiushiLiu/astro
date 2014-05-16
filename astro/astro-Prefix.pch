@@ -28,6 +28,8 @@
     #import "ASControls.h"
     #import "ASGlobal.h"
     #import "ASBaseViewController.h"
+    #import "ASHelper.h"
+
 #endif
 
 #define IOS7_OR_LATER ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending)

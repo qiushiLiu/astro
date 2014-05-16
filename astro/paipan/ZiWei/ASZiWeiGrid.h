@@ -12,9 +12,10 @@
 #import "ZiWeiMod.h"
 
 @interface ASZiWeiGrid : UIButton
-@property (nonatomic, weak)ZiWeiMod *ziwei;
-@property (nonatomic, weak)ZiWeiGong *gong;
+@property (nonatomic, weak) ZiWeiMod *ziwei;
+@property (nonatomic, weak) ZiWeiGong *gong;
 @property (nonatomic) BOOL lx;
+@property (nonatomic) UIEdgeInsets borderEdge;
 - (id)initWithZiWei:(ZiWeiMod *)mod index:(NSInteger)gongIndex lx:(BOOL)lx;
 
 - (void)addStar:(ZiWeiStar *)star withIndex:(NSInteger)index;

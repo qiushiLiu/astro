@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UILabel *lbLiuGong;
 //当令
 @property (nonatomic, strong) UILabel *lbTransit;
-
+//边距
 @property (nonatomic) UIEdgeInsets edge;
 @end
 
@@ -90,6 +90,12 @@ static NSMutableParagraphStyle *style = nil;
 - (id)initWithZiWei:(ZiWeiMod *)mod index:(NSInteger)index lx:(BOOL)lx
 {
     self.lx = lx;
+    if(self.gongIndex >=3 && self.gongIndex <= 6){
+        self.borderEdge = UIEdgeInsetsMake(1, 0, 1, 1);
+    }
+    else{
+        self.borderEdge = UIEdgeInsetsMake(0, 0, 1, 1);
+    }
     CGSize size = self.lx ? __LxCellSize : __CellSize;
     self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     if (self) {
@@ -158,7 +164,7 @@ static NSMutableParagraphStyle *style = nil;
         
         NSMutableAttributedString *tran = nil;
         if(self.gong.TransitA > 0){
-            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02ld-%02ld", self.gong.TransitA, self.gong.TransitB]];
+            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02d-%02d", self.gong.TransitA, self.gong.TransitB]];
             [tran addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:__TextFont],
                                   NSParagraphStyleAttributeName : style,
                                   NSForegroundColorAttributeName : ZWColorGray,
@@ -169,6 +175,13 @@ static NSMutableParagraphStyle *style = nil;
         self.selected = NO;
     }
     return self;
+}
+
+- (void)setBorderEdge:(UIEdgeInsets)borderEdge{
+    if(!UIEdgeInsetsEqualToEdgeInsets(_borderEdge, borderEdge)){
+        _borderEdge = borderEdge;
+        [self setNeedsDisplay];
+    }
 }
 
 - (void)addYunYao:(int)tag{
@@ -352,17 +365,31 @@ static NSMutableParagraphStyle *style = nil;
     }
     
     //边框
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(ctx, 1.5);
-    CGContextSetStrokeColorWithColor(ctx, ASColorDarkGray.CGColor);
-    if(self.gongIndex >=3 && self.gongIndex <= 6){
-        CGContextMoveToPoint(ctx, 0, 0);
-        CGContextAddLineToPoint(ctx, self.width, 0);
+    if(!UIEdgeInsetsEqualToEdgeInsets(self.borderEdge, UIEdgeInsetsZero)){
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextSetLineWidth(ctx, 1.5);
+        CGContextSetStrokeColorWithColor(ctx, ASColorDarkGray.CGColor);
+        
+        if(self.borderEdge.left != 0){
+            CGContextMoveToPoint(ctx, 0, 0);
+            CGContextAddLineToPoint(ctx, 0, self.height);
+        }
+        if(self.borderEdge.right != 0){
+            CGContextMoveToPoint(ctx, self.width, 0);
+            CGContextAddLineToPoint(ctx, self.width, self.height);
+        }
+        if(self.borderEdge.top != 0){
+            CGContextMoveToPoint(ctx, 0, 0);
+            CGContextAddLineToPoint(ctx, self.width, 0);
+        }
+        if(self.borderEdge.bottom != 0){
+            CGContextMoveToPoint(ctx, 0, self.height);
+            CGContextAddLineToPoint(ctx, self.width, self.height);
+        }
+        
+        CGContextAddLineToPoint(ctx, 0, self.height);
+        CGContextStrokePath(ctx);
     }
-    CGContextMoveToPoint(ctx, self.width, 0);
-    CGContextAddLineToPoint(ctx, self.width, self.height);
-    CGContextAddLineToPoint(ctx, 0, self.height);
-    CGContextStrokePath(ctx);
 }
 
 @end
