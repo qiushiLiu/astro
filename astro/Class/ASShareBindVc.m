@@ -211,7 +211,7 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
             //NSString *error_code = [self getParamValueFromUrl:urlString paramName:@"error_code"];
             //NSString *error = [self getParamValueFromUrl:urlString paramName:@"error"];
             //NSString *error_uri = [self getParamValueFromUrl:urlString paramName:@"error_uri"];
-            NSString *msg = nil;
+            NSString *msg = @"";
             if([self getParamValueFromUrl:urlString paramName:@"error_description"]){
                 msg = [self getParamValueFromUrl:urlString paramName:@"error_description"];
             }

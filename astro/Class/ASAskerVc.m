@@ -119,7 +119,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ASCategory *cate = [self.catelist objectAtIndex:indexPath.row];
-    [self navTo:vcAskList params:@{@"cate" : @(cate.SysNo)}];
+    [self navTo:vcAskList params:@{@"cate"  : @(cate.SysNo),
+                                   @"title" : cate.Name}];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

@@ -22,7 +22,7 @@
 
 @property (nonatomic) NSInteger type;
 @property (nonatomic, strong) NSString *cate;
-
+@property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
 
@@ -58,6 +58,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self setTitle:self.title];
     
     self.tbList.height = self.contentView.height;
     [self showWaiting];
@@ -98,6 +99,7 @@
 - (void)setNavToParams:(NSDictionary *)params{
     self.cate = @"5";//[params objectForKey:@"cate"];
     self.type = [[params objectForKey:@"type"] intValue];
+    self.title = [params objectForKey:@"title"];
 }
 
 - (UIView *)newHeaderView{
@@ -159,5 +161,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     ASQaBase *qa = [self.list objectAtIndex:indexPath.row];
     return [ASAskTableViewCell heightFor:qa];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ASQaBase *qa = [self.list objectAtIndex:indexPath.row];
+    [self navTo:vcAskDeltail params:@{@"title" : self.title,
+                                      @"question" : qa}];
 }
 @end

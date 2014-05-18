@@ -12,6 +12,6 @@
 @end
 
 
-@interface ASQaMinZiWei : ASQaBase
+@interface ASQaMinZiWei : ASQaBase <ASQaProtocol>
 @property (nonatomic, strong) NSArray<ZiWeiMod> *Chart;
 @end

@@ -8,6 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol ASQaProtocol <NSObject>
+@required
+@property (nonatomic) NSInteger SysNo;
+@property (nonatomic) NSInteger CateSysNo;
+@property (nonatomic) NSInteger CustomerSysNo;
+@property (nonatomic, strong) NSString *Title;
+@property (nonatomic, strong) NSString *Context;
+@property (nonatomic) NSInteger Award;
+@property (nonatomic) NSInteger IsSecret;
+@property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
+@property (nonatomic) NSInteger LastReplyUser;
+@property (nonatomic) NSInteger ReplyCount;
+@property (nonatomic) NSInteger ReadCount;
+//发帖时间
+@property (nonatomic, strong) NSDate<NSDate> *TS;
+@property (nonatomic, strong) NSString *CustomerNickName;
+
+//
+@property (nonatomic, strong) NSArray *Chart;
+@end
+
 @interface ASQaBase : JSONModel
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger CateSysNo;

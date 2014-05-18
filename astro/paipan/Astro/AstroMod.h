@@ -7,6 +7,7 @@
 //
 
 #import "AstroStar.h"
+#import "ASPosition.h"
 @protocol AstroMod
 @end
 
@@ -16,6 +17,8 @@
 @property (nonatomic) NSInteger Gender1;
 @property (nonatomic, strong) NSDate<NSDate> *birth;
 @property (nonatomic, strong) NSDate<NSDate> *birth1;
+@property (nonatomic, strong) ASPosition<ASPosition> *position;
+@property (nonatomic, strong) ASPosition<ASPosition> *position1;
 @property (nonatomic) NSNumber<Ignore> *constellationStart;
 
 - (UIImage *)paipan;

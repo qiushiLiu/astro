@@ -11,6 +11,6 @@
 @protocol ASQaMinBazi
 @end
 
-@interface ASQaMinBazi : ASQaBase
+@interface ASQaMinBazi : ASQaBase <ASQaProtocol>
 @property (nonatomic, strong) NSArray<BaziMod> *Chart;
 @end

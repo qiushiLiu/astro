@@ -11,6 +11,6 @@
 @protocol ASQaMinAstro
 @end
 
-@interface ASQaMinAstro : ASQaBase
+@interface ASQaMinAstro : ASQaBase <ASQaProtocol>
 @property (nonatomic, strong) NSArray<AstroMod> *Chart;
 @end

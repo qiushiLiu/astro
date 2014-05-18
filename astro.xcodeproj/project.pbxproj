@@ -41,6 +41,7 @@
 		1B035F0418C5580E006F3A7E /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035F0118C5580D006F3A7E /* libWeiboSDK.a */; };
 		1B035F0518C5580E006F3A7E /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */; };
 		1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */; };
+		1B1760FD1925ACBE000A864C /* ASAskDetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */; };
 		1B1A970518D929320039413E /* AstroStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970418D929320039413E /* AstroStar.m */; };
 		1B1A970B18D929F40039413E /* AstroMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970A18D929F40039413E /* AstroMod.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
@@ -49,12 +50,14 @@
 		1B40FF1618FFA9C50022B87B /* ASQaMinAstro.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */; };
 		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
 		1B40FF1C18FFAC190022B87B /* ASQaAstroList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */; };
+		1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
 		1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */; };
 		1B5C47A21918704200E200FB /* ASQaMinZiWei.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5C47A11918704200E200FB /* ASQaMinZiWei.m */; };
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
+		1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B628F0E1925B6DB00C802B6 /* ASPosition.m */; };
 		1B6CF44118C6FBA2005F1A70 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */; };
 		1B6CF44418C88216005F1A70 /* ASBaziPanVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44318C88216005F1A70 /* ASBaziPanVc.m */; };
 		1B6CF44618C88AC5005F1A70 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CF44518C88AC5005F1A70 /* CoreText.framework */; };
@@ -101,6 +104,8 @@
 		1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CEE18D1636B00FD9C34 /* BaziDayun.m */; };
 		1BC74CF418D1636B00FD9C34 /* BaziMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CF018D1636B00FD9C34 /* BaziMod.m */; };
 		1BC74CF518D1636B00FD9C34 /* DateEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CF218D1636B00FD9C34 /* DateEntity.m */; };
+		1BD4869F1928A87700DB4E1A /* ASQaCommentShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD4869E1928A87700DB4E1A /* ASQaCommentShow.m */; };
+		1BD486A21928A99800DB4E1A /* ASQaAnswerShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD486A11928A99800DB4E1A /* ASQaAnswerShow.m */; };
 		1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365618D171A3001D0F30 /* ZiWeiMod.m */; };
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
@@ -181,6 +186,8 @@
 		1B035F0318C5580E006F3A7E /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRegisterVc.h; sourceTree = "<group>"; };
 		1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRegisterVc.m; sourceTree = "<group>"; };
+		1B1760FB1925ACBE000A864C /* ASAskDetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailVc.h; sourceTree = "<group>"; };
+		1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailVc.m; sourceTree = "<group>"; };
 		1B1A970318D929320039413E /* AstroStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroStar.h; sourceTree = "<group>"; };
 		1B1A970418D929320039413E /* AstroStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AstroStar.m; sourceTree = "<group>"; };
 		1B1A970918D929F40039413E /* AstroMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroMod.h; sourceTree = "<group>"; };
@@ -197,6 +204,8 @@
 		1B40FF1818FFABE50022B87B /* ASPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPageInfo.m; sourceTree = "<group>"; };
 		1B40FF1A18FFAC190022B87B /* ASQaAstroList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaAstroList.h; sourceTree = "<group>"; };
 		1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaAstroList.m; sourceTree = "<group>"; };
+		1B442C3E1925D70E008350BD /* ASAskDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailHeaderView.h; sourceTree = "<group>"; };
+		1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailHeaderView.m; sourceTree = "<group>"; };
 		1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Universal.h"; sourceTree = "<group>"; };
 		1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Universal.m"; sourceTree = "<group>"; };
 		1B4DA2E618D8241800E6E039 /* ASZiWeiGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiGrid.h; sourceTree = "<group>"; };
@@ -209,6 +218,8 @@
 		1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoginVc.m; sourceTree = "<group>"; };
 		1B5D5E9B187A54AF0030A7E8 /* ASNavKeyConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNavKeyConst.h; sourceTree = "<group>"; };
 		1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNavKeyConst.m; sourceTree = "<group>"; };
+		1B628F0D1925B6DB00C802B6 /* ASPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPosition.h; sourceTree = "<group>"; };
+		1B628F0E1925B6DB00C802B6 /* ASPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPosition.m; sourceTree = "<group>"; };
 		1B6CF43F18C6FBA2005F1A70 /* NSDate+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addition.h"; sourceTree = "<group>"; };
 		1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addition.m"; sourceTree = "<group>"; };
 		1B6CF44218C88216005F1A70 /* ASBaziPanVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaziPanVc.h; sourceTree = "<group>"; };
@@ -299,6 +310,10 @@
 		1BC74CF018D1636B00FD9C34 /* BaziMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaziMod.m; sourceTree = "<group>"; };
 		1BC74CF118D1636B00FD9C34 /* DateEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateEntity.h; sourceTree = "<group>"; };
 		1BC74CF218D1636B00FD9C34 /* DateEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateEntity.m; sourceTree = "<group>"; };
+		1BD4869D1928A87700DB4E1A /* ASQaCommentShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaCommentShow.h; sourceTree = "<group>"; };
+		1BD4869E1928A87700DB4E1A /* ASQaCommentShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaCommentShow.m; sourceTree = "<group>"; };
+		1BD486A01928A99800DB4E1A /* ASQaAnswerShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaAnswerShow.h; sourceTree = "<group>"; };
+		1BD486A11928A99800DB4E1A /* ASQaAnswerShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaAnswerShow.m; sourceTree = "<group>"; };
 		1BD5365518D171A3001D0F30 /* ZiWeiMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiMod.h; sourceTree = "<group>"; };
 		1BD5365618D171A3001D0F30 /* ZiWeiMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiMod.m; sourceTree = "<group>"; };
 		1BD5365818D17385001D0F30 /* ZiWeiGong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiGong.h; sourceTree = "<group>"; };
@@ -558,6 +573,8 @@
 		1B5D5E97187A53520030A7E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				1B1760FB1925ACBE000A864C /* ASAskDetailVc.h */,
+				1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */,
 				1BBF580F18AB60E50081D93A /* ASAskerVc.h */,
 				1BBF581018AB60E50081D93A /* ASAskerVc.m */,
 				1B7CAF0F18F7CEF8005B8C30 /* ASAskListVc.h */,
@@ -597,6 +614,8 @@
 				1BC74CEC18D1632C00FD9C34 /* Bazi */,
 				1BF467C218DC246600CB3E4B /* Paipan.h */,
 				1BF467C318DC246600CB3E4B /* Paipan.m */,
+				1B628F0D1925B6DB00C802B6 /* ASPosition.h */,
+				1B628F0E1925B6DB00C802B6 /* ASPosition.m */,
 			);
 			path = paipan;
 			sourceTree = "<group>";
@@ -608,10 +627,14 @@
 				1B7CAEDA18F4F46B005B8C30 /* ASCategory.m */,
 				1B40FF1718FFABE50022B87B /* ASPageInfo.h */,
 				1B40FF1818FFABE50022B87B /* ASPageInfo.m */,
+				1BD486A01928A99800DB4E1A /* ASQaAnswerShow.h */,
+				1BD486A11928A99800DB4E1A /* ASQaAnswerShow.m */,
 				1B40FF1A18FFAC190022B87B /* ASQaAstroList.h */,
 				1B40FF1B18FFAC190022B87B /* ASQaAstroList.m */,
 				1B40FF1118FFA8AC0022B87B /* ASQaBase.h */,
 				1B40FF1218FFA8AC0022B87B /* ASQaBase.m */,
+				1BD4869D1928A87700DB4E1A /* ASQaCommentShow.h */,
+				1BD4869E1928A87700DB4E1A /* ASQaCommentShow.m */,
 				1B40FF1418FFA9C50022B87B /* ASQaMinAstro.h */,
 				1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */,
 				1B7A15641915D9EA00AECD59 /* ASQaMinBazi.h */,
@@ -689,10 +712,14 @@
 		1B9DF44D18A6145B00D4DCF4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1B442C3E1925D70E008350BD /* ASAskDetailHeaderView.h */,
+				1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */,
 				1BBF581218AB65B20081D93A /* ASAskerCell.h */,
 				1BBF581318AB65B20081D93A /* ASAskerCell.m */,
 				1B7EDF6818AE3A0A00C82F0C /* ASAskerHeaderView.h */,
 				1B7EDF6918AE3A0A00C82F0C /* ASAskerHeaderView.m */,
+				1B7A15611915CA4900AECD59 /* ASAskTableViewCell.h */,
+				1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */,
 				1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */,
 				1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */,
 				1B1F7D0518B2E48A00186229 /* ASLoadMoreView.h */,
@@ -701,8 +728,6 @@
 				1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */,
 				1B7CAF0918F7C99B005B8C30 /* ASUserSimpleView.h */,
 				1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */,
-				1B7A15611915CA4900AECD59 /* ASAskTableViewCell.h */,
-				1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -877,8 +902,10 @@
 				1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */,
 				1B1A970518D929320039413E /* AstroStar.m in Sources */,
 				1B5C47A21918704200E200FB /* ASQaMinZiWei.m in Sources */,
+				1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */,
 				1B7CAEFA18F6489C005B8C30 /* JSONModelArray.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
+				1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */,
 				1B7A15661915D9EA00AECD59 /* ASQaMinBazi.m in Sources */,
 				1B6CF44418C88216005F1A70 /* ASBaziPanVc.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
@@ -902,6 +929,7 @@
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
 				1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */,
 				1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */,
+				1B1760FD1925ACBE000A864C /* ASAskDetailVc.m in Sources */,
 				1B9F1F2B1872622500278E62 /* FMDatabase.m in Sources */,
 				1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */,
 				1B7CAEDB18F4F46B005B8C30 /* ASCategory.m in Sources */,
@@ -923,6 +951,7 @@
 				1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */,
 				1B012BB3185DDC240046AD7A /* ASINetworkQueue.m in Sources */,
 				1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */,
+				1BD4869F1928A87700DB4E1A /* ASQaCommentShow.m in Sources */,
 				1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */,
 				1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */,
 				1B7CAEFB18F6489C005B8C30 /* JSONModelClassProperty.m in Sources */,
@@ -931,6 +960,7 @@
 				1BC6066018BC3F20004D317A /* ASUsr_Customer.m in Sources */,
 				1B7CAEFF18F6489C005B8C30 /* JSONHTTPClient.m in Sources */,
 				1BBF581118AB60E50081D93A /* ASAskerVc.m in Sources */,
+				1BD486A21928A99800DB4E1A /* ASQaAnswerShow.m in Sources */,
 				1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */,
 				1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */,
 				1B7EDF6A18AE3A0A00C82F0C /* ASAskerHeaderView.m in Sources */,

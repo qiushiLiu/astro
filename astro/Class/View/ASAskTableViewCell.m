@@ -130,9 +130,9 @@
             top = self.pan1.bottom + 5;
             self.pan1.hidden = NO;
             
-            NSMutableString *intro = [NSMutableString stringWithFormat:@"外圈\n%@\n%@\n", [ASHelper sexText:panModel.Gender], [panModel.birth toStrFormat:@"yyyy-MM-dd HH:mm"]];
+            NSMutableString *intro = [NSMutableString stringWithFormat:@"外圈\t%@\n%@\n%@\n", [ASHelper sexText:panModel.Gender], [panModel.birth toStrFormat:@"yyyy-MM-dd HH:mm"], panModel.position.name];
             if(panModel.birth1){
-                [intro appendFormat:@"内圈\n%@\n%@", [ASHelper sexText:panModel.Gender], [panModel.birth1 toStrFormat:@"yyyy-MM-dd HH:mm"]];
+                [intro appendFormat:@"外圈\t%@\n%@\n%@\n", [ASHelper sexText:panModel.Gender], [panModel.birth1 toStrFormat:@"yyyy-MM-dd HH:mm"], panModel.position1.name];
             }
             self.lbAstroIntro.text = intro;
             [self.lbAstroIntro sizeToFit];

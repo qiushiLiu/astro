@@ -14,6 +14,7 @@ NSString * const vcRegister = @"vcRegister";
 NSString * const vcForgetPsw = @"vcForgetPsw";
 NSString * const vcAsk = @"vcAsk";
 NSString * const vcAskList = @"vcAskList";
+NSString * const vcAskDeltail = @"vcAskDeltail";
 
 NSString * const vcShareBind = @"vcShareBind";
 

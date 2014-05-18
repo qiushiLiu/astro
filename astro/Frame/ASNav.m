@@ -13,6 +13,8 @@
 #import "ASForgetPswVc.h"
 #import "ASAskerVc.h"
 #import "ASAskListVc.h"
+#import "ASAskDetailVc.h"
+
 #import "ASShareBindVc.h"
 #import "ASBaziPanVc.h"
 
@@ -42,6 +44,8 @@
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
     [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];
     [_vcDic setObject:[ASAskListVc class] forKey:vcAskList];
+    [_vcDic setObject:[ASAskDetailVc class] forKey:vcAskDeltail];
+    
     [_vcDic setObject:[ASShareBindVc class] forKey:vcShareBind];
     [_vcDic setObject:[ASBaziPanVc class] forKey:vcBaziPan];
     
