@@ -45,7 +45,7 @@
     self.tbList = [[ASBaseSingleTableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height) style:UITableViewStylePlain];
     self.tbList.backgroundColor = [UIColor clearColor];
     self.tbList.separatorColor = [UIColor clearColor];
-//    self.tbList.tableHeaderView = [self newHeaderView];
+    self.tbList.tableHeaderView = [self newHeaderView];
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
     self.tbList.loadMoreDelegate = self;
@@ -103,7 +103,7 @@
 }
 
 - (UIView *)newHeaderView{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 65)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 85)];
     view.backgroundColor = [UIColor whiteColor];
     
     self.lbHeaderTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 200, 12)];
@@ -127,13 +127,13 @@
 - (void)loadMore{
     self.pageNo++;
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListForAstro" params:@{@"cate" : self.cate,
+    [HttpUtil load:@"qa/GetQuestionListForBazi" params:@{@"cate" : self.cate,
                                                          @"pagesize" : @"10",
                                                          @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 [self hideWaiting];
-                [self.list addObjectsFromArray:[ASQaMinAstro arrayOfModelsFromDictionaries:json[@"list"]]];
+                [self.list addObjectsFromArray:[ASQaMinBazi arrayOfModelsFromDictionaries:json[@"list"]]];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
             }else{

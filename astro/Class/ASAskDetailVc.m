@@ -12,6 +12,7 @@
 #import "ASQaMinBazi.h"
 #import "ASQaMinAstro.h"
 #import "ASQaMinZiWei.h"
+#import "ASQaAnswerShow.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
@@ -56,6 +57,8 @@
     [super viewWillAppear:animated];
     
     self.tbList.height = self.contentView.height;
+    [self.headerView setQaBase:self.question];
+    [self loadMore];
 }
 
 - (void)setNavToParams:(NSDictionary *)params{
@@ -66,13 +69,13 @@
 - (void)loadMore{
     self.pageNo++;
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListForAstro" params:@{@"cate" : Int2String([self.question SysNo]) ,
-                                                          @"pagesize" : @"10",
-                                                          @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
+    [HttpUtil load:@"qa/GetQuestionListForBazi" params:@{@"cate" : Int2String([self.question SysNo]) ,
+                                                         @"pagesize" : @"10",
+                                                         @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 [self hideWaiting];
-                [self.list addObjectsFromArray:[ASQaMinAstro arrayOfModelsFromDictionaries:json[@"list"]]];
+                [self.list addObjectsFromArray:[ASQaAnswerShow arrayOfModelsFromDictionaries:json[@"list"]]];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
             }else{
@@ -84,7 +87,7 @@
 
 #pragma mark - UITableViewDelegate & DataSouce
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.list count];
+    return [self.list count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

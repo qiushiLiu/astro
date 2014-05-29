@@ -69,4 +69,34 @@
     return self;
 }
 
+- (void)setQaBase:(id<ASQaProtocol>)obj{
+    self.lbTitle.text = [obj Title];
+    self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 40) lineBreakMode:NSLineBreakByCharWrapping].height;
+    
+    self.ivShangBg.top = self.lbTitle.bottom + 5;
+    self.lbShang1.text = [NSString stringWithFormat:@"%d灵签", [obj Award]];
+    self.lbShang2.text = @"已结束";
+    
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"浏览量: %d", [obj ReadCount]]];
+    [str setAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange(3, str.length - 3)];
+    self.lbReadCount.attributedText = str;
+    [self.lbReadCount sizeToFit];
+    self.lbReadCount.left = self.lbTitle.left;
+    self.lbReadCount.top = self.ivShangBg.bottom + 10;
+    
+    str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"回复数: %d", [obj ReplyCount]]];
+    [str setAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange(3, str.length - 3)];
+    self.lbReplyCount.attributedText = str;
+    [self.lbReplyCount sizeToFit];
+    self.lbReplyCount.left = self.lbReadCount.right + 8;
+    self.lbReplyCount.top = self.lbReadCount.top;
+    
+    self.lbDate.text = [[obj TS] toStrFormat:@"yyyy-MM-dd"];
+    [self.lbDate sizeToFit];
+    self.lbDate.right = self.lbTitle.right;
+    self.lbDate.top = self.lbReadCount.top;
+    
+    self.height = self.lbDate.bottom + 10;
+}
+
 @end

@@ -25,6 +25,10 @@
     return self;
 }
 
+- (void)dealloc{
+    [self.loadMoreView free];
+}
+
 - (void)setHasMore:(BOOL)hasMore{
     if(!hasMore){
         [self.loadMoreView stopLoading];

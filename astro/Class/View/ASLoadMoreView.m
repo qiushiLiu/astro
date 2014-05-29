@@ -61,7 +61,7 @@
     return self;
 }
 
-- (void)dealloc{
+- (void)free{
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     [self.tableView removeObserver:self forKeyPath:@"contentSize"];
     [self.tableView removeObserver:self forKeyPath:@"pan.state"];

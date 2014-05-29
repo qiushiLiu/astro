@@ -17,4 +17,5 @@
 
 - (id)initWithScrollView:(ASBaseSingleTableView *)tableView;
 - (void)stopLoading;
+- (void)free;
 @end
