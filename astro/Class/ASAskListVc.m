@@ -59,19 +59,21 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setTitle:self.title];
-    
     self.tbList.height = self.contentView.height;
-    [self showWaiting];
-    [HttpUtil load:kUrlGetStarsList params:@{@"catesysno" : self.cate} completion:^(BOOL succ, NSString *message, id json) {
-        if(succ){
-            self.userStars = [ASUsr_Customer arrayOfModelsFromDictionaries:json];
-            [self loadHeader];
-            [self loadMore];
-        }else{
-            [self hideWaiting];
-            [self alert:message];
-        }
-    }];
+    
+//    if([self isBeingPresented]){
+        [self showWaiting];
+        [HttpUtil load:kUrlGetStarsList params:@{@"catesysno" : self.cate} completion:^(BOOL succ, NSString *message, id json) {
+            if(succ){
+                self.userStars = [ASUsr_Customer arrayOfModelsFromDictionaries:json];
+                [self loadHeader];
+                [self loadMore];
+            }else{
+                [self hideWaiting];
+                [self alert:message];
+            }
+        }];
+//    }
 }
 
 - (void)postNew{
@@ -153,7 +155,7 @@
     if(!cell){
         cell = [[ASAskTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
     }
-    ASQaBase *qa = [self.list objectAtIndex:indexPath.row];
+    id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
     [cell setModelValue:qa];
     return cell;
 }
@@ -166,6 +168,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ASQaBase *qa = [self.list objectAtIndex:indexPath.row];
     [self navTo:vcAskDeltail params:@{@"title" : self.title,
-                                      @"question" : qa}];
+                                      @"sysno" : Int2String(qa.SysNo)}];
 }
 @end

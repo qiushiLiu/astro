@@ -9,16 +9,17 @@
 #import "ASAskDetailVc.h"
 #import "ASAskDetailHeaderView.h"
 
-#import "ASQaMinBazi.h"
-#import "ASQaMinAstro.h"
-#import "ASQaMinZiWei.h"
+#import "ASQaCustomerBazi.h"
+#import "ASQaCustomerAstro.h"
+#import "ASQaCustomerZiWei.h"
 #import "ASQaAnswerShow.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic) NSInteger sysNo;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
-@property (nonatomic, strong) id<ASQaProtocol> question;
+@property (nonatomic, strong) id<ASQaCustomerBaseProtocol> question;
 @property (nonatomic, strong) NSMutableArray *list;
 
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
@@ -42,7 +43,6 @@
     self.tbList = [[ASBaseSingleTableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height) style:UITableViewStylePlain];
     self.tbList.backgroundColor = [UIColor clearColor];
     self.tbList.separatorColor = [UIColor clearColor];
-    //    self.tbList.tableHeaderView = [self newHeaderView];
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
     self.tbList.loadMoreDelegate = self;
@@ -55,29 +55,42 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     self.tbList.height = self.contentView.height;
-    [self.headerView setQaBase:self.question];
-    [self loadMore];
+    [self loadQaData];
 }
 
 - (void)setNavToParams:(NSDictionary *)params{
     self.title = [params objectForKey:@"title"];
-    self.question = [params objectForKey:@"question"];
+    self.sysNo = [[params objectForKey:@"sysno"] intValue];
+}
+
+- (void)loadQaData{
+    [self showWaiting];
+    [HttpUtil load:@"qa/GetQuestionForBaZi" params:@{@"sysno" : Int2String(self.sysNo)}
+        completion:^(BOOL succ, NSString *message, id json) {
+            if(succ){
+                ASQaCustomerBazi *model = [[ASQaCustomerBazi alloc] initWithDictionary:json error:NULL];
+                [self.headerView setQa:model];
+                [self loadMore];
+            }else{
+                [self hideWaiting];
+                [self alert:message];
+            }
+        }];
 }
 
 - (void)loadMore{
     self.pageNo++;
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListForBazi" params:@{@"cate" : Int2String([self.question SysNo]) ,
-                                                         @"pagesize" : @"10",
-                                                         @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
+    [HttpUtil load:@"qa/GetAnswerByQuest" params:@{@"sysno" : Int2String(self.sysNo),
+                                                   @"pagesize" : @"10",
+                                                   @"pageindex" : Int2String(self.pageNo)}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
-                [self hideWaiting];
                 [self.list addObjectsFromArray:[ASQaAnswerShow arrayOfModelsFromDictionaries:json[@"list"]]];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
+                [self hideWaiting];
             }else{
                 [self hideWaiting];
                 [self alert:message];
@@ -94,6 +107,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+        cell.backgroundColor = [UIColor redColor];
     }
     return cell;
 }
@@ -105,8 +119,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return self.headerView.height;
 }
-
-
 
 - (void)shareTo{
     

@@ -20,10 +20,13 @@
         CGFloat left = 5;
         CGFloat top = 5;
         
+        self.width = 320;
         self.ivDing = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_ding"]];
+        self.ivDing.top = 5;
         [self addSubview:self.ivDing];
         
         self.ivJing = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_jing"]];
+        self.ivJing.top = 5;
         [self addSubview:self.ivJing];
         
         self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(left, top, self.width - 2*left, 1)];
@@ -33,21 +36,24 @@
         self.lbTitle.numberOfLines = 2;
         [self addSubview:self.lbTitle];
         
-        self.ivShangBg = [[UIImageView alloc] initWithFrame:CGRectMake(left, 0, 220, 30)];
-        self.ivShangBg.image = [[UIImage imageNamed:@""] stretchableImageWithLeftCapWidth:8 topCapHeight:8];
+        self.ivShangBg = [[UIImageView alloc] initWithFrame:CGRectMake(left, 0, 240, 26)];
+        UIImage *img = [UIImage imageNamed:@"lingqian_bg"];
+        self.ivShangBg.image = [img stretchableImageWithLeftCapWidth:img.size.width/2 + 5 topCapHeight:0];
         [self addSubview:self.ivShangBg];
         
-        self.lbShang1 = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 80, 26)];
+        self.lbShang1 = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 60, 20)];
         self.lbShang1.backgroundColor = [UIColor whiteColor];
         self.lbShang1.font = [UIFont systemFontOfSize:14];
         self.lbShang1.textColor = [UIColor blackColor];
+        self.lbShang1.textAlignment = NSTextAlignmentCenter;
         self.lbShang1.centerY = self.ivShangBg.height/2;
         [self.ivShangBg addSubview:self.lbShang1];
         
-        self.lbShang2 = [[UILabel alloc] initWithFrame:CGRectMake(self.lbShang1.right + 5, 0, 80, 26)];
+        self.lbShang2 = [[UILabel alloc] initWithFrame:CGRectMake(self.lbShang1.right + 10, 0, 60, 20)];
         self.lbShang2.backgroundColor = [UIColor whiteColor];
         self.lbShang2.font = [UIFont systemFontOfSize:14];
-        self.lbShang2.textColor = [UIColor blackColor];
+        self.lbShang2.textColor = [UIColor redColor];
+        self.lbShang2.textAlignment = NSTextAlignmentCenter;
         self.lbShang2.centerY = self.ivShangBg.height/2;
         [self.ivShangBg addSubview:self.lbShang2];
         
@@ -69,8 +75,21 @@
     return self;
 }
 
-- (void)setQaBase:(id<ASQaProtocol>)obj{
-    self.lbTitle.text = [obj Title];
+- (void)setQa:(id<ASQaCustomerBaseProtocol>)obj{
+    NSMutableString *title = [NSMutableString stringWithString:[obj Title]];
+    
+    CGFloat left = self.lbTitle.left;
+    if(!self.ivDing.isHidden){
+        self.ivDing.left = left;
+        left = self.ivDing.right + 2;
+        [title insertString:@"     " atIndex:0];
+    }
+    if(!self.ivJing.isHidden){
+        self.ivJing.left = left;
+        [title insertString:@"     " atIndex:0];
+    }
+    
+    self.lbTitle.text = title;
     self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 40) lineBreakMode:NSLineBreakByCharWrapping].height;
     
     self.ivShangBg.top = self.lbTitle.bottom + 5;

@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ASQaBase.h"
-
+#import "ASPanView.h"
 @interface ASAskTableViewCell : UITableViewCell
 @property (nonatomic, strong) UIView *bg;
 @property (nonatomic, strong) UILabel *lbTitle;
-@property (nonatomic, strong) UIImageView *pan1;
-@property (nonatomic, strong) UIImageView *pan2;
-@property (nonatomic, strong) UILabel *lbAstroIntro;    //占星盘的简介
-@property (nonatomic, strong) UILabel *lbDetail;        //问题说明
+@property (nonatomic, strong) ASPanView *panView;       //星盘图
 
 @property (nonatomic, strong) UIView *separated;        //分割线
 @property (nonatomic, strong) UIImageView *ivReply;     //回复图标;
@@ -25,5 +22,5 @@
 @property (nonatomic, strong) UILabel *lbFrom;          //发帖人和时间
 
 + (CGFloat)heightFor:(ASQaBase *)model;
-- (void)setModelValue:(ASQaBase *)model;
+- (void)setModelValue:(id<ASQaProtocol>)model;
 @end

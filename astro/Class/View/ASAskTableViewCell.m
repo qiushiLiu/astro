@@ -37,24 +37,8 @@
         self.lbTitle.font = [UIFont boldSystemFontOfSize:14];
         [self.contentView addSubview:self.lbTitle];
         
-        self.pan1 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:self.pan1];
-        self.pan2 = [[UIImageView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:self.pan2];
-        
-        self.lbAstroIntro = [[UILabel alloc] init];
-        self.lbAstroIntro.backgroundColor = [UIColor clearColor];
-        self.lbAstroIntro.font = [UIFont systemFontOfSize:12];
-        self.lbAstroIntro.numberOfLines = 0;
-        self.lbAstroIntro.lineBreakMode = NSLineBreakByCharWrapping;
-        [self.contentView addSubview:self.lbAstroIntro];
-        
-        self.lbDetail = [[UILabel alloc] initWithFrame:CGRectMake(self.lbTitle.left, 0, self.lbTitle.width, 0)];
-        self.lbDetail.backgroundColor = [UIColor clearColor];
-        self.lbDetail.font = [UIFont systemFontOfSize:12];
-        self.lbDetail.numberOfLines = 0;
-        self.lbDetail.lineBreakMode = NSLineBreakByCharWrapping;
-        [self.contentView addSubview:self.lbDetail];
+        self.panView = [[ASPanView alloc] initWithFrame:CGRectMake(self.lbTitle.left, 0, self.lbTitle.width, 0)];
+        [self.contentView addSubview:self.panView];
         
         self.separated = [[UIView alloc] initWithFrame:CGRectMake(self.lbTitle.left, 0, self.lbTitle.width, 1)];
         self.separated.backgroundColor = ASColorDarkGray;
@@ -107,115 +91,14 @@
     return height;
 }
 
-- (void)setModelValue:(ASQaBase *)model{
+- (void)setModelValue:(id<ASQaProtocol>)model{
     self.lbTitle.text = [model.Title copy];
     self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 50) lineBreakMode:NSLineBreakByCharWrapping].height;
-//    self.lbTitle.top = 25;
     CGFloat top = self.lbTitle.bottom + 5;
     
-    //关闭特殊星盘的现实控件
-    self.pan1.transform = CGAffineTransformIdentity;
-    self.pan2.hidden = YES;
-    self.lbAstroIntro.hidden = YES;
-    
-    if([model isKindOfClass:[ASQaMinAstro class]]){
-        ASQaMinAstro *obj = (ASQaMinAstro *)model;
-        AstroMod *panModel;
-        if(obj.Chart && [obj.Chart count] >= 1){
-            panModel = [obj.Chart objectAtIndex:0];
-            self.pan1.image = [panModel paipan];
-            self.pan1.size = self.pan1.image.size;
-            self.pan1.transform = CGAffineTransformMakeScale(0.5, 0.5);
-            self.pan1.origin = CGPointMake(self.lbTitle.left, top);
-            top = self.pan1.bottom + 5;
-            self.pan1.hidden = NO;
-            
-            NSMutableString *intro = [NSMutableString stringWithFormat:@"外圈\t%@\n%@\n%@\n", [ASHelper sexText:panModel.Gender], [panModel.birth toStrFormat:@"yyyy-MM-dd HH:mm"], panModel.position.name];
-            if(panModel.birth1){
-                [intro appendFormat:@"外圈\t%@\n%@\n%@\n", [ASHelper sexText:panModel.Gender], [panModel.birth1 toStrFormat:@"yyyy-MM-dd HH:mm"], panModel.position1.name];
-            }
-            self.lbAstroIntro.text = intro;
-            [self.lbAstroIntro sizeToFit];
-            self.lbAstroIntro.origin = CGPointMake(self.pan1.right + 5, self.pan1.top);
-            self.lbAstroIntro.hidden = NO;
-        }else{
-            self.pan1.hidden = YES;
-        }
-    }else if([model isKindOfClass:[ASQaMinBazi class]]){
-        ASQaMinBazi *obj = (ASQaMinBazi *)model;
-        BaziMod *panModel;
-        if(obj.Chart && [obj.Chart count] >= 1){
-            panModel = [obj.Chart objectAtIndex:0];
-            self.pan1.image = [panModel paipanSimple];
-            self.pan1.size = self.pan1.image.size;
-            self.pan1.origin = CGPointMake(self.lbTitle.left, top);
-            top = self.pan1.bottom + 5;
-            self.pan1.hidden = NO;
-        }else{
-            self.pan1.hidden = YES;
-        }
-        
-        if(obj.Chart && [obj.Chart count] >= 2){
-            panModel = [obj.Chart objectAtIndex:1];
-            self.pan2.image = [panModel paipanSimple];
-            self.pan2.size = self.pan2.image.size;
-            self.pan2.origin = CGPointMake(self.lbTitle.left, top);
-            top = self.pan2.bottom + 5;
-            self.pan2.hidden = NO;
-        }else{
-            self.pan2.hidden = YES;
-        }
-    }else if([model isKindOfClass:[ASQaMinZiWei class]]){
-        ASQaMinZiWei *obj = (ASQaMinZiWei *)model;
-        ZiWeiMod *panModel;
-        if(obj.Chart && [obj.Chart count] >= 1){
-            panModel = [obj.Chart objectAtIndex:0];
-            
-            NSMutableDictionary *gongs = [NSMutableDictionary dictionary];
-            NSArray *arr = @[@(panModel.Ming), @((panModel.Ming + 6)%12), @((panModel.Ming + 4)%12), @((panModel.Ming + 10)%12)];
-            for(int i = 0; i < 4; i++){
-                NSInteger index = [[arr objectAtIndex:i] intValue];
-                ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:panModel index:index lx:NO];
-                if(i < 3){
-                    gd.borderEdge = UIEdgeInsetsMake(1, 1, 1, 0);
-                }else{
-                    gd.borderEdge = UIEdgeInsetsMake(1, 1, 1, 1);
-                }
-                gd.origin = CGPointMake(i * gd.width, 0);
-                gd.tag = i + 100;
-                [gongs setObject:gd forKey:@(index)];
-                [self.pan1 addSubview:gd];
-            }
-
-            //星旺宫
-            for(int i = 0; i < [panModel.Xing count]; i++){
-                if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
-                    continue;
-                }
-                ZiWeiStar *star = [panModel.Xing objectAtIndex:i];
-                if(![[gongs allKeys] containsObject:@(star.Gong)]){
-                    continue;
-                }
-                ASZiWeiGrid *gd = [gongs objectForKey:@(star.Gong)];
-                [gd addStar:star withIndex:i];
-            }
-            self.pan1.size = CGSizeMake(__CellSize.width * 4, __CellSize.height);
-            self.pan1.transform = CGAffineTransformMakeScale(0.85, 0.85);
-            
-            self.pan1.origin = CGPointMake(self.lbTitle.left, top);
-            top = self.pan1.bottom + 5;
-            self.pan1.hidden = NO;
-        }else{
-            self.pan1.hidden = YES;
-        }
-    }
-    
-    if([model.Context length] > 0){
-        self.lbDetail.text = [model.Context copy];
-        self.lbDetail.height = [self.lbDetail.text sizeWithFont:self.lbDetail.font constrainedToSize:CGSizeMake(self.lbDetail.width, CGFLOAT_MAX) lineBreakMode:self.lbDetail.lineBreakMode].height;
-        self.lbDetail.origin = CGPointMake(self.lbTitle.left, top);
-        top = self.lbDetail.bottom + 5;
-    }
+    [self.panView setChart:model.Chart context:[model Context]];
+    self.panView.top = top;
+    top = self.panView.bottom;
     
     self.separated.top = top;
     top += 5;
