@@ -91,7 +91,7 @@
     top += 5;
     
     self.ivReply.origin = CGPointMake(self.lbTitle.left, top);
-    self.lbReply.text = [NSString stringWithFormat:@"%d灵签", model.ReplyCount];
+    self.lbReply.text = [NSString stringWithFormat:@"%d回复", model.ReplyCount];
     [self.lbReply sizeToFit];
     self.lbReply.left = self.ivReply.right + 2;
     self.lbReply.centerY = self.ivReply.centerY;
