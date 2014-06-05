@@ -31,11 +31,11 @@
 //@property (nonatomic, strong) NSString *Signature;
 @property (nonatomic) NSInteger Status;
 @property (nonatomic) NSInteger SysNo;
-//@property (nonatomic) NSInteger TotalAnswer;
-//@property (nonatomic) NSInteger TotalQuest;
-//@property (nonatomic) NSInteger TotalReply;
-//@property (nonatomic) NSInteger TotalTalk;
-//@property (nonatomic) NSInteger TotalTalkReply;
+@property (nonatomic) NSInteger TotalAnswer;
+@property (nonatomic) NSInteger TotalQuest;
+@property (nonatomic) NSInteger TotalReply;
+@property (nonatomic) NSInteger TotalTalk;
+@property (nonatomic) NSInteger TotalTalkReply;
 //@property (nonatomic) long birth;
 @property (nonatomic, strong) NSString *smallPhotoShow;
 @end

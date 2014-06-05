@@ -61,7 +61,7 @@
     [self setTitle:self.title];
     self.tbList.height = self.contentView.height;
     
-//    if([self isBeingPresented]){
+    if(self.pageNo == 0){
         [self showWaiting];
         [HttpUtil load:kUrlGetStarsList params:@{@"catesysno" : self.cate} completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
@@ -73,7 +73,7 @@
                 [self alert:message];
             }
         }];
-//    }
+    }
 }
 
 - (void)postNew{

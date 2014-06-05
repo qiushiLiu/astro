@@ -8,6 +8,7 @@
 
 #import "ASAskDetailVc.h"
 #import "ASAskDetailHeaderView.h"
+#import "ASAskDetailCell.h"
 
 #import "ASQaCustomerBazi.h"
 #import "ASQaCustomerAstro.h"
@@ -37,7 +38,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     self.headerView = [[ASAskDetailHeaderView alloc] init];
-    self.headerView.width = self.contentView.height;
     
     //table
     self.tbList = [[ASBaseSingleTableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height) style:UITableViewStylePlain];
@@ -70,7 +70,9 @@
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 ASQaCustomerBazi *model = [[ASQaCustomerBazi alloc] initWithDictionary:json error:NULL];
-                [self.headerView setQa:model];
+                self.question = model;
+                [self.headerView setQa:self.question];
+                self.tbList.tableHeaderView = self.headerView;
                 [self loadMore];
             }else{
                 [self hideWaiting];
@@ -104,21 +106,35 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
+    ASAskDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
     if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
-        cell.backgroundColor = [UIColor redColor];
+        cell = [[ASAskDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+    }
+    if(indexPath.row == 0){
+        [cell setQaCustomerProtocol:self.question canDel:YES];
+    }else{
+        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
+        [cell setQaCustomerProtocol:answer canDel:YES];
     }
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return self.headerView;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row == 0){
+        return [ASAskDetailCell heightForModel:self.question];
+    }else{
+        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
+        return [ASAskDetailCell heightForModel:answer];
+    }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return self.headerView.height;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    return self.headerView;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return self.headerView.height;
+//}
 
 - (void)shareTo{
     

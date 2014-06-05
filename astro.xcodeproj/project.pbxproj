@@ -37,6 +37,7 @@
 		1B1A970B18D929F40039413E /* AstroMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970A18D929F40039413E /* AstroMod.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
+		1B322E89193EA70E004D9A97 /* ASAskDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */; };
 		1B40FF1318FFA8AC0022B87B /* ASQaBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1218FFA8AC0022B87B /* ASQaBase.m */; };
 		1B40FF1618FFA9C50022B87B /* ASQaMinAstro.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1518FFA9C50022B87B /* ASQaMinAstro.m */; };
 		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
@@ -179,6 +180,8 @@
 		1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoadMoreView.m; sourceTree = "<group>"; };
 		1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaseSingleTableView.h; sourceTree = "<group>"; };
 		1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaseSingleTableView.m; sourceTree = "<group>"; };
+		1B322E87193EA70E004D9A97 /* ASAskDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailCell.h; sourceTree = "<group>"; };
+		1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailCell.m; sourceTree = "<group>"; };
 		1B40FF1118FFA8AC0022B87B /* ASQaBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaBase.h; sourceTree = "<group>"; };
 		1B40FF1218FFA8AC0022B87B /* ASQaBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaBase.m; sourceTree = "<group>"; };
 		1B40FF1418FFA9C50022B87B /* ASQaMinAstro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinAstro.h; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 		1B9DF44D18A6145B00D4DCF4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1B322E87193EA70E004D9A97 /* ASAskDetailCell.h */,
+				1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */,
 				1B442C3E1925D70E008350BD /* ASAskDetailHeaderView.h */,
 				1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */,
 				1BBF581218AB65B20081D93A /* ASAskerCell.h */,
@@ -909,6 +914,7 @@
 				1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */,
 				1B7CAEFA18F6489C005B8C30 /* JSONModelArray.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
+				1B322E89193EA70E004D9A97 /* ASAskDetailCell.m in Sources */,
 				1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */,
 				1B7A15661915D9EA00AECD59 /* ASQaMinBazi.m in Sources */,
 				1BC823D4193DF314001CF44E /* ASQaCustomerBase.m in Sources */,

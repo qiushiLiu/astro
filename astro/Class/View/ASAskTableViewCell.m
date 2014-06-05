@@ -71,23 +71,10 @@
     return lb;
 }
 
-+ (CGFloat)heightFor:(ASQaBase *)model{
-    CGFloat height = 25;
-    if([model isKindOfClass:[ASQaMinAstro class]]){
-        ASQaMinAstro *obj = (ASQaMinAstro *)model;
-        height += 165 *  [obj.Chart count];
-    }else if([model isKindOfClass:[ASQaMinBazi class]]){
-        ASQaMinBazi *obj = (ASQaMinBazi *)model;
-        height += 42 *  [obj.Chart count];
-    }else if([model isKindOfClass:[ASQaMinZiWei class]]){
-        ASQaMinZiWei *obj = (ASQaMinZiWei *)model;
-        if([obj.Chart count] > 0){
-            height += __CellSize.height + 8;
-        }
-    }
-    NSString *temp = [NSString stringWithFormat:@"%@\n%@", model.Title, model.Context];
-    height += [temp sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
-    height += 40;
++ (CGFloat)heightFor:(id<ASQaProtocol>)model{
+    CGFloat height = 65;
+    height += [model.Title sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height += [ASPanView heightForChart:[model Chart] context:model.Context];
     return height;
 }
 

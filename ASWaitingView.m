@@ -61,12 +61,16 @@ extern NSString * const kDefalutLoadingText;
     return self;
 }
 
-- (void)showWating:(NSString *)title{
-    if([title length] == 0){
-        title = kDefalutLoadingText;
+- (void)showWating:(NSString *)tips{
+    [self showWating:tips withComplete:NULL];
+}
+
+- (void)showWating:(NSString *)tips withComplete:(WaitingCompleteBlock)block{
+    if([tips length] == 0){
+        tips = kDefalutLoadingText;
     }
     
-    self.title.text = title;
+    self.title.text = tips;
     self.title.size = [self.title.text sizeWithFont:self.title.font constrainedToSize:CGSizeMake(self.maxLoadingViewWidth, CGFLOAT_MAX) lineBreakMode:self.title.lineBreakMode];
     self.loadview.size = CGSizeMake(self.title.width + 20, self.title.height + 70);
     self.loadview.center = CGPointMake(self.width * 0.5, self.height * 0.4);
@@ -81,22 +85,27 @@ extern NSString * const kDefalutLoadingText;
     [UIView animateWithDuration:0.2 animations:^{
         self.loadview.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
-        if([self.delegate respondsToSelector:@selector(asWaitingViewDidShow:)]){
-            [self.delegate asWaitingViewDidShow:self];
+        if(block != NULL){
+            block();
         }
     }];
 }
 
 - (void)hideWaiting{
+    [self hideWaitingWithComplete:NULL];
+}
+
+- (void)hideWaitingWithComplete:(WaitingCompleteBlock)block{
     [self.activety stopAnimating];
     [UIView animateWithDuration:0.2 animations:^{
         self.loadview.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         self.hidden = YES;
-        if([self.delegate respondsToSelector:@selector(asWaitingViewDidHide:)]){
-            [self.delegate asWaitingViewDidHide:self];
+        if(block != NULL){
+            block();
         }
     }];
 }
+
 
 @end

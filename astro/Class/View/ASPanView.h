@@ -11,4 +11,6 @@
 @interface ASPanView : UIView
 
 - (void)setChart:(NSArray *)chartList context:(NSString *)context;
+
++ (CGFloat)heightForChart:(NSArray *)chart context:(NSString *)context;
 @end

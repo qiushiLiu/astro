@@ -21,10 +21,7 @@
     if (self) {
         // Custom initialization
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_dl"]];
-        
         self.watingView = [[ASWaitingView alloc] initWithBaseViewController:self];
-        self.watingView.delegate = self;
-        
     }
     return self;
 }
@@ -138,7 +135,7 @@
     //页面的key
     vc.pageKey = key;
     [vc setNavToParams:params];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES ];
     return vc;
 }
 

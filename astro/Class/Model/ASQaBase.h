@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSDate<NSDate> *TS;
 @property (nonatomic, strong) NSString *CustomerNickName;
 
-//
+@optional
 @property (nonatomic, strong) NSArray *Chart;
 @end
 

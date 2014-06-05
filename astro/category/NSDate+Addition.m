@@ -50,14 +50,18 @@ static NSRegularExpression *regDate;
     NSString *str = nil;
     if([obj isKindOfClass:[NSString class]]){
         str = obj;
-    }else{
-        str = [NSString stringWithFormat:@"%@", obj];
+    }else if([obj isKindOfClass:[NSNumber class]]){
+        str = [obj stringValue];
     }
+    
+    NSAssert(str != nil, @"JsonModel format NSDate error");
     NSArray *matches = [regDate matchesInString:str options:0 range:NSMakeRange(0, [str length])];
     if([matches count] == 1){
         NSTextCheckingResult *rs = [matches objectAtIndex:0];
         NSTimeInterval time = [[str substringWithRange:[rs rangeAtIndex:1]] longLongValue] / 1000;
         return [NSDate dateWithTimeIntervalSince1970:time];
+    }else if([str longLongValue] > 0){
+        return [NSDate dateWithTimeIntervalSince1970:[str longLongValue]];
     }else{
         return nil;
     }

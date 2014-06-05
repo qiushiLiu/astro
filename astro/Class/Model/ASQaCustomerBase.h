@@ -9,40 +9,50 @@
 #import "JSONModel.h"
 #import "ASUsr_Customer.h"
 
-@protocol ASQaCustomerBaseProtocol <NSObject>
+@protocol ASQaAnswerProtocol <NSObject>
 
 @required
 @property (nonatomic) NSInteger Award;
-@property (nonatomic) NSInteger CateSysNo;
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic, strong) ASUsr_Customer *Customer;
 @property (nonatomic) NSInteger CustomerSysNo;
-@property (nonatomic) BOOL IsEnd;
-@property (nonatomic) BOOL IsSecret;
-@property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
-@property (nonatomic) NSInteger LastReplyUser;
-@property (nonatomic) NSInteger ReadCount;
-@property (nonatomic) NSInteger ReplyCount;
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic, strong) NSDate<NSDate> *TS;
 @property (nonatomic, strong) NSString *Title;
+
 @property (nonatomic, strong) NSArray *Chart;
 @end
 
+@protocol ASQaCustomerBaseProtocol <ASQaAnswerProtocol>
 
-@interface ASQaCustomerBase : JSONModel
-@property (nonatomic) NSInteger Award;
+@required
 @property (nonatomic) NSInteger CateSysNo;
-@property (nonatomic, strong) NSString *Context;
-@property (nonatomic, strong) ASUsr_Customer *Customer;
-@property (nonatomic) NSInteger CustomerSysNo;
 @property (nonatomic) BOOL IsEnd;
 @property (nonatomic) BOOL IsSecret;
 @property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
 @property (nonatomic) NSInteger LastReplyUser;
 @property (nonatomic) NSInteger ReadCount;
 @property (nonatomic) NSInteger ReplyCount;
+
+@end
+
+
+@interface ASQaCustomerBase : JSONModel <ASQaCustomerBaseProtocol>
+@property (nonatomic) NSInteger Award;
+@property (nonatomic, strong) NSString *Context;
+@property (nonatomic, strong) ASUsr_Customer *Customer;
+@property (nonatomic) NSInteger CustomerSysNo;
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic, strong) NSDate<NSDate> *TS;
 @property (nonatomic, strong) NSString *Title;
+
+@property (nonatomic) NSInteger CateSysNo;
+@property (nonatomic) BOOL IsEnd;
+@property (nonatomic) BOOL IsSecret;
+@property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
+@property (nonatomic) NSInteger LastReplyUser;
+@property (nonatomic) NSInteger ReadCount;
+@property (nonatomic) NSInteger ReplyCount;
+
+@property (nonatomic, strong) NSArray *Chart;
 @end

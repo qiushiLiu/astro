@@ -8,20 +8,17 @@
 
 #import <UIKit/UIKit.h>
 @class ASBaseViewController;
-@class ASWaitingView;
-@protocol ASWaitingViewDelegate <NSObject>
 
-@required
-- (void)asWaitingViewDidShow:(ASWaitingView *)wv;
-- (void)asWaitingViewDidHide:(ASWaitingView *)wv;
 
-@end
+typedef void (^WaitingCompleteBlock) (void);
 
 @interface ASWaitingView : UIView
+
 @property (nonatomic, assign) ASBaseViewController *viewController;
-@property (nonatomic, assign) id<ASWaitingViewDelegate> delegate;
 
 - (id)initWithBaseViewController:(ASBaseViewController *)vc;
-- (void)showWating:(NSString *)title;
+- (void)showWating:(NSString *)tips;
+- (void)showWating:(NSString *)tips withComplete:(WaitingCompleteBlock)block;
 - (void)hideWaiting;
+- (void)hideWaitingWithComplete:(WaitingCompleteBlock)block;
 @end

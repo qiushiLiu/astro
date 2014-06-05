@@ -142,4 +142,23 @@
     self.height = top;
 }
 
+
++ (CGFloat)heightForChart:(NSArray *)chart context:(NSString *)context{
+    CGFloat height = 0;
+    if([chart count] > 0){
+        id chart1 = [chart firstObject];
+        if([chart1 isKindOfClass:[AstroMod class]]){
+            height += 165 *  [chart count];
+        }else if([chart1 isKindOfClass:[BaziMod class]]){
+            height += 42 *  [chart count];
+        }else if([chart1 isKindOfClass:[ZiWeiMod class]]){
+            height += __CellSize.height + 8;
+        }
+    }
+    
+    height += [context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    
+    return height;
+}
+
 @end
