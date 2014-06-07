@@ -10,10 +10,10 @@
 #import "ASUserSimpleView.h"
 #import "ASAskTableViewCell.h"
 
-#import "ASUsr_Customer.h"
+#import "ASCustomerShow.h"
 #import "ASQaMinBazi.h"
-#import "ASQaMinZiWei.h"
-#import "ASQaMinAstro.h"
+//#import "ASQaMinZiWei.h"
+//#import "ASQaMinAstro.h"
 
 @interface ASAskListVc ()
 @property (nonatomic, strong) UILabel *lbHeaderTitle;
@@ -65,7 +65,7 @@
         [self showWaiting];
         [HttpUtil load:kUrlGetStarsList params:@{@"catesysno" : self.cate} completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
-                self.userStars = [ASUsr_Customer arrayOfModelsFromDictionaries:json];
+                self.userStars = [ASCustomerShow arrayOfModelsFromDictionaries:json];
                 [self loadHeader];
                 [self loadMore];
             }else{
@@ -89,9 +89,9 @@
     self.svPage.contentSize = CGSizeMake(self.svPage.width * pageCount, self.svPage.height);
     CGFloat uvWidth = 150;
     for(NSInteger i = 0; i < [self.userStars count]; i++){
-        ASUsr_Customer *user = [self.userStars objectAtIndex:i];
+        ASCustomerShow *user = [self.userStars objectAtIndex:i];
         ASUserSimpleView *uv = [[ASUserSimpleView alloc] initWithFrame:CGRectMake(i * uvWidth, 0, uvWidth, self.svPage.height)];
-        [uv.face load:user.smallPhotoShow cacheDir:NSStringFromClass([ASUsr_Customer class])];
+        [uv.face load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
         [uv.lbName setText:user.NickName];
         [uv.lbIntro setText:user.Intro];
         [self.svPage addSubview:uv];
@@ -161,13 +161,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    ASQaBase *qa = [self.list objectAtIndex:indexPath.row];
+    id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
     return [ASAskTableViewCell heightFor:qa];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ASQaBase *qa = [self.list objectAtIndex:indexPath.row];
+    id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
     [self navTo:vcAskDeltail params:@{@"title" : self.title,
-                                      @"sysno" : Int2String(qa.SysNo)}];
+                                      @"sysno" : Int2String([qa SysNo])}];
 }
 @end

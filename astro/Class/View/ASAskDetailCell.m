@@ -16,7 +16,9 @@
 @property (nonatomic, strong) UILabel *lbPostIntro;  //提问数 & 反馈数
 @property (nonatomic, strong) UILabel *lbDate;  //发布时间
 @property (nonatomic, strong) ASPanView *panView;
+@property (nonatomic, strong) UIButton *btnComment; //评论
 @property (nonatomic, strong) UIButton *btnDelete;  //删除
+@property (nonatomic, strong) UITableView *tbComment;//评论列表
 @end
 
 @implementation ASAskDetailCell
@@ -59,9 +61,19 @@
         [self.bgView addSubview:self.panView];
         
         self.btnDelete = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        self.btnDelete.right = self.panView.right;
         [self.btnDelete setImage:[UIImage imageNamed:@"icon_del"] forState:UIControlStateNormal];
         [self.bgView addSubview:self.btnDelete];
+        
+        self.btnComment = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [self.btnComment setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
+        [self.bgView addSubview:self.btnComment];
+        
+        self.tbComment = [[UITableView alloc] initWithFrame:self.bgView.frame style:UITableViewStylePlain];
+        self.tbComment.delegate = self;
+        self.tbComment.dataSource = self;
+        self.tbComment.separatorColor = [UIColor clearColor];
+        self.tbComment.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self.bgView addSubview:self.tbComment];
     }
     return self;
 }
@@ -73,9 +85,9 @@
     return lb;
 }
 
-- (void)setQaCustomerProtocol:(id<ASQaAnswerProtocol>)qa canDel:(BOOL)canDel{
-    ASUsr_Customer *user = [qa Customer];
-    [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASUsr_Customer class])];
+- (void)setQaCustomerProtocol:(id<ASQaFullProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment{
+    ASCustomerShow *user = (ASCustomerShow *)[qa Customer];
+    [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
     
     NSString *temp = [NSString stringWithFormat:@"%@\t等级 ", user.NickName];
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:temp];
@@ -94,19 +106,45 @@
     self.lbDate.text = [[qa TS] toStrFormat:@"yyyy-MM-dd"];
     [self.panView setChart:qa.Chart context:[qa Context]];
     
+    CGFloat btnRight = self.bgView.right - 10;
     if(canDel){
         self.btnDelete.hidden = NO;
+        self.btnDelete.right = btnRight;
         self.btnDelete.top = self.panView.bottom;
-        self.bgView.height  = self.btnDelete.bottom + 10;
+        btnRight = self.btnDelete.left - 5;
     }else{
         self.btnDelete.hidden = YES;
-        self.bgView.height  = self.panView.bottom;
     }
+    
+    if(canComment){
+        self.btnComment.hidden = NO;
+        self.btnComment.right = btnRight;
+        self.btnComment.top = self.panView.bottom;
+        btnRight = self.btnComment.left - 5;
+    }else{
+        self.btnComment.hidden = YES;
+    }
+    
+    if(canDel || canComment){
+        self.bgView.height = self.panView.bottom + 30;
+    }else{
+        self.bgView.height = self.panView.bottom + 10;
+    }
+    
     
     self.height = self.bgView.height + 10;
 }
 
-+ (CGFloat)heightForModel:(id<ASQaCustomerBaseProtocol>)qa{
+#pragma mark - UITableViewDelegate & DataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [UITableViewCell new];
+}
+
++ (CGFloat)heightForModel:(id<ASQaProtocol>)qa{
     CGFloat height = 115;
     height += [ASPanView heightForChart:[qa Chart] context:qa.Context];
     return height;

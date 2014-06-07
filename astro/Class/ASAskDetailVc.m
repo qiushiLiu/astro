@@ -10,17 +10,17 @@
 #import "ASAskDetailHeaderView.h"
 #import "ASAskDetailCell.h"
 
-#import "ASQaCustomerBazi.h"
-#import "ASQaCustomerAstro.h"
-#import "ASQaCustomerZiWei.h"
-#import "ASQaAnswerShow.h"
+#import "ASQaFullBazi.h"
+//#import "ASQaFullAstro.h"
+//#import "ASQaFullZiWei.h"
+//#import "ASQaAnswerShow.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger sysNo;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
-@property (nonatomic, strong) id<ASQaCustomerBaseProtocol> question;
+@property (nonatomic, strong) id<ASQaFullProtocol> question;
 @property (nonatomic, strong) NSMutableArray *list;
 
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
@@ -69,9 +69,9 @@
     [HttpUtil load:@"qa/GetQuestionForBaZi" params:@{@"sysno" : Int2String(self.sysNo)}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
-                ASQaCustomerBazi *model = [[ASQaCustomerBazi alloc] initWithDictionary:json error:NULL];
+                ASQaFullBazi *model = [[ASQaFullBazi alloc] initWithDictionary:json error:NULL];
                 self.question = model;
-                [self.headerView setQa:self.question];
+                [self.headerView setQuestion:self.question];
                 self.tbList.tableHeaderView = self.headerView;
                 [self loadMore];
             }else{
@@ -89,7 +89,7 @@
                                                    @"pageindex" : Int2String(self.pageNo)}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
-                [self.list addObjectsFromArray:[ASQaAnswerShow arrayOfModelsFromDictionaries:json[@"list"]]];
+//                [self.list addObjectsFromArray:[ASQaAnswerShow arrayOfModelsFromDictionaries:json[@"list"]]];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
                 [self hideWaiting];
@@ -111,10 +111,10 @@
         cell = [[ASAskDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
     }
     if(indexPath.row == 0){
-        [cell setQaCustomerProtocol:self.question canDel:YES];
+        [cell setQaCustomerProtocol:self.question canDel:YES canComment:YES];
     }else{
-        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
-        [cell setQaCustomerProtocol:answer canDel:YES];
+//        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
+//        [cell setQaCustomerProtocol:answer canDel:YES];
     }
     return cell;
 }
@@ -123,18 +123,11 @@
     if(indexPath.row == 0){
         return [ASAskDetailCell heightForModel:self.question];
     }else{
-        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
-        return [ASAskDetailCell heightForModel:answer];
+//        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
+//        return [ASAskDetailCell heightForModel:answer];
+        return 0;
     }
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    return self.headerView;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return self.headerView.height;
-//}
 
 - (void)shareTo{
     

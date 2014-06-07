@@ -23,7 +23,7 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
     return instance;
 }
 
-+ (void)login:(ASUsr_Customer *)user{
++ (void)login:(ASCustomer *)user{
     [[ASCache shared] storeValue:[user toJSONString] dir:kCacheDir key:kCacheKeyForUserInfo];
     [self shared].user = user;
 }
@@ -41,7 +41,7 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
     ASCacheObject *cf = [[ASCache shared] readDicFiledsWithDir:kCacheDir key:kCacheKeyForUserInfo];
     if (cf) {
         //设置登录信息
-        self.user = [[ASUsr_Customer alloc] initWithString:cf.value error:NULL];
+        self.user = [[ASCustomer alloc] initWithString:cf.value error:NULL];
     }
 }
 

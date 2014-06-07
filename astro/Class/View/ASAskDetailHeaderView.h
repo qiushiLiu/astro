@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASQaCustomerBase.h"
+#import "ASQaProtocol.h"
 
 @interface ASAskDetailHeaderView : UIView
 @property (nonatomic, strong) UILabel *lbTitle;
@@ -22,5 +22,5 @@
 @property (nonatomic, strong) UILabel *lbReplyCount;
 @property (nonatomic, strong) UILabel *lbDate;
 
-- (void)setQa:(id<ASQaCustomerBaseProtocol>)obj;
+- (void)setQuestion:(id<ASQaFullProtocol>)obj;
 @end

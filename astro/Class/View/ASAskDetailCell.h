@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASQaCustomerBase.h"
+#import "ASQaProtocol.h"
 
-@interface ASAskDetailCell : UITableViewCell
+@interface ASAskDetailCell : UITableViewCell<UITableViewDelegate, UITableViewDataSource>
 
-- (void)setQaCustomerProtocol:(id<ASQaAnswerProtocol>)qa canDel:(BOOL)canDel;
-+ (CGFloat)heightForModel:(id<ASQaAnswerProtocol>)qa;
+- (void)setQaCustomerProtocol:(id<ASQaFullProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment;
++ (CGFloat)heightForModel:(id<ASQaFullProtocol>)qa;
 @end

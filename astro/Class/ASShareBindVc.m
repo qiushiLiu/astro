@@ -7,7 +7,7 @@
 //
 
 #import "ASShareBindVc.h"
-#import "ASUsr_Customer.h"
+#import "ASCustomer.h"
 @interface ASShareBindVc ()
 @end
 
@@ -144,7 +144,7 @@ static NSString *WeiboSSONotification = @"WeiboSSONotification";
 - (void)bindWeiboRequest:(NSString *)url params:(NSDictionary *)params{
     [HttpUtil load:url params:params completion:^(BOOL succ, NSString *message, id json) {
         if(succ){
-            ASUsr_Customer *user = [[ASUsr_Customer alloc] initWithDictionary:json error:NULL];
+            ASCustomer *user = [[ASCustomer alloc] initWithDictionary:json error:NULL];
             [ASGlobal login:user];
             [self hideWaiting];
             [self goBackWithSuccTag:YES];

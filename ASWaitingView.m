@@ -62,10 +62,6 @@ extern NSString * const kDefalutLoadingText;
 }
 
 - (void)showWating:(NSString *)tips{
-    [self showWating:tips withComplete:NULL];
-}
-
-- (void)showWating:(NSString *)tips withComplete:(WaitingCompleteBlock)block{
     if([tips length] == 0){
         tips = kDefalutLoadingText;
     }
@@ -84,26 +80,15 @@ extern NSString * const kDefalutLoadingText;
     self.loadview.transform = CGAffineTransformMakeScale(1.7f, 1.7f);
     [UIView animateWithDuration:0.2 animations:^{
         self.loadview.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        if(block != NULL){
-            block();
-        }
     }];
 }
 
 - (void)hideWaiting{
-    [self hideWaitingWithComplete:NULL];
-}
-
-- (void)hideWaitingWithComplete:(WaitingCompleteBlock)block{
     [self.activety stopAnimating];
     [UIView animateWithDuration:0.2 animations:^{
         self.loadview.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         self.hidden = YES;
-        if(block != NULL){
-            block();
-        }
     }];
 }
 

@@ -7,9 +7,9 @@
 //
 
 #import "ASAskTableViewCell.h"
-#import "ASQaMinAstro.h"
+//#import "ASQaMinAstro.h"
 #import "ASQaMinBazi.h"
-#import "ASQaMinZiWei.h"
+//#import "ASQaMinZiWei.h"
 #import "ASZiweiGrid.h"
 @implementation ASAskTableViewCell
 

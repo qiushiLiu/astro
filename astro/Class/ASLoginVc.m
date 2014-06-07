@@ -7,7 +7,7 @@
 //
 
 #import "ASLoginVc.h"
-#import "ASUsr_Customer.h"
+#import "ASCustomer.h"
 @interface ASLoginVc ()
 @property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) UITextField *tfName;
@@ -143,7 +143,7 @@
         completion:^(BOOL succ, NSString *message, id json) {
             [self hideWaiting];
             if(succ){
-                ASUsr_Customer *user = [[ASUsr_Customer alloc] initWithDictionary:json error:NULL];
+                ASCustomer *user = [[ASCustomer alloc] initWithDictionary:json error:NULL];
                 [ASGlobal login:user];
                 [self hideKeyboard];
                 [self alert:@"登录成功"];

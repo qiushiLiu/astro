@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ASUsr_Customer.h"
+#import "ASCustomer.h"
 @interface ASGlobal : NSObject
 
-@property (nonatomic, strong) ASUsr_Customer *user;
+@property (nonatomic, strong) ASCustomer *user;
 @property (nonatomic, strong) NSString *deviceNumber;
 + (ASGlobal *)shared;
-+ (void)login:(ASUsr_Customer *)user;
++ (void)login:(ASCustomer *)user;
 
 @end

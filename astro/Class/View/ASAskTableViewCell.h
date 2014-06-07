@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASQaBase.h"
+#import "AsQaProtocol.h"
 #import "ASPanView.h"
 @interface ASAskTableViewCell : UITableViewCell
 @property (nonatomic, strong) UIView *bg;
@@ -21,6 +21,6 @@
 @property (nonatomic, strong) UILabel *lbOffer;         //悬赏
 @property (nonatomic, strong) UILabel *lbFrom;          //发帖人和时间
 
-+ (CGFloat)heightFor:(ASQaBase *)model;
++ (CGFloat)heightFor:(id<ASQaProtocol>)model;
 - (void)setModelValue:(id<ASQaProtocol>)model;
 @end

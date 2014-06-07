@@ -7,7 +7,7 @@
 //
 
 #import "ASRegisterVc.h"
-#import "ASUsr_Customer.h"
+#import "ASCustomer.h"
 @interface ASRegisterVc ()
 @property (nonatomic, strong)UIImageView *ivProgress;
 @property (nonatomic, strong)UIImageView *ivCursor;
@@ -317,7 +317,7 @@ static CGFloat kInputWith = 220;
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 [self hideWaiting];
-                ASUsr_Customer *user = [[ASUsr_Customer alloc] initWithDictionary:json error:NULL];
+                ASCustomer *user = [[ASCustomer alloc] initWithDictionary:json error:NULL];
                 [ASGlobal login:user];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"注册成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 alert.tag = 200;
