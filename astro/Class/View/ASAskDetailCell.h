@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ASQaProtocol.h"
-
+#import "ASQaAnswer.h"
 @interface ASAskDetailCell : UITableViewCell<UITableViewDelegate, UITableViewDataSource>
 
-- (void)setQaCustomerProtocol:(id<ASQaFullProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment;
-+ (CGFloat)heightForModel:(id<ASQaFullProtocol>)qa;
+- (void)setQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart customer:(ASCustomerShow *)user canDel:(BOOL)canDel canComment:(BOOL)canComment;
++ (CGFloat)heightForQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart;
 @end

@@ -75,7 +75,7 @@
     return self;
 }
 
-- (void)setQuestion:(id<ASQaFullProtocol>)obj{
+- (void)setQuestion:(id<ASQaProtocol>)obj{
     NSMutableString *title = [NSMutableString stringWithString:[obj Title]];
     
     CGFloat left = self.lbTitle.left;

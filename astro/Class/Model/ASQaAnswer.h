@@ -1,5 +1,5 @@
 //
-//  ASQaFullBazi.h
+//  ASQaAnswer.h
 //  astro
 //
 //  Created by kjubo on 14-6-7.
@@ -8,9 +8,8 @@
 
 #import "JSONModel.h"
 #import "ASQaProtocol.h"
-#import "BaziMod.h"
 
-@interface ASQaFullBazi : JSONModel <ASQaProtocol, ASCustomerShowProtocol>
+@interface ASQaAnswer : JSONModel <ASQaBaseProtocol>
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic, strong) NSString *Title;
@@ -18,13 +17,12 @@
 @property (nonatomic, strong) ASCustomerShow *Customer;
 @property (nonatomic) NSInteger CustomerSysNo;
 @property (nonatomic, strong) NSDate<NSDate> *TS;
-@property (nonatomic) NSInteger CateSysNo;
-@property (nonatomic) BOOL IsEnd;
-@property (nonatomic) BOOL IsSecret;
-@property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
-@property (nonatomic) NSInteger LastReplyUser;
-@property (nonatomic) NSInteger ReadCount;
-@property (nonatomic) NSInteger ReplyCount;
 
-@property (nonatomic, strong) NSArray<BaziMod> *Chart;
+//Others
+@property (nonatomic) BOOL HasMoreComment;
+@property (nonatomic) NSInteger Hate;
+@property (nonatomic) NSInteger Love;
+@property (nonatomic) NSInteger QuestionSysNo;
+@property (nonatomic, strong) NSArray<Optional> *TopComments;
+
 @end

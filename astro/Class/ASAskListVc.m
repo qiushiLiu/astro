@@ -155,8 +155,8 @@
     if(!cell){
         cell = [[ASAskTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
     }
-    id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
-    [cell setModelValue:qa];
+    ASQaMinBazi *qa = [self.list objectAtIndex:indexPath.row];
+    [cell setModelValue:qa nickName:qa.CustomerNickName];
     return cell;
 }
 

@@ -12,7 +12,7 @@
 @protocol ASQaMinAstro
 @end
 
-@interface ASQaMinAstro : JSONModel<ASQaProtocol>
+@interface ASQaMinAstro : JSONModel
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic) NSInteger CateSysNo;

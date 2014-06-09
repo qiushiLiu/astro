@@ -13,14 +13,14 @@
 #import "ASQaFullBazi.h"
 //#import "ASQaFullAstro.h"
 //#import "ASQaFullZiWei.h"
-//#import "ASQaAnswerShow.h"
+#import "ASQaAnswer.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger sysNo;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
-@property (nonatomic, strong) id<ASQaFullProtocol> question;
+@property (nonatomic, strong) id<ASQaProtocol, ASCustomerShowProtocol> question;
 @property (nonatomic, strong) NSMutableArray *list;
 
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
@@ -111,21 +111,20 @@
         cell = [[ASAskDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
     }
     if(indexPath.row == 0){
-        [cell setQaCustomerProtocol:self.question canDel:YES canComment:YES];
+        [cell setQaProtocol:self.question chart:[self.question Chart] customer:[self.question Customer] canDel:YES canComment:YES];
     }else{
-//        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
-//        [cell setQaCustomerProtocol:answer canDel:YES];
+        ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
+        [cell setQaProtocol:answer chart:nil customer:answer.Customer canDel:YES canComment:YES];
     }
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
-        return [ASAskDetailCell heightForModel:self.question];
+        return [ASAskDetailCell heightForQaProtocol:self.question chart:[self.question Chart]];
     }else{
-//        ASQaAnswerShow *answer = [self.list objectAtIndex:indexPath.row - 1];
-//        return [ASAskDetailCell heightForModel:answer];
-        return 0;
+        ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
+        return [ASAskDetailCell heightForQaProtocol:answer chart:nil];
     }
 }
 

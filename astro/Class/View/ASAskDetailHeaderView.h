@@ -22,5 +22,5 @@
 @property (nonatomic, strong) UILabel *lbReplyCount;
 @property (nonatomic, strong) UILabel *lbDate;
 
-- (void)setQuestion:(id<ASQaFullProtocol>)obj;
+- (void)setQuestion:(id<ASQaProtocol>)obj;
 @end

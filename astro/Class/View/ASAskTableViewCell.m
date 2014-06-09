@@ -78,12 +78,12 @@
     return height;
 }
 
-- (void)setModelValue:(id<ASQaProtocol>)model{
+- (void)setModelValue:(id<ASQaProtocol>)model nickName:(NSString *)nickName{
     self.lbTitle.text = [model.Title copy];
     self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 50) lineBreakMode:NSLineBreakByCharWrapping].height;
     CGFloat top = self.lbTitle.bottom + 5;
     
-    [self.panView setChart:model.Chart context:[model Context]];
+    [self.panView setChart:[model Chart] context:[model Context]];
     self.panView.top = top;
     top = self.panView.bottom;
     
@@ -102,7 +102,7 @@
     self.lbOffer.left = self.ivOffer.right + 2;
     self.lbOffer.centerY = self.ivOffer.centerY;
     
-    self.lbFrom.text = [NSString stringWithFormat:@"%@ %@", model.CustomerNickName, [model.TS toStrFormat:@"HH:mm"]];
+    self.lbFrom.text = [NSString stringWithFormat:@"%@ %@", nickName, [model.TS toStrFormat:@"HH:mm"]];
     [self.lbFrom sizeToFit];
     self.lbFrom.right = self.lbTitle.right;
     self.lbFrom.centerY = self.lbReply.centerY;

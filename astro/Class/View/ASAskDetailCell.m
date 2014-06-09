@@ -85,8 +85,7 @@
     return lb;
 }
 
-- (void)setQaCustomerProtocol:(id<ASQaFullProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment{
-    ASCustomerShow *user = (ASCustomerShow *)[qa Customer];
+- (void)setQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart customer:(ASCustomerShow *)user canDel:(BOOL)canDel canComment:(BOOL)canComment{
     [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
     
     NSString *temp = [NSString stringWithFormat:@"%@\t等级 ", user.NickName];
@@ -104,7 +103,7 @@
     self.lbPostIntro.attributedText = str;
     
     self.lbDate.text = [[qa TS] toStrFormat:@"yyyy-MM-dd"];
-    [self.panView setChart:qa.Chart context:[qa Context]];
+    [self.panView setChart:chart context:[qa Context]];
     
     CGFloat btnRight = self.bgView.right - 10;
     if(canDel){
@@ -144,9 +143,9 @@
     return [UITableViewCell new];
 }
 
-+ (CGFloat)heightForModel:(id<ASQaProtocol>)qa{
++ (CGFloat)heightForQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart{
     CGFloat height = 115;
-    height += [ASPanView heightForChart:[qa Chart] context:qa.Context];
+    height += [ASPanView heightForChart:chart context:qa.Context];
     return height;
 }
 
