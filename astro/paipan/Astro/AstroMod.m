@@ -9,6 +9,7 @@
 #import "AstroMod.h"
 #import "AstroStar.h"
 #import "Paipan.h"
+#import "AstroStarGroup.h"
 
 CGFloat D2R(CGFloat degrees) {return degrees * M_PI / 180.0;};
 CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
@@ -123,11 +124,11 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     //12星座
     for(int i = 0; i < 360; i++){
         if(i % 30 == 0){
-            [self drawSeparated:ctx degree:([self.constellationStart doubleValue] + i) from:r0 to:r2];
+            [self drawSeparated:ctx degree:(constellationStart + i) from:r0 to:r2];
         }else if(i % 5 == 0){
-            [self drawSeparated:ctx degree:([self.constellationStart doubleValue] + i) from:r1 to:r2];
+            [self drawSeparated:ctx degree:(constellationStart + i) from:r1 to:r2];
         }else{
-            [self drawSeparated:ctx degree:([self.constellationStart doubleValue] + i) from:r1 to:r2 lineWidth:0.3];
+            [self drawSeparated:ctx degree:(constellationStart + i) from:r1 to:r2 lineWidth:0.3];
         }
         if(i % 30 == 15){
             int cons = i/30 + 1;
@@ -136,8 +137,8 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
             CGSize cSize = CGSizeMake(18, 18);
             CGSize rSize = CGSizeMake(cSize.width/2, cSize.height/2);
             CGFloat cr = (r1 + r0)*0.5;
-            CGPoint ct = [[self class] pointByRadius:cr andDegree:([self.constellationStart doubleValue] + i + 2)];
-            CGPoint rt = [[self class] pointByRadius:cr andDegree:([self.constellationStart doubleValue] + i - 4)];
+            CGPoint ct = [[self class] pointByRadius:cr andDegree:(constellationStart + i + 2)];
+            CGPoint rt = [[self class] pointByRadius:cr andDegree:(constellationStart + i - 4)];
             [constellation drawInRect:CGRectMake(ct.x - cSize.width/2, ct.y - cSize.height/2, cSize.width, cSize.height)];
             [ruler drawInRect:CGRectMake(rt.x - rSize.width/2, rt.y - rSize.height/2, rSize.width, rSize.height)];
         }
@@ -147,69 +148,85 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     //画星的中心点
     NSMutableArray *st = [[NSMutableArray alloc] init];
     for (int i = 0; i < [self.Stars count]; i++) {
-        if(i >= 20 && i != 20 /*&& i != 23 && i != 26*/ && i != 29)
+        if(i > 20 /*&& i != 23 && i != 26*/ && i != 29 && i <= 31)
             continue;
-        AstroStar *star = [self.Stars objectAtIndex:i];
-        CGFloat degree = [self.constellationStart doubleValue] + 30 * (star.Constellation - 1) + [star.DegreeHD doubleValue];
+        AstroStarHD *star = [[AstroStarHD alloc] initWithAstro:[self.Stars objectAtIndex:i]];
+        CGFloat degree = constellationStart + 30 * (star.base.Constellation - 1) + star.DegreeHD;
         degree = fmodf(degree, 360.0);
-        star.PanDegree = @(degree);
-        star.FixDegree = @(degree);
+        NSAssert(degree > 0, @"PanDegree 必须大于 0");
+        star.PanDegree = degree;
+        star.FixDegree = degree;
         [st addObject:star];
     }
     
     //先排序
     [st sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return ((AstroStar *)obj1).PanDegree > ((AstroStar *)obj2).PanDegree;
+        AstroStarHD *s1 = (AstroStarHD *)obj1;
+        AstroStarHD *s2 = (AstroStarHD *)obj2;
+        return s1.PanDegree >= s2.PanDegree;
     }];
     
-    NSMutableArray *group = [[NSMutableArray alloc] init];
-    NSInteger bb = 0, ee = [st count] - 1;
-    CGFloat lastDegree = -1;
-    while (bb <= ee) {
-        AstroStar *star = [st objectAtIndex:bb];
-        if(bb == 0){
-            lastDegree = [star.PanDegree doubleValue];
-            while(bb <= ee){
-                AstroStar *lstar = [st objectAtIndex:ee];
-                BOOL tag = NO;
-                if(lastDegree < [lstar.PanDegree doubleValue]){
-                    if(360.0 - [lstar.PanDegree doubleValue] + lastDegree <= 8.0){
-                        tag = YES;
-                    }
-                }else{
-                    if(fabs(lastDegree - [star.PanDegree doubleValue]) <= 8.0){
-                        tag = YES;
-                    }
-                }
-                if(tag){
-                    [group insertObject:lstar atIndex:0];
-                    lastDegree = [lstar.PanDegree doubleValue];
-                    ee--;
-                }else{
-                    break;
-                }
-            }
-            lastDegree = -1;
-        }
-        if(lastDegree >= 0 && fabs(lastDegree - [star.PanDegree doubleValue]) > 8.0){
-            [self drawGroupStar:ctx group:group radius:r4];
-            [group removeAllObjects];
-        }
-        [group addObject:star];
-        lastDegree = [star.PanDegree doubleValue];
-        bb++;
+    
+//    NSMutableArray *group = [[NSMutableArray alloc] init];
+//    NSInteger bb = 0, ee = [st count] - 1;
+//    CGFloat lastDegree = -1;
+//    while (bb <= ee) {
+//        AstroStar *star = [st objectAtIndex:bb];
+//        if(bb == 0){
+//            lastDegree = [star.PanDegree doubleValue];
+//            while(bb <= ee){
+//                AstroStar *lstar = [st objectAtIndex:ee];
+//                BOOL tag = NO;
+//                if(lastDegree < [lstar.PanDegree doubleValue]){
+//                    if(360.0 - [lstar.PanDegree doubleValue] + lastDegree <= 8.0){
+//                        tag = YES;
+//                    }
+//                }else{
+//                    if(fabs(lastDegree - [star.PanDegree doubleValue]) <= 8.0){
+//                        tag = YES;
+//                    }
+//                }
+//                if(tag){
+//                    [group insertObject:lstar atIndex:0];
+//                    lastDegree = [lstar.PanDegree doubleValue];
+//                    ee--;
+//                }else{
+//                    break;
+//                }
+//            }
+//            lastDegree = -1;
+//        }
+//        if(lastDegree >= 0 && fabs(lastDegree - [star.PanDegree doubleValue]) > 8.0){
+//            [self drawGroupStar:ctx group:group radius:r4];
+//            [group removeAllObjects];
+//        }
+//        [group addObject:star];
+//        lastDegree = [star.PanDegree doubleValue];
+//        bb++;
+//    }
+//    if([group count] > 0){
+//        [self drawGroupStar:ctx group:group radius:r4];
+//    }
+
+    
+    NSMutableArray *groups = [[NSMutableArray alloc] init];
+    for(AstroStarHD *star in st){
+        [self starGroups:groups addNewStar:star];
     }
-    if([group count] > 0){
-        [self drawGroupStar:ctx group:group radius:r4];
+    
+    for(AstroStarGroup *gp in groups){
+//        if([gp.stars count] == 2){
+            [self drawGroupStar:ctx group:gp.stars radius:r4];
+//        }
     }
     
     for(int i = 0; i < [st count]; i++){
-        AstroStar *star = [st objectAtIndex:i];
-        if(star.StarName > 10)
+        AstroStarHD *star = [st objectAtIndex:i];
+        if(star.base.StarName > 10)
             continue;
         for(int j = i + 1; j < [st count]; j++){
-            AstroStar *relStar = [st objectAtIndex:j]; //关联星
-            double delta = fabs([star.PanDegree doubleValue] - [relStar.PanDegree doubleValue]);
+            AstroStarHD *relStar = [st objectAtIndex:j]; //关联星
+            double delta = fabs(star.PanDegree - relStar.PanDegree);
             if(delta > 180.0){
                 delta = 360.0 - delta;
             }
@@ -245,7 +262,7 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
                     CGContextSetLineDash(ctx, 0, NULL, 0);
                 }
                 CGContextSetStrokeColorWithColor(ctx, cl.CGColor);
-                [self drawStarLine:ctx radius:r4 from:[star.PanDegree doubleValue] to:[relStar.PanDegree doubleValue]];
+                [self drawStarLine:ctx radius:r4 from:star.PanDegree to:relStar.PanDegree];
             }
         }
     }
@@ -255,40 +272,69 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     return image;
 }
 
-- (void)drawGroupStar:(CGContextRef)ctx group:(NSMutableArray *)group radius:(CGFloat)r{
-    CGFloat cc = 0;
-    NSInteger mid = [group count]/2;
-    BOOL hasCenter = [group count]%2 != 0;
-    if([group count]%2 == 0){
-        AstroStar *a1 = (AstroStar *)[group objectAtIndex:mid - 1];
-        AstroStar *a2 = (AstroStar *)[group objectAtIndex:mid];
-        cc = ([a1.PanDegree doubleValue] + [a2.PanDegree doubleValue])*0.5;
-    }else{
-        cc = [((AstroStar *)[group objectAtIndex:mid]).PanDegree doubleValue];
+- (void)starGroups:(NSMutableArray *)groups addNewStar:(AstroStarHD *)star{
+    AstroStarGroup *gp = [[AstroStarGroup alloc] init];
+    [gp addNewStar:star];
+    [groups addObject:gp];
+    
+    BOOL joinTag = YES;
+    while(joinTag){
+        NSInteger lastCount = [groups count];
+        for(int i = 0; i < lastCount; i++){
+            AstroStarGroup *gp0 = [groups objectAtIndex:i];
+            for (int j = i + 1; j < lastCount; j++) {
+                AstroStarGroup *gp1 = [groups objectAtIndex:j];
+                if([gp0 nearTo:gp1]){
+                    [gp0 joinStars:gp1.stars];
+                    [groups removeObject:gp1];
+                    break;
+                }
+            }
+            if(lastCount != [groups count]){
+                break;
+            }
+        }
+        if(lastCount == [groups count]){
+            joinTag = NO;
+        }
     }
+    
+}
+
+- (void)drawGroupStar:(CGContextRef)ctx group:(NSArray *)group radius:(CGFloat)r{
+//    CGFloat cc = 0;
+//    NSInteger mid = [group count]/2;
+//    BOOL hasCenter = [group count]%2 != 0;
+//    if([group count]%2 == 0){
+//        AstroStar *a1 = (AstroStar *)[group objectAtIndex:mid - 1];
+//        AstroStar *a2 = (AstroStar *)[group objectAtIndex:mid];
+//        cc = ([a1.PanDegree doubleValue] + [a2.PanDegree doubleValue])*0.5;
+//    }else{
+//        cc = [((AstroStar *)[group objectAtIndex:mid]).PanDegree doubleValue];
+//    }
     
     CGSize sSize = CGSizeMake(14, 14);
     for(NSInteger i = 0; i <  [group count]; i++){
-        CGFloat degreeFixed = 0;
-        NSInteger delta = abs((int)(i - mid));
-        if(i < mid){
-            degreeFixed = cc - delta * 4.25;
-        }else{
-            if(hasCenter){
-                degreeFixed = cc + delta * 4.25;
-            }else{
-                degreeFixed = cc + (delta + 1) * 4.25;
-            }
-        }
-        AstroStar *star = [group objectAtIndex:i];
-        CGPoint center = [[self class] pointByRadius:r andDegree:[star.PanDegree doubleValue]];
+//        CGFloat degreeFixed = 0;
+//        NSInteger delta = abs((int)(i - mid));
+//        if(i < mid){
+//            degreeFixed = cc - delta * 4.25;
+//        }else{
+//            if(hasCenter){
+//                degreeFixed = cc + delta * 4.25;
+//            }else{
+//                degreeFixed = cc + (delta + 1) * 4.25;
+//            }
+//        }
+        AstroStarHD *star = [group objectAtIndex:i];
+        CGPoint center = [[self class] pointByRadius:r andDegree:star.PanDegree];
         [self drawArc:ctx center:center radius:1 color:UIColorFromRGB(0xee1100)];
-        CGPoint centerFix = [[self class] pointByRadius:r + 18 andDegree:degreeFixed];
-        UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%d", star.StarName]];
+        CGPoint centerFix = [[self class] pointByRadius:r + 20 andDegree:star.FixDegree];
+        UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%d", star.base.StarName]];
         [icon drawInRect:CGRectMake(centerFix.x - sSize.width/2, centerFix.y - sSize.height/2, sSize.width, sSize.height)];
         
         //指向线
-        CGPoint lineEnd = [[self class] pointByRadius:r + 12 andDegree:degreeFixed];
+        CGPoint lineEnd = [[self class] pointByRadius:r + 12 andDegree:star.FixDegree];
         CGContextSetLineDash(ctx, 0, NULL, 0);
         CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
         CGContextSetLineWidth(ctx, 0.8);
@@ -339,25 +385,26 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     CGFloat last = 180.0;
     [arrGong addObject:@(last)];
     for(int i = 20; i < 31; i++){
-        AstroStar *star = [self.Stars objectAtIndex:i];
-        AstroStar *starNext = [self.Stars objectAtIndex:i + 1];
+        AstroStarHD *star = [[AstroStarHD alloc] initWithAstro:[self.Stars objectAtIndex:i]];
+        AstroStarHD *starNext = [[AstroStarHD alloc] initWithAstro:[self.Stars objectAtIndex:i + 1]];
         if([star isEqual:[NSNull null]] || [starNext isEqual:[NSNull null]]){
             continue;
         }
+        
         if(i == 20){
-            self.constellationStart = @(last - (star.Constellation - 1)*_ConstellationDegree - [star.DegreeHD doubleValue]);
-            if(self.constellationStart <= 0){
-                self.constellationStart = @(360.0 - fabs([self.constellationStart doubleValue]));
+            constellationStart = last - (star.base.Constellation - 1)*_ConstellationDegree - star.DegreeHD;
+            if(constellationStart <= 0){
+                constellationStart = 360.0 - fabs(constellationStart);
             }
         }
         
         NSInteger cc = 0;
-        if(starNext.Constellation >= star.Constellation){
-            cc = starNext.Constellation - star.Constellation;
+        if(starNext.base.Constellation >= star.base.Constellation){
+            cc = starNext.base.Constellation - star.base.Constellation;
         }else{
-            cc = (12 - star.Constellation) + starNext.Constellation;
+            cc = (12 - star.base.Constellation) + starNext.base.Constellation;
         }
-        last = last + cc*30.0 + ([starNext.DegreeHD doubleValue] - [star.DegreeHD doubleValue]);
+        last = last + cc*30.0 + (starNext.DegreeHD - star.DegreeHD);
         [arrGong addObject:@(last)];
     }
     return arrGong;

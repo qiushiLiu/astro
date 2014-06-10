@@ -9,7 +9,14 @@
 #import "AstroStar.h"
 
 @implementation AstroStar
-- (NSNumber *)DegreeHD{
-    return @(self.Degree + self.Cent/60.0);
+@end
+
+@implementation AstroStarHD
+- (id)initWithAstro:(AstroStar *)star{
+    if(self = [super init]){
+        self.base = star;
+        self.DegreeHD = self.base.Degree + self.base.Cent/60.0;
+    }
+    return self;
 }
 @end

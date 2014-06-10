@@ -109,6 +109,7 @@
 		1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365618D171A3001D0F30 /* ZiWeiMod.m */; };
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
+		1BDF92F11946A0B90054BE8C /* AstroStarGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF92F01946A0B90054BE8C /* AstroStarGroup.m */; };
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
 		1BF467C418DC246600CB3E4B /* Paipan.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF467C318DC246600CB3E4B /* Paipan.m */; };
 /* End PBXBuildFile section */
@@ -321,6 +322,8 @@
 		1BD5365918D17385001D0F30 /* ZiWeiGong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiGong.m; sourceTree = "<group>"; };
 		1BD5365B18D17435001D0F30 /* ZiWeiStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiStar.h; sourceTree = "<group>"; };
 		1BD5365C18D17435001D0F30 /* ZiWeiStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiStar.m; sourceTree = "<group>"; };
+		1BDF92EF1946A0B90054BE8C /* AstroStarGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroStarGroup.h; sourceTree = "<group>"; };
+		1BDF92F01946A0B90054BE8C /* AstroStarGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AstroStarGroup.m; sourceTree = "<group>"; };
 		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
 		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
 		1BF467C218DC246600CB3E4B /* Paipan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paipan.h; sourceTree = "<group>"; };
@@ -514,6 +517,8 @@
 				1B1A970418D929320039413E /* AstroStar.m */,
 				1B1A970918D929F40039413E /* AstroMod.h */,
 				1B1A970A18D929F40039413E /* AstroMod.m */,
+				1BDF92EF1946A0B90054BE8C /* AstroStarGroup.h */,
+				1BDF92F01946A0B90054BE8C /* AstroStarGroup.m */,
 			);
 			path = Astro;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 				1BC823CE193DF1A4001CF44E /* ASIHTTPRequest.m in Sources */,
 				1B1D5F321942BD1F00D23025 /* ASQaMinBazi.m in Sources */,
 				1BC823CD193DF1A3001CF44E /* ASIFormDataRequest.m in Sources */,
+				1BDF92F11946A0B90054BE8C /* AstroStarGroup.m in Sources */,
 				1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */,
 				1B7CAEF818F6489C005B8C30 /* JSONModel+CoreData.m in Sources */,
 				1B7CAEF918F6489C005B8C30 /* JSONModel.m in Sources */,

@@ -16,8 +16,13 @@
 @property (nonatomic) double Cent;
 @property (nonatomic) NSInteger Constellation;
 @property (nonatomic) double Progress;
+@end
 
-@property (nonatomic, readonly) NSNumber<Ignore> *DegreeHD;
-@property (nonatomic) NSNumber<Ignore> *PanDegree;
-@property (nonatomic) NSNumber<Ignore> *FixDegree;
+@interface AstroStarHD : NSObject
+@property (nonatomic, strong) AstroStar *base;
+@property (nonatomic) CGFloat DegreeHD;
+@property (nonatomic) CGFloat PanDegree;
+@property (nonatomic) CGFloat FixDegree;
+
+- (id)initWithAstro:(AstroStar *)star;
 @end
