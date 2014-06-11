@@ -8,6 +8,7 @@
 
 #import "ASAskDetailCell.h"
 #import "ASPanView.h"
+#import "ASQaAnswer.h"
 @interface ASAskDetailCell ()
 @property (nonatomic, strong) UIView *bgView;   //背景
 @property (nonatomic, strong) ASUrlImageView *faceView; //头像
@@ -19,6 +20,8 @@
 @property (nonatomic, strong) UIButton *btnComment; //评论
 @property (nonatomic, strong) UIButton *btnDelete;  //删除
 @property (nonatomic, strong) UITableView *tbComment;//评论列表
+@property (nonatomic, strong) UIButton *btnMore; //更多评论
+@property (nonatomic, weak) ASQaAnswer *answer;
 @end
 
 @implementation ASAskDetailCell
@@ -30,8 +33,10 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, margin, self.width - 2*margin, 0)];
+        self.bgView.clipsToBounds = YES;
         self.bgView.backgroundColor = [UIColor whiteColor];
         self.bgView.layer.cornerRadius = 6;
         self.bgView.layer.borderWidth = 1;
@@ -68,12 +73,23 @@
         [self.btnComment setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
         [self.bgView addSubview:self.btnComment];
         
-        self.tbComment = [[UITableView alloc] initWithFrame:self.bgView.frame style:UITableViewStylePlain];
+        self.tbComment = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.bgView.width, 1) style:UITableViewStylePlain];
+        self.tbComment.backgroundColor = UIColorFromRGB(0xe0ecd1);
+        self.tbComment.scrollEnabled = NO;
         self.tbComment.delegate = self;
         self.tbComment.dataSource = self;
         self.tbComment.separatorColor = [UIColor clearColor];
         self.tbComment.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.bgView addSubview:self.tbComment];
+        
+        self.btnMore = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tbComment.width - 20, 28)];
+        self.btnMore.layer.cornerRadius = 5.0;
+        self.btnMore.centerX = self.tbComment.centerX;
+        self.btnMore.backgroundColor = UIColorFromRGB(0x779058);
+        self.btnMore.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+        [self.btnMore setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.btnMore.hidden = YES;
+        [self.bgView addSubview:self.btnMore];
     }
     return self;
 }
@@ -124,28 +140,104 @@
         self.btnComment.hidden = YES;
     }
     
+    CGFloat top = 0;
     if(canDel || canComment){
-        self.bgView.height = self.panView.bottom + 30;
+        top = self.panView.bottom + 30;
     }else{
-        self.bgView.height = self.panView.bottom + 10;
+        top = self.panView.bottom + 10;
     }
     
+    self.tbComment.hidden = YES;
+    self.btnMore.hidden = YES;
+    if([qa isKindOfClass:[ASQaAnswer class]]){
+        self.answer = (ASQaAnswer *)qa;
+        if([self.answer.TopComments count] > 0){
+            self.tbComment.hidden = NO;
+            [self.tbComment reloadData];
+            self.tbComment.height = self.tbComment.contentSize.height;
+            self.tbComment.top = top;
+            top = self.tbComment.bottom;
+        }
+        if(self.answer.HasMoreComment){
+            self.btnMore.hidden = NO;
+            self.btnMore.top = self.tbComment.bottom + 3;
+            top = self.btnMore.bottom + 10;
+            self.tbComment.height = top;
+            [self.btnMore setTitle:[NSString stringWithFormat:@"更多%d条评论+", self.answer.ToalComment] forState:UIControlStateNormal];
+        }
+    }
     
+    self.bgView.height = top;
     self.height = self.bgView.height + 10;
 }
 
 #pragma mark - UITableViewDelegate & DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if(self.answer){
+        return [self.answer.TopComments count];
+    }
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.answer){
+        ASQaComment *comment = [self.answer.TopComments objectAtIndex:indexPath.row];
+        return [[self class] heightForComment:comment];
+    }
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [UITableViewCell new];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ASQaAnswerCell"];
+    if(!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ASQaAnswerCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        
+        ASUrlImageView *fv = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 6, 30, 30)];
+        fv.tag = 100;
+        [cell.contentView addSubview:fv];
+        
+        UILabel *lb = [self newLabel:CGRectMake(fv.right + 5, fv.top, 230, 0)];
+        lb.tag = 200;
+        lb.numberOfLines = 0;
+        lb.font = [UIFont systemFontOfSize:12];
+        lb.lineBreakMode = NSLineBreakByCharWrapping;
+        [cell.contentView addSubview:lb];
+    }
+    
+    ASUrlImageView *fv = (ASUrlImageView *)[cell.contentView viewWithTag:100];
+    UILabel *lb = (UILabel *)[cell.contentView viewWithTag:200];
+    
+    if(self.answer){
+        ASQaComment *comment = [self.answer.TopComments objectAtIndex:indexPath.row];
+        [fv load:comment.Customer.smallPhotoShow cacheDir:NSStringFromClass([ASCustomer class])];
+        lb.text = [comment.Context copy];
+        lb.height = [lb.text sizeWithFont:lb.font constrainedToSize:CGSizeMake(lb.width, CGFLOAT_MAX) lineBreakMode:lb.lineBreakMode].height;
+    }
+    
+    return cell;
+}
+
++ (CGFloat)heightForComment:(ASQaComment *)as{
+    CGFloat height = 10 + [as.Context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(230, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height = MAX(35, height);
+    height += 5;
+    return height;
 }
 
 + (CGFloat)heightForQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart{
-    CGFloat height = 115;
+    CGFloat height = 95;
     height += [ASPanView heightForChart:chart context:qa.Context];
+    if([qa isKindOfClass:[ASQaAnswer class]]){
+        ASQaAnswer *as = (ASQaAnswer *)qa;
+        for(ASQaComment *ct in as.TopComments){
+            height += [[self class] heightForComment:ct];
+        }
+        if(as.HasMoreComment){
+            height += 40;
+        }
+    }
     return height;
 }
 

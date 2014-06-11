@@ -111,6 +111,7 @@
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
 		1BDF92F11946A0B90054BE8C /* AstroStarGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF92F01946A0B90054BE8C /* AstroStarGroup.m */; };
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
+		1BECAC21194711AD005C330B /* ASQaComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BECAC20194711AD005C330B /* ASQaComment.m */; };
 		1BF467C418DC246600CB3E4B /* Paipan.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF467C318DC246600CB3E4B /* Paipan.m */; };
 /* End PBXBuildFile section */
 
@@ -326,6 +327,8 @@
 		1BDF92F01946A0B90054BE8C /* AstroStarGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AstroStarGroup.m; sourceTree = "<group>"; };
 		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
 		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
+		1BECAC1F194711AD005C330B /* ASQaComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaComment.h; sourceTree = "<group>"; };
+		1BECAC20194711AD005C330B /* ASQaComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaComment.m; sourceTree = "<group>"; };
 		1BF467C218DC246600CB3E4B /* Paipan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paipan.h; sourceTree = "<group>"; };
 		1BF467C318DC246600CB3E4B /* Paipan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Paipan.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -586,6 +589,8 @@
 				1B40FF1818FFABE50022B87B /* ASPageInfo.m */,
 				1B1D5F431942CC4400D23025 /* ASQaAnswer.h */,
 				1B1D5F441942CC4400D23025 /* ASQaAnswer.m */,
+				1BECAC1F194711AD005C330B /* ASQaComment.h */,
+				1BECAC20194711AD005C330B /* ASQaComment.m */,
 				1B1D5F341942C2AC00D23025 /* ASQaFullBazi.h */,
 				1B1D5F351942C2AC00D23025 /* ASQaFullBazi.m */,
 				1B1D5F401942C9BC00D23025 /* ASQaMinAstro.h */,
@@ -922,6 +927,7 @@
 				1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */,
 				1B7CAEDB18F4F46B005B8C30 /* ASCategory.m in Sources */,
 				1B9F1EF1186C54DB00278E62 /* ASUrlImageView.m in Sources */,
+				1BECAC21194711AD005C330B /* ASQaComment.m in Sources */,
 				1B012BC6185F40A80046AD7A /* JSONKit.m in Sources */,
 				1BC823D1193DF1A4001CF44E /* Reachability.m in Sources */,
 				1B012B6B185DD4ED0046AD7A /* NSString+Addition.m in Sources */,

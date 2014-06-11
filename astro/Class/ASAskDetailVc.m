@@ -61,7 +61,7 @@
 
 - (void)setNavToParams:(NSDictionary *)params{
     self.title = [params objectForKey:@"title"];
-    self.sysNo = [[params objectForKey:@"sysno"] intValue];
+    self.sysNo = 25;//[[params objectForKey:@"sysno"] intValue];
 }
 
 - (void)loadQaData{
@@ -89,7 +89,7 @@
                                                    @"pageindex" : Int2String(self.pageNo)}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
-//                [self.list addObjectsFromArray:[ASQaAnswerShow arrayOfModelsFromDictionaries:json[@"list"]]];
+                [self.list addObjectsFromArray:[ASQaAnswer arrayOfModelsFromDictionaries:json[@"list"]]];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
                 [self hideWaiting];
@@ -114,6 +114,11 @@
         [cell setQaProtocol:self.question chart:[self.question Chart] customer:[self.question Customer] canDel:YES canComment:YES];
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
+        if([answer.TopComments count] >= 1){
+            ASQaComment *item = [answer.TopComments firstObject];
+            answer.TopComments = @[item, item ,item];
+        }
+        
         [cell setQaProtocol:answer chart:nil customer:answer.Customer canDel:YES canComment:YES];
     }
     return cell;
@@ -124,6 +129,10 @@
         return [ASAskDetailCell heightForQaProtocol:self.question chart:[self.question Chart]];
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
+        if([answer.TopComments count] >= 1){
+            ASQaComment *item = [answer.TopComments firstObject];
+            answer.TopComments = @[item, item ,item];
+        }
         return [ASAskDetailCell heightForQaProtocol:answer chart:nil];
     }
 }

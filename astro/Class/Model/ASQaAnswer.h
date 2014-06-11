@@ -8,6 +8,7 @@
 
 #import "JSONModel.h"
 #import "ASQaProtocol.h"
+#import "ASQaComment.h"
 
 @interface ASQaAnswer : JSONModel <ASQaBaseProtocol>
 @property (nonatomic) NSInteger SysNo;
@@ -23,6 +24,6 @@
 @property (nonatomic) NSInteger Hate;
 @property (nonatomic) NSInteger Love;
 @property (nonatomic) NSInteger QuestionSysNo;
-@property (nonatomic, strong) NSArray<Optional> *TopComments;
-
+@property (nonatomic, strong) NSArray<ASQaComment, Optional> *TopComments;
+@property (nonatomic) NSInteger ToalComment;
 @end
