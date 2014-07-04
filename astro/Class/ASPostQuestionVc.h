@@ -7,6 +7,7 @@
 //
 
 #import "ASBaseViewController.h"
+#define NumberToCharacter @[@"一", @"二"]
 
 @interface ASPostQuestionVc : ASBaseViewController<UITextFieldDelegate>
 

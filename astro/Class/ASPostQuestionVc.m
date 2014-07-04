@@ -223,6 +223,7 @@
     titleView.layer.cornerRadius = titleView.height/2;
     
     UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, titleView.width - 15, titleView.height)];
+    lb.backgroundColor = [UIColor clearColor];
     lb.font = [UIFont systemFontOfSize:14];
     lb.textColor = [UIColor whiteColor];
     lb.text = @"请输入问题内容";
