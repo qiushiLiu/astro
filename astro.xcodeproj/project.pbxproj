@@ -33,6 +33,8 @@
 		1B035F0518C5580E006F3A7E /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */; };
 		1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */; };
 		1B1760FD1925ACBE000A864C /* ASAskDetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */; };
+		1B19A27E195BBBC700831568 /* ASPostQuestionVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B19A27D195BBBC700831568 /* ASPostQuestionVc.m */; };
+		1B19A281195D126400831568 /* ASFillQuestionVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B19A280195D126400831568 /* ASFillQuestionVc.m */; };
 		1B1A970518D929320039413E /* AstroStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970418D929320039413E /* AstroStar.m */; };
 		1B1A970B18D929F40039413E /* AstroMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A970A18D929F40039413E /* AstroMod.m */; };
 		1B1D5F1A1941F22100D23025 /* ASCustomer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F191941F22100D23025 /* ASCustomer.m */; };
@@ -43,6 +45,7 @@
 		1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F441942CC4400D23025 /* ASQaAnswer.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
+		1B318E73196646AF003C157C /* ASFillPersonVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B318E72196646AF003C157C /* ASFillPersonVc.m */; };
 		1B322E89193EA70E004D9A97 /* ASAskDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */; };
 		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
 		1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */; };
@@ -113,6 +116,7 @@
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
 		1BECAC21194711AD005C330B /* ASQaComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BECAC20194711AD005C330B /* ASQaComment.m */; };
 		1BF467C418DC246600CB3E4B /* Paipan.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF467C318DC246600CB3E4B /* Paipan.m */; };
+		1BFBDFAD195161660063DDE2 /* ASUserCenterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBDFAC195161660063DDE2 /* ASUserCenterVc.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +172,10 @@
 		1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRegisterVc.m; sourceTree = "<group>"; };
 		1B1760FB1925ACBE000A864C /* ASAskDetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailVc.h; sourceTree = "<group>"; };
 		1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailVc.m; sourceTree = "<group>"; };
+		1B19A27C195BBBC700831568 /* ASPostQuestionVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPostQuestionVc.h; sourceTree = "<group>"; };
+		1B19A27D195BBBC700831568 /* ASPostQuestionVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPostQuestionVc.m; sourceTree = "<group>"; };
+		1B19A27F195D126400831568 /* ASFillQuestionVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFillQuestionVc.h; sourceTree = "<group>"; };
+		1B19A280195D126400831568 /* ASFillQuestionVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFillQuestionVc.m; sourceTree = "<group>"; };
 		1B1A970318D929320039413E /* AstroStar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroStar.h; sourceTree = "<group>"; };
 		1B1A970418D929320039413E /* AstroStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AstroStar.m; sourceTree = "<group>"; };
 		1B1A970918D929F40039413E /* AstroMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AstroMod.h; sourceTree = "<group>"; };
@@ -189,6 +197,8 @@
 		1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoadMoreView.m; sourceTree = "<group>"; };
 		1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaseSingleTableView.h; sourceTree = "<group>"; };
 		1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaseSingleTableView.m; sourceTree = "<group>"; };
+		1B318E71196646AF003C157C /* ASFillPersonVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFillPersonVc.h; sourceTree = "<group>"; };
+		1B318E72196646AF003C157C /* ASFillPersonVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFillPersonVc.m; sourceTree = "<group>"; };
 		1B322E87193EA70E004D9A97 /* ASAskDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailCell.h; sourceTree = "<group>"; };
 		1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailCell.m; sourceTree = "<group>"; };
 		1B40FF1718FFABE50022B87B /* ASPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPageInfo.h; sourceTree = "<group>"; };
@@ -331,6 +341,8 @@
 		1BECAC20194711AD005C330B /* ASQaComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaComment.m; sourceTree = "<group>"; };
 		1BF467C218DC246600CB3E4B /* Paipan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paipan.h; sourceTree = "<group>"; };
 		1BF467C318DC246600CB3E4B /* Paipan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Paipan.m; sourceTree = "<group>"; };
+		1BFBDFAB195161660063DDE2 /* ASUserCenterVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserCenterVc.h; sourceTree = "<group>"; };
+		1BFBDFAC195161660063DDE2 /* ASUserCenterVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserCenterVc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -537,16 +549,24 @@
 				1B7CAF1018F7CEF8005B8C30 /* ASAskListVc.m */,
 				1B6CF44218C88216005F1A70 /* ASBaziPanVc.h */,
 				1B6CF44318C88216005F1A70 /* ASBaziPanVc.m */,
+				1B318E71196646AF003C157C /* ASFillPersonVc.h */,
+				1B318E72196646AF003C157C /* ASFillPersonVc.m */,
+				1B19A27F195D126400831568 /* ASFillQuestionVc.h */,
+				1B19A280195D126400831568 /* ASFillQuestionVc.m */,
 				1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */,
 				1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */,
 				1B5D5E98187A53B50030A7E8 /* ASLoginVc.h */,
 				1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */,
+				1B19A27C195BBBC700831568 /* ASPostQuestionVc.h */,
+				1B19A27D195BBBC700831568 /* ASPostQuestionVc.m */,
 				1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */,
 				1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */,
 				1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */,
 				1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */,
 				1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */,
 				1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */,
+				1BFBDFAB195161660063DDE2 /* ASUserCenterVc.h */,
+				1BFBDFAC195161660063DDE2 /* ASUserCenterVc.m */,
 				1B7ACF961897A4FC000C59C0 /* Model */,
 				1B9DF44D18A6145B00D4DCF4 /* View */,
 			);
@@ -871,6 +891,7 @@
 				1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */,
 				1B012B6D185DD4ED0046AD7A /* UIImage+Scale.m in Sources */,
 				1B012B3B185DCB4B0046AD7A /* ASAppDelegate.m in Sources */,
+				1B19A281195D126400831568 /* ASFillQuestionVc.m in Sources */,
 				1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */,
 				1BC823CC193DF1A3001CF44E /* ASIDownloadCache.m in Sources */,
 				1BC823CE193DF1A4001CF44E /* ASIHTTPRequest.m in Sources */,
@@ -882,6 +903,7 @@
 				1B7CAEF918F6489C005B8C30 /* JSONModel.m in Sources */,
 				1B1A970B18D929F40039413E /* AstroMod.m in Sources */,
 				1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */,
+				1B19A27E195BBBC700831568 /* ASPostQuestionVc.m in Sources */,
 				1BC823CF193DF1A4001CF44E /* ASIInputStream.m in Sources */,
 				1B9F1F2C1872622500278E62 /* FMDatabaseAdditions.m in Sources */,
 				1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */,
@@ -912,6 +934,7 @@
 				1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */,
 				1BC823D0193DF1A4001CF44E /* ASINetworkQueue.m in Sources */,
 				1B012B37185DCB4B0046AD7A /* main.m in Sources */,
+				1B318E73196646AF003C157C /* ASFillPersonVc.m in Sources */,
 				1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */,
 				1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */,
 				1B1D5F361942C2AC00D23025 /* ASQaFullBazi.m in Sources */,
@@ -955,6 +978,7 @@
 				1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */,
 				1B7EDF6A18AE3A0A00C82F0C /* ASAskerHeaderView.m in Sources */,
 				1BC6066618BC7F14004D317A /* Cipher.m in Sources */,
+				1BFBDFAD195161660063DDE2 /* ASUserCenterVc.m in Sources */,
 				1B9F1F2E1872622500278E62 /* FMDatabaseQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

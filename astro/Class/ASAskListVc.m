@@ -77,7 +77,7 @@
 }
 
 - (void)postNew{
-    
+    [self navTo:vcPostQuestion];
 }
 
 - (void)loadHeader{

@@ -18,4 +18,6 @@ NSString * const vcAskDeltail = @"vcAskDeltail";
 
 NSString * const vcShareBind = @"vcShareBind";
 
+NSString * const vcPostQuestion = @"vcPostQuestion";
+
 NSString * const vcBaziPan = @"vcBaziPan";

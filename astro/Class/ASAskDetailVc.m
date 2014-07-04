@@ -11,8 +11,6 @@
 #import "ASAskDetailCell.h"
 
 #import "ASQaFullBazi.h"
-//#import "ASQaFullAstro.h"
-//#import "ASQaFullZiWei.h"
 #import "ASQaAnswer.h"
 
 @interface ASAskDetailVc ()
@@ -114,11 +112,6 @@
         [cell setQaProtocol:self.question chart:[self.question Chart] customer:[self.question Customer] canDel:YES canComment:YES];
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
-        if([answer.TopComments count] >= 1){
-            ASQaComment *item = [answer.TopComments firstObject];
-            answer.TopComments = @[item, item ,item];
-        }
-        
         [cell setQaProtocol:answer chart:nil customer:answer.Customer canDel:YES canComment:YES];
     }
     return cell;
@@ -129,10 +122,6 @@
         return [ASAskDetailCell heightForQaProtocol:self.question chart:[self.question Chart]];
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
-        if([answer.TopComments count] >= 1){
-            ASQaComment *item = [answer.TopComments firstObject];
-            answer.TopComments = @[item, item ,item];
-        }
         return [ASAskDetailCell heightForQaProtocol:answer chart:nil];
     }
 }

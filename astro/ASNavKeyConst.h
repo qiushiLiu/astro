@@ -18,4 +18,6 @@ extern NSString * const vcAskDeltail;
 
 extern NSString * const vcShareBind;
 
+extern NSString * const vcPostQuestion;
+
 extern NSString * const vcBaziPan;

@@ -22,6 +22,12 @@
     return btn;
 }
 
++ (UIButton *)newOrangeButton:(CGRect)frame title:(NSString *)title{
+    UIButton *btn = [self newButton:frame title:title];
+    [btn setBackgroundImage:[[UIImage imageNamed:@"btn_orange"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    return btn;
+}
+
 + (UIButton *)newRedButton:(CGRect)frame title:(NSString *)title{
     UIButton *btn = [self newButton:frame title:title];
     [btn setBackgroundImage:[[UIImage imageNamed:@"btn_red"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
@@ -53,5 +59,21 @@
     tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
     return tf;
 }
+
+
++ (UITextView *)newTextView:(CGRect)frame{
+    UITextView *tv = [[UITextView alloc] initWithFrame:frame];
+    tv.backgroundColor = [UIColor clearColor];
+    tv.textColor = [UIColor blackColor];
+    tv.font = [UIFont systemFontOfSize:14];
+    tv.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:tv.bounds];
+    bg.image = [[UIImage imageNamed:@"input_white_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+    [tv addSubview:bg];
+    [tv sendSubviewToBack:bg];
+    return tv;
+}
+
+
 
 @end
