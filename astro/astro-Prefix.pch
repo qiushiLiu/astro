@@ -20,6 +20,7 @@
     #import "UILabel+VerticalAlign.h"
     #import "NSDate+Addition.h"
     #import "JSONModel.h"
+    #import "NSArray+JSONModel.h"
     #import "HttpUtil.h"
     #import "ASAppConst.h"
     #import "ASAppUrlConst.h"

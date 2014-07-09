@@ -21,6 +21,7 @@
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
 
 @property (nonatomic) NSInteger type;
+@property (nonatomic, strong) NSString *topCateId;
 @property (nonatomic, strong) NSString *cate;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger pageNo;
@@ -77,7 +78,9 @@
 }
 
 - (void)postNew{
-    [self navTo:vcPostQuestion];
+    [self navTo:vcPostQuestion
+         params:@{@"topCateId" : self.topCateId,
+                  @"cate" : self.cate}];
 }
 
 - (void)loadHeader{
@@ -99,6 +102,7 @@
 }
 
 - (void)setNavToParams:(NSDictionary *)params{
+    self.topCateId = [params objectForKey:@"topCateId"];
     self.cate = @"5";//[params objectForKey:@"cate"];
     self.type = [[params objectForKey:@"type"] intValue];
     self.title = [params objectForKey:@"title"];

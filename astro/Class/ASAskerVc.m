@@ -9,8 +9,10 @@
 #import "ASAskerVc.h"
 #import "ASCategory.h"
 #import "ASAskerCell.h"
+#import "ASCache.h"
 
 @interface ASAskerVc ()
+@property (nonatomic, strong) NSString *topCateId;
 @property (nonatomic, strong) NSMutableArray *catelist;
 @property (nonatomic, strong) UITextField *tfSearch;
 @property (nonatomic, strong) UITableView *tbList;
@@ -71,22 +73,22 @@
 
 #pragma mark - ASAskerHeaderViewDelegate
 - (void)askerHeaderSelected:(NSInteger)tag{
-    int cateId = 0;
     if(tag == 0){
-        cateId = 1;
+        self.topCateId = @"1";
     }else if(tag == 1){
-        cateId = 2;
+        self.topCateId = @"2";
     }
     else{
-        cateId = 17;
+        self.topCateId = @"17";
     }
-    NSDictionary *params = @{@"parent" : Int2String(cateId)};
+    NSDictionary *params = @{@"parent" : self.topCateId};
     [self showWaiting];
     [HttpUtil http:kUrlGetCates method:emHttpGet params:params timeOut:30 completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
-            [self hideWaiting];
             self.catelist = [ASCategory arrayOfModelsFromDictionaries:json];
+            [[ASCache shared] storeValue:[self.catelist toJSONString] dir:NSStringFromClass([ASCategory class]) key:self.topCateId];
+            [self hideWaiting];
             [self.tbList reloadData];
         }else{
             [self alert:message];
@@ -119,8 +121,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ASCategory *cate = [self.catelist objectAtIndex:indexPath.row];
-    [self navTo:vcAskList params:@{@"cate"  : @(cate.SysNo),
-                                   @"title" : cate.Name}];
+    [self navTo:vcAskList params:@{@"topCateId" : self.topCateId,
+                                   @"cate"      : Int2String(cate.SysNo),
+                                   @"title"     : cate.Name}];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

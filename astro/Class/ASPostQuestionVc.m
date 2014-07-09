@@ -9,8 +9,17 @@
 #import "ASPostQuestionVc.h"
 #import "ASFillQuestionVc.h"
 #import "ASFillPersonVc.h"
+#import "ASCache.h"
+#import "ASCategory.h"
+
+#import "ASFateChart.h"
 @interface ASPostQuestionVc()
 @property (nonatomic) BOOL hasReward;
+@property (nonatomic, strong) NSString *topCateId;
+@property (nonatomic, strong) NSString *cate;
+@property (nonatomic, strong) NSArray *cateList;
+@property (nonatomic, strong) NSMutableArray *pickerDataSource;
+
 @property (nonatomic, strong) UIButton *btnQuestionType;    //问题分类
 @property (nonatomic, strong) UIButton *btnPanType;         //排盘分类
 @property (nonatomic, strong) UITextField *tfReward;        //悬赏输入
@@ -21,14 +30,27 @@
 @property (nonatomic, strong) UILabel *lbFirstPersonInfo;   //第一当事人
 @property (nonatomic, strong) UIButton *btnSecondPersonInfo; //第二当事人按钮
 @property (nonatomic, strong) UILabel *lbSecondPersonInfo;  //第二当事人
+@property (nonatomic, strong) ASPickerView *picker;
 @end
 
+#define PanTypeArray @[@"占星术", @"塔罗牌"]
+
 @implementation ASPostQuestionVc
+- (id)init{
+    if(self = [super init]){
+        self.question = [[ASPostQuestion alloc] init];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+
+    
     [self setTitle:@"发帖"];
+    self.hidesBottomBarWhenPushed = YES;
     
     UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"发布"];
     [btn addTarget:self action:@selector(post) forControlEvents:UIControlEventTouchUpInside];
@@ -53,6 +75,7 @@
     
     self.btnPanType = [self newRedButtom:@"比较盘"];
     self.btnPanType.top = top;
+    [self.btnPanType addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPanType];
     top = self.btnPanType.bottom + 10;
     
@@ -82,15 +105,18 @@
     [self.btnQuestion addTarget:self action:@selector(btnClick_fillQuestion:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnQuestion];
     
-    self.btnFirstPersonInfo = [self newPersonButton:1];
+    self.btnFirstPersonInfo = [self newPersonButton:0];
     self.btnFirstPersonInfo.centerX = self.contentView.width/2;
     [self.btnFirstPersonInfo addTarget:self action:@selector(btnClick_fillPerson:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnFirstPersonInfo];
     
-    self.btnSecondPersonInfo = [self newPersonButton:2];
+    self.btnSecondPersonInfo = [self newPersonButton:1];
     self.btnSecondPersonInfo.centerX = self.contentView.width/2;
     [self.btnSecondPersonInfo addTarget:self action:@selector(btnClick_fillPerson:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnSecondPersonInfo];
+    
+    self.picker = [[ASPickerView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 160) parentViewController:self];
+    self.picker.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -108,6 +134,23 @@
 
 - (void)setNavToParams:(NSDictionary *)params{
     self.hasReward = YES;// [params[@"hasReward"] boolValue];
+    self.cate = params[@"cate"];
+    self.question.CateSysNo = [self.cate intValue];
+    
+    self.topCateId = params[@"topCateId"];
+    ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([ASCategory class]) key:self.topCateId];
+    if(obj){
+        NSData *data = [obj.value dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        self.cateList = [ASCategory arrayOfModelsFromData:data error:&error];
+        if(error){
+            NSLog(@"%@", error.description);
+        }
+        self.pickerDataSource = [NSMutableArray array];
+        for(ASCategory *item in self.cateList){
+            [self.pickerDataSource addObject:item.Name];
+        }
+    }
 }
 
 #pragma mark - UIControl Create Method
@@ -146,12 +189,13 @@
 
 - (UIButton *)newPersonButton:(NSInteger)personTag{
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 280, 60)];
+    btn.tag = personTag;
     btn.backgroundColor = [UIColor whiteColor];
     btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     btn.layer.borderWidth = 1;
     btn.layer.cornerRadius = 5;
     
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_person_%d", personTag]]];
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_person_%d", personTag + 1]]];
     icon.origin = CGPointMake(10, 5);
     [btn addSubview:icon];
     
@@ -162,11 +206,7 @@
     [btn addSubview:arrow];
     
     UILabel *lbPrefix = [self newRedTextLabel];
-    if(personTag == 0){
-        lbPrefix.text = @"第一当事人";
-    }else{
-        lbPrefix.text = @"第二当事人";
-    }
+    lbPrefix.text = [NSString stringWithFormat:@"第%@当事人", NumberToCharacter[personTag]];
     [lbPrefix sizeToFit];
     lbPrefix.left = icon.right + 10;
     lbPrefix.centerY = icon.centerY;
@@ -202,7 +242,7 @@
     UILabel *lb = [[UILabel alloc] initWithFrame:frame];
     lb.backgroundColor = [UIColor clearColor];
     lb.font = [UIFont systemFontOfSize:16];
-    lb.textColor = [UIColor lightGrayColor];
+    lb.textColor = [UIColor darkGrayColor];
     lb.numberOfLines = 1;
     lb.lineBreakMode = NSLineBreakByTruncatingTail;
     return lb;
@@ -231,24 +271,46 @@
     return titleView;
 }
 
-#pragma mark - UIButton Click Method
+- (void)reloadQuestion{
+    self.lbQuestion.text = [self.question.Title copy];
+}
 
+#pragma mark - ASPickerView Delegate
+- (void)asPickerViewDidSelected:(ASPickerView *)picker{
+    if(picker.trigger == self.btnQuestionType){
+        NSInteger selected = [self.picker selectedRowInComponent:0];
+        ASCategory *item = self.cateList[selected];
+        [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
+    }else if(picker.trigger == self.btnPanType){
+        NSInteger selected = [self.picker selectedRowInComponent:0];
+        [self.btnPanType setTitle:PanTypeArray[selected] forState:UIControlStateNormal];
+    }
+}
+
+#pragma mark - UIButton Click Method
 - (void)btnClick_picker:(UIButton *)sender{
-    
+    self.picker.trigger = sender;
+    if(sender == self.btnPanType){
+        self.picker.dataSource = PanTypeArray;
+    }else if(sender == self.btnQuestionType){
+        self.picker.dataSource = self.pickerDataSource;
+    }
+    [self.picker showPickerView];
 }
 
 - (void)btnClick_fillQuestion:(UIButton *)sender{
     ASFillQuestionVc *vc = [[ASFillQuestionVc alloc] init];
+    vc.parentVc = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nc animated:YES completion:^{
-    }];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)btnClick_fillPerson:(UIButton *)sender{
     ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
+    vc.personTag = sender.tag;
+    vc.parentVc = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nc animated:YES completion:^{
-    }];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)post{

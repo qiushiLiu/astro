@@ -111,7 +111,7 @@
     ASCacheObject *objCached = [_valuesCached valueForKey:dicKey];
     if (!objCached) {
         //如果二级缓存中没有 就从数据库中查
-        FMResultSet *rs = [_db executeQuery:@"select * from cachetb where cdir=? and ckey=? and cexpire >= DATE(?)", newDir, newKey, [NSDate date]];
+        FMResultSet *rs = [_db executeQuery:@"select * from cachetb where cdir=? and ckey=?", newDir, newKey];
         if ([rs next]) {
             //组织返回数据
             ASCacheObject *c = [[ASCacheObject alloc] init];
@@ -122,15 +122,14 @@
             //值
             c.value = [rs stringForColumn:@"cvalue"];
             //过期时间戳
-            c.expire = [rs dateForColumn:@"cupdatestamp"];
+            c.expire = [rs dateForColumn:@"cexpire"];
             //保存到二级缓存中
             [self saveCacheFieldsToValueDic:c dicKey:dicKey];
+            objCached = c;
         }
         return objCached;
-    }else if(objCached.expire < [NSDate date]){
+    }else {
         return objCached;
-    }else{
-        return nil;
     }
 }
 

@@ -66,6 +66,14 @@
     [self.contentView addSubview:self.ctrlContext];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if(self.parentVc){
+        self.ctrlTitle.text = [self.parentVc.question.Title copy];
+        self.ctrlContext.text = [self.parentVc.question.Context copy];
+    }
+}
+
 - (UILabel *)newRedTextLabel{
     UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 36, 30)];
     lb.backgroundColor = [UIColor clearColor];
@@ -75,8 +83,11 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    self.qtitle = [self.ctrlTitle.text trim];
-    self.qcontent = [self.ctrlContext.text trim];
+    if(self.parentVc){
+        self.parentVc.question.Title = [self.ctrlTitle.text trim];
+        self.parentVc.question.Context = [self.ctrlContext.text trim];
+        [self.parentVc reloadQuestion];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

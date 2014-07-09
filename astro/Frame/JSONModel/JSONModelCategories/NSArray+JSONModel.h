@@ -37,4 +37,6 @@
  */
 - (id)modelWithIndexValue:(id)indexValue;
 
+
+- (NSString*)toJSONString;
 @end

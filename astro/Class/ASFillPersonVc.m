@@ -13,9 +13,9 @@
 @property (nonatomic, strong) UIButton *btnDate;
 @property (nonatomic, strong) UIButton *btnTime;
 @property (nonatomic, strong) ZJSwitch *swDaylight; //夏令时
-
 @property (nonatomic, strong) UIButton *btnTimeZone;//时区
 @property (nonatomic, strong) ZJSwitch *swGender;   //性别
+@property (nonatomic, strong) ASPickerView *picker; //选择器
 @end
 
 @implementation ASFillPersonVc
@@ -57,10 +57,12 @@
     
     self.btnDate = [self newPickerButton:CGRectMake(lb.right + 10, top, 100, 30)];
     [self.btnDate setTitle:@"请选择日期" forState:UIControlStateNormal];
+    [self.btnDate addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnDate];
     
     self.btnTime = [self newPickerButton:CGRectMake(self.btnDate.right + 10, top, 100, 30)];
     [self.btnTime setTitle:@"请选择时间" forState:UIControlStateNormal];
+    [self.btnTime addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnTime];
     top = self.btnTime.bottom + 10;
     
@@ -101,6 +103,9 @@
     [self.swGender setOnTintColor:ASColorDarkRed];
     [self.contentView addSubview:self.swGender];
     top = self.swGender.bottom + 10;
+    
+    self.picker = [[ASPickerView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 160) parentViewController:self];
+    self.picker.delegate = self;
 }
 
 - (UILabel *)newPerfixTextLabel{
@@ -126,8 +131,27 @@
     return btn;
 }
 
+- (void)btnClick_picker:(UIButton *)sender{
+    if(self.btnDate == sender){
+        self.picker.trigger = sender;
+        self.picker.datePickerMode = UIDatePickerModeDate;
+    }else if(self.btnTime == sender){
+        self.picker.datePickerMode = UIDatePickerModeTime;
+    }
+    [self.picker showPickerView];
+}
+
 - (void)btnClick_navBack:(UIButton *)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - ASPickerViewDelegate Method
+- (void)asPickerViewDidSelected:(ASPickerView *)picker{
+    if(self.picker.trigger == self.btnDate){
+        
+    }else if(self.picker.trigger == self.btnTime){
+        
+    }
 }
 
 @end

@@ -25,4 +25,11 @@
     return nil;
 }
 
+- (NSString*)toJSONString {
+    NSMutableArray* jsonObjects = [NSMutableArray new];
+    for ( id obj in self )
+        [jsonObjects addObject:[obj toJSONString]];
+    return [NSString stringWithFormat:@"[%@]", [jsonObjects componentsJoinedByString:@","]];
+}
+
 @end

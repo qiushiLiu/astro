@@ -7,10 +7,14 @@
 //
 
 #import "ASBaseViewController.h"
+#import "ASPickerView.h"
+#import "ASPostQuestion.h"
+
 #define NumberToCharacter @[@"一", @"二"]
 
-@interface ASPostQuestionVc : ASBaseViewController<UITextFieldDelegate>
-
+@interface ASPostQuestionVc : ASBaseViewController<UITextFieldDelegate, ASPickerViewDelegate>
+@property (nonatomic, strong) ASPostQuestion *question;
 
 + (UIView *)titleView:(CGRect)frame title:(NSString *)title;
+- (void)reloadQuestion;
 @end

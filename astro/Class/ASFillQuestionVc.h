@@ -10,6 +10,6 @@
 #import "ASPostQuestionVc.h"
 
 @interface ASFillQuestionVc : ASBaseViewController<UITextFieldDelegate, UITextViewDelegate>
-@property (nonatomic, weak) NSString *qtitle;
-@property (nonatomic, weak) NSString *qcontent;
+
+@property (nonatomic, weak) ASPostQuestionVc *parentVc;
 @end
