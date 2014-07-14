@@ -11,7 +11,9 @@
 @interface ASPoiMapVc ()
 @property (nonatomic, strong) BMKMapView *mapView;
 @property (nonatomic, strong) BMKSearch *searchMap;
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchBar *searchPoi;
+
+@property (nonatomic) BOOL searchBarTag;    //是否是搜索框输入的搜索
 @end
 
 @implementation ASPoiMapVc
@@ -26,19 +28,22 @@
     [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
-    _mapView = [[BMKMapView alloc] init];
-    [_mapView  setMapType:BMKMapTypeStandard];
-    [_mapView  setShowsUserLocation:YES];
+    self.mapView = [[BMKMapView alloc] init];
+    [self.mapView  setMapType:BMKMapTypeStandard];
+    [self.mapView  setShowsUserLocation:YES];
     //设置缩放级别 (可用值3~19)
     //  19表示最清晰的地图
-    _mapView.zoomLevel = 18;
+    self.mapView.zoomLevel = 18;
+    [self.contentView addSubview:self.mapView];
     
     self.searchMap = [[BMKSearch alloc] init];
+    self.searchMap.delegate = self;
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
-    self.searchBar.delegate = self;
-    self.searchBar.alpha = 0.7;
-    [self.contentView addSubview:self.searchBar];
+    self.searchPoi = [[UISearchBar alloc] initWithFrame:CGRectMake(20, 20, 280, 40)];
+    self.searchPoi.placeholder = @"请输入当事人出生城市名";
+    self.searchPoi.delegate = self;
+    self.searchPoi.alpha = 0.9;
+    [self.contentView addSubview:self.searchPoi];
     
 }
 
@@ -47,6 +52,8 @@
     self.mapView.frame = self.contentView.bounds;
     [self.mapView viewWillAppear];
     self.mapView.delegate = self;
+    
+    self.searchBarTag = NO;
     
 }
 
@@ -57,7 +64,26 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
+    if(self.searchBarTag){
+        return;
+    }
     [self.searchMap reverseGeocode:self.location];
+}
+
+#pragma mark - UISearchBar
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if(searchBar.text.length > 0)
+    {
+        [searchBar resignFirstResponder];
+        //在商品位置的1000米之内进行搜索
+        BOOL succ = [self.searchMap geocode:self.searchPoi.text withCity:@""];
+        if(!succ){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您输入的地址信息不正确，请重新输入" delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil];
+            [alert show];
+        }
+        self.searchBarTag = succ;
+    }
 }
 
 //重新添加大头针
@@ -88,13 +114,14 @@
 }
 
 - (void)mapView:(BMKMapView *)mapView regionWillChangeAnimated:(BOOL)animated{
-    [self.searchBar resignFirstResponder];
+    [self.searchPoi resignFirstResponder];
 }
 
 //地图上的地标
 - (BMKAnnotationView *)mapView:(BMKMapView *)view viewForAnnotation:(id <BMKAnnotation>)annotation
 {
-    [_searchBar resignFirstResponder];
+    self.searchBarTag = NO;
+    [self.searchPoi resignFirstResponder];
     if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
         BMKPinAnnotationView *pin = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
         pin.pinColor = BMKPinAnnotationColorRed;
@@ -106,7 +133,7 @@
 }
 
 - (void)mapView:(BMKMapView *)mapView annotationView:(BMKAnnotationView *)view didChangeDragState:(BMKAnnotationViewDragState)newState fromOldState:(BMKAnnotationViewDragState)oldState{
-    [_searchBar resignFirstResponder];
+    [self.searchPoi resignFirstResponder];
     if(newState == BMKAnnotationViewDragStateEnding){
         id <BMKAnnotation> ann = view.annotation;
         self.location = [ann coordinate];
@@ -115,25 +142,32 @@
 
 //点击地标
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view{
-    [self.searchBar resignFirstResponder];
+    [self.searchPoi resignFirstResponder];
 }
 
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view{
-    [self.searchBar resignFirstResponder];
+    [self.searchPoi resignFirstResponder];
 }
 
 - (void)mapView:(BMKMapView *)mapView onClickedMapBlank:(CLLocationCoordinate2D)coordinate{
-    [self.searchBar resignFirstResponder];
+    [self.searchPoi resignFirstResponder];
 }
 
 - (void)mapView:(BMKMapView *)mapView onClickedMapPoi:(BMKMapPoi *)mapPoi{
-    [self.searchBar resignFirstResponder];
+    [self.searchPoi resignFirstResponder];
 }
 
 - (void)onGetAddrResult:(BMKAddrInfo *)result errorCode:(int)error
 {
     if(error == BMKErrorOk){
-        [self resetAnnotationWithLocation:result.geoPt];
+        if(self.searchBarTag){
+            [self resetAnnotationWithLocation:result.geoPt];
+        }else{
+            if([self.delegate respondsToSelector:@selector(asPoiMap:)]){
+                [self.delegate asPoiMap:result];
+            }
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }
 }
 

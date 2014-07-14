@@ -8,7 +8,7 @@
 
 #import "ASFillPersonVc.h"
 #import "ZJSwitch.h"
-#import "ASPoiMapVc.h"
+
 
 @interface ASPerson : NSObject
 @property (nonatomic, strong) NSDate *Birth;
@@ -33,6 +33,8 @@
 @end
 
 @interface ASFillPersonVc ()
+@property (nonatomic, weak) ASPostQuestion *question;
+
 @property (nonatomic, strong) UIButton *btnDate;
 @property (nonatomic, strong) UIButton *btnTime;
 @property (nonatomic, strong) ZJSwitch *swDaylight; //夏令时
@@ -126,8 +128,8 @@
     lb.text = @"出生地点";
     [self.contentView addSubview:lb];
     
-    self.btnPoi = [self newPickerButton:CGRectMake(lb.right + 10, top, 220, 30)];
-    [self.btnPoi setTitle:@"东8区" forState:UIControlStateNormal];
+    self.btnPoi = [self newPickerButton:CGRectMake(lb.right + 10, top, 160, 30)];
+    [self.btnPoi setTitle:@"请选择出生城市" forState:UIControlStateNormal];
     [self.btnPoi addTarget:self action:@selector(btnClick_poi:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPoi];
 }
@@ -135,6 +137,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self reloadData];
+}
+
+- (void)setParentVc:(ASPostQuestionVc *)parentVc{
+    _parentVc = parentVc;
+    self.question = _parentVc.question;
 }
 
 - (void)reloadData{
@@ -183,16 +190,15 @@
 
 - (void)btnClick_poi:(UIButton *)sender{
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
-    vc.parentVc = self;
+    vc.delegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    ASPostQuestion *q = [self.parentVc question];
     ASFateChart *chart = nil;
-    if(q && [q.Chart count] > 0){
-        chart = [q.Chart objectAtIndex:0];
+    if(self.question && [self.question.Chart count] > 0){
+        chart = [self.question.Chart objectAtIndex:0];
     }
     if(chart){
         if(self.person == 0){
@@ -200,18 +206,35 @@
             chart.FirstDayLight = self.swDaylight.on;
             chart.FirstGender = self.swGender.on;
             chart.FirstTimeZone = self.person.TimeZone - 12;
-            chart.FirstPoi = @"";
-            chart.FirstPoiName = @"";
         }else{
             chart.SecondBirth = (NSDate<NSDate> *)self.person.Birth;
             chart.SecondDayLight = self.swDaylight.on;
             chart.SecondGender = self.swGender.on;
             chart.SecondTimeZone = self.person.TimeZone - 12;
-            chart.SecondPoi = @"";
-            chart.SecondPoiName = @"";
         }
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.parentVc reloadPerson:self.personTag];
+    }];
+}
+
+#pragma mark - ASPoiMapDelegate Method
+- (void)asPoiMap:(BMKAddrInfo *)info{
+    ASFateChart *chart = nil;
+    if(self.question && [self.question.Chart count] > 0){
+        chart = [self.question.Chart objectAtIndex:0];
+    }
+    NSString *poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
+    [self.btnPoi setTitle:poiName forState:UIControlStateNormal];
+    if(chart){
+        if(self.person == 0){
+            chart.FirstPoiName = [poiName copy];
+            chart.FirstPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.latitude, info.geoPt.longitude];
+        }else{
+            chart.SecondPoiName = [poiName copy];
+            chart.SecondPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.latitude, info.geoPt.longitude];
+        }
+    }
 }
 
 #pragma mark - ASPickerViewDelegate Method

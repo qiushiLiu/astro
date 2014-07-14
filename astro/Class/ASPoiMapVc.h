@@ -8,10 +8,14 @@
 
 #import "ASBaseViewController.h"
 #import "BMapKit.h"
-#import "ASFillPersonVc.h"
+
+@protocol ASPoiMapVcDelegate <NSObject>
+@optional
+- (void)asPoiMap:(BMKAddrInfo *)info;
+@end
 
 @interface ASPoiMapVc : ASBaseViewController<BMKMapViewDelegate, BMKSearchDelegate, UISearchBarDelegate>
+@property (nonatomic, assign) id<ASPoiMapVcDelegate> delegate;
 @property (nonatomic) CLLocationCoordinate2D location;
 @property (nonatomic, strong) NSString *poiName;
-@property (nonatomic, weak) ASFillPersonVc *parentVc;
 @end

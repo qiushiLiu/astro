@@ -7,10 +7,12 @@
 //
 
 #import "ASBaseViewController.h"
+#import "ASPostQuestion.h"
 #import "ASPostQuestionVc.h"
 #import "ASPickerView.h"
+#import "ASPoiMapVc.h"
 
-@interface ASFillPersonVc : ASBaseViewController<ASPickerViewDelegate>
+@interface ASFillPersonVc : ASBaseViewController<ASPickerViewDelegate, ASPoiMapVcDelegate>
 @property (nonatomic) NSInteger personTag;
-@property (nonatomic, weak) ASPostQuestionVc *parentVc;
+@property (nonatomic, strong) ASPostQuestionVc *parentVc;
 @end
