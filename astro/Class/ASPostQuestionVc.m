@@ -33,8 +33,6 @@
 @property (nonatomic, strong) ASPickerView *picker;
 @end
 
-#define PanTypeArray @[@"占星术", @"塔罗牌"]
-
 @implementation ASPostQuestionVc
 - (id)init{
     if(self = [super init]){
@@ -115,7 +113,7 @@
     [self.btnSecondPersonInfo addTarget:self action:@selector(btnClick_fillPerson:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnSecondPersonInfo];
     
-    self.picker = [[ASPickerView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 160) parentViewController:self];
+    self.picker = [[ASPickerView alloc] initWithParentViewController:self];
     self.picker.delegate = self;
 }
 
@@ -275,10 +273,42 @@
     self.lbQuestion.text = [self.question.Title copy];
 }
 
+- (void)reloadPerson:(NSInteger)tag{
+    if([self.question.Chart count] >= 1){
+        ASFateChart *chart = [self.question.Chart objectAtIndex:0];
+        if(tag == 0){ //第一当事人
+            self.lbFirstPersonInfo.text = [self stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone];
+        }else{ //第二当事人
+            self.lbSecondPersonInfo.text = [self stringForBirth:chart.SecondBirth gender:chart.SecondGender daylight:chart.SecondDayLight poi:chart.SecondPoiName timeZone:chart.SecondTimeZone];
+        }
+    }
+}
+
+- (NSString *)stringForBirth:(NSDate *)birth gender:(NSInteger)gender daylight:(NSInteger)daylight poi:(NSString *)poi timeZone:(NSInteger)timeZone{
+    NSMutableString *str = [NSMutableString stringWithString:[birth toStrFormat:@"yyyy-MM-dd HH:mm"]];
+    if(daylight > 0){
+        [str appendString:@" 夏令时"];
+    }
+    if(gender == 1){
+        [str appendString:@" 男"];
+    }else{
+        [str appendString:@" 女"];
+    }
+    [str appendString:@" "];
+    [str appendString:poi];
+    [str appendString:@" "];
+    [str appendString:TimeZoneArray[timeZone]];
+    return str;
+}
+
 #pragma mark - ASPickerView Delegate
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{
     if(picker.trigger == self.btnQuestionType){
         NSInteger selected = [self.picker selectedRowInComponent:0];
+        if([self.question.Chart count] > 0){
+            ASFateChart *chart = [self.question.Chart objectAtIndex:0];
+            chart.ChartType = selected;
+        }
         ASCategory *item = self.cateList[selected];
         [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
     }else if(picker.trigger == self.btnPanType){
@@ -291,9 +321,14 @@
 - (void)btnClick_picker:(UIButton *)sender{
     self.picker.trigger = sender;
     if(sender == self.btnPanType){
-        self.picker.dataSource = PanTypeArray;
+        NSInteger selected = 0;
+        if([self.question.Chart count] > 0){
+            ASFateChart *chart = [self.question.Chart objectAtIndex:0];
+            selected = chart.ChartType;
+        }
+        [self.picker setDataSource:PanTypeArray selected:@(selected)];
     }else if(sender == self.btnQuestionType){
-        self.picker.dataSource = self.pickerDataSource;
+        [self.picker setDataSource:self.pickerDataSource selected:@(0)];
     }
     [self.picker showPickerView];
 }

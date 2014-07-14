@@ -27,6 +27,13 @@
     NSTimeZone *tzGMT = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
     [NSTimeZone setDefaultTimeZone:tzGMT];
     
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:BMAP_KEY  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    
     //解析
     if (launchOptions) {
         //推送的消息

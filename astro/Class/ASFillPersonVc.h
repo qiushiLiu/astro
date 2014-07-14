@@ -10,7 +10,7 @@
 #import "ASPostQuestionVc.h"
 #import "ASPickerView.h"
 
-@interface ASFillPersonVc : ASBaseViewController<UITextFieldDelegate, ASPickerViewDelegate>
+@interface ASFillPersonVc : ASBaseViewController<ASPickerViewDelegate>
 @property (nonatomic) NSInteger personTag;
 @property (nonatomic, weak) ASPostQuestionVc *parentVc;
 @end

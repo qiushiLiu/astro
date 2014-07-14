@@ -7,6 +7,7 @@
 //
 
 #import "JSONModel.h"
+#import "ASFateChart.h"
 
 @interface ASPostQuestion : JSONModel
 @property (nonatomic) NSInteger SysNo;
@@ -16,4 +17,5 @@
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic) NSInteger IsSecret;
+@property (nonatomic, strong) NSArray<ASFateChart> *Chart;
 @end

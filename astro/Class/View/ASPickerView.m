@@ -13,13 +13,16 @@
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIButton *btnCancel;
 @property (nonatomic, strong) UIButton *btnOk;
+
+@property (nonatomic) UIDatePickerMode datePickerMode;
+@property (nonatomic, strong) NSArray *dataSource;
 @end
 
 @implementation ASPickerView
 
-- (id)initWithFrame:(CGRect)frame parentViewController:(ASBaseViewController *)vc
+- (id)initWithParentViewController:(ASBaseViewController *)vc
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 202)];
     if (self) {
         self.parentVc = vc;
         self.hidden = YES;
@@ -42,18 +45,18 @@
         [self.btnOk addTarget:self action:@selector(btnClick_submit:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.btnOk];
         
-        self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, btnView.bottom, self.width, self.height - btnView.height)];
+        self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, 320, 162)];
+        self.datePicker.top = btnView.bottom;
+        [self addSubview:self.datePicker];
+        
+        self.picker = [[UIPickerView alloc] initWithFrame:self.datePicker.frame];
         self.picker.delegate = self;
         [self addSubview:self.picker];
-        
-        self.datePicker = [[UIDatePicker alloc] initWithFrame:self.picker.frame];
-        self.datePicker.datePickerMode = UIDatePickerModeDate;
-        [self addSubview:self.datePicker];
     }
     return self;
 }
 
-- (void)setDataSource:(NSArray *)data{
+- (void)setDataSource:(NSArray *)data selected:(id)selected{
     if(!data){
         return;
     }
@@ -65,12 +68,32 @@
         _dataSource = [NSArray arrayWithObjects:data, nil];
     }
     [self reloadPicker];
+    if(selected){
+        NSArray *sl = nil;
+        if(![selected isKindOfClass:[NSArray class]]){
+            sl = @[selected];
+        }else{
+            sl = selected;
+        }
+        for(int i = 0; i < [sl count]; i++){
+            [self.picker selectRow:[sl[i] intValue] inComponent:i animated:YES];
+        }
+    }
 }
 
-- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode{
+- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode selected:(NSDate *)date{
     _datePickerMode = datePickerMode;
-    self.dataSource = nil;
+    _dataSource = nil;
     [self reloadPicker];
+    if(date){
+        self.datePicker.date = date;
+    }else{
+        self.datePicker.date = [NSDate date];
+    }
+}
+
+- (NSDate *)pickerDate{
+    return [self.datePicker.date copy];
 }
 
 - (void)reloadPicker{
@@ -79,9 +102,14 @@
         self.datePicker.hidden = YES;
         [self.picker reloadAllComponents];
     }else{
-        self.picker.hidden = NO;
-        self.datePicker.hidden = YES;
-        [self.datePicker reloadInputViews];
+        self.picker.hidden = YES;
+        self.datePicker.hidden = NO;
+        self.datePicker.datePickerMode = self.datePickerMode;
+        if(self.datePickerMode == UIDatePickerModeDate){
+            self.datePicker.minimumDate = [[NSDate alloc] initWithYear:1900 month:1 day:1 hour:0 minute:0 second:0];
+            self.datePicker.maximumDate = [[NSDate alloc] initWithYear:2200 month:12 day:31 hour:23 minute:59 second:59];
+        }
+        self.datePicker.date = [NSDate date];
     }
 }
 

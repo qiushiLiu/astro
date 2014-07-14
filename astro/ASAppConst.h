@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+//百度地图 key
+#define BMAP_KEY @"pdzQZt6WGKTmABSGlqiMvN6d"
+
 extern NSString * const kAppVersion;
 extern NSString * const kAppChannel;
 extern NSString * const kAppHost;
