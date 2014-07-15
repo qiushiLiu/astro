@@ -67,7 +67,10 @@
     if(self.searchBarTag){
         return;
     }
-    [self.searchMap reverseGeocode:self.location];
+    BOOL geoTag = [self.searchMap reverseGeocode:self.location];
+    if(geoTag){
+        [self showWaiting];
+    }
 }
 
 #pragma mark - UISearchBar
@@ -163,6 +166,7 @@
         if(self.searchBarTag){
             [self resetAnnotationWithLocation:result.geoPt];
         }else{
+            [self hideWaiting];
             if([self.delegate respondsToSelector:@selector(asPoiMap:)]){
                 [self.delegate asPoiMap:result];
             }

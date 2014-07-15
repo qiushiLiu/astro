@@ -215,8 +215,7 @@
     ivLine.top = icon.bottom;
     [btn addSubview:ivLine];
     
-    UILabel *lb = [self newGrayTextLabel:CGRectMake(lbPrefix.right + 10, 0, 180, 28)];
-    lb.top = icon.bottom + 10;
+    UILabel *lb = [self newGrayTextLabel:CGRectMake(0, ivLine.bottom, 280, 28)];
     [btn addSubview:lb];
     
     if(personTag == 0){
@@ -274,7 +273,7 @@
 }
 
 - (void)reloadPerson:(NSInteger)tag{
-    if([self.question.Chart count] >= 1){
+    if([self.question.Chart count] > 0){
         ASFateChart *chart = [self.question.Chart objectAtIndex:0];
         if(tag == 0){ //第一当事人
             self.lbFirstPersonInfo.text = [self stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone];
