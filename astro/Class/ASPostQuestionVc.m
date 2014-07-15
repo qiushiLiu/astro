@@ -20,6 +20,9 @@
 @property (nonatomic, strong) NSArray *cateList;
 @property (nonatomic, strong) NSMutableArray *pickerDataSource;
 
+@property (nonatomic) NSInteger questionTypeSelected;       //问题分类选中行
+@property (nonatomic) NSInteger panTypeSelected;            //排盘类型选中行
+
 @property (nonatomic, strong) UIButton *btnQuestionType;    //问题分类
 @property (nonatomic, strong) UIButton *btnPanType;         //排盘分类
 @property (nonatomic, strong) UITextField *tfReward;        //悬赏输入
@@ -37,6 +40,9 @@
 - (id)init{
     if(self = [super init]){
         self.question = [[ASPostQuestion alloc] init];
+        self.question.CustomerSysNo = [ASGlobal shared].user.SysNo;
+        self.questionTypeSelected = 0;
+        self.panTypeSelected = 0;
     }
     return self;
 }
@@ -46,13 +52,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
-    
     [self setTitle:@"发帖"];
     self.hidesBottomBarWhenPushed = YES;
     
     UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"发布"];
     [btn addTarget:self action:@selector(post) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_ContentView:)];
+    [self.contentView addGestureRecognizer:tapGesture];
     
     CGFloat left = 20, top = 20;
     UILabel *lb = [self newRedTextLabel];
@@ -71,7 +79,7 @@
     lb.origin = CGPointMake(left, top);
     [self.contentView addSubview:lb];
     
-    self.btnPanType = [self newRedButtom:@"比较盘"];
+    self.btnPanType = [self newRedButtom:@"不排盘"];
     self.btnPanType.top = top;
     [self.btnPanType addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPanType];
@@ -111,6 +119,7 @@
     self.btnSecondPersonInfo = [self newPersonButton:1];
     self.btnSecondPersonInfo.centerX = self.contentView.width/2;
     [self.btnSecondPersonInfo addTarget:self action:@selector(btnClick_fillPerson:) forControlEvents:UIControlEventTouchUpInside];
+    self.btnSecondPersonInfo.hidden = YES;
     [self.contentView addSubview:self.btnSecondPersonInfo];
     
     self.picker = [[ASPickerView alloc] initWithParentViewController:self];
@@ -128,6 +137,8 @@
     self.btnSecondPersonInfo.top = self.btnFirstPersonInfo.bottom + 10;
     
     self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnSecondPersonInfo.bottom + 20);
+    
+    [self reloadPickerSelected];
 }
 
 - (void)setNavToParams:(NSDictionary *)params{
@@ -148,6 +159,26 @@
         for(ASCategory *item in self.cateList){
             [self.pickerDataSource addObject:item.Name];
         }
+    }
+}
+
+- (void)reloadPickerSelected{
+    if([self.cateList count] > self.questionTypeSelected){
+        ASCategory *item = self.cateList[self.questionTypeSelected];
+        self.question.CateSysNo = item.SysNo;
+        [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
+    }
+    if([PanTypeArray count] > self.panTypeSelected){
+        if([self.question.Chart count] > 0){
+            ASFateChart *chart = [self.question.Chart objectAtIndex:0];
+            chart.ChartType = self.panTypeSelected + 1;
+        }
+        if(self.panTypeSelected == 0){
+            self.btnSecondPersonInfo.hidden = YES;
+        }else{
+            self.btnSecondPersonInfo.hidden = NO;
+        }
+        [self.btnPanType setTitle:PanTypeArray[self.panTypeSelected] forState:UIControlStateNormal];
     }
 }
 
@@ -215,7 +246,7 @@
     ivLine.top = icon.bottom;
     [btn addSubview:ivLine];
     
-    UILabel *lb = [self newGrayTextLabel:CGRectMake(0, ivLine.bottom, 280, 28)];
+    UILabel *lb = [self newGrayTextLabel:CGRectMake(icon.left, ivLine.bottom, 250, 28)];
     [btn addSubview:lb];
     
     if(personTag == 0){
@@ -300,34 +331,33 @@
     return str;
 }
 
+- (void)tap_ContentView:(UITapGestureRecognizer *)tap{
+    [self.tfReward resignFirstResponder];
+    [self.picker hidePickerView];
+}
+
 #pragma mark - ASPickerView Delegate
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{
     if(picker.trigger == self.btnQuestionType){
-        NSInteger selected = [self.picker selectedRowInComponent:0];
-        if([self.question.Chart count] > 0){
-            ASFateChart *chart = [self.question.Chart objectAtIndex:0];
-            chart.ChartType = selected;
-        }
-        ASCategory *item = self.cateList[selected];
-        [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
+        self.questionTypeSelected = [self.picker selectedRowInComponent:0];
     }else if(picker.trigger == self.btnPanType){
-        NSInteger selected = [self.picker selectedRowInComponent:0];
-        [self.btnPanType setTitle:PanTypeArray[selected] forState:UIControlStateNormal];
+        self.panTypeSelected = [self.picker selectedRowInComponent:0];
     }
+    [self reloadPickerSelected];
 }
 
 #pragma mark - UIButton Click Method
 - (void)btnClick_picker:(UIButton *)sender{
     self.picker.trigger = sender;
-    if(sender == self.btnPanType){
+    if(sender == self.btnQuestionType){
+        [self.picker setDataSource:self.pickerDataSource selected:@(self.questionTypeSelected)];
+    }else if(sender == self.btnPanType){
         NSInteger selected = 0;
         if([self.question.Chart count] > 0){
             ASFateChart *chart = [self.question.Chart objectAtIndex:0];
-            selected = chart.ChartType;
+            selected = chart.ChartType - 1;
         }
         [self.picker setDataSource:PanTypeArray selected:@(selected)];
-    }else if(sender == self.btnQuestionType){
-        [self.picker setDataSource:self.pickerDataSource selected:@(0)];
     }
     [self.picker showPickerView];
 }
@@ -348,6 +378,18 @@
 }
 
 - (void)post{
-    
+    NSLog(@"%@", [self.question toJSONString]);
+    [self hideWaiting];
+    [HttpUtil post:kUrlAddQuestionWithChart
+            params:nil
+              body:[self.question toJSONString]
+        completion:^(BOOL succ, NSString *message, id json) {
+            [self hideWaiting];
+            if(succ){
+                [self alert:@"发送成功"];
+            }else{
+                [self alert:message];
+            }
+        }];
 }
 @end

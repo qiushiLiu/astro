@@ -54,7 +54,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
         
 		@autoreleasepool {
             allowedJSONTypes = @[
-                [NSString class], [NSNumber class], [NSDecimalNumber class], [NSArray class], [NSDictionary class], [NSNull class], //immutable JSON classes
+                [NSString class], [NSNumber class], [NSDecimalNumber class], [NSArray class], [NSDictionary class], [NSNull class], [NSDate class], //immutable JSON classes
                 [NSMutableString class], [NSMutableArray class], [NSMutableDictionary class] //mutable JSON classes
             ];
             
@@ -779,7 +779,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
         //check if should export NSDate
         if(property.type == [NSDate class]){
             NSNumber *dateValue = @([value timeIntervalSince1970] * 1000.0);
-            return [NSString stringWithFormat:@"\\/Date(%lld+0800)\\/", [dateValue longLongValue]];
+            return [NSString stringWithFormat:@"/Date(%lld+0800)/", [dateValue longLongValue]];
         }
     }
     

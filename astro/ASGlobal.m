@@ -43,6 +43,10 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
         //设置登录信息
         self.user = [[ASCustomer alloc] initWithString:cf.value error:NULL];
     }
+    
+    // 测试代码
+    self.user = [[ASCustomer alloc] init];
+    self.user.SysNo = 1;
 }
 
 - (void)loadCachedDeviceNumber{

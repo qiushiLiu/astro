@@ -29,3 +29,5 @@ extern NSString * const kUrlQuestionForBazi;
 extern NSString * const kUrlQuestionForZiwei;
 
 extern NSString * const kUrlGetAnswer;
+
+extern NSString * const kUrlAddQuestionWithChart;

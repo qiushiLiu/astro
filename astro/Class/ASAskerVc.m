@@ -10,6 +10,7 @@
 #import "ASCategory.h"
 #import "ASAskerCell.h"
 #import "ASCache.h"
+#import "ASPostQuestionVc.h"
 
 @interface ASAskerVc ()
 @property (nonatomic, strong) NSString *topCateId;
@@ -83,7 +84,7 @@
     }
     NSDictionary *params = @{@"parent" : self.topCateId};
     [self showWaiting];
-    [HttpUtil http:kUrlGetCates method:emHttpGet params:params timeOut:30 completion:^(BOOL succ, NSString *message, id json) {
+    [HttpUtil load:kUrlGetCates params:params completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
             self.catelist = [ASCategory arrayOfModelsFromDictionaries:json];

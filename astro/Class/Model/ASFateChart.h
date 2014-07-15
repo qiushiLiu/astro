@@ -21,8 +21,8 @@
 @property (nonatomic) NSInteger FirstTimeZone;
 @property (nonatomic) NSInteger FirstGender;
 
-@property (nonatomic, strong) NSDate<NSDate> *Transit;
-@property (nonatomic, strong) NSString *TransitPoi;
+//@property (nonatomic, strong) NSDate<NSDate> *Transit;
+//@property (nonatomic, strong) NSString *TransitPoi;
 
 @property (nonatomic, strong) NSDate<NSDate> *SecondBirth;
 @property (nonatomic, strong) NSString *SecondPoi;
@@ -32,6 +32,6 @@
 @property (nonatomic) NSInteger SecondGender;
 
 @property (nonatomic) NSInteger ChartType;
-@property (nonatomic) NSInteger TheoryType;
-@property (nonatomic, strong) NSString *Bitvalue;
+//@property (nonatomic) NSInteger TheoryType;
+//@property (nonatomic, strong) NSString *Bitvalue;
 @end
