@@ -67,6 +67,7 @@
     if(self.searchBarTag){
         return;
     }
+    [self.searchPoi resignFirstResponder];
     BOOL geoTag = [self.searchMap reverseGeocode:self.location];
     if(geoTag){
         [self showWaiting];
@@ -163,10 +164,10 @@
 - (void)onGetAddrResult:(BMKAddrInfo *)result errorCode:(int)error
 {
     if(error == BMKErrorOk){
+        [self hideWaiting];
         if(self.searchBarTag){
             [self resetAnnotationWithLocation:result.geoPt];
         }else{
-            [self hideWaiting];
             if([self.delegate respondsToSelector:@selector(asPoiMap:)]){
                 [self.delegate asPoiMap:result];
             }

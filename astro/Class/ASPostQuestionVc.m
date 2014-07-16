@@ -41,7 +41,7 @@
     if(self = [super init]){
         self.question = [[ASPostQuestion alloc] init];
         self.question.CustomerSysNo = [ASGlobal shared].user.SysNo;
-        self.questionTypeSelected = 0;
+        self.questionTypeSelected = -1;
         self.panTypeSelected = 0;
     }
     return self;
@@ -163,7 +163,9 @@
 }
 
 - (void)reloadPickerSelected{
-    if([self.cateList count] > self.questionTypeSelected){
+    if(self.questionTypeSelected < 0){
+        [self.btnQuestionType setTitle:@"请选择" forState:UIControlStateNormal];
+    } else if([self.cateList count] > self.questionTypeSelected){
         ASCategory *item = self.cateList[self.questionTypeSelected];
         self.question.CateSysNo = item.SysNo;
         [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
@@ -269,7 +271,7 @@
 - (UILabel *)newGrayTextLabel:(CGRect)frame{
     UILabel *lb = [[UILabel alloc] initWithFrame:frame];
     lb.backgroundColor = [UIColor clearColor];
-    lb.font = [UIFont systemFontOfSize:16];
+    lb.font = [UIFont systemFontOfSize:13];
     lb.textColor = [UIColor darkGrayColor];
     lb.numberOfLines = 1;
     lb.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -327,7 +329,7 @@
     [str appendString:@" "];
     [str appendString:poi];
     [str appendString:@" "];
-    [str appendString:TimeZoneArray[timeZone]];
+    [str appendString:TimeZoneArray[timeZone + 12]];
     return str;
 }
 
@@ -344,6 +346,13 @@
         self.panTypeSelected = [self.picker selectedRowInComponent:0];
     }
     [self reloadPickerSelected];
+}
+
+#pragma mark - UIAlertView Delegate Method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == NSAlertViewOK){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - UIButton Click Method
@@ -378,7 +387,6 @@
 }
 
 - (void)post{
-    NSLog(@"%@", [self.question toJSONString]);
     [self hideWaiting];
     [HttpUtil post:kUrlAddQuestionWithChart
             params:nil
@@ -386,7 +394,12 @@
         completion:^(BOOL succ, NSString *message, id json) {
             [self hideWaiting];
             if(succ){
-                [self alert:@"发送成功"];
+                ASCustomer *user = [[ASCustomer alloc] initWithDictionary:json error:NULL];
+                [ASGlobal login:user];
+                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Question_NeedUpdate object:nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"发帖成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                alert.delegate = self;
+                [alert show];
             }else{
                 [self alert:message];
             }

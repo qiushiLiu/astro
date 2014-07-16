@@ -76,7 +76,11 @@
             sl = selected;
         }
         for(int i = 0; i < [sl count]; i++){
-            [self.picker selectRow:[sl[i] intValue] inComponent:i animated:YES];
+            NSInteger index = [sl[i] intValue];
+            if(index < 0){
+                index = 0;
+            }
+            [self.picker selectRow:index inComponent:i animated:YES];
         }
     }
 }

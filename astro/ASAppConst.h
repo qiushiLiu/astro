@@ -8,8 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+// NSParagraphStyle
+typedef NS_ENUM(NSInteger, NSAlertViewTag) {		/* UIAlertView 的类型 */
+    NSAlertViewDefault = 0,     /* 默认 */
+    NSAlertViewOK,              /* 成功，提示，确认 */
+    NSAlertViewError,           /* 错误 */
+    NSAlertViewConfirm,         /* 确认 */
+};
+
 //百度地图 key
 #define BMAP_KEY @"pdzQZt6WGKTmABSGlqiMvN6d"
+
+//通知
+#define Notification_Question_NeedUpdate @"Notification_Question_NeedUpdate"//刷新帖子列表通知
 
 extern NSString * const kAppVersion;
 extern NSString * const kAppChannel;

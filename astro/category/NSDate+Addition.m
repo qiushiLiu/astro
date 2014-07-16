@@ -17,7 +17,7 @@ static NSRegularExpression *regDate;
 + (void)initialize{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        regDate = [NSRegularExpression regularExpressionWithPattern:@"Date\\((\\d+)\\+\\d+\\)"
+        regDate = [NSRegularExpression regularExpressionWithPattern:@"Date\\(((\\-)?\\d+)\\+\\d+\\)"
                                                         options:NSRegularExpressionCaseInsensitive
                                                           error:NULL];
     });

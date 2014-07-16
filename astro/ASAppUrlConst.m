@@ -31,4 +31,4 @@ NSString * const kUrlQuestionForZiwei = @"qa/GetQuestionForZiwei";
 
 NSString * const kUrlGetAnswer = @"qa/GetAnswerByQuest";
 
-NSString * const kUrlAddQuestionWithChart = @"qa/AddQuestionWithChart";
+NSString * const kUrlAddQuestionWithChart = @"qa/post/AddQuestionWithChart";

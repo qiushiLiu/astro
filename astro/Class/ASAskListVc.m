@@ -16,6 +16,7 @@
 //#import "ASQaMinAstro.h"
 
 @interface ASAskListVc ()
+@property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UILabel *lbHeaderTitle;
 @property (nonatomic, strong) UIScrollView *svPage;
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
@@ -38,15 +39,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //更新通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(needsUpdate:) name:Notification_Question_NeedUpdate object:nil];
+    
     UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"发帖"];
     [btn addTarget:self action:@selector(postNew) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
+    self.headerView = [self newHeaderView];
+    self.headerView.hidden = YES;
+    [self.contentView addSubview:self.headerView];
     //table
     self.tbList = [[ASBaseSingleTableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, self.contentView.height) style:UITableViewStylePlain];
     self.tbList.backgroundColor = [UIColor clearColor];
     self.tbList.separatorColor = [UIColor clearColor];
-    self.tbList.tableHeaderView = [self newHeaderView];
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
     self.tbList.loadMoreDelegate = self;
@@ -65,16 +71,23 @@
     if(self.pageNo == 0){
         [self showWaiting];
         [HttpUtil load:kUrlGetStarsList params:@{@"catesysno" : self.cate} completion:^(BOOL succ, NSString *message, id json) {
+            self.headerView.hidden = !succ;
             if(succ){
                 self.userStars = [ASCustomerShow arrayOfModelsFromDictionaries:json];
-                [self loadHeader];
-                [self loadMore];
-            }else{
-                [self hideWaiting];
-                [self alert:message];
             }
+            [self loadHeader];
+            [self loadMore];
         }];
     }
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)needsUpdate:(NSNotification *)sender{
+    self.pageNo = 0;
+    [self loadMore];
 }
 
 - (void)postNew{
@@ -84,6 +97,14 @@
 }
 
 - (void)loadHeader{
+    if(self.headerView.isHidden){
+        self.tbList.frame = self.contentView.bounds;
+        return;
+    }else{
+        self.tbList.top = self.headerView.bottom;
+        self.tbList.height = self.contentView.height - self.headerView.height;
+    }
+    
     [self.svPage removeAllSubViews];
     NSInteger pageCount = [self.userStars count]/2;
     if([self.userStars count] % 2 > 0){
@@ -103,7 +124,7 @@
 
 - (void)setNavToParams:(NSDictionary *)params{
     self.topCateId = [params objectForKey:@"topCateId"];
-    self.cate = @"5";//[params objectForKey:@"cate"];
+    self.cate = [params objectForKey:@"cate"];
     self.type = [[params objectForKey:@"type"] intValue];
     self.title = [params objectForKey:@"title"];
 }

@@ -15,9 +15,9 @@
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic) NSInteger Daylight;
 @property (nonatomic) NSInteger TimeZone;
-@property (nonatomic) float latitude;   //经度
-@property (nonatomic) float longitude;  //纬度
-@property (nonatomic, strong) NSString *poiName;    //地理位置
+//@property (nonatomic) float latitude;   //纬度
+//@property (nonatomic) float longitude;  //经度
+//@property (nonatomic, strong) NSString *poiName;    //地理位置
 @end
 
 @implementation ASPerson
@@ -201,7 +201,7 @@
         chart = [self.question.Chart objectAtIndex:0];
     }
     if(chart){
-        if(self.person == 0){
+        if(self.personTag == 0){
             chart.FirstBirth = (NSDate<NSDate> *)self.person.Birth;
             chart.FirstDayLight = self.swDaylight.on;
             chart.FirstGender = self.swGender.on;
@@ -227,12 +227,12 @@
     NSString *poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
     [self.btnPoi setTitle:poiName forState:UIControlStateNormal];
     if(chart){
-        if(self.person == 0){
+        if(self.personTag == 0){
             chart.FirstPoiName = [poiName copy];
-            chart.FirstPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.latitude, info.geoPt.longitude];
+            chart.FirstPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.longitude, info.geoPt.latitude];
         }else{
             chart.SecondPoiName = [poiName copy];
-            chart.SecondPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.latitude, info.geoPt.longitude];
+            chart.SecondPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.longitude, info.geoPt.latitude];
         }
     }
 }

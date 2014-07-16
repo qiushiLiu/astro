@@ -27,6 +27,9 @@
     [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_ContentView:)];
+    [self.contentView addGestureRecognizer:tapGesture];
+    
     CGFloat top = 20;
     CGFloat left = 20;
     
@@ -62,7 +65,6 @@
     
     self.ctrlContext = [ASControls newTextView:CGRectMake(lb.right + 10, top, 220, 120)];
     self.ctrlContext.delegate = self;
-    self.ctrlContext.returnKeyType = UIReturnKeyDone;
     [self.contentView addSubview:self.ctrlContext];
 }
 
@@ -83,12 +85,38 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
+    [self hideInput];
     if(self.parentVc){
         self.parentVc.question.Title = [self.ctrlTitle.text trim];
         self.parentVc.question.Context = [self.ctrlContext.text trim];
         [self.parentVc reloadQuestion];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)tap_ContentView:(UITapGestureRecognizer *)sender{
+    [self hideInput];
+}
+
+- (void)hideInput{
+    [self.ctrlTitle resignFirstResponder];
+    [self.ctrlContext resignFirstResponder];
+}
+
+#pragma mark - UITextField Delegate Method
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if(textField == self.ctrlTitle){
+        [self.ctrlContext becomeFirstResponder];
+    }
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSString *newString = [[textField.text stringByReplacingCharactersInRange:range withString:string] trim];
+    if([newString length] > 40){
+        return NO;
+    }
+    return YES;
 }
 
 @end
