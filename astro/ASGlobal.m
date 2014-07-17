@@ -26,6 +26,15 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
 + (void)login:(ASCustomer *)user{
     [[ASCache shared] storeValue:[user toJSONString] dir:kCacheDir key:kCacheKeyForUserInfo];
     [self shared].user = user;
+    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LoginUser object:nil];
+}
+
++ (BOOL)isLogined{
+    if([self shared].user
+       && [self shared].user.SysNo > 0){
+        return YES;
+    }
+    return NO;
 }
 
 - (id)init{
@@ -43,10 +52,6 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
         //设置登录信息
         self.user = [[ASCustomer alloc] initWithString:cf.value error:NULL];
     }
-    
-    // 测试代码
-    self.user = [[ASCustomer alloc] init];
-    self.user.SysNo = 1;
 }
 
 - (void)loadCachedDeviceNumber{

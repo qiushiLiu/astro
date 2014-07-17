@@ -26,7 +26,13 @@
 	// Do any additional setup after loading the view.
     [self setTitle:@"登录"];
     
-    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"分享"];
+    //左侧按钮
+    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 54, 28) title:nil];
+    [btn setImage:[UIImage imageNamed:@"icon_navback"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"分享"];
     [btn addTarget:self action:@selector(shareTo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
@@ -122,6 +128,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+- (void)btnClick_navBack:(UIButton *)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)shareTo{
     [self hideKeyboard];
     [self navTo:vcBaziPan];
@@ -145,8 +155,7 @@
             if(succ){
                 ASCustomer *user = [[ASCustomer alloc] initWithDictionary:json error:NULL];
                 [ASGlobal login:user];
-                [self hideKeyboard];
-                [self alert:@"登录成功"];
+                [self btnClick_navBack:nil];
             }else{
                 [self alert:message];
             }

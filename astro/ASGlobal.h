@@ -14,5 +14,5 @@
 @property (nonatomic, strong) NSString *deviceNumber;
 + (ASGlobal *)shared;
 + (void)login:(ASCustomer *)user;
-
++ (BOOL)isLogined;
 @end

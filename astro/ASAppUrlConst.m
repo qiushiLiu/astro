@@ -8,15 +8,15 @@
 
 #import "ASAppUrlConst.h"
 
-NSString * const kUrlGetPasssWord = @"FindPass";
-NSString * const kUrlGetPhoneCode = @"CheckPhone";
-NSString * const kUrlCheckCode = @"CheckSMSVerifyCode";
-NSString * const kUrlRegister = @"Register";
-NSString * const kUrlLogin = @"login";
-NSString * const kUrlGetQQLoginUrl = @"GetQQLoginUrl";
-NSString * const kUrlGetWeiboLoginUrl = @"GetWeiboLoginUrl";
-NSString * const kUrlWeiboLoginByCode = @"WeiboLogin";
-NSString * const kUrlQQLoginByCode = @"QQLogin";
+NSString * const kUrlGetPasssWord = @"customer/FindPass";
+NSString * const kUrlGetPhoneCode = @"customer/CheckPhone";
+NSString * const kUrlCheckCode = @"customer/CheckSMSVerifyCode";
+NSString * const kUrlRegister = @"customer/Register";
+NSString * const kUrlLogin = @"customer/login";
+NSString * const kUrlGetQQLoginUrl = @"customer/GetQQLoginUrl";
+NSString * const kUrlGetWeiboLoginUrl = @"customer/GetWeiboLoginUrl";
+NSString * const kUrlWeiboLoginByCode = @"customer/WeiboLogin";
+NSString * const kUrlQQLoginByCode = @"customer/QQLogin";
 
 NSString * const kUrlGetCates = @"qa/GetCates";
 NSString * const kUrlGetStarsList = @"qa/GetStarsList";

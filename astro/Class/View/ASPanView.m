@@ -133,10 +133,13 @@
     }
     
     if([context length] > 0){
+        self.lbDetail.hidden = NO;
         self.lbDetail.text = [context copy];
         self.lbDetail.height = [self.lbDetail.text sizeWithFont:self.lbDetail.font constrainedToSize:CGSizeMake(self.lbDetail.width, CGFLOAT_MAX) lineBreakMode:self.lbDetail.lineBreakMode].height;
         self.lbDetail.origin = CGPointMake(0, top);
         top = self.lbDetail.bottom + 5;
+    }else{
+        self.lbDetail.hidden = YES;
     }
     
     self.height = top;
@@ -156,7 +159,9 @@
         }
     }
     
-    height += [context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    if([context length] > 0){
+        height += [context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    }
     
     return height;
 }

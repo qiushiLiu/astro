@@ -135,6 +135,7 @@
 - (void)stopLoading{
     self.arrow.hidden = NO;
     self.indicator.hidden = YES;
+    _isLoadingTag = NO;
     self.tableView.contentInset = UIEdgeInsetsZero;
 }
 
