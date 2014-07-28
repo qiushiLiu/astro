@@ -18,7 +18,9 @@
 #import "ASPostQuestionVc.h"
 
 #import "ASShareBindVc.h"
-#import "ASBaziPanVc.h"
+
+#import "ASPaiPanMainVc.h"
+#import "ASAstroPanVc.h"
 
 @implementation ASNav
 
@@ -51,7 +53,9 @@
     [_vcDic setObject:[ASPostQuestionVc class] forKey:vcPostQuestion];
     
     [_vcDic setObject:[ASShareBindVc class] forKey:vcShareBind];
-    [_vcDic setObject:[ASBaziPanVc class] forKey:vcBaziPan];
+    
+    [_vcDic setObject:[ASPaiPanMainVc class] forKey:vcPanMain];
+    [_vcDic setObject:[ASAstroPanVc class] forKey:vcBaziPan];
     
 }
 

@@ -20,4 +20,5 @@ NSString * const vcShareBind = @"vcShareBind";
 
 NSString * const vcPostQuestion = @"vcPostQuestion";
 
+NSString * const vcPanMain = @"vcPanMain";
 NSString * const vcBaziPan = @"vcBaziPan";

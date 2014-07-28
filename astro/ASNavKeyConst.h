@@ -20,4 +20,5 @@ extern NSString * const vcShareBind;
 
 extern NSString * const vcPostQuestion;
 
+extern NSString * const vcPanMain;
 extern NSString * const vcBaziPan;

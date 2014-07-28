@@ -10,12 +10,14 @@
 #import "ASLoginVc.h"
 #import "ASForgetPswVc.h"
 #import "ASRegisterVc.h"
+#import "ASPaiPanMainVc.h"
+
 #import "UITabBarItem+Universal.h"
 
 @interface ASTabMainVc ()
 @property (nonatomic, strong)UINavigationController *vcApplication;
 @property (nonatomic, strong)UINavigationController *ncAsk;
-@property (nonatomic, strong)UINavigationController *ncRegister;
+@property (nonatomic, strong)UINavigationController *ncPaipan;
 @property (nonatomic, strong)UINavigationController *ncUserCenter;
 @property (nonatomic, strong)UINavigationController *ncLesson;
 
@@ -31,13 +33,13 @@
         self.vcApplication.tabBarItem =[UITabBarItem itemWithTitle:@"应用" image:[UIImage imageNamed:@"icon_mod_1"] selectedImage:[UIImage imageNamed:@"icon_mod_1_hl"]];
         self.ncAsk = [[ASNav shared] newNav:vcAsk];
         self.ncAsk.tabBarItem =[UITabBarItem itemWithTitle:@"咨询" image:[UIImage imageNamed:@"icon_mod_2"] selectedImage:[UIImage imageNamed:@"icon_mod_2_hl"]];
-        self.ncRegister = [[ASNav shared] newNav:vcRegister];
-        self.ncRegister.tabBarItem = [UITabBarItem itemWithTitle:@"排盘" image:[UIImage imageNamed:@"icon_mod_3"] selectedImage:[UIImage imageNamed:@"icon_mod_3_hl"]];
+        self.ncPaipan = [[ASNav shared] newNav:vcPanMain];
+        self.ncPaipan.tabBarItem = [UITabBarItem itemWithTitle:@"排盘" image:[UIImage imageNamed:@"icon_mod_3"] selectedImage:[UIImage imageNamed:@"icon_mod_3_hl"]];
         self.ncLesson = [[ASNav shared] newNav:vcRegister];
         self.ncLesson.tabBarItem = [UITabBarItem itemWithTitle:@"课程" image:[UIImage imageNamed:@"icon_mod_4"] selectedImage:[UIImage imageNamed:@"icon_mod_4_hl"]];
         self.ncUserCenter = [[ASNav shared] newNav:vcRegister];
         self.ncUserCenter.tabBarItem = [UITabBarItem itemWithTitle:@"我的" image:[UIImage imageNamed:@"icon_mod_5"] selectedImage:[UIImage imageNamed:@"icon_mod_5_hl"]];
-        [self setViewControllers:[NSArray arrayWithObjects:self.vcApplication, self.ncAsk, self.ncRegister, self.ncLesson, self.ncUserCenter, nil]];
+        [self setViewControllers:[NSArray arrayWithObjects:self.vcApplication, self.ncAsk, self.ncPaipan, self.ncLesson, self.ncUserCenter, nil]];
     }
     return self;
 }

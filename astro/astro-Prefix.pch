@@ -14,9 +14,9 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+    #import "UIView+Layout.h"
     #import "UIImage+Scale.h"
     #import "NSString+Addition.h"
-    #import "UIView+Layout.h"
     #import "UILabel+VerticalAlign.h"
     #import "NSDate+Addition.h"
     #import "JSONModel.h"
@@ -28,9 +28,8 @@
     #import "ASUrlImageView.h"
     #import "ASControls.h"
     #import "ASGlobal.h"
-    #import "ASBaseViewController.h"
     #import "ASHelper.h"
-
+    #import "ASBaseViewController.h"
 #endif
 
 #define IOS7_OR_LATER ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending)

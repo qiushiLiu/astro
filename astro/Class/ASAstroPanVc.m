@@ -6,13 +6,13 @@
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASBaziPanVc.h"
+#import "ASAstroPanVc.h"
 #import "ASZiWeiGrid.h"
 #import "ZiWeiStar.h"
 #import "AstroStar.h"
 #import "Paipan.h"
 
-@interface ASBaziPanVc ()
+@interface ASAstroPanVc ()
 @property (nonatomic, strong) UIImageView *pan;
 @property (nonatomic, strong) UIImageView *panCenter;
 
@@ -20,7 +20,7 @@
 @property (nonatomic, strong) ASZiWeiGrid *lastSelected;
 @end
 
-@implementation ASBaziPanVc
+@implementation ASAstroPanVc
 
 - (void)viewDidLoad
 {

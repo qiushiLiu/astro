@@ -42,9 +42,9 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         return nil;
     }
     
-    UIGraphicsBeginImageContextWithOptions(_Size, YES, 0);
-    [[UIColor blackColor] setFill];
-    UIRectFill(CGRectMake(0, 0, _Size.width, _Size.height));
+    UIGraphicsBeginImageContextWithOptions(_Size, NO, 0);
+//    [[UIColor clearColor] setFill];
+//    UIRectFill(CGRectMake(0, 0, _Size.width, _Size.height));
 
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetAllowsAntialiasing(ctx, true);
@@ -57,7 +57,7 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     CGFloat r4 = r3 - 26;   //星径
     
     //四个同心圆
-    [self drawArc:ctx radius:r0];
+    [self drawArc:ctx radius:r0 fillColor:[UIColor blackColor]];
     [self drawArc:ctx radius:r1];
     [self drawArc:ctx radius:r2];
     [self drawArc:ctx radius:r3];
@@ -351,10 +351,20 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     CGContextDrawPath(ctx, kCGPathFillStroke);
 }
 
-- (void)drawArc:(CGContextRef)ctx  radius:(CGFloat)radius{
+- (void)drawArc:(CGContextRef)ctx radius:(CGFloat)radius{
+    [self drawArc:ctx radius:radius fillColor:nil];
+}
+
+- (void)drawArc:(CGContextRef)ctx radius:(CGFloat)radius fillColor:(UIColor *)color{
     CGContextAddArc(ctx, _Center.x, _Center.y, radius, 0, M_PI*2, 0);
     CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
     CGContextDrawPath(ctx, kCGPathStroke);
+    if(color){
+        CGContextAddArc(ctx, _Center.x, _Center.y, radius, 0, M_PI*2, 0);
+        CGContextSetFillColorWithColor(ctx, color.CGColor);
+        CGContextDrawPath(ctx, kCGPathFillStroke);
+    }
+    
 }
 
 - (void)drawStarLine:(CGContextRef)ctx radius:(CGFloat)radius from:(CGFloat)fd to:(CGFloat)td{
