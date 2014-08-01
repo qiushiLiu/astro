@@ -12,8 +12,6 @@
 
 @end
 
-#define PanTypeArray @[@"占星排盘", @"八字排盘", @"紫斗排盘"]
-
 @implementation ASPaiPanMainVc
 
 - (void)viewDidLoad

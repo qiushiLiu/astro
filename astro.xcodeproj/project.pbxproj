@@ -54,6 +54,8 @@
 		1B318E7D1966A4EC003C157C /* ZJSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B318E7C1966A4EC003C157C /* ZJSwitch.m */; };
 		1B318E80196A29AE003C157C /* ASPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B318E7F196A29AE003C157C /* ASPickerView.m */; };
 		1B322E89193EA70E004D9A97 /* ASAskDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */; };
+		1B3DBE0819888B1600C1F3D2 /* ASAstroPanFillInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DBE0719888B1600C1F3D2 /* ASAstroPanFillInfoVc.m */; };
+		1B3DBE0E198B2B1900C1F3D2 /* ASQuestionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DBE0D198B2B1900C1F3D2 /* ASQuestionButton.m */; };
 		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
 		1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
@@ -262,6 +264,10 @@
 		1B318E7F196A29AE003C157C /* ASPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPickerView.m; sourceTree = "<group>"; };
 		1B322E87193EA70E004D9A97 /* ASAskDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailCell.h; sourceTree = "<group>"; };
 		1B322E88193EA70E004D9A97 /* ASAskDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailCell.m; sourceTree = "<group>"; };
+		1B3DBE0619888B1600C1F3D2 /* ASAstroPanFillInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAstroPanFillInfoVc.h; sourceTree = "<group>"; };
+		1B3DBE0719888B1600C1F3D2 /* ASAstroPanFillInfoVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAstroPanFillInfoVc.m; sourceTree = "<group>"; };
+		1B3DBE0C198B2B1900C1F3D2 /* ASQuestionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQuestionButton.h; sourceTree = "<group>"; };
+		1B3DBE0D198B2B1900C1F3D2 /* ASQuestionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQuestionButton.m; sourceTree = "<group>"; };
 		1B40FF1718FFABE50022B87B /* ASPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPageInfo.h; sourceTree = "<group>"; };
 		1B40FF1818FFABE50022B87B /* ASPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPageInfo.m; sourceTree = "<group>"; };
 		1B442C3E1925D70E008350BD /* ASAskDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailHeaderView.h; sourceTree = "<group>"; };
@@ -679,6 +685,8 @@
 				1BBF581018AB60E50081D93A /* ASAskerVc.m */,
 				1B7CAF0F18F7CEF8005B8C30 /* ASAskListVc.h */,
 				1B7CAF1018F7CEF8005B8C30 /* ASAskListVc.m */,
+				1B3DBE0619888B1600C1F3D2 /* ASAstroPanFillInfoVc.h */,
+				1B3DBE0719888B1600C1F3D2 /* ASAstroPanFillInfoVc.m */,
 				1B6CF44218C88216005F1A70 /* ASAstroPanVc.h */,
 				1B6CF44318C88216005F1A70 /* ASAstroPanVc.m */,
 				1B318E71196646AF003C157C /* ASFillPersonVc.h */,
@@ -840,6 +848,8 @@
 				1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */,
 				1B318E7E196A29AE003C157C /* ASPickerView.h */,
 				1B318E7F196A29AE003C157C /* ASPickerView.m */,
+				1B3DBE0C198B2B1900C1F3D2 /* ASQuestionButton.h */,
+				1B3DBE0D198B2B1900C1F3D2 /* ASQuestionButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1042,6 +1052,7 @@
 				1BC823CF193DF1A4001CF44E /* ASIInputStream.m in Sources */,
 				1B9F1F2C1872622500278E62 /* FMDatabaseAdditions.m in Sources */,
 				1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */,
+				1B3DBE0819888B1600C1F3D2 /* ASAstroPanFillInfoVc.m in Sources */,
 				1B8A039219867B780087A4E0 /* ASPaiPanMainVc.m in Sources */,
 				1B6CF44118C6FBA2005F1A70 /* NSDate+Addition.m in Sources */,
 				1B7CAEFD18F6489C005B8C30 /* NSArray+JSONModel.m in Sources */,
@@ -1080,6 +1091,7 @@
 				1BF467C418DC246600CB3E4B /* Paipan.m in Sources */,
 				1B318E80196A29AE003C157C /* ASPickerView.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
+				1B3DBE0E198B2B1900C1F3D2 /* ASQuestionButton.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
 				1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */,

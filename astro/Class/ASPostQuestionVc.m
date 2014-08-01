@@ -11,8 +11,10 @@
 #import "ASFillPersonVc.h"
 #import "ASCache.h"
 #import "ASCategory.h"
-
 #import "ASFateChart.h"
+
+#import "ASQuestionButton.h"
+
 @interface ASPostQuestionVc()
 @property (nonatomic) BOOL hasReward;
 @property (nonatomic, strong) NSString *topCateId;
@@ -29,10 +31,8 @@
 @property (nonatomic, strong) UIView *rewardView;           //悬赏图层（可能会不显示）
 @property (nonatomic, strong) UIButton *btnQuestion;        //问题按钮
 @property (nonatomic, strong) UILabel *lbQuestion;          //问题内容
-@property (nonatomic, strong) UIButton *btnFirstPersonInfo; //第一当事人按钮
-@property (nonatomic, strong) UILabel *lbFirstPersonInfo;   //第一当事人
-@property (nonatomic, strong) UIButton *btnSecondPersonInfo; //第二当事人按钮
-@property (nonatomic, strong) UILabel *lbSecondPersonInfo;  //第二当事人
+@property (nonatomic, strong) ASQuestionButton *btnFirstPersonInfo; //第一当事人按钮
+@property (nonatomic, strong) ASQuestionButton *btnSecondPersonInfo; //第二当事人按钮
 @property (nonatomic, strong) ASPickerView *picker;
 @end
 
@@ -63,7 +63,7 @@
     [self.contentView addGestureRecognizer:tapGesture];
     
     CGFloat left = 20, top = 20;
-    UILabel *lb = [self newRedTextLabel];
+    UILabel *lb = [ASControls newRedTextLabel:CGRectMake(0, 0, 100, 30)];
     lb.text = @"分       类";
     lb.origin = CGPointMake(left, top);
     [self.contentView addSubview:lb];
@@ -74,7 +74,7 @@
     [self.contentView addSubview:self.btnQuestionType];
     top = self.btnQuestionType.bottom + 10;
     
-    lb = [self newRedTextLabel];
+    lb = [ASControls newRedTextLabel:CGRectMake(0, 0, 100, 30)];
     lb.text = @"排盘类型";
     lb.origin = CGPointMake(left, top);
     [self.contentView addSubview:lb];
@@ -89,7 +89,7 @@
     self.rewardView.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.rewardView];
     
-    lb = [self newRedTextLabel];
+    lb = [ASControls newRedTextLabel:CGRectMake(0, 0, 100, 30)];
     lb.text = @"悬       赏";
     lb.origin = CGPointMake(left, 0);
     [self.rewardView addSubview:lb];
@@ -170,7 +170,7 @@
         self.question.CateSysNo = item.SysNo;
         [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
     }
-    if([PanTypeArray count] > self.panTypeSelected){
+    if([RelationArray count] > self.panTypeSelected){
         if([self.question.Chart count] > 0){
             ASFateChart *chart = [self.question.Chart objectAtIndex:0];
             chart.ChartType = self.panTypeSelected + 1;
@@ -180,7 +180,7 @@
         }else{
             self.btnSecondPersonInfo.hidden = NO;
         }
-        [self.btnPanType setTitle:PanTypeArray[self.panTypeSelected] forState:UIControlStateNormal];
+        [self.btnPanType setTitle:RelationArray[self.panTypeSelected] forState:UIControlStateNormal];
     }
 }
 
@@ -204,78 +204,24 @@
     arrow.centerY = btn.height/2;
     [btn addSubview:arrow];
     
-    UILabel *lbPrefix = [self newRedTextLabel];
+    UILabel *lbPrefix = [ASControls newRedTextLabel:CGRectMake(0, 0, 100, 30)];
     lbPrefix.text = @"问题内容";
     [lbPrefix sizeToFit];
     lbPrefix.left = icon.right + 10;
     lbPrefix.centerY = btn.height/2;
     [btn addSubview:lbPrefix];
     
-    self.lbQuestion = [self newGrayTextLabel:CGRectMake(lbPrefix.right + 10, 0, 180, 28)];
+    self.lbQuestion = [ASControls newGrayTextLabel:CGRectMake(lbPrefix.right + 10, 0, 180, 28)];
     self.lbQuestion.centerY = btn.height/2;
     [btn addSubview:self.lbQuestion];
     
     return btn;
 }
 
-- (UIButton *)newPersonButton:(NSInteger)personTag{
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 280, 60)];
+- (ASQuestionButton *)newPersonButton:(NSInteger)personTag{
+    ASQuestionButton *btn = [[ASQuestionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 60) iconName:[NSString stringWithFormat:@"icon_person_%d", personTag + 1] preFix:[NSString stringWithFormat:@"第%@当事人", NumberToCharacter[personTag]]];
     btn.tag = personTag;
-    btn.backgroundColor = [UIColor whiteColor];
-    btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    btn.layer.borderWidth = 1;
-    btn.layer.cornerRadius = 5;
-    
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon_person_%d", personTag + 1]]];
-    icon.origin = CGPointMake(10, 5);
-    [btn addSubview:icon];
-    
-    UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_right"]];
-    arrow.highlightedImage = [UIImage imageNamed:@"arrow_right_hl"];
-    arrow.right = btn.width - 10;
-    arrow.centerY = icon.centerY;
-    [btn addSubview:arrow];
-    
-    UILabel *lbPrefix = [self newRedTextLabel];
-    lbPrefix.text = [NSString stringWithFormat:@"第%@当事人", NumberToCharacter[personTag]];
-    [lbPrefix sizeToFit];
-    lbPrefix.left = icon.right + 10;
-    lbPrefix.centerY = icon.centerY;
-    [btn addSubview:lbPrefix];
-
-    UIImageView *ivLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line_dash"]];
-    ivLine.left = lbPrefix.left - 5;
-    ivLine.top = icon.bottom;
-    [btn addSubview:ivLine];
-    
-    UILabel *lb = [self newGrayTextLabel:CGRectMake(icon.left, ivLine.bottom, 250, 28)];
-    [btn addSubview:lb];
-    
-    if(personTag == 0){
-        self.lbFirstPersonInfo = lb;
-    }else{
-        self.lbSecondPersonInfo = lb;
-    }
-    
     return btn;
-}
-
-- (UILabel *)newRedTextLabel{
-    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    lb.backgroundColor = [UIColor clearColor];
-    lb.font = [UIFont systemFontOfSize:16];
-    lb.textColor = ASColorDarkRed;
-    return lb;
-}
-
-- (UILabel *)newGrayTextLabel:(CGRect)frame{
-    UILabel *lb = [[UILabel alloc] initWithFrame:frame];
-    lb.backgroundColor = [UIColor clearColor];
-    lb.font = [UIFont systemFontOfSize:13];
-    lb.textColor = [UIColor darkGrayColor];
-    lb.numberOfLines = 1;
-    lb.lineBreakMode = NSLineBreakByTruncatingTail;
-    return lb;
 }
 
 - (UIButton *)newRedButtom:(NSString *)title{
@@ -309,9 +255,9 @@
     if([self.question.Chart count] > 0){
         ASFateChart *chart = [self.question.Chart objectAtIndex:0];
         if(tag == 0){ //第一当事人
-            self.lbFirstPersonInfo.text = [self stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone];
+            [self.btnFirstPersonInfo setInfoText:[self stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone]];
         }else{ //第二当事人
-            self.lbSecondPersonInfo.text = [self stringForBirth:chart.SecondBirth gender:chart.SecondGender daylight:chart.SecondDayLight poi:chart.SecondPoiName timeZone:chart.SecondTimeZone];
+            [self.btnSecondPersonInfo setInfoText:[self stringForBirth:chart.SecondBirth gender:chart.SecondGender daylight:chart.SecondDayLight poi:chart.SecondPoiName timeZone:chart.SecondTimeZone]];
         }
     }
 }
@@ -366,7 +312,7 @@
             ASFateChart *chart = [self.question.Chart objectAtIndex:0];
             selected = chart.ChartType - 1;
         }
-        [self.picker setDataSource:PanTypeArray selected:@(selected)];
+        [self.picker setDataSource:RelationArray selected:@(selected)];
     }
     [self.picker showPickerView];
 }

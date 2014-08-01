@@ -46,6 +46,33 @@
     return btn;
 }
 
++ (UIButton *)newDropDownButton:(CGRect)frame title:(NSString *)title{
+    UIButton *btn = [ASControls newOrangeButton:frame title:title];
+    UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"white_arrow_down"]];
+    iv.right = btn.width - 10;
+    iv.centerY = btn.height/2;
+    [btn addSubview:iv];
+    return btn;
+}
+
++ (UILabel *)newRedTextLabel:(CGRect)frame{
+    UILabel *lb = [[UILabel alloc] initWithFrame:frame];
+    lb.backgroundColor = [UIColor clearColor];
+    lb.font = [UIFont systemFontOfSize:16];
+    lb.textColor = ASColorDarkRed;
+    return lb;
+}
+
++ (UILabel *)newGrayTextLabel:(CGRect)frame{
+    UILabel *lb = [[UILabel alloc] initWithFrame:frame];
+    lb.backgroundColor = [UIColor clearColor];
+    lb.font = [UIFont systemFontOfSize:13];
+    lb.textColor = [UIColor darkGrayColor];
+    lb.numberOfLines = 1;
+    lb.lineBreakMode = NSLineBreakByTruncatingTail;
+    return lb;
+}
+
 + (UITextField *)newTextField:(CGRect)frame{
     UITextField *tf = [[UITextField alloc] initWithFrame:frame];
     tf.backgroundColor = [UIColor clearColor];

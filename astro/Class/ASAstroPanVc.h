@@ -11,5 +11,4 @@
 #import "ZiWeiMod.h"
 #import "AstroMod.h"
 @interface ASAstroPanVc : ASBaseViewController
-@property (nonatomic) BOOL lxTag;
 @end

@@ -13,11 +13,14 @@
 #import "Paipan.h"
 
 @interface ASAstroPanVc ()
-@property (nonatomic, strong) UIImageView *pan;
-@property (nonatomic, strong) UIImageView *panCenter;
+@property (nonatomic, strong) UILabel *lbTuiyun;    //退运说明
+@property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
+@property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
+@property (nonatomic, strong) UIImageView *pan;     //盘的图片
+//@property (nonatomic, strong) UIImageView *panCenter;
 
-@property (nonatomic, strong) NSMutableArray *gongs;
-@property (nonatomic, strong) ASZiWeiGrid *lastSelected;
+//@property (nonatomic, strong) NSMutableArray *gongs;
+//@property (nonatomic, strong) ASZiWeiGrid *lastSelected;
 @end
 
 @implementation ASAstroPanVc
@@ -25,23 +28,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setTitle:@"占星排盘"];
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_paipan"]];
     
-    self.gongs = [[NSMutableArray alloc] init];
-	// Do any additional setup after loading the view.
+    UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"设置"];
+    [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
-    self.pan = [[UIImageView alloc] initWithFrame:CGRectZero];
+    UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
+    ivLogo.frame = CGRectMake(5, 5, ivLogo.width/2, ivLogo.height/2);
+    [self.contentView addSubview:ivLogo];
+    
+    self.lbTuiyun = [self newTextLabel:CGRectMake(0, ivLogo.top, 120, 40)];
+    self.lbTuiyun.numberOfLines = 3;
+    self.lbTuiyun.right = self.contentView.width - 10;
+    [self.contentView addSubview:self.lbTuiyun];
+    
+    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom, 320, 320)];
     [self.contentView addSubview:self.pan];
     
-    self.panCenter = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [self.contentView addSubview:self.panCenter];
+    self.lbP1Info = [self newTextLabel:CGRectMake(ivLogo.left, 0, 120, 40)];
+    self.lbP1Info.numberOfLines = 3;
+    self.lbP1Info.bottom = self.pan.bottom + 10;
+    [self.contentView addSubview:self.lbP1Info];
     
-    self.lxTag = YES;
+    self.lbP2Info = [self newTextLabel:CGRectMake(0, 0, 120, 40)];
+    self.lbP2Info.numberOfLines = 3;
+    self.lbP2Info.right = self.pan.right;
+    self.lbP2Info.bottom = self.pan.bottom + 10;
+    [self.contentView addSubview:self.lbP2Info];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    self.contentView.backgroundColor = [UIColor whiteColor];
     
     [self showWaiting];
 //    //星盘
@@ -62,15 +81,22 @@
         if(succ){
             AstroMod *bazi = [[AstroMod alloc] initWithDictionary:json error:NULL];
             self.pan.image = [bazi paipan];
-            self.pan.size = self.pan.image.size;
         }else{
             [self alert:message];
         }
     }];
+}
+
+- (UILabel *)newTextLabel:(CGRect)frame{
+    UILabel *lb = [[UILabel alloc] initWithFrame:frame];
+    lb.backgroundColor = [UIColor clearColor];
+    lb.textColor = [UIColor blackColor];
+    lb.font = [UIFont systemFontOfSize:13];
+    return lb;
+}
+
+- (void)btnClick_fillInfo{
     
-//    [self.astro load:@"pp/TimeToAstro" params:nil];
-//    [self.ziwei load:@"pp/TimeToZiWei" params:nil];
-//    [self.mod load:@"pp/TimeToBaZi" params:nil];
 }
 
 //- (void)modelLoadFinished:(ASObject *)sender{
@@ -125,22 +151,22 @@
 //    [self hideWaiting];
 //}
 
-- (void)gongSelected:(ASZiWeiGrid *)sender{
-    if(self.lastSelected
-       && self.lastSelected !=  sender){
-        [self changeTag:self.lastSelected.tag on:NO];
-    }
-    self.lastSelected = sender;
-    [self changeTag:self.lastSelected.tag on:YES];
-}
-
-- (void)changeTag:(NSInteger)begin on:(BOOL)on{
-    NSInteger i = begin - 100;
-    ASZiWeiGrid *item = (ASZiWeiGrid *)[self.contentView viewWithTag:i + 100];
-    ASZiWeiGrid *item4 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 4)%12 + 100];
-    ASZiWeiGrid *item6 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 6)%12 + 100];
-    ASZiWeiGrid *item8 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 8)%12 + 100];
-    item.selected = item4.selected = item6.selected = item8.selected = on;
-}
+//- (void)gongSelected:(ASZiWeiGrid *)sender{
+//    if(self.lastSelected
+//       && self.lastSelected !=  sender){
+//        [self changeTag:self.lastSelected.tag on:NO];
+//    }
+//    self.lastSelected = sender;
+//    [self changeTag:self.lastSelected.tag on:YES];
+//}
+//
+//- (void)changeTag:(NSInteger)begin on:(BOOL)on{
+//    NSInteger i = begin - 100;
+//    ASZiWeiGrid *item = (ASZiWeiGrid *)[self.contentView viewWithTag:i + 100];
+//    ASZiWeiGrid *item4 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 4)%12 + 100];
+//    ASZiWeiGrid *item6 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 6)%12 + 100];
+//    ASZiWeiGrid *item8 = (ASZiWeiGrid *)[self.contentView viewWithTag:(i + 8)%12 + 100];
+//    item.selected = item4.selected = item6.selected = item8.selected = on;
+//}
 
 @end
