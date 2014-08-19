@@ -21,4 +21,6 @@
 
 + (UITextField *)newTextField:(CGRect)frame;
 + (UITextView *)newTextView:(CGRect)frame;
+
++ (UIView *)titleView:(CGRect)frame title:(NSString *)title;
 @end

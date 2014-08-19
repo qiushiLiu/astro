@@ -10,5 +10,5 @@
 #import "BaziMod.h"
 #import "ZiWeiMod.h"
 #import "AstroMod.h"
-@interface ASAstroPanVc : ASBaseViewController
+@interface ASAstroPanVc : ASBaseViewController<UIScrollViewDelegate>
 @end

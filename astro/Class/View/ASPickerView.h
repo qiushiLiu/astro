@@ -20,6 +20,8 @@
 @property (nonatomic, assign) ASBaseViewController *parentVc;
 @property (nonatomic, assign) id<ASPickerViewDelegate> delegate;
 @property (nonatomic, assign) id trigger;
+@property (nonatomic, strong) UIPickerView *picker;
+@property (nonatomic) UIDatePickerMode datePickerMode;
 
 - (id)initWithParentViewController:(ASBaseViewController *)vc;
 - (NSInteger)selectedRowInComponent:(NSInteger)component;

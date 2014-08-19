@@ -102,5 +102,19 @@
 }
 
 
++ (UIView *)titleView:(CGRect)frame title:(NSString *)title{
+    UIView *titleView = [[UIView alloc] initWithFrame:frame];
+    titleView.backgroundColor = UIColorFromRGB(0xc0a037);
+    titleView.layer.cornerRadius = titleView.height/2;
+    
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, titleView.width - 15, titleView.height)];
+    lb.backgroundColor = [UIColor clearColor];
+    lb.font = [UIFont systemFontOfSize:14];
+    lb.textColor = [UIColor whiteColor];
+    lb.text = [title copy];
+    [titleView addSubview:lb];
+    return titleView;
+}
+
 
 @end

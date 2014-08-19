@@ -8,11 +8,9 @@
 
 #import "ASPostQuestionVc.h"
 #import "ASFillQuestionVc.h"
-#import "ASFillPersonVc.h"
 #import "ASCache.h"
 #import "ASCategory.h"
 #import "ASFateChart.h"
-
 #import "ASQuestionButton.h"
 
 @interface ASPostQuestionVc()
@@ -111,12 +109,14 @@
     [self.btnQuestion addTarget:self action:@selector(btnClick_fillQuestion:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnQuestion];
     
-    self.btnFirstPersonInfo = [self newPersonButton:0];
+    self.btnFirstPersonInfo = [[ASQuestionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 60) iconName:@"icon_fill_0" preFix:@"第一当事人"];
+    self.btnFirstPersonInfo.tag = 1;
     self.btnFirstPersonInfo.centerX = self.contentView.width/2;
     [self.btnFirstPersonInfo addTarget:self action:@selector(btnClick_fillPerson:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnFirstPersonInfo];
     
-    self.btnSecondPersonInfo = [self newPersonButton:1];
+    self.btnSecondPersonInfo = [[ASQuestionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 60) iconName:@"icon_fill_1" preFix:@"第二当事人"];
+    self.btnFirstPersonInfo.tag = 2;
     self.btnSecondPersonInfo.centerX = self.contentView.width/2;
     [self.btnSecondPersonInfo addTarget:self action:@selector(btnClick_fillPerson:) forControlEvents:UIControlEventTouchUpInside];
     self.btnSecondPersonInfo.hidden = YES;
@@ -218,12 +218,6 @@
     return btn;
 }
 
-- (ASQuestionButton *)newPersonButton:(NSInteger)personTag{
-    ASQuestionButton *btn = [[ASQuestionButton alloc] initWithFrame:CGRectMake(0, 0, 280, 60) iconName:[NSString stringWithFormat:@"icon_person_%d", personTag + 1] preFix:[NSString stringWithFormat:@"第%@当事人", NumberToCharacter[personTag]]];
-    btn.tag = personTag;
-    return btn;
-}
-
 - (UIButton *)newRedButtom:(NSString *)title{
     UIButton *btn = [ASControls newOrangeButton:CGRectMake(100, 0, 120, 30) title:title];
     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"white_arrow_down"]];
@@ -231,20 +225,6 @@
     iv.centerY = btn.height/2;
     [btn addSubview:iv];
     return btn;
-}
-
-+ (UIView *)titleView:(CGRect)frame title:(NSString *)title{
-    UIView *titleView = [[UIView alloc] initWithFrame:frame];
-    titleView.backgroundColor = UIColorFromRGB(0xc0a037);
-    titleView.layer.cornerRadius = titleView.height/2;
-    
-    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, titleView.width - 15, titleView.height)];
-    lb.backgroundColor = [UIColor clearColor];
-    lb.font = [UIFont systemFontOfSize:14];
-    lb.textColor = [UIColor whiteColor];
-    lb.text = @"请输入问题内容";
-    [titleView addSubview:lb];
-    return titleView;
 }
 
 - (void)reloadQuestion{
@@ -301,6 +281,27 @@
     }
 }
 
+#pragma mark - ASFillQuestionVcDelegate Method
+- (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
+    ASFateChart *chart = nil;
+    if(self.question && [self.question.Chart count] > 0){
+        chart = [self.question.Chart objectAtIndex:0];
+    }
+    if(chart){
+        if(trigger == self.btnFirstPersonInfo){
+            chart.FirstBirth = (NSDate<NSDate> *)person.Birth;
+            chart.FirstDayLight = person.Daylight;
+            chart.FirstGender = person.Gender;
+            chart.FirstTimeZone = person.TimeZone;
+        }else if(trigger == self.btnSecondPersonInfo){
+            chart.SecondBirth = (NSDate<NSDate> *)person.Birth;
+            chart.SecondDayLight = person.Daylight;
+            chart.SecondGender = person.Gender;
+            chart.SecondTimeZone = person.TimeZone;
+        }
+    }
+}
+
 #pragma mark - UIButton Click Method
 - (void)btnClick_picker:(UIButton *)sender{
     self.picker.trigger = sender;
@@ -326,8 +327,8 @@
 
 - (void)btnClick_fillPerson:(UIButton *)sender{
     ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
-    vc.personTag = sender.tag;
-    vc.parentVc = self;
+    vc.delegate = self;
+    vc.trigger = sender;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }

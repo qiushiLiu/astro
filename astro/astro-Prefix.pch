@@ -40,6 +40,7 @@
 #define ASColorDarkGray UIColorFromRGB(0x80776d)
 #define ASColorDarkRed UIColorFromRGB(0x863321)
 #define ASColorBlue UIColorFromRGB(0x3f85A3)
+#define ASColorOrange UIColorFromRGB(0xff9670)
 
 #define Int2String(iValue) [NSString stringWithFormat:@"%d", iValue]
 

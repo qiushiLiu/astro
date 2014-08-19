@@ -9,12 +9,9 @@
 #import "ASPickerView.h"
 
 @interface ASPickerView ()
-@property (nonatomic, strong) UIPickerView *picker;
 @property (nonatomic, strong) UIDatePicker *datePicker;
 @property (nonatomic, strong) UIButton *btnCancel;
 @property (nonatomic, strong) UIButton *btnOk;
-
-@property (nonatomic) UIDatePickerMode datePickerMode;
 @property (nonatomic, strong) NSArray *dataSource;
 @end
 
@@ -60,14 +57,13 @@
     if(!data){
         return;
     }
-    _datePickerMode = - 1;
+    self.datePickerMode = - 1;
     id firstObj = [data firstObject];
     if(firstObj && [firstObj isKindOfClass:[NSArray class]]){
         _dataSource = [data copy];
     }else{
         _dataSource = [NSArray arrayWithObjects:data, nil];
     }
-    [self reloadPicker];
     if(selected){
         NSArray *sl = nil;
         if(![selected isKindOfClass:[NSArray class]]){
@@ -85,10 +81,14 @@
     }
 }
 
-- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode selected:(NSDate *)date{
+- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode{
     _datePickerMode = datePickerMode;
-    _dataSource = nil;
     [self reloadPicker];
+}
+
+- (void)setDatePickerMode:(UIDatePickerMode)datePickerMode selected:(NSDate *)date{
+    self.datePickerMode = datePickerMode;
+    _dataSource = nil;
     if(date){
         self.datePicker.date = date;
     }else{

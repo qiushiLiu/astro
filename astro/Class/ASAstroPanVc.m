@@ -11,12 +11,19 @@
 #import "ZiWeiStar.h"
 #import "AstroStar.h"
 #import "Paipan.h"
+#import "ASAstroPanFillInfoVc.h"
 
 @interface ASAstroPanVc ()
+@property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
+@property (nonatomic, strong) UIScrollView *scInfoView; //信息view
+@property (nonatomic, strong) UIPageControl *page;      //分页控件
 @property (nonatomic, strong) UILabel *lbTuiyun;    //退运说明
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
+
+@property (nonatomic, strong) AstroMod *astro;      //盘数据
+
 //@property (nonatomic, strong) UIImageView *panCenter;
 
 //@property (nonatomic, strong) NSMutableArray *gongs;
@@ -28,16 +35,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setTitle:@"占星排盘"];
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_paipan"]];
+    self.contentView.pagingEnabled = YES;
+    self.contentView.showsHorizontalScrollIndicator = NO;
+    self.contentView.showsVerticalScrollIndicator = NO;
+    self.contentView.delegate = self;
     
     UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"设置"];
     [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
+    self.page = [[UIPageControl alloc] init];
+    self.page.pageIndicatorTintColor = ASColorDarkGray;
+    self.page.currentPageIndicatorTintColor = ASColorDarkRed;
+    self.page.numberOfPages = 2;
+    self.page.currentPage = 0;
+    self.page.centerX = self.contentView.width/2;
+    self.page.top = 10;
+    self.page.enabled = NO;
+    [self.view addSubview:self.page];
+    
+    self.scPanView = [[UIScrollView alloc] initWithFrame:self.contentView.bounds];
+    self.scPanView.backgroundColor = [UIColor clearColor];
+    [self.contentView addSubview:self.scPanView];
+    
+    self.scInfoView = [[UIScrollView alloc] initWithFrame:self.contentView.bounds];
+    self.scInfoView.backgroundColor = [UIColor clearColor];
+    self.scInfoView.left = self.scInfoView.width;
+    [self.contentView addSubview:self.scInfoView];
+    
     UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
     ivLogo.frame = CGRectMake(5, 5, ivLogo.width/2, ivLogo.height/2);
-    [self.contentView addSubview:ivLogo];
+    [self.scPanView addSubview:ivLogo];
     
     self.lbTuiyun = [self newTextLabel:CGRectMake(0, ivLogo.top, 120, 40)];
     self.lbTuiyun.numberOfLines = 3;
@@ -45,48 +76,46 @@
     [self.contentView addSubview:self.lbTuiyun];
     
     self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom, 320, 320)];
-    [self.contentView addSubview:self.pan];
+    [self.scPanView addSubview:self.pan];
     
     self.lbP1Info = [self newTextLabel:CGRectMake(ivLogo.left, 0, 120, 40)];
     self.lbP1Info.numberOfLines = 3;
     self.lbP1Info.bottom = self.pan.bottom + 10;
-    [self.contentView addSubview:self.lbP1Info];
+    [self.scPanView addSubview:self.lbP1Info];
     
     self.lbP2Info = [self newTextLabel:CGRectMake(0, 0, 120, 40)];
     self.lbP2Info.numberOfLines = 3;
     self.lbP2Info.right = self.pan.right;
     self.lbP2Info.bottom = self.pan.bottom + 10;
-    [self.contentView addSubview:self.lbP2Info];
+    [self.scPanView addSubview:self.lbP2Info];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.contentView.contentSize = CGSizeMake(self.contentView.width * 2, self.contentView.height);
+    self.scInfoView.height = self.contentView.height;
+    self.scPanView.height = self.contentView.height;
     
     [self showWaiting];
-//    //星盘
-//    [HttpUtil load:@"pp/TimeToAstro" params:nil completion:^(BOOL succ, NSString *message, id json) {
-//        [self hideWaiting];
-//        if(succ){
-//            AstroMod *astro = [[AstroMod alloc] initWithDictionary:json error:NULL];
-//            self.pan.image = [astro paipan];
-//            self.pan.size = self.pan.image.size;
-//
-//        }else{
-//            [self alert:message];
-//        }
-//    }];
-    
-    [HttpUtil load:@"pp/TimeToAstro" params:nil completion:^(BOOL succ, NSString *message, id json) {
+    [HttpUtil post:@"input/TimeToAstro" params:nil body:[self.astro toJSONString] completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
-            AstroMod *bazi = [[AstroMod alloc] initWithDictionary:json error:NULL];
-            self.pan.image = [bazi paipan];
+            self.astro = [[AstroMod alloc] initWithDictionary:json error:NULL];
+            self.pan.image = [self.astro paipan];
         }else{
             [self alert:message];
         }
     }];
 }
 
+#pragma mark - UIScrollView Delegate Method
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    int page = scrollView.contentOffset.x/scrollView.frame.size.width;
+    self.page.currentPage = page;
+}
+
+#pragma mark --
 - (UILabel *)newTextLabel:(CGRect)frame{
     UILabel *lb = [[UILabel alloc] initWithFrame:frame];
     lb.backgroundColor = [UIColor clearColor];
@@ -96,7 +125,9 @@
 }
 
 - (void)btnClick_fillInfo{
-    
+    ASAstroPanFillInfoVc *vc = [[ASAstroPanFillInfoVc alloc] init];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 //- (void)modelLoadFinished:(ASObject *)sender{

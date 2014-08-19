@@ -9,32 +9,7 @@
 #import "ASFillPersonVc.h"
 #import "ZJSwitch.h"
 
-
-@interface ASPerson : NSObject
-@property (nonatomic, strong) NSDate *Birth;
-@property (nonatomic) NSInteger Gender;
-@property (nonatomic) NSInteger Daylight;
-@property (nonatomic) NSInteger TimeZone;
-//@property (nonatomic) float latitude;   //纬度
-//@property (nonatomic) float longitude;  //经度
-//@property (nonatomic, strong) NSString *poiName;    //地理位置
-@end
-
-@implementation ASPerson
-- (id)init{
-    if(self = [super init]){
-        self.TimeZone = 4;  //东八区
-        self.Gender = 1;    //男
-        self.Birth = [[NSDate alloc] initWithYear:1990 month:1 day:1 hour:12 minute:0 second:0];
-    }
-    return self;
-}
-
-@end
-
 @interface ASFillPersonVc ()
-@property (nonatomic, weak) ASPostQuestion *question;
-
 @property (nonatomic, strong) UIButton *btnDate;
 @property (nonatomic, strong) UIButton *btnTime;
 @property (nonatomic, strong) ZJSwitch *swDaylight; //夏令时
@@ -42,17 +17,21 @@
 @property (nonatomic, strong) ZJSwitch *swGender;   //性别
 @property (nonatomic, strong) ASPickerView *picker; //选择器
 @property (nonatomic, strong) UIButton *btnPoi;     //地址
-@property (nonatomic, strong) ASPerson *person;
 @end
 
 @implementation ASFillPersonVc
+
+- (id)init{
+    if(self = [super init]){
+        self.person = [[ASPerson alloc] init];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.person = [[ASPerson alloc] init];
     
     self.title = @"当事人信息";
     self.navigationItem.leftBarButtonItem = nil;
@@ -60,11 +39,11 @@
     UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"确定"];
     [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-
+    
     CGFloat top = 20;
     CGFloat left = 20;
-
-    UIView *titleView = [ASPostQuestionVc titleView:CGRectMake(left, top, 280, 30) title:[NSString stringWithFormat:@"请输入第%@当事人信息", NumberToCharacter[self.personTag]]];
+    
+    UIView *titleView = [ASControls titleView:CGRectMake(left, top, 280, 30) title:@"请输入当事人信息"];
     [self.contentView addSubview:titleView];
     top = titleView.bottom + 10;
     
@@ -139,11 +118,6 @@
     [self reloadData];
 }
 
-- (void)setParentVc:(ASPostQuestionVc *)parentVc{
-    _parentVc = parentVc;
-    self.question = _parentVc.question;
-}
-
 - (void)reloadData{
     self.swDaylight.on = self.person.Daylight > 0;
     self.swGender.on = self.person.Gender == 0;
@@ -196,45 +170,19 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    ASFateChart *chart = nil;
-    if(self.question && [self.question.Chart count] > 0){
-        chart = [self.question.Chart objectAtIndex:0];
+    self.person.Daylight = self.swDaylight.on;
+    self.person.Gender = self.swDaylight.on;
+    if([self.delegate respondsToSelector:@selector(ASFillPerson:trigger:)]){
+        [self.delegate ASFillPerson:self.person trigger:self.trigger];
     }
-    if(chart){
-        if(self.personTag == 0){
-            chart.FirstBirth = (NSDate<NSDate> *)self.person.Birth;
-            chart.FirstDayLight = self.swDaylight.on;
-            chart.FirstGender = self.swGender.on;
-            chart.FirstTimeZone = self.person.TimeZone - 12;
-        }else{
-            chart.SecondBirth = (NSDate<NSDate> *)self.person.Birth;
-            chart.SecondDayLight = self.swDaylight.on;
-            chart.SecondGender = self.swGender.on;
-            chart.SecondTimeZone = self.person.TimeZone - 12;
-        }
-    }
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.parentVc reloadPerson:self.personTag];
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - ASPoiMapDelegate Method
 - (void)asPoiMap:(BMKAddrInfo *)info{
-    ASFateChart *chart = nil;
-    if(self.question && [self.question.Chart count] > 0){
-        chart = [self.question.Chart objectAtIndex:0];
-    }
-    NSString *poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
-    [self.btnPoi setTitle:poiName forState:UIControlStateNormal];
-    if(chart){
-        if(self.personTag == 0){
-            chart.FirstPoiName = [poiName copy];
-            chart.FirstPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.longitude, info.geoPt.latitude];
-        }else{
-            chart.SecondPoiName = [poiName copy];
-            chart.SecondPoi = [NSString stringWithFormat:@"%f|%f", info.geoPt.longitude, info.geoPt.latitude];
-        }
-    }
+    self.person.poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
+    self.person.latitude = info.geoPt.latitude;
+    self.person.longitude = info.geoPt.longitude;
 }
 
 #pragma mark - ASPickerViewDelegate Method

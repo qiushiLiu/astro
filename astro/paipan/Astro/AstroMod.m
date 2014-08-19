@@ -10,6 +10,7 @@
 #import "AstroStar.h"
 #import "Paipan.h"
 #import "AstroStarGroup.h"
+#import "ASCache.h"
 
 CGFloat D2R(CGFloat degrees) {return degrees * M_PI / 180.0;};
 CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
@@ -29,6 +30,38 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     return nil;
 }
 
+static NSString *key = @"starsPermit";
+
++ (NSInteger)getStarsPermit{
+    ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([self class]) key:key];
+    if(obj){
+        return [obj.value intValue];
+    }else{
+        return 0xffffff; //默认:20个星体全部显示
+    }
+}
+
++ (NSString *)getStarsPermitTextInfo{
+    NSInteger planetCount = 0, asteroidCount = 0;
+    NSInteger permit = [self getStarsPermit];
+    for(int i = 0; i < 20; i++){
+        BOOL selected = (permit & 1<<i) > 0;
+        if(selected){
+            if(i < 10){
+                planetCount++;
+            }else{
+                asteroidCount++;
+            }
+        }
+    }
+    return [NSString stringWithFormat:@"主星:%d颗   小行星:%d颗", planetCount, asteroidCount];
+    
+}
+
++ (void)setStarsPermit:(NSInteger)permit{
+    [[ASCache shared] storeValue:Int2String(permit) dir:NSStringFromClass([self class]) key:key];
+}
+
 #define _Size   CGSizeMake(320, 320)
 #define _Radius _Size.width/2 - 10
 #define _Center CGPointMake(_Size.width/2, _Size.height/2)
@@ -43,9 +76,6 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
     }
     
     UIGraphicsBeginImageContextWithOptions(_Size, NO, 0);
-//    [[UIColor clearColor] setFill];
-//    UIRectFill(CGRectMake(0, 0, _Size.width, _Size.height));
-
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetAllowsAntialiasing(ctx, true);
     CGContextSetShouldAntialias(ctx, true);
@@ -145,11 +175,16 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         
     }
     
+    NSInteger permit = [[self class] getStarsPermit];
     //画星的中心点
     NSMutableArray *st = [[NSMutableArray alloc] init];
     for (int i = 0; i < [self.Stars count]; i++) {
         if(i > 20 /*&& i != 23 && i != 26*/ && i != 29 && i <= 31)
             continue;
+        
+        if((permit & 1<<i) == 0)    //不被显示
+            continue;
+        
         AstroStarHD *star = [[AstroStarHD alloc] initWithAstro:[self.Stars objectAtIndex:i]];
         CGFloat degree = constellationStart + 30 * (star.base.Constellation - 1) + star.DegreeHD;
         degree = fmodf(degree, 360.0);
@@ -166,58 +201,13 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
         return s1.PanDegree >= s2.PanDegree;
     }];
     
-    
-//    NSMutableArray *group = [[NSMutableArray alloc] init];
-//    NSInteger bb = 0, ee = [st count] - 1;
-//    CGFloat lastDegree = -1;
-//    while (bb <= ee) {
-//        AstroStar *star = [st objectAtIndex:bb];
-//        if(bb == 0){
-//            lastDegree = [star.PanDegree doubleValue];
-//            while(bb <= ee){
-//                AstroStar *lstar = [st objectAtIndex:ee];
-//                BOOL tag = NO;
-//                if(lastDegree < [lstar.PanDegree doubleValue]){
-//                    if(360.0 - [lstar.PanDegree doubleValue] + lastDegree <= 8.0){
-//                        tag = YES;
-//                    }
-//                }else{
-//                    if(fabs(lastDegree - [star.PanDegree doubleValue]) <= 8.0){
-//                        tag = YES;
-//                    }
-//                }
-//                if(tag){
-//                    [group insertObject:lstar atIndex:0];
-//                    lastDegree = [lstar.PanDegree doubleValue];
-//                    ee--;
-//                }else{
-//                    break;
-//                }
-//            }
-//            lastDegree = -1;
-//        }
-//        if(lastDegree >= 0 && fabs(lastDegree - [star.PanDegree doubleValue]) > 8.0){
-//            [self drawGroupStar:ctx group:group radius:r4];
-//            [group removeAllObjects];
-//        }
-//        [group addObject:star];
-//        lastDegree = [star.PanDegree doubleValue];
-//        bb++;
-//    }
-//    if([group count] > 0){
-//        [self drawGroupStar:ctx group:group radius:r4];
-//    }
-
-    
     NSMutableArray *groups = [[NSMutableArray alloc] init];
     for(AstroStarHD *star in st){
         [self starGroups:groups addNewStar:star];
     }
     
     for(AstroStarGroup *gp in groups){
-//        if([gp.stars count] == 2){
-            [self drawGroupStar:ctx group:gp.stars radius:r4];
-//        }
+        [self drawGroupStar:ctx group:gp.stars radius:r4];
     }
     
     for(int i = 0; i < [st count]; i++){

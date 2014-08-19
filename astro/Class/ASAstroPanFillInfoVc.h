@@ -8,6 +8,10 @@
 
 #import "ASBaseViewController.h"
 #import "ASPickerView.h"
-@interface ASAstroPanFillInfoVc : ASBaseViewController<ASPickerViewDelegate>
+#import "ASFillPersonVc.h"
+#import "ASAstroStarsFillVc.h"
+#import "AstroMod.h"
 
+@interface ASAstroPanFillInfoVc : ASBaseViewController<ASPickerViewDelegate, ASFillPersonVcDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@property (nonatomic, strong) AstroMod *model;
 @end

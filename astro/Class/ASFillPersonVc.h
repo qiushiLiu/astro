@@ -8,11 +8,18 @@
 
 #import "ASBaseViewController.h"
 #import "ASPostQuestion.h"
-#import "ASPostQuestionVc.h"
 #import "ASPickerView.h"
 #import "ASPoiMapVc.h"
+#import "ASPerson.h"
+
+@protocol ASFillPersonVcDelegate <NSObject>
+@optional
+- (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger;
+@end
 
 @interface ASFillPersonVc : ASBaseViewController<ASPickerViewDelegate, ASPoiMapVcDelegate>
-@property (nonatomic) NSInteger personTag;
-@property (nonatomic, strong) ASPostQuestionVc *parentVc;
+@property (nonatomic, assign) id<ASFillPersonVcDelegate> delegate;
+@property (nonatomic, assign) id trigger;
+@property (nonatomic, strong) ASPerson *person;
 @end
+

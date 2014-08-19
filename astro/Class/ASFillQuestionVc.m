@@ -33,7 +33,7 @@
     CGFloat top = 20;
     CGFloat left = 20;
     
-    UIView *titleView = [ASPostQuestionVc titleView:CGRectMake(left, top, 280, 30) title:@"请输入问题内容"];
+    UIView *titleView = [ASControls titleView:CGRectMake(left, top, 280, 30) title:@"请输入问题内容"];
     [self.contentView addSubview:titleView];
     top = titleView.bottom + 10;
     

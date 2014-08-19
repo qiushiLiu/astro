@@ -9,11 +9,12 @@
 #import "ASBaseViewController.h"
 #import "ASPickerView.h"
 #import "ASPostQuestion.h"
+#import "ASFillPersonVc.h"
 
-@interface ASPostQuestionVc : ASBaseViewController<UITextFieldDelegate, UIAlertViewDelegate, ASPickerViewDelegate>
+@interface ASPostQuestionVc : ASBaseViewController<UITextFieldDelegate, UIAlertViewDelegate, ASFillPersonVcDelegate, ASPickerViewDelegate>
 @property (nonatomic, strong) ASPostQuestion *question;
 
-+ (UIView *)titleView:(CGRect)frame title:(NSString *)title;
+
 - (void)reloadQuestion;
 - (void)reloadPerson:(NSInteger)tag;
 @end
