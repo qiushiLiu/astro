@@ -20,10 +20,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
     self.starsButton = [NSMutableArray array];
-    self.permit = [AstroMod getStarsPermit];
-    
     self.title = @"星体显示";
     self.navigationItem.leftBarButtonItem = nil;
     
@@ -41,7 +38,12 @@
         top = view.bottom + 10;
     }
     self.contentView.contentSize = CGSizeMake(self.contentView.width, top);
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.permit = [AstroMod getStarsPermit];
+    [self loadStarsPermit];
 }
 
 - (UIView *)newGroupView:(NSInteger)tag{
@@ -91,13 +93,8 @@
         [view addSubview:lb0];
         
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        btn.tag = i;
+        btn.tag = tag * 10 + i;
         [btn addTarget:self action:@selector(btnClick_selected:) forControlEvents:UIControlEventTouchUpInside];
-        if((self.permit & (1<<i)) > 0){
-            [btn setImage:[UIImage imageNamed:@"btn_check_on"] forState:UIControlStateNormal];
-        }else{
-            [btn setImage:[UIImage imageNamed:@"btn_check_off"] forState:UIControlStateNormal];
-        }
         [self.starsButton addObject:btn];
         btn.center = CGPointMake(titleView.width/8*3 + mod * titleView.width/2, lb0.centerY);
         [view addSubview:btn];
@@ -108,6 +105,17 @@
         }
     }
     return view;
+}
+
+- (void)loadStarsPermit{
+    [self.starsButton enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UIButton *btn = (UIButton *)obj;
+        if((self.permit & (1<<idx)) > 0){
+            [btn setImage:[UIImage imageNamed:@"btn_check_on"] forState:UIControlStateNormal];
+        }else{
+            [btn setImage:[UIImage imageNamed:@"btn_check_off"] forState:UIControlStateNormal];
+        }
+    }];
 }
 
 - (void)btnClick_selected:(UIButton *)sender{

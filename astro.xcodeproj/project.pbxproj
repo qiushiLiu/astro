@@ -90,6 +90,7 @@
 		1B7EDF6A18AE3A0A00C82F0C /* ASAskerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7EDF6918AE3A0A00C82F0C /* ASAskerHeaderView.m */; };
 		1B81A7B9196D26F600055137 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81A7B8196D26F600055137 /* Images.xcassets */; };
 		1B8A039219867B780087A4E0 /* ASPaiPanMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */; };
+		1B9DC4E219AACF04006CBB3D /* ASPermitInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */; };
 		1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */; };
 		1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */; };
 		1B9F1EF1186C54DB00278E62 /* ASUrlImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EF0186C54DB00278E62 /* ASUrlImageView.m */; };
@@ -336,6 +337,8 @@
 		1B81A7B8196D26F600055137 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPaiPanMainVc.h; sourceTree = "<group>"; };
 		1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPaiPanMainVc.m; sourceTree = "<group>"; };
+		1B9DC4E019AACF04006CBB3D /* ASPermitInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPermitInfoVc.h; sourceTree = "<group>"; };
+		1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPermitInfoVc.m; sourceTree = "<group>"; };
 		1B9DF44E18A614A900D4DCF4 /* ASToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASToolBar.h; sourceTree = "<group>"; };
 		1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASToolBar.m; sourceTree = "<group>"; };
 		1B9F1EB11861BD6D00278E62 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
@@ -702,6 +705,8 @@
 				1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */,
 				1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */,
 				1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */,
+				1B9DC4E019AACF04006CBB3D /* ASPermitInfoVc.h */,
+				1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */,
 				1B004D7E19737B8E0018D14E /* ASPoiMapVc.h */,
 				1B004D7F19737B8E0018D14E /* ASPoiMapVc.mm */,
 				1B19A27C195BBBC700831568 /* ASPostQuestionVc.h */,
@@ -1088,6 +1093,7 @@
 				1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */,
 				1BC823D0193DF1A4001CF44E /* ASINetworkQueue.m in Sources */,
 				1B012B37185DCB4B0046AD7A /* main.m in Sources */,
+				1B9DC4E219AACF04006CBB3D /* ASPermitInfoVc.m in Sources */,
 				1B318E73196646AF003C157C /* ASFillPersonVc.m in Sources */,
 				1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */,
 				1B318E7D1966A4EC003C157C /* ZJSwitch.m in Sources */,

@@ -19,21 +19,12 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
 @end
 
 @implementation AstroMod
-+ (Class)classForJsonObjectByKey:(NSString *)key {
-    return nil;
-}
 
-+ (Class)classForJsonObjectsByKey:(NSString *)key {
-    if([key isEqualToString:@"Stars"]){
-        return [AstroStar class];
-    }
-    return nil;
-}
-
-static NSString *key = @"starsPermit";
+static NSString *startPermitKey = @"starsPermit";
+static NSString *anglePermitKey = @"anglePermit";
 
 + (NSInteger)getStarsPermit{
-    ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([self class]) key:key];
+    ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([self class]) key:startPermitKey];
     if(obj){
         return [obj.value intValue];
     }else{
@@ -59,7 +50,38 @@ static NSString *key = @"starsPermit";
 }
 
 + (void)setStarsPermit:(NSInteger)permit{
-    [[ASCache shared] storeValue:Int2String(permit) dir:NSStringFromClass([self class]) key:key];
+    [[ASCache shared] storeValue:Int2String(permit) dir:NSStringFromClass([self class]) key:startPermitKey];
+}
+
++ (NSArray *)getAnglePermit{
+    ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([self class]) key:anglePermitKey];
+    NSString *value = nil;
+    if(obj){
+        value = obj.value;
+    }else{
+        value = @"10,10,10,10,10"; //默认:20个星体全部显示
+    }
+    NSMutableArray *ret = [NSMutableArray array];
+    NSArray *arr = [value componentsSeparatedByString:@","];
+    [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [ret addObject:@([obj intValue])];
+    }];
+    return ret;
+}
+
++ (void)setAnglePermit:(NSArray *)permit{
+    [[ASCache shared] storeValue:[permit componentsJoinedByString:@","] dir:NSStringFromClass([self class]) key:anglePermitKey];
+}
+
++ (NSString *)getAnglePermitTextInfo{
+    NSArray *arr = [self getAnglePermit];
+    NSMutableString *str = [NSMutableString string];
+    [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if([obj intValue] >= 0){
+            [str appendFormat:@"%@_%d  ", AstroAnglePermit[idx], [obj intValue]];
+        }
+    }];
+    return str;
 }
 
 #define _Size   CGSizeMake(320, 320)

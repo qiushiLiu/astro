@@ -21,5 +21,7 @@
 @property (nonatomic, assign) id<ASFillPersonVcDelegate> delegate;
 @property (nonatomic, assign) id trigger;
 @property (nonatomic, strong) ASPerson *person;
+
++ (NSString *)stringForBirth:(NSDate *)birth gender:(NSInteger)gender daylight:(NSInteger)daylight poi:(NSString *)poi timeZone:(NSInteger)timeZone;
 @end
 

@@ -72,6 +72,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.btnStarsInfo setInfoText:[AstroMod getStarsPermitTextInfo]];
+    [self.btnPermitInfo setInfoText:[AstroMod getAnglePermitTextInfo]];
+    [self loadPersonInfo];
+}
+
+- (void)loadPersonInfo{
+    [self.btnFirstPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.birth gender:self.model.Gender daylight:self.model.IsDaylight poi:self.model.position.name timeZone:self.model.zone]];
+    [self.btnSecondPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.birth1 gender:self.model.Gender1 daylight:self.model.IsDaylight1 poi:self.model.position1.name timeZone:self.model.zone1]];
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
@@ -92,11 +99,11 @@
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnPermitInfo){
-        
+        ASPermitInfoVc *vc = [[ASPermitInfoVc alloc] init];
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnStarsInfo){
         ASAstroStarsFillVc *vc = [[ASAstroStarsFillVc alloc] init];
-//        vc.delegate = self;
-//        vc.trigger = sender;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }
@@ -109,7 +116,24 @@
 
 #pragma mark - ASFillPersonVc Delegate Method
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
-    
+    if(trigger == self.btnFirstPersonInfo){
+        self.model.Gender = person.Gender;
+        self.model.birth = (NSDate<NSDate> *)person.Birth;
+        self.model.zone = person.TimeZone;
+        self.model.IsDaylight = person.Daylight;
+        self.model.position.name = person.poiName;
+        self.model.position.latitude = person.latitude;
+        self.model.position.longitude = person.longitude;
+    }else{
+        self.model.Gender1 = person.Gender;
+        self.model.birth1 = (NSDate<NSDate> *)person.Birth;
+        self.model.zone1 = person.TimeZone;
+        self.model.IsDaylight1 = person.Daylight;
+        self.model.position1.name = person.poiName;
+        self.model.position1.latitude = person.latitude;
+        self.model.position1.longitude = person.longitude;
+    }
+    [self loadPersonInfo];
 }
 
 #pragma mark - ASPickerView Delegate

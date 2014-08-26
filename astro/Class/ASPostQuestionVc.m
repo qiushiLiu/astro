@@ -235,28 +235,11 @@
     if([self.question.Chart count] > 0){
         ASFateChart *chart = [self.question.Chart objectAtIndex:0];
         if(tag == 0){ //第一当事人
-            [self.btnFirstPersonInfo setInfoText:[self stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone]];
+            [self.btnFirstPersonInfo setInfoText:[ASFillPersonVc stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone]];
         }else{ //第二当事人
-            [self.btnSecondPersonInfo setInfoText:[self stringForBirth:chart.SecondBirth gender:chart.SecondGender daylight:chart.SecondDayLight poi:chart.SecondPoiName timeZone:chart.SecondTimeZone]];
+            [self.btnSecondPersonInfo setInfoText:[ASFillPersonVc stringForBirth:chart.SecondBirth gender:chart.SecondGender daylight:chart.SecondDayLight poi:chart.SecondPoiName timeZone:chart.SecondTimeZone]];
         }
     }
-}
-
-- (NSString *)stringForBirth:(NSDate *)birth gender:(NSInteger)gender daylight:(NSInteger)daylight poi:(NSString *)poi timeZone:(NSInteger)timeZone{
-    NSMutableString *str = [NSMutableString stringWithString:[birth toStrFormat:@"yyyy-MM-dd HH:mm"]];
-    if(daylight > 0){
-        [str appendString:@" 夏令时"];
-    }
-    if(gender == 1){
-        [str appendString:@" 男"];
-    }else{
-        [str appendString:@" 女"];
-    }
-    [str appendString:@" "];
-    [str appendString:poi];
-    [str appendString:@" "];
-    [str appendString:TimeZoneArray[timeZone + 12]];
-    return str;
 }
 
 - (void)tap_ContentView:(UITapGestureRecognizer *)tap{

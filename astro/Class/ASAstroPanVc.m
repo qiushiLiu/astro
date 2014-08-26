@@ -15,7 +15,8 @@
 
 @interface ASAstroPanVc ()
 @property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
-@property (nonatomic, strong) UIScrollView *scInfoView; //信息view
+@property (nonatomic, strong) UIView *viewInfoBackground;//信息view
+@property (nonatomic, strong) UITableView *tbInfoView;  //信息view
 @property (nonatomic, strong) UIPageControl *page;      //分页控件
 @property (nonatomic, strong) UILabel *lbTuiyun;    //退运说明
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
@@ -61,10 +62,20 @@
     self.scPanView.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.scPanView];
     
-    self.scInfoView = [[UIScrollView alloc] initWithFrame:self.contentView.bounds];
-    self.scInfoView.backgroundColor = [UIColor clearColor];
-    self.scInfoView.left = self.scInfoView.width;
-    [self.contentView addSubview:self.scInfoView];
+    self.viewInfoBackground = [[UIView alloc] initWithFrame:CGRectMake(self.scPanView.width + 10, 20, 300, 1)];
+    self.viewInfoBackground.backgroundColor = [UIColor whiteColor];
+    self.viewInfoBackground.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.viewInfoBackground.layer.borderWidth = 1;
+    self.viewInfoBackground.layer.cornerRadius = 6;
+    [self.contentView addSubview:self.viewInfoBackground];
+    
+    self.tbInfoView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.viewInfoBackground.width - 10, 1)];
+    self.tbInfoView.backgroundColor = [UIColor clearColor];
+    self.tbInfoView.delegate = self;
+    self.tbInfoView.dataSource = self;
+    self.tbInfoView.separatorColor = [UIColor clearColor];
+    self.tbInfoView.bounces = NO;
+    [self.contentView addSubview:self.tbInfoView];
     
     UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
     ivLogo.frame = CGRectMake(5, 5, ivLogo.width/2, ivLogo.height/2);
@@ -93,8 +104,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.contentView.contentSize = CGSizeMake(self.contentView.width * 2, self.contentView.height);
-    self.scInfoView.height = self.contentView.height;
     self.scPanView.height = self.contentView.height;
+    self.viewInfoBackground.height = self.contentView.height - 30;
+    self.tbInfoView.height = self.viewInfoBackground.height - 10;
+    self.tbInfoView.center = self.viewInfoBackground.center;
     
     [self showWaiting];
     [HttpUtil post:@"input/TimeToAstro" params:nil body:[self.astro toJSONString] completion:^(BOOL succ, NSString *message, id json) {
@@ -111,9 +124,97 @@
 #pragma mark - UIScrollView Delegate Method
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int page = scrollView.contentOffset.x/scrollView.frame.size.width;
-    self.page.currentPage = page;
+    if(scrollView == self.contentView){
+        int page = scrollView.contentOffset.x/scrollView.frame.size.width;
+        self.page.currentPage = page;
+    }
 }
+
+#pragma mark - UITableView Delegate & DataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 12;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tbInfoView.width, 30)];
+    view.backgroundColor = ASColorOrange;
+    view.layer.cornerRadius = 6;
+    
+    UILabel *lbGong = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, view.height)];
+    lbGong.text = @"宫";
+    lbGong.textAlignment = NSTextAlignmentLeft;
+    lbGong.backgroundColor = [UIColor clearColor];
+    lbGong.textColor = [UIColor whiteColor];
+    lbGong.font = [UIFont boldSystemFontOfSize:14];
+    [view addSubview:lbGong];
+    
+    UILabel *lbAngle = [[UILabel alloc] initWithFrame:CGRectMake(lbGong.right + 5, 0, 130, view.height)];
+    lbAngle.text = @"宫头所落星座&度数";
+    lbAngle.textAlignment = NSTextAlignmentCenter;
+    lbAngle.backgroundColor = [UIColor clearColor];
+    lbAngle.textColor = [UIColor whiteColor];
+    lbAngle.font = [UIFont boldSystemFontOfSize:14];
+    [view addSubview:lbAngle];
+    
+    UILabel *lbStars = [[UILabel alloc] initWithFrame:CGRectMake(lbAngle.right + 5, 0, 90, view.height)];
+    lbStars.text = @"宫内行星";
+    lbStars.textAlignment = NSTextAlignmentCenter;
+    lbStars.backgroundColor = [UIColor clearColor];
+    lbStars.textColor = [UIColor whiteColor];
+    lbStars.font = [UIFont boldSystemFontOfSize:14];
+    [view addSubview:lbStars];
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 30;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 30;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
+    if(!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+        
+        UILabel *lbGong = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 30)];
+        lbGong.tag = 100;
+        lbGong.textAlignment = NSTextAlignmentLeft;
+        lbGong.backgroundColor = [UIColor clearColor];
+        lbGong.textColor = [UIColor blackColor];
+        lbGong.font = [UIFont systemFontOfSize:14];
+        [cell.contentView addSubview:lbGong];
+        
+        UILabel *lbAngle = [[UILabel alloc] initWithFrame:CGRectMake(lbGong.right + 5, 0, 130, 30)];
+        lbAngle.tag = 101;
+        lbAngle.textAlignment = NSTextAlignmentCenter;
+        lbAngle.backgroundColor = [UIColor clearColor];
+        lbAngle.textColor = [UIColor blackColor];
+        lbAngle.font = [UIFont systemFontOfSize:14];
+        [cell.contentView addSubview:lbAngle];
+        
+        UILabel *lbStars = [[UILabel alloc] initWithFrame:CGRectMake(lbAngle.right + 5, 0, 90, 30)];
+        lbStars.tag = 102;
+        lbStars.textAlignment = NSTextAlignmentCenter;
+        lbStars.backgroundColor = [UIColor clearColor];
+        lbStars.textColor = [UIColor blackColor];
+        lbStars.font = [UIFont systemFontOfSize:14];
+        [cell.contentView addSubview:lbStars];
+    }
+    UILabel *lbGong = (UILabel *)[cell.contentView viewWithTag:100];
+    UILabel *lbAngle = (UILabel *)[cell.contentView viewWithTag:101];
+    UILabel *lbStars = (UILabel *)[cell.contentView viewWithTag:102];
+    
+    lbGong.text = [NSString stringWithFormat:@"%@宫", __DaXie[indexPath.row + 1]];
+    lbAngle.text = @"摩羯座17°15′";
+    lbStars.text = @"太阳，月亮";
+    
+    return cell;
+}
+
 
 #pragma mark --
 - (UILabel *)newTextLabel:(CGRect)frame{
@@ -126,6 +227,7 @@
 
 - (void)btnClick_fillInfo{
     ASAstroPanFillInfoVc *vc = [[ASAstroPanFillInfoVc alloc] init];
+    vc.model = self.astro;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }
