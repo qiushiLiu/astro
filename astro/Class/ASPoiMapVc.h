@@ -7,14 +7,13 @@
 //
 
 #import "ASBaseViewController.h"
-#import "BMapKit.h"
 
 @protocol ASPoiMapVcDelegate <NSObject>
 @optional
-- (void)asPoiMap:(BMKAddrInfo *)info;
+//- (void)asPoiMap:(BMKAddrInfo *)info;
 @end
 
-@interface ASPoiMapVc : ASBaseViewController<BMKMapViewDelegate, BMKSearchDelegate, UISearchBarDelegate>
+@interface ASPoiMapVc : ASBaseViewController<MKMapViewDelegate, UISearchBarDelegate>
 @property (nonatomic, assign) id<ASPoiMapVcDelegate> delegate;
 @property (nonatomic) CLLocationCoordinate2D location;
 @property (nonatomic, strong) NSString *poiName;

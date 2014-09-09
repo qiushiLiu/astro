@@ -22,7 +22,6 @@
 
 - (BOOL)viewControllerShouldNavBack;
 - (void)alert:(NSString *)msg;
-
 - (void)showWaiting;
 - (void)showWaitingTitle:(NSString *)title;
 - (void)hideWaiting;

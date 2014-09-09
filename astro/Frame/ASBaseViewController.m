@@ -78,7 +78,6 @@
 }
 
 #pragma mark - Wating Method
-
 - (void)showWaiting{
     [self showWaitingTitle:nil];
 }

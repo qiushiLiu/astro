@@ -39,8 +39,10 @@
         [str appendString:@" 女"];
     }
     [str appendString:@" "];
-    [str appendString:poi];
-    [str appendString:@" "];
+    if([poi length] > 0){
+        [str appendString:poi];
+        [str appendString:@" "];
+    }
     [str appendString:TimeZoneArray[timeZone + 12]];
     return str;
 }
@@ -112,8 +114,8 @@
     
     self.swGender = [[ZJSwitch alloc] initWithFrame:CGRectMake(lb.right + 10, top, 80, 30)];
     self.swGender.textFont = [UIFont systemFontOfSize:16];
-    self.swGender.onText = @"女";
-    self.swGender.offText = @"男";
+    self.swGender.offText = @"女";
+    self.swGender.onText = @"男";
     [self.swGender setTintColor:ASColorBlue];
     [self.swGender setOnTintColor:ASColorDarkRed];
     [self.contentView addSubview:self.swGender];
@@ -128,6 +130,9 @@
     [self.btnPoi setTitle:@"请选择出生城市" forState:UIControlStateNormal];
     [self.btnPoi addTarget:self action:@selector(btnClick_poi:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPoi];
+    
+    self.picker = [[ASPickerView alloc] initWithParentViewController:self];
+    self.picker.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -137,7 +142,7 @@
 
 - (void)reloadData{
     self.swDaylight.on = self.person.Daylight > 0;
-    self.swGender.on = self.person.Gender == 0;
+    self.swGender.on = self.person.Gender > 0;
     [self.btnDate setTitle:[self.person.Birth toStrFormat:@"yyyy-MM-dd"] forState:UIControlStateNormal];
     [self.btnTime setTitle:[self.person.Birth toStrFormat:@"hh-mm"] forState:UIControlStateNormal];
     [self.btnTimeZone setTitle:TimeZoneArray[self.person.TimeZone] forState:UIControlStateNormal];
@@ -180,6 +185,8 @@
 }
 
 - (void)btnClick_poi:(UIButton *)sender{
+    self.person.Gender = self.swGender.on;
+    self.person.Daylight = self.swDaylight.on;
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -196,11 +203,11 @@
 }
 
 #pragma mark - ASPoiMapDelegate Method
-- (void)asPoiMap:(BMKAddrInfo *)info{
-    self.person.poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
-    self.person.latitude = info.geoPt.latitude;
-    self.person.longitude = info.geoPt.longitude;
-}
+//- (void)asPoiMap:(BMKAddrInfo *)info{
+//    self.person.poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
+//    self.person.latitude = info.geoPt.latitude;
+//    self.person.longitude = info.geoPt.longitude;
+//}
 
 #pragma mark - ASPickerViewDelegate Method
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{

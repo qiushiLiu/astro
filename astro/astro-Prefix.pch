@@ -13,7 +13,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-
+    #import <MapKit/MapKit.h>
     #import "UIView+Layout.h"
     #import "UIImage+Scale.h"
     #import "NSString+Addition.h"
@@ -30,6 +30,7 @@
     #import "ASGlobal.h"
     #import "ASHelper.h"
     #import "ASBaseViewController.h"
+    #import "GpsData.h"
 #endif
 
 #define IOS7_OR_LATER ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending)
@@ -41,6 +42,7 @@
 #define ASColorDarkRed UIColorFromRGB(0x863321)
 #define ASColorBlue UIColorFromRGB(0x3f85A3)
 #define ASColorOrange UIColorFromRGB(0xff9670)
+#define ASColorBlueGreen UIColorFromRGB(0x7accc8)
 
 #define Int2String(iValue) [NSString stringWithFormat:@"%d", iValue]
 

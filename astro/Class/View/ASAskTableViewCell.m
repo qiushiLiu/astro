@@ -41,7 +41,8 @@
         [self.contentView addSubview:self.panView];
         
         self.separated = [[UIView alloc] initWithFrame:CGRectMake(self.lbTitle.left, 0, self.lbTitle.width, 1)];
-        self.separated.backgroundColor = ASColorDarkGray;
+        self.separated.backgroundColor = [UIColor blackColor];
+        self.separated.alpha = 0.2;
         [self.contentView addSubview:self.separated];
         
         //-- bottomView SubView
@@ -73,7 +74,7 @@
 
 + (CGFloat)heightFor:(id<ASQaProtocol>)model{
     CGFloat height = 65;
-    height += [model.Title sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height += [model.Title sizeWithFont:[UIFont boldSystemFontOfSize:14] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
     height += [ASPanView heightForChart:[model Chart] context:model.Context];
     return height;
 }

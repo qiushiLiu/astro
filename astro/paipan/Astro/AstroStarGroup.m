@@ -10,7 +10,7 @@
 
 @implementation AstroStarGroup
 
-static CGFloat kSpaceDegree = 8.0;
+static CGFloat kSpaceDegree = 9.0;
 
 - (id)init{
     self = [super init];

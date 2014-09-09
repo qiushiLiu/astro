@@ -11,6 +11,15 @@
 #import "ASTabMainVc.h"
 #import "ASShareBindVc.h"
 
+@interface ASAppDelegate ()
+//定位的计时器
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) NSTimer *gpsFetchTimer;
+@property (nonatomic, strong) NSTimer *gpsUpdateTimer;
+@property (nonatomic) CLLocationCoordinate2D lastLocation;
+@property (nonatomic) NSInteger locOpenCount;
+@end
+
 @implementation ASAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -26,13 +35,6 @@
     //设置时区
     NSTimeZone *tzGMT = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
     [NSTimeZone setDefaultTimeZone:tzGMT];
-    
-    _mapManager = [[BMKMapManager alloc]init];
-    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
-    BOOL ret = [_mapManager start:BMAP_KEY  generalDelegate:nil];
-    if (!ret) {
-        NSLog(@"manager start failed!");
-    }
     
     //解析
     if (launchOptions) {
@@ -83,6 +85,9 @@
         [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
     }
     
+    self.locOpenCount = 0;
+    [self handleNextQueryTimerForLm];
+    
     return YES;
 }
 
@@ -99,16 +104,16 @@
         [ASShareBindVc handleOpenURL:url];
         return NO;
     }
-//    else if([aburl hasPrefix:@"xms-alipay"]) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kMsgForAppSchemeLinkForAlipay object:url];
-//        return NO;
-//    }
-//    else if ([aburl hasPrefix:@"wx"]) {
-//        [WXApi handleOpenURL:url delegate:self];
-//        return NO;
-//    }
+    //    else if([aburl hasPrefix:@"xms-alipay"]) {
+    //        [[NSNotificationCenter defaultCenter] postNotificationName:kMsgForAppSchemeLinkForAlipay object:url];
+    //        return NO;
+    //    }
+    //    else if ([aburl hasPrefix:@"wx"]) {
+    //        [WXApi handleOpenURL:url delegate:self];
+    //        return NO;
+    //    }
     else {
-//        [SchemePushUtil notifyToProcessAppSchemeUrl:aburl];
+        //        [SchemePushUtil notifyToProcessAppSchemeUrl:aburl];
         return YES;
     }
 }
@@ -116,7 +121,7 @@
 #pragma mark - DeviceToken
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-//    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    //    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
@@ -142,32 +147,114 @@
     }
 }
 
-#pragma mark - Application Active Changed
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+#pragma mark - GPS Method
+- (void)start{
+    if(!self.locationManager){
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+    }
+    [self.locationManager startUpdatingLocation];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)stop{
+    if(self.gpsFetchTimer){
+        [self.gpsFetchTimer invalidate];
+        self.gpsFetchTimer = nil;
+    }
+    
+    if(self.gpsUpdateTimer){
+        [self.gpsUpdateTimer invalidate];
+        self.gpsUpdateTimer = nil;
+    }
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+- (void)handleNextQueryTimerForLm {
+    if(!self.locationManager){
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+    }
+    [self.locationManager startUpdatingLocation];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//定位成功
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    NSTimeInterval eventAge = [newLocation.timestamp timeIntervalSinceNow];
+    if (abs(eventAge) > 5) {
+        return;
+    }
+    if (newLocation.horizontalAccuracy < 0) {
+        return;
+    }
+    if (self.lastLocation.longitude == newLocation.coordinate.longitude
+        && self.lastLocation.latitude == newLocation.coordinate.latitude) {
+        if (self.gpsUpdateTimer!=nil) {
+            [self.gpsUpdateTimer invalidate];
+            self.gpsUpdateTimer = nil;
+        }
+        [self fetchAfterSaveLoc:newLocation.coordinate succ:YES];
+    } else {
+        self.lastLocation = newLocation.coordinate;
+        if (self.gpsUpdateTimer == nil) {
+            self.gpsUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:3
+                                                                   target:self
+                                                                 selector:@selector(handleDidUpdateLoc:)
+                                                                 userInfo:nil
+                                                                  repeats:NO];
+        }
+    }
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//更新loc
+- (void)handleDidUpdateLoc:(NSTimer *)theTimer {
+    //清除timer
+    if(self.gpsUpdateTimer){
+        [self.gpsUpdateTimer invalidate];
+    }
+    self.gpsUpdateTimer = nil;
+    //保存经纬度
+    [self fetchAfterSaveLoc:self.lastLocation succ:YES];
 }
+
+//定位失败
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    [self fetchAfterSaveLoc:CLLocationCoordinate2DMake(0, 0) succ:NO];
+}
+
+- (void)fetchAfterSaveLoc:(CLLocationCoordinate2D )loc succ:(BOOL)succTag{
+    [self.locationManager stopUpdatingLocation];
+    //更新经纬度
+    if (succTag) {
+        [[GpsData shared] setMKGpsLocation:loc];
+    }
+    
+    //定时器  下一次更新
+    if (self.gpsFetchTimer == nil) {
+        self.locOpenCount++;
+        double interval = 0;
+        if (self.locOpenCount >= 2) {
+            if (succTag) {
+                interval = 60;
+            } else {
+                interval = 20;
+            }
+        } else {
+            interval = 0.5;
+        }
+        self.gpsFetchTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                              target:self
+                                                            selector:@selector(handleNextQueryTimerForLm:)
+                                                            userInfo:nil
+                                                             repeats:NO];
+    }
+}
+
+- (void)handleNextQueryTimerForLm:(NSTimer *)theTimer {
+    if(self.gpsFetchTimer){
+        [self.gpsFetchTimer invalidate];
+    }
+    self.gpsFetchTimer = nil;
+    [self.locationManager startUpdatingLocation];
+}
+
 
 @end

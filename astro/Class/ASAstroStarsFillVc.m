@@ -57,7 +57,11 @@
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, view.width - 10, 30)];
     titleView.layer.cornerRadius = 4;
-    titleView.backgroundColor = ASColorOrange;
+    if(tag == 0){
+        titleView.backgroundColor = ASColorOrange;
+    }else{
+        titleView.backgroundColor = ASColorBlueGreen;
+    }
     [view addSubview:titleView];
     
     for(int i = 0; i < 2 ; i++){

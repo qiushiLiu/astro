@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BMapKit.h"
-@interface ASAppDelegate : UIResponder <UIApplicationDelegate>{
-    BMKMapManager *_mapManager;
-}
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
+@interface ASAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *nav;
-
 @end

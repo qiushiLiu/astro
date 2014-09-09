@@ -49,11 +49,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
     [self setTitle:@"发帖"];
-    self.hidesBottomBarWhenPushed = YES;
     
-    UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"发布"];
+    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"发布"];
     [btn addTarget:self action:@selector(post) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     

@@ -28,12 +28,12 @@
         self.tableView = tableView;
         [self.tableView addSubview:self];
         //箭头
-        self.arrow = [[UIImageView alloc] initWithFrame:CGRectMake(50, 0, 17, 27)];
+        self.arrow = [[UIImageView alloc] initWithFrame:CGRectMake(80, 0, 17, 27)];
         self.arrow.centerY = self.height/2;
         self.arrow.image = [UIImage imageNamed:@"loadmore_arrow.png"];
         [self addSubview:self.arrow];
         //加载指示器
-        self.indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(50, 0, 24, 24)];
+        self.indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(self.arrow.left, 0, 24, 24)];
         self.indicator.hidden = YES;
         self.indicator.centerY = self.height/2;
         [self.indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];

@@ -17,6 +17,8 @@
 #define AstroAsteroidPermit @[@"凯龙星", @"谷神星", @"智神星", @"婚神星", @"灶神星", @"北交点", @"莉莉丝", @"福点", @"宿命点", @"东升点"]
 //容许度
 #define AstroAnglePermit @[@"0°", @"180°", @"120°", @"90°", @"60°"]
+#define AstroAnglePermitText @[@"合相", @"冲相", @"三合", @"刑相", @"六合"]
+
 @interface AstroMod : JSONModel{
     CGFloat constellationStart;
 }

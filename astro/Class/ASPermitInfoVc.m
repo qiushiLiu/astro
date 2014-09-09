@@ -34,18 +34,19 @@
     
     CGFloat top = 30;
     for(int i = 0; i < 5; i++){
-        UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(15, top, 50, 30)];
+        UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(15, top, 60, 60)];
         lb.textAlignment = NSTextAlignmentCenter;
+        lb.numberOfLines = 2;
         lb.backgroundColor = [UIColor clearColor];
         lb.textColor = [UIColor blackColor];
         lb.font = [UIFont boldSystemFontOfSize:16];
-        lb.text = AstroAnglePermit[i];
+        lb.text = [NSString stringWithFormat:@"%@\n%@", AstroAnglePermit[i], AstroAnglePermitText[i]];
         lb.layer.borderColor = ASColorDarkRed.CGColor;
         lb.layer.borderWidth = 1;
         lb.layer.cornerRadius = 6;
         [self.contentView addSubview:lb];
         
-        UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(lb.right + 15, 0, 150, 16)];
+        UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(lb.right + 10, lb.bottom + 15, 150, 16)];
         slider.tag = i;
         slider.centerY = lb.centerY;
         slider.maximumValue = 10;
@@ -58,7 +59,7 @@
         
         ZJSwitch *sw  = [[ZJSwitch alloc] initWithFrame:CGRectMake(slider.right + 15, 0, 65, 20)];
         sw.tag = i;
-        sw.centerY = lb.centerY;
+        sw.centerY = slider.centerY;
         sw.textFont = [UIFont systemFontOfSize:13];
         sw.offText = @"关闭";
         [sw addTarget:self action:@selector(switch_change:) forControlEvents:UIControlEventValueChanged];
@@ -67,7 +68,7 @@
         [self.contentView addSubview:sw];
         [self.switches addObject:sw];
         
-        top = lb.bottom + 30;
+        top = sw.bottom + 30;
     }
 }
 

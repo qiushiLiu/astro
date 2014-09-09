@@ -44,7 +44,7 @@
     self.contentView.showsVerticalScrollIndicator = NO;
     self.contentView.delegate = self;
     
-    UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"设置"];
+    UIButton *btn = [ASControls newRedButton:CGRectMake(0, 0, 56, 28) title:@"排盘"];
     [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     

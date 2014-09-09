@@ -59,7 +59,7 @@
 
 - (void)setNavToParams:(NSDictionary *)params{
     self.title = [params objectForKey:@"title"];
-    self.sysNo = 25;//[[params objectForKey:@"sysno"] intValue];
+    self.sysNo = [[params objectForKey:@"sysno"] intValue];
 }
 
 - (void)loadQaData{
@@ -100,7 +100,11 @@
 
 #pragma mark - UITableViewDelegate & DataSouce
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.list count] + 1;
+    NSInteger count = 0;
+    if(self.question){
+        count++;
+    }
+    return [self.list count] + count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

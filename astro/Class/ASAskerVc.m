@@ -11,12 +11,13 @@
 #import "ASAskerCell.h"
 #import "ASCache.h"
 #import "ASPostQuestionVc.h"
+#import "ASNav.h"
 
 @interface ASAskerVc ()
 @property (nonatomic, strong) NSString *topCateId;
 @property (nonatomic, strong) NSMutableArray *catelist;
-@property (nonatomic, strong) UITextField *tfSearch;
 @property (nonatomic, strong) UITableView *tbList;
+@property (nonatomic, strong) UIButton *btnRight;
 @property (nonatomic, strong) ASAskerHeaderView *header;
 @end
 
@@ -26,24 +27,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self setTitle:nil];
-    
-    //左侧按钮
-    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 80, 28) title:@"我的话题"];
-    [btn addTarget:self action:@selector(btnClick_myTopic:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
-    //搜索框
-    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 210, 44)];
-    barView.backgroundColor = [UIColor clearColor];
-    self.tfSearch = [ASControls newTextField:CGRectMake(0, 8, 210, 28)];
-    self.tfSearch.placeholder = @"搜索内容";
-    self.tfSearch.font = [UIFont systemFontOfSize:14];
-    self.tfSearch.backgroundColor = [UIColor clearColor];
-    self.tfSearch.returnKeyType = UIReturnKeySearch;
-    self.tfSearch.delegate = self;
-    [barView addSubview:self.tfSearch];
-    self.navigationItem.titleView = barView;
+    [self setTitle:@"煮酒论命"];
+    //导航栏按钮
+    self.navigationItem.leftBarButtonItem = nil;
+    self.btnRight = [ASControls newDarkRedButton:CGRectMake(0, 0, 80, 28) title:@""];
+    [self.btnRight addTarget:self action:@selector(btnClick_post) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
     
     //tableheader view
     self.header = [[ASAskerHeaderView alloc] init];
@@ -57,19 +46,60 @@
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
     [self.contentView addSubview:self.tbList];
+    
+    self.header.selected = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.header.selected = 0;
     self.tbList.frame = self.contentView.bounds;
+    [self loadRightButtonTitle];
 }
 
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)btnClick_myTopic:(UIButton *)sender{
+- (BOOL) hidesBottomBarWhenPushed
+{
+    return (self.navigationController.topViewController != self);
+}
+
+- (void)btnClick_post{
+    if([ASGlobal isLogined]){
+        [self navTo:vcPostQuestion];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
+        alert.tag = NSAlertViewConfirm;
+        [alert show];
+    }
+}
+
+- (void)notification_UserLogined:(NSNotification *)sender{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:sender.name object:nil];
+    if([ASGlobal isLogined]){
+        [self btnClick_post];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == NSAlertViewConfirm
+       && alertView.cancelButtonIndex != buttonIndex){
+        UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
+        [self presentViewController:nc animated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
+        }];
+    }
+}
+
+- (void)loadRightButtonTitle{
+    if([self.topCateId intValue] == 1){
+        [self.btnRight setTitle:@"我要求测" forState:UIControlStateNormal];
+    }else if([self.topCateId intValue] == 2){
+        [self.btnRight setTitle:@"我要发帖" forState:UIControlStateNormal];
+    }else{
+        [self.btnRight setTitle:@"发起咨询" forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - ASAskerHeaderViewDelegate
@@ -82,6 +112,8 @@
     else{
         self.topCateId = @"17";
     }
+    [self loadRightButtonTitle];
+    
     NSDictionary *params = @{@"parent" : self.topCateId};
     [self showWaiting];
     [HttpUtil load:kUrlGetCates params:params completion:^(BOOL succ, NSString *message, id json) {
@@ -125,20 +157,6 @@
     [self navTo:vcAskList params:@{@"topCateId" : self.topCateId,
                                    @"cate"      : Int2String(cate.SysNo),
                                    @"title"     : cate.Name}];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self.tfSearch resignFirstResponder];
-}
-
-#pragma mark - UISearchBar
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    return range.location < 70;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [self.tfSearch resignFirstResponder];
-    return YES;
 }
 
 @end

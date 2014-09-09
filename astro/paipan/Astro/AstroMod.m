@@ -9,7 +9,6 @@
 #import "AstroMod.h"
 #import "AstroStar.h"
 #import "Paipan.h"
-#import "AstroStarGroup.h"
 #import "ASCache.h"
 
 CGFloat D2R(CGFloat degrees) {return degrees * M_PI / 180.0;};
@@ -223,14 +222,14 @@ static NSString *anglePermitKey = @"anglePermit";
         return s1.PanDegree >= s2.PanDegree;
     }];
     
-    NSMutableArray *groups = [[NSMutableArray alloc] init];
-    for(AstroStarHD *star in st){
-        [self starGroups:groups addNewStar:star];
-    }
+//    NSMutableArray *groups = [[NSMutableArray alloc] init];
+//    for(AstroStarHD *star in st){
+//        [self starGroups:groups addNewStar:star];
+//    }
     
-    for(AstroStarGroup *gp in groups){
-        [self drawGroupStar:ctx group:gp.stars radius:r4];
-    }
+//    for(AstroStarGroup *gp in groups){
+//        [self drawGroupStar:ctx group:gp.stars radius:r4];
+//    }
     
     for(int i = 0; i < [st count]; i++){
         AstroStarHD *star = [st objectAtIndex:i];
@@ -284,34 +283,34 @@ static NSString *anglePermitKey = @"anglePermit";
     return image;
 }
 
-- (void)starGroups:(NSMutableArray *)groups addNewStar:(AstroStarHD *)star{
-    AstroStarGroup *gp = [[AstroStarGroup alloc] init];
-    [gp addNewStar:star];
-    [groups addObject:gp];
-    
-    BOOL joinTag = YES;
-    while(joinTag){
-        NSInteger lastCount = [groups count];
-        for(int i = 0; i < lastCount; i++){
-            AstroStarGroup *gp0 = [groups objectAtIndex:i];
-            for (int j = i + 1; j < lastCount; j++) {
-                AstroStarGroup *gp1 = [groups objectAtIndex:j];
-                if([gp0 nearTo:gp1]){
-                    [gp0 joinStars:gp1.stars];
-                    [groups removeObject:gp1];
-                    break;
-                }
-            }
-            if(lastCount != [groups count]){
-                break;
-            }
-        }
-        if(lastCount == [groups count]){
-            joinTag = NO;
-        }
-    }
-    
-}
+//- (void)starGroups:(NSMutableArray *)groups addNewStar:(AstroStarHD *)star{
+//    AstroStarGroup *gp = [[AstroStarGroup alloc] init];
+//    [gp addNewStar:star];
+//    [groups addObject:gp];
+//    
+//    BOOL joinTag = YES;
+//    while(joinTag){
+//        NSInteger lastCount = [groups count];
+//        for(int i = 0; i < lastCount; i++){
+//            AstroStarGroup *gp0 = [groups objectAtIndex:i];
+//            for (int j = i + 1; j < lastCount; j++) {
+//                AstroStarGroup *gp1 = [groups objectAtIndex:j];
+//                if([gp0 nearTo:gp1]){
+//                    [gp0 joinStars:gp1.stars];
+//                    [groups removeObject:gp1];
+//                    break;
+//                }
+//            }
+//            if(lastCount != [groups count]){
+//                break;
+//            }
+//        }
+//        if(lastCount == [groups count]){
+//            joinTag = NO;
+//        }
+//    }
+//    
+//}
 
 - (void)drawGroupStar:(CGContextRef)ctx group:(NSArray *)group radius:(CGFloat)r{
 //    CGFloat cc = 0;

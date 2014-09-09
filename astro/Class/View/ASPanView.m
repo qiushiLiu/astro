@@ -56,6 +56,17 @@
     self.lbAstroIntro.hidden = YES;
     
     CGFloat top = 0;
+    
+    if([context length] > 0){
+        self.lbDetail.hidden = NO;
+        self.lbDetail.text = [context copy];
+        self.lbDetail.height = [self.lbDetail.text sizeWithFont:self.lbDetail.font constrainedToSize:CGSizeMake(self.lbDetail.width, CGFLOAT_MAX) lineBreakMode:self.lbDetail.lineBreakMode].height;
+        self.lbDetail.origin = CGPointMake(0, top);
+        top = self.lbDetail.bottom + 5;
+    }else{
+        self.lbDetail.hidden = YES;
+    }
+    
     id chart1 = [chartList firstObject];
     if([chart1 isKindOfClass:[AstroMod class]]){
         AstroMod *panModel = (AstroMod *)chart1;
@@ -130,16 +141,6 @@
         self.pan1.origin = CGPointMake(0, top);
         top = self.pan1.bottom + 5;
         self.pan1.hidden = NO;
-    }
-    
-    if([context length] > 0){
-        self.lbDetail.hidden = NO;
-        self.lbDetail.text = [context copy];
-        self.lbDetail.height = [self.lbDetail.text sizeWithFont:self.lbDetail.font constrainedToSize:CGSizeMake(self.lbDetail.width, CGFLOAT_MAX) lineBreakMode:self.lbDetail.lineBreakMode].height;
-        self.lbDetail.origin = CGPointMake(0, top);
-        top = self.lbDetail.bottom + 5;
-    }else{
-        self.lbDetail.hidden = YES;
     }
     
     self.height = top;

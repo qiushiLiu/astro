@@ -19,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setTitle:@"占星排盘"];
+    self.navigationItem.leftBarButtonItem = nil;
     
     for(int i = 1; i <= 3; i++ ){
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 62, 80)];
@@ -51,6 +52,12 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
+
+- (BOOL) hidesBottomBarWhenPushed
+{
+    return (self.navigationController.topViewController != self);
+}
+
 
 - (void)btnClick_panType:(UIButton *)sender{
     [self navTo:vcBaziPan params:@{@"type" : @(sender.tag)}];

@@ -18,7 +18,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryNone;
         // Initialization code
-        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 5, 300, 70)];
+        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(10, 5, 300, 70)];
         self.bgView.backgroundColor = [UIColor whiteColor];
         self.bgView.layer.borderWidth = 1;
         self.bgView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -28,7 +28,7 @@
         self.icon = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 15, 50, 50)];
         [self.contentView addSubview:self.icon];
         
-        self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.icon.top, 220, 16)];
+        self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.icon.right + 10, self.icon.top, 180, 16)];
         self.lbTitle.backgroundColor = [UIColor clearColor];
         self.lbTitle.textColor = ASColorDarkRed;
         self.lbTitle.font = [UIFont systemFontOfSize:12];
@@ -43,7 +43,7 @@
         
         self.arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_right"]];
         self.arrow.highlightedImage = [UIImage imageNamed:@"arrow_right_hl"];
-        self.arrow.right = self.width - 20;
+        self.arrow.right = self.lbTitle.right + 40;
         self.arrow.centerY = self.icon.centerY;
         [self.contentView addSubview:self.arrow];
     }
