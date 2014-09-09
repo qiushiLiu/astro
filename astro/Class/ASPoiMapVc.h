@@ -10,7 +10,7 @@
 
 @protocol ASPoiMapVcDelegate <NSObject>
 @optional
-//- (void)asPoiMap:(BMKAddrInfo *)info;
+- (void)asPoiMap:(CLPlacemark *)mark;
 @end
 
 @interface ASPoiMapVc : ASBaseViewController<MKMapViewDelegate, UISearchBarDelegate>

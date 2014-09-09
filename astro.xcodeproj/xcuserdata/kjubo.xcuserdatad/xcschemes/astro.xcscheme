@@ -75,8 +75,8 @@
          </AdditionalOption>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../../astro/Frame/BaiduMapSDK/mapapi.bundle/files/Beijing, China.gpx"
-         referenceType = "0">
+         identifier = "Hong Kong, China"
+         referenceType = "1">
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction

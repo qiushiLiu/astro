@@ -226,6 +226,9 @@
 }
 
 - (void)btnClick_fillInfo{
+    if(!self.astro){
+        return;
+    }
     ASAstroPanFillInfoVc *vc = [[ASAstroPanFillInfoVc alloc] init];
     vc.model = self.astro;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];

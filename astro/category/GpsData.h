@@ -10,13 +10,10 @@
 @interface GpsData : NSObject
 //苹果经纬度
 @property (nonatomic, readonly) BOOL haveMKGpsTag;
-@property (nonatomic, readonly) double mkLon;
-@property (nonatomic, readonly) double mkLat;
+@property (nonatomic, readonly) CLLocation *loc;
 //地理位置
-@property (nonatomic, readonly) NSString *cityName;
-@property (nonatomic, readonly) NSString *regionName;
-@property (nonatomic, readonly) NSString *street;
-
+@property (nonatomic, strong) CLPlacemark *placemark;
+@property (nonatomic, strong) CLGeocoder *geocoder;
 + (instancetype)shared;
-- (void)setMKGpsLocation:(CLLocationCoordinate2D)loc;
+- (void)setMKGpsLocation:(CLLocation *)loc;
 @end

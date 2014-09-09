@@ -16,8 +16,8 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSTimer *gpsFetchTimer;
 @property (nonatomic, strong) NSTimer *gpsUpdateTimer;
-@property (nonatomic) CLLocationCoordinate2D lastLocation;
 @property (nonatomic) NSInteger locOpenCount;
+@property (nonatomic, strong) CLLocation *lastLocation;
 @end
 
 @implementation ASAppDelegate
@@ -185,15 +185,14 @@
     if (newLocation.horizontalAccuracy < 0) {
         return;
     }
-    if (self.lastLocation.longitude == newLocation.coordinate.longitude
-        && self.lastLocation.latitude == newLocation.coordinate.latitude) {
+    if ([newLocation isEqual:oldLocation]) {
         if (self.gpsUpdateTimer!=nil) {
             [self.gpsUpdateTimer invalidate];
             self.gpsUpdateTimer = nil;
         }
-        [self fetchAfterSaveLoc:newLocation.coordinate succ:YES];
+        [self fetchAfterSaveLoc:newLocation succ:YES];
     } else {
-        self.lastLocation = newLocation.coordinate;
+        self.lastLocation = [newLocation copy];
         if (self.gpsUpdateTimer == nil) {
             self.gpsUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:3
                                                                    target:self
@@ -217,10 +216,10 @@
 
 //定位失败
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    [self fetchAfterSaveLoc:CLLocationCoordinate2DMake(0, 0) succ:NO];
+    [self fetchAfterSaveLoc:nil succ:NO];
 }
 
-- (void)fetchAfterSaveLoc:(CLLocationCoordinate2D )loc succ:(BOOL)succTag{
+- (void)fetchAfterSaveLoc:(CLLocation *)loc succ:(BOOL)succTag{
     [self.locationManager stopUpdatingLocation];
     //更新经纬度
     if (succTag) {

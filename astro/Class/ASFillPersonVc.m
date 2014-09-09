@@ -128,6 +128,7 @@
     
     self.btnPoi = [self newPickerButton:CGRectMake(lb.right + 10, top, 160, 30)];
     [self.btnPoi setTitle:@"请选择出生城市" forState:UIControlStateNormal];
+    self.btnPoi.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.btnPoi addTarget:self action:@selector(btnClick_poi:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPoi];
     
@@ -203,11 +204,12 @@
 }
 
 #pragma mark - ASPoiMapDelegate Method
-//- (void)asPoiMap:(BMKAddrInfo *)info{
-//    self.person.poiName = [NSString stringWithFormat:@"%@, %@", info.addressComponent.province , info.addressComponent.city];
-//    self.person.latitude = info.geoPt.latitude;
-//    self.person.longitude = info.geoPt.longitude;
-//}
+- (void)asPoiMap:(CLPlacemark *)info{
+    self.person.poiName = [NSString stringWithFormat:@"%@, %@", info.subLocality , info.administrativeArea];
+    self.person.latitude = info.location.coordinate.latitude;
+    self.person.longitude = info.location.coordinate.longitude;
+    [self.btnPoi setTitle:self.person.poiName forState:UIControlStateNormal];
+}
 
 #pragma mark - ASPickerViewDelegate Method
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{
