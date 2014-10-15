@@ -122,9 +122,7 @@
     self.hidden = NO;
     [UIView animateWithDuration:0.25 animations:^{
         self.bottom = self.parentVc.view.height;
-    } completion:^(BOOL finished) {
-        
-    }];
+    } completion:nil];
 }
 
 - (void)hidePickerView{

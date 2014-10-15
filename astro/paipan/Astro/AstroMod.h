@@ -19,10 +19,21 @@
 #define AstroAnglePermit @[@"0°", @"180°", @"120°", @"90°", @"60°"]
 #define AstroAnglePermitText @[@"合相", @"冲相", @"三合", @"刑相", @"六合"]
 
+@interface AstroShowInfo : NSObject
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *angle;
+@property (nonatomic, strong) NSString *info;
+@end
+
 @interface AstroMod : JSONModel{
     CGFloat constellationStart;
 }
+@property (nonatomic) NSInteger type;       //盘类型
+@property (nonatomic) NSInteger compose;    //合盘类型
+@property (nonatomic) NSInteger transit;    //退运类型
+
 @property (nonatomic, strong) NSArray<AstroStar> *Stars;
+@property (nonatomic, strong) NSArray<AstroStar, Optional> *Stars1;
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic) NSInteger Gender1;
 @property (nonatomic, strong) NSDate<NSDate> *birth;
@@ -33,8 +44,12 @@
 @property (nonatomic) NSInteger zone1;
 @property (nonatomic) BOOL IsDaylight;
 @property (nonatomic) BOOL IsDaylight1;
+//推运
+@property (nonatomic, strong) NSDate<NSDate, Optional> *transitTime;
+@property (nonatomic, strong) ASPosition<ASPosition> *transitPosition;
 
 + (NSInteger)getStarsPermit;
++ (NSIndexPath *)getStarsPermitCount;
 + (void)setStarsPermit:(NSInteger)permit;
 + (NSString *)getStarsPermitTextInfo;
 
@@ -42,6 +57,10 @@
 + (void)setAnglePermit:(NSArray *)permit;
 + (NSString *)getAnglePermitTextInfo;
 
+- (BOOL)isZuhepan;
+- (void)fecthStarsInfo:(NSMutableArray *)stars gongInfo:(NSMutableArray *)gongs tag:(NSInteger)tag;
+- (NSMutableArray *)gongs;
 - (UIImage *)paipan;
+- (NSString *)panTypeName;
 + (CGPoint)pointByRadius:(CGFloat)radius andDegree:(CGFloat)degree;
 @end

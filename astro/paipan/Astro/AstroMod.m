@@ -11,6 +11,9 @@
 #import "Paipan.h"
 #import "ASCache.h"
 
+@implementation AstroShowInfo
+@end
+
 CGFloat D2R(CGFloat degrees) {return degrees * M_PI / 180.0;};
 CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
 
@@ -21,17 +24,18 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
 
 static NSString *startPermitKey = @"starsPermit";
 static NSString *anglePermitKey = @"anglePermit";
+static CGFloat kSpace = 10.0;
 
 + (NSInteger)getStarsPermit{
     ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([self class]) key:startPermitKey];
     if(obj){
         return [obj.value intValue];
     }else{
-        return 0xffffff; //默认:20个星体全部显示
+        return 0xf023ff; //默认:10个星体+婚神
     }
 }
 
-+ (NSString *)getStarsPermitTextInfo{
++ (NSIndexPath *)getStarsPermitCount{
     NSInteger planetCount = 0, asteroidCount = 0;
     NSInteger permit = [self getStarsPermit];
     for(int i = 0; i < 20; i++){
@@ -44,8 +48,12 @@ static NSString *anglePermitKey = @"anglePermit";
             }
         }
     }
-    return [NSString stringWithFormat:@"主星:%d颗   小行星:%d颗", planetCount, asteroidCount];
-    
+    return [NSIndexPath indexPathForRow:planetCount inSection:asteroidCount];
+}
+
++ (NSString *)getStarsPermitTextInfo{
+    NSIndexPath *path = [self getStarsPermitCount];
+    return [NSString stringWithFormat:@"主星:%d颗   小行星:%d颗", path.section, path.row];
 }
 
 + (void)setStarsPermit:(NSInteger)permit{
@@ -83,6 +91,71 @@ static NSString *anglePermitKey = @"anglePermit";
     return str;
 }
 
+- (NSString *)panTypeName{
+    NSString *str = nil;
+    switch (self.type) {
+        case 1:
+            str = AstroTypeArray[self.type - 1];
+            break;
+        case 2:
+            str = AstroZuheArray[self.compose - 1];
+            break;
+        case 3:
+            str = AstroTuiyunArray[self.transit - 1];
+            break;
+        default:
+            break;
+    }
+    return str;
+}
+
+- (BOOL)isZuhepan{
+    if(self.type == 2 && self.compose == 1){
+        return YES;
+    }else if(self.type == 3 && self.transit == 1){
+        return YES;
+    }
+    return NO;
+}
+
+- (void)fecthStarsInfo:(NSMutableArray *)stars gongInfo:(NSMutableArray *)gongs tag:(NSInteger)tag{
+    [stars removeAllObjects];
+    [gongs removeAllObjects];
+    
+    NSArray *source = tag == 0 ? self.Stars : self.Stars1;
+    for (int i = 20; i < 32; i++) {
+        AstroStar *st = source[i];
+        AstroShowInfo *item = [[AstroShowInfo alloc] init];
+        item.name = [NSString stringWithFormat:@"%@宫", __DaXie[i - 19]];
+        item.angle = [NSString stringWithFormat:@"%@%d°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
+        item.info = @"";
+        [gongs addObject:item];
+    }
+    
+    NSInteger permit = [[self class] getStarsPermit];
+    for (int i = 0; i < 20; i++) {
+        if(i > 20 && i != 23 && i != 26 && i != 29 && i <= 31){
+            continue;
+        }else if(i <= 20 && (permit & 1<<i) == 0){    //不被显示
+            continue;
+        }
+        AstroStar *st = source[i];
+        AstroShowInfo *item = [[AstroShowInfo alloc] init];
+        item.name = __AstroStar[st.StarName];
+        item.angle = [NSString stringWithFormat:@"%@%d°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
+        item.info = [NSString stringWithFormat:@"%@宫", __DaXie[st.Gong]];
+        [stars addObject:item];
+        
+        //添加宫内星说明
+        AstroShowInfo *gongInfo = gongs[st.Gong - 1];
+        if([gongInfo.info length] == 0){
+            gongInfo.info = item.name;
+        }else{
+            gongInfo.info = [NSString stringWithFormat:@"%@，%@", gongInfo.info, item.name];
+        }
+    }
+}
+
 #define _Size   CGSizeMake(320, 320)
 #define _Radius _Size.width/2 - 10
 #define _Center CGPointMake(_Size.width/2, _Size.height/2)
@@ -90,7 +163,7 @@ static NSString *anglePermitKey = @"anglePermit";
 
 - (UIImage *)paipan
 {
-    NSMutableArray *arrGong = [self newGongs];
+    NSMutableArray *arrGong = [self gongs];
     
     if([arrGong count] != 12){
         return nil;
@@ -105,7 +178,8 @@ static NSString *anglePermitKey = @"anglePermit";
     CGFloat r1 = r0 - 25;   //星座内径
     CGFloat r2 = r1 - 5;    //星座外径
     CGFloat r3 = r2 - 15;   //星座内径
-    CGFloat r4 = r3 - 26;   //星径
+    CGFloat r4 = r3 - 26;   //star星径
+    CGFloat r5 = r4 - 26;   //star1星径
     
     //四个同心圆
     [self drawArc:ctx radius:r0 fillColor:[UIColor blackColor]];
@@ -159,15 +233,13 @@ static NSString *anglePermitKey = @"anglePermit";
         //分宫
         if(i < 6){
             CGFloat lineWidth = 0.3;
-            CGFloat r = r3;
             if(i == 0 || i == 3){ //连接1-7，4-10宫的起点 （1，1虚线）
                 lineWidth = 1.0;
-                r = _Size.width/2;
             }
             CGFloat dash[] = {1, 1};
             CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
             CGContextSetLineDash(ctx, 0, dash, 2);
-            [self drawSeparated:ctx degree:degree from:r to:-r lineWidth:lineWidth];
+            [self drawSeparated:ctx degree:degree from:r3 to:-r3 lineWidth:lineWidth];
             CGContextSetLineDash(ctx, 0, NULL, 0);
         }
     }
@@ -196,23 +268,49 @@ static NSString *anglePermitKey = @"anglePermit";
         
     }
     
+    NSMutableArray *st0 = nil, *st1 = nil;
+    if([self.Stars count] > 0){
+        st0 = [self drawAstroStars:ctx stars:self.Stars radius:r5 relatedRadius:r5];
+        st1 = st0;
+    }
+    
+    if([self.Stars1 count] > 0){
+        st1 = [self drawAstroStars:ctx stars:self.Stars1 radius:r4 relatedRadius:r5];
+    }
+    
+    [self drawRelated:ctx stars:st0 with:st1 radius:r5];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+- (NSMutableArray *)drawAstroStars:(CGContextRef)ctx stars:(NSArray *)astroStars radius:(CGFloat)r relatedRadius:(CGFloat)rr{
     NSInteger permit = [[self class] getStarsPermit];
     //画星的中心点
     NSMutableArray *st = [[NSMutableArray alloc] init];
-    for (int i = 0; i < [self.Stars count]; i++) {
-        if(i > 20 /*&& i != 23 && i != 26*/ && i != 29 && i <= 31)
+    for (int i = 0; i < [astroStars count]; i++) {
+        if(i > 20 && i != 23 && i != 26 && i != 29 && i <= 31){
             continue;
-        
-        if((permit & 1<<i) == 0)    //不被显示
+        }else if(i <= 20 && (permit & 1<<i) == 0){    //不被显示
             continue;
+        }
         
-        AstroStarHD *star = [[AstroStarHD alloc] initWithAstro:[self.Stars objectAtIndex:i]];
+        AstroStarHD *star = [[AstroStarHD alloc] initWithAstro:[astroStars objectAtIndex:i]];
         CGFloat degree = constellationStart + 30 * (star.base.Constellation - 1) + star.DegreeHD;
         degree = fmodf(degree, 360.0);
-        NSAssert(degree > 0, @"PanDegree 必须大于 0");
+        NSAssert(degree >= 0, @"PanDegree 必须大于 0");
         star.PanDegree = degree;
         star.FixDegree = degree;
         [st addObject:star];
+        
+        if(r != rr){
+            CGFloat dash[] = {1, 1};
+            CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
+            CGContextSetLineDash(ctx, 0, dash, 2);
+            [self drawSeparated:ctx degree:star.PanDegree from:rr to:r lineWidth:0.5];
+            CGContextSetLineDash(ctx, 0, NULL, 0);
+        }
     }
     
     //先排序
@@ -222,21 +320,63 @@ static NSString *anglePermitKey = @"anglePermit";
         return s1.PanDegree >= s2.PanDegree;
     }];
     
-//    NSMutableArray *groups = [[NSMutableArray alloc] init];
-//    for(AstroStarHD *star in st){
-//        [self starGroups:groups addNewStar:star];
-//    }
+    //找到间隔最大的区域分散
+    int maxSpaceIndex = 0;
+    float maxSpace = 0.0;
+    for(int i = 0; i < st.count; i++){
+        int next = (i + 1)%st.count;
+        AstroStarHD *star0 = st[i];
+        AstroStarHD *star1 = st[next];
+        float space = 0;
+        if(i < next){
+            space = star1.PanDegree - star0.PanDegree;
+        }else{
+            space = 360.0 - star0.PanDegree + star1.PanDegree;
+        }
+        if(space > maxSpace){
+            maxSpaceIndex = next;
+            maxSpace = space;
+        }
+    }
     
-//    for(AstroStarGroup *gp in groups){
-//        [self drawGroupStar:ctx group:gp.stars radius:r4];
-//    }
+    //重新组合数组，将最大间隙下一个放在
+    NSArray *arr0 = [st subarrayWithRange:NSMakeRange(maxSpaceIndex, st.count - maxSpaceIndex)];
+    NSArray *arr1 = [st subarrayWithRange:NSMakeRange(0, maxSpaceIndex)];
+    [arr1 enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        AstroStarHD *star = (AstroStarHD *)obj;
+        star.PanDegree += 360.0;
+        star.FixDegree += 360.0;
+    }];
+    st = [NSMutableArray arrayWithArray:arr0];
+    [st addObjectsFromArray:arr1];
     
-    for(int i = 0; i < [st count]; i++){
-        AstroStarHD *star = [st objectAtIndex:i];
+    //调整位置
+    [self fixDegree:st index:0];
+    //画图
+    [self drawGroupStar:ctx group:st radius:r];
+    
+    return st;
+}
+
+- (void)drawRelated:(CGContextRef)ctx stars:(NSArray *)st radius:(CGFloat)r{
+    [self drawRelated:ctx stars:st with:st radius:r];
+}
+
+- (void)drawRelated:(CGContextRef)ctx stars:(NSArray *)st0 with:(NSArray *)st1 radius:(CGFloat)r{
+    NSArray *anglePermit = [[self class] getAnglePermit];
+    for(int i = 0; i < [st0 count]; i++){
+        AstroStarHD *star = st0[i];
         if(star.base.StarName > 10)
             continue;
-        for(int j = i + 1; j < [st count]; j++){
-            AstroStarHD *relStar = [st objectAtIndex:j]; //关联星
+        
+        for(int j = 0; j < [st1 count]; j++){
+            AstroStarHD *relStar = st1[j]; //关联星
+            if(star.base.StarName > 10)
+                continue;
+            
+            if(st0 == st1 && i == j)
+                continue;
+            
             double delta = fabs(star.PanDegree - relStar.PanDegree);
             if(delta > 180.0){
                 delta = 360.0 - delta;
@@ -244,108 +384,95 @@ static NSString *anglePermitKey = @"anglePermit";
             
             UIColor *cl = nil;
             CGFloat dd = -1 ;
-            if(2*fabs(delta - 0.0) <= 10.0){
-                cl = [UIColor yellowColor];
-                dd = fabs(delta - 0.0);
-            }
-            else if(2*fabs(delta - 180.0) <= 10.0){
-                cl = [UIColor blueColor];
-                dd = fabs(delta - 180.0);
-            }
-            else if(2*fabs(delta - 90.0) <= 10.0){
-                cl = [UIColor redColor];
-                dd = fabs(delta - 90.0);
-            }
-            else if(2*fabs(delta - 120.0) <= 10.0){
-                cl = [UIColor greenColor];
-                dd = fabs(delta - 120.0);
-            }
-            else if(2*fabs(delta - 60.0) <= 10.0){
-                cl = [UIColor cyanColor];
-                dd = fabs(delta - 60.0);
-            }
             
-            if(dd >= 0){
-                if(dd > 0){
-                    CGFloat dash[] = {1, dd};
-                    CGContextSetLineDash(ctx, 0, dash, 2);
-                }else{
-                    CGContextSetLineDash(ctx, 0, NULL, 0);
+            for(int i = 0; i < anglePermit.count; i++){
+                CGFloat permit = [anglePermit[i] floatValue];
+                if(permit < 0){ //关闭的
+                    continue;
                 }
-                CGContextSetStrokeColorWithColor(ctx, cl.CGColor);
-                [self drawStarLine:ctx radius:r4 from:star.PanDegree to:relStar.PanDegree];
+                
+                if(2*fabs(delta - [AstroAnglePermit[i] floatValue]) <= permit){
+                    switch (i) {
+                        case 0:
+                            cl = [UIColor yellowColor];
+                            break;
+                        case 1:
+                            cl = [UIColor blueColor];
+                            break;
+                        case 2:
+                            cl = [UIColor greenColor];
+                            break;
+                        case 3:
+                            cl = [UIColor redColor];
+                            break;
+                        case 4:
+                            cl = [UIColor cyanColor];
+                            break;
+                        default:
+                            break;
+                    }
+                    dd = fabs(delta - [AstroAnglePermit[i] floatValue]);
+                }
+                
+                if(dd >= 0){
+                    if(dd > 0){
+                        CGFloat dash[] = {1, dd};
+                        CGContextSetLineDash(ctx, 0, dash, 2);
+                    }else{
+                        CGContextSetLineDash(ctx, 0, NULL, 0);
+                    }
+                    CGContextSetStrokeColorWithColor(ctx, cl.CGColor);
+                    [self drawStarLine:ctx radius:r from:star.PanDegree to:relStar.PanDegree];
+                }
             }
         }
     }
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
 }
 
-//- (void)starGroups:(NSMutableArray *)groups addNewStar:(AstroStarHD *)star{
-//    AstroStarGroup *gp = [[AstroStarGroup alloc] init];
-//    [gp addNewStar:star];
-//    [groups addObject:gp];
-//    
-//    BOOL joinTag = YES;
-//    while(joinTag){
-//        NSInteger lastCount = [groups count];
-//        for(int i = 0; i < lastCount; i++){
-//            AstroStarGroup *gp0 = [groups objectAtIndex:i];
-//            for (int j = i + 1; j < lastCount; j++) {
-//                AstroStarGroup *gp1 = [groups objectAtIndex:j];
-//                if([gp0 nearTo:gp1]){
-//                    [gp0 joinStars:gp1.stars];
-//                    [groups removeObject:gp1];
-//                    break;
-//                }
-//            }
-//            if(lastCount != [groups count]){
-//                break;
-//            }
-//        }
-//        if(lastCount == [groups count]){
-//            joinTag = NO;
-//        }
-//    }
-//    
-//}
+- (void)fixDegree:(NSMutableArray *)st index:(NSInteger)index{
+    if(index >= st.count - 1){
+        return;
+    }
+    
+    AstroStarHD *star = st[index];
+    NSInteger groupIndex = index;
+    //向后看
+    for(int i = index + 1; i < st.count; i++){
+        AstroStarHD *sr = st[i];
+        if(sr.FixDegree - star.FixDegree >= kSpace * (i - index)){
+            break;
+        }else{
+            groupIndex = i;
+        }
+    }
+    
+    //调整 index - groupIndex 的间距
+    if(groupIndex != index){
+        AstroStarHD *star1 = st[groupIndex];
+        CGFloat centerDegree = (star1.FixDegree + star.FixDegree) * 0.5;
+        CGFloat center = (index + groupIndex) * 0.5;
+        for(int i = index; i <= groupIndex; i++){
+            AstroStarHD *sr = st[i];
+            sr.FixDegree = centerDegree + (i - center) * kSpace;
+        }
+        [self fixDegree:st index:0];
+    }else{
+        [self fixDegree:st index:index + 1];
+    }
+}
 
 - (void)drawGroupStar:(CGContextRef)ctx group:(NSArray *)group radius:(CGFloat)r{
-//    CGFloat cc = 0;
-//    NSInteger mid = [group count]/2;
-//    BOOL hasCenter = [group count]%2 != 0;
-//    if([group count]%2 == 0){
-//        AstroStar *a1 = (AstroStar *)[group objectAtIndex:mid - 1];
-//        AstroStar *a2 = (AstroStar *)[group objectAtIndex:mid];
-//        cc = ([a1.PanDegree doubleValue] + [a2.PanDegree doubleValue])*0.5;
-//    }else{
-//        cc = [((AstroStar *)[group objectAtIndex:mid]).PanDegree doubleValue];
-//    }
-    
     CGSize sSize = CGSizeMake(14, 14);
     for(NSInteger i = 0; i <  [group count]; i++){
-//        CGFloat degreeFixed = 0;
-//        NSInteger delta = abs((int)(i - mid));
-//        if(i < mid){
-//            degreeFixed = cc - delta * 4.25;
-//        }else{
-//            if(hasCenter){
-//                degreeFixed = cc + delta * 4.25;
-//            }else{
-//                degreeFixed = cc + (delta + 1) * 4.25;
-//            }
-//        }
         AstroStarHD *star = [group objectAtIndex:i];
         CGPoint center = [[self class] pointByRadius:r andDegree:star.PanDegree];
         [self drawArc:ctx center:center radius:1 color:UIColorFromRGB(0xee1100)];
-        CGPoint centerFix = [[self class] pointByRadius:r + 20 andDegree:star.FixDegree];
+        CGPoint centerFix = [[self class] pointByRadius:r + 14 andDegree:star.FixDegree];
         UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%d", star.base.StarName]];
         [icon drawInRect:CGRectMake(centerFix.x - sSize.width/2, centerFix.y - sSize.height/2, sSize.width, sSize.height)];
         
         //指向线
-        CGPoint lineEnd = [[self class] pointByRadius:r + 12 andDegree:star.FixDegree];
+        CGPoint lineEnd = [[self class] pointByRadius:r + 8 andDegree:star.FixDegree];
         CGContextSetLineDash(ctx, 0, NULL, 0);
         CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
         CGContextSetLineWidth(ctx, 0.8);
@@ -401,7 +528,7 @@ static NSString *anglePermitKey = @"anglePermit";
     CGContextStrokePath(ctx);
 }
 
-- (NSMutableArray *)newGongs{
+- (NSMutableArray *)gongs{
     NSMutableArray *arrGong = [[NSMutableArray alloc] init];
     CGFloat last = 180.0;
     [arrGong addObject:@(last)];

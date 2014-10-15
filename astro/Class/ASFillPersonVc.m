@@ -190,6 +190,7 @@
     self.person.Daylight = self.swDaylight.on;
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
+    vc.loc = CLLocationCoordinate2DMake(self.person.latitude, self.person.longitude);
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }
@@ -205,7 +206,7 @@
 
 #pragma mark - ASPoiMapDelegate Method
 - (void)asPoiMap:(CLPlacemark *)info{
-    self.person.poiName = [NSString stringWithFormat:@"%@, %@", info.subLocality , info.administrativeArea];
+    self.person.poiName = [NSString stringWithFormat:@"%@ %@", info.administrativeArea, info.locality];
     self.person.latitude = info.location.coordinate.latitude;
     self.person.longitude = info.location.coordinate.longitude;
     [self.btnPoi setTitle:self.person.poiName forState:UIControlStateNormal];

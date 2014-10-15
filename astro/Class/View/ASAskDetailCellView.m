@@ -1,22 +1,27 @@
 //
-//  ASAskDetailCell.m
+//  ASAskDetailCellView.m
 //  astro
 //
-//  Created by kjubo on 14-6-4.
+//  Created by kjubo on 14-10-15.
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASAskDetailCell.h"
 #import "ASPanView.h"
 #import "ASQaAnswer.h"
-@interface ASAskDetailCell ()
-@property (nonatomic, strong) UIView *bgView;   //背景
+#import "ASAskDetailCellView.h"
+
+@interface ASAskDetailCellView ()
 @property (nonatomic, strong) ASUrlImageView *faceView; //头像
 @property (nonatomic, strong) UILabel *lbName;  //昵称 等级
 @property (nonatomic, strong) UILabel *lbFloor; //楼
 @property (nonatomic, strong) UILabel *lbPostIntro;  //提问数 & 反馈数
 @property (nonatomic, strong) UILabel *lbDate;  //发布时间
+@property (nonatomic, strong) UIImageView *ivShangBg;   //奖励层
+@property (nonatomic, strong) UILabel *lbShang1;
+@property (nonatomic, strong) UILabel *lbShang2;
+
 @property (nonatomic, strong) ASPanView *panView;
+@property (nonatomic, strong) UILabel *lbReViewInfo;//浏览数回复数
 @property (nonatomic, strong) UIButton *btnComment; //评论
 @property (nonatomic, strong) UIButton *btnDelete;  //删除
 @property (nonatomic, strong) UITableView *tbComment;//评论列表
@@ -24,63 +29,78 @@
 @property (nonatomic, weak) ASQaAnswer *answer;
 @end
 
-@implementation ASAskDetailCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+@implementation ASAskDetailCellView
+- (id)initWithFrame:(CGRect)frame
 {
     CGFloat margin = 10;
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(margin, margin, self.width - 2*margin, 0)];
-        self.bgView.clipsToBounds = YES;
-        self.bgView.backgroundColor = [UIColor whiteColor];
-        self.bgView.layer.cornerRadius = 6;
-        self.bgView.layer.borderWidth = 1;
-        self.bgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        [self.contentView addSubview:self.bgView];
-        
+
         self.faceView = [[ASUrlImageView alloc] initWithFrame:CGRectMake(margin, margin, 30, 30)];
-        [self.bgView addSubview:self.faceView];
+        [self addSubview:self.faceView];
         
         self.lbName = [self newLabel:CGRectMake(self.faceView.right + margin, margin, 200, 15)];
-        [self.bgView addSubview:self.lbName];
+        [self addSubview:self.lbName];
         
         self.lbPostIntro = [self newLabel:CGRectMake(self.lbName.left, self.lbName.bottom + 2, 200, 15)];
-        [self.bgView addSubview:self.lbPostIntro];
+        [self addSubview:self.lbPostIntro];
         
-        self.lbFloor = [self newLabel:CGRectMake(0, self.lbName.top, 60, 15)];
-        self.lbFloor.textAlignment = NSTextAlignmentRight;
-        self.lbFloor.right = self.bgView.width - margin;
-        [self.bgView addSubview:self.lbFloor];
+        self.lbFloor = [self newLabel:CGRectMake(0, self.lbName.top, 0, 15)];
+        self.lbFloor.font = [UIFont systemFontOfSize:12];
+        self.lbFloor.textColor = [UIColor whiteColor];
+        self.lbFloor.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:self.lbFloor];
         
         self.lbDate = [self newLabel:CGRectMake(0, self.lbPostIntro.top, 80, 15)];
         self.lbDate.textAlignment = NSTextAlignmentRight;
-        self.lbDate.right = self.bgView.width - margin;
-        [self.bgView addSubview:self.lbDate];
+        self.lbDate.right = self.width - margin;
+        [self addSubview:self.lbDate];
         
-        self.panView = [[ASPanView alloc] initWithFrame:CGRectMake(margin, self.lbPostIntro.bottom + 5, self.bgView.width - 2*margin, 0)];
-        [self.bgView addSubview:self.panView];
+        self.ivShangBg = [[UIImageView alloc] initWithFrame:CGRectMake(margin, 0, 240, 26)];
+        UIImage *img = [UIImage imageNamed:@"lingqian_bg"];
+        self.ivShangBg.image = [img stretchableImageWithLeftCapWidth:img.size.width/2 + 5 topCapHeight:0];
+        [self addSubview:self.ivShangBg];
+        
+        self.lbShang1 = [[UILabel alloc] initWithFrame:CGRectMake(80, 0, 60, 20)];
+        self.lbShang1.backgroundColor = [UIColor whiteColor];
+        self.lbShang1.font = [UIFont systemFontOfSize:14];
+        self.lbShang1.textColor = [UIColor blackColor];
+        self.lbShang1.textAlignment = NSTextAlignmentCenter;
+        self.lbShang1.centerY = self.ivShangBg.height/2;
+        [self.ivShangBg addSubview:self.lbShang1];
+        
+        self.lbShang2 = [[UILabel alloc] initWithFrame:CGRectMake(self.lbShang1.right + 10, 0, 60, 20)];
+        self.lbShang2.backgroundColor = [UIColor whiteColor];
+        self.lbShang2.font = [UIFont systemFontOfSize:14];
+        self.lbShang2.textColor = [UIColor redColor];
+        self.lbShang2.textAlignment = NSTextAlignmentCenter;
+        self.lbShang2.centerY = self.ivShangBg.height/2;
+        [self.ivShangBg addSubview:self.lbShang2];
+        
+        self.panView = [[ASPanView alloc] initWithFrame:CGRectMake(margin, self.lbPostIntro.bottom + 5, self.width - 2*margin, 0)];
+        [self addSubview:self.panView];
         
         self.btnDelete = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [self.btnDelete setImage:[UIImage imageNamed:@"icon_del"] forState:UIControlStateNormal];
-        [self.bgView addSubview:self.btnDelete];
+        [self addSubview:self.btnDelete];
         
         self.btnComment = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [self.btnComment setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
-        [self.bgView addSubview:self.btnComment];
+        [self addSubview:self.btnComment];
         
-        self.tbComment = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.bgView.width, 1) style:UITableViewStylePlain];
+        self.lbReViewInfo = [self newLabel:CGRectMake(self.faceView.left, 0, 200, 20)];
+        [self addSubview:self.lbReViewInfo];
+        
+        self.tbComment = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1) style:UITableViewStylePlain];
         self.tbComment.backgroundColor = UIColorFromRGB(0xe0ecd1);
         self.tbComment.scrollEnabled = NO;
         self.tbComment.delegate = self;
         self.tbComment.dataSource = self;
         self.tbComment.separatorColor = [UIColor clearColor];
         self.tbComment.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.bgView addSubview:self.tbComment];
+        [self addSubview:self.tbComment];
         
         self.btnMore = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tbComment.width - 20, 28)];
         self.btnMore.layer.cornerRadius = 5.0;
@@ -89,7 +109,7 @@
         self.btnMore.titleLabel.font = [UIFont boldSystemFontOfSize:14];
         [self.btnMore setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.btnMore.hidden = YES;
-        [self.bgView addSubview:self.btnMore];
+        [self addSubview:self.btnMore];
     }
     return self;
 }
@@ -97,31 +117,48 @@
 - (UILabel *)newLabel:(CGRect)frame{
     UILabel *lb = [[UILabel alloc] initWithFrame:frame];
     lb.backgroundColor = [UIColor clearColor];
-    lb.font = [UIFont systemFontOfSize:14];
+    lb.font = [UIFont systemFontOfSize:13];
     return lb;
 }
 
-- (void)setQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart customer:(ASCustomerShow *)user canDel:(BOOL)canDel canComment:(BOOL)canComment{
+- (void)setQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart customer:(ASCustomerShow *)user canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor{
     [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
-    
-    NSString *temp = [NSString stringWithFormat:@"%@\t等级 ", user.NickName];
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:temp];
-    [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String(2)
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:user.NickName
+                                                                            attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t等级"]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:user.GradeShow
                                                                 attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
     self.lbName.attributedText = str;
+    self.lbFloor.text = [NSString stringWithFormat:@" %d楼 ", floor];
+    [self.lbFloor sizeToFit];
+    self.lbFloor.top = self.faceView.top;
+    self.lbFloor.right = self.lbDate.right;
     
     str = [[NSMutableAttributedString alloc] initWithString:@"提问数"];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String(user.TotalQuest)
-                                                               attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
+                                                                attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" | 反馈数"]];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String(user.TotalReply)
                                                                 attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
     self.lbPostIntro.attributedText = str;
-    
     self.lbDate.text = [[qa TS] toStrFormat:@"yyyy-MM-dd"];
+    
+    CGFloat top = 0;
+    if(floor == 1){
+        self.ivShangBg.hidden = NO;
+        self.ivShangBg.top = self.lbPostIntro.bottom + 5;
+        self.lbShang1.text = [NSString stringWithFormat:@"%d灵签", [qa Award]];
+        self.lbShang2.text = @"已结束";
+        top = self.ivShangBg.bottom + 5;
+    }else{
+        self.ivShangBg.hidden = YES;
+    }
+    
+    self.panView.top = top;
     [self.panView setChart:chart context:[qa Context]];
     
-    CGFloat btnRight = self.bgView.right - 10;
+
+    CGFloat btnRight = self.lbDate.right;
     if(canDel){
         self.btnDelete.hidden = NO;
         self.btnDelete.right = btnRight;
@@ -139,8 +176,7 @@
     }else{
         self.btnComment.hidden = YES;
     }
-    
-    CGFloat top = 0;
+
     if(canDel || canComment){
         top = self.panView.bottom + 30;
     }else{
@@ -167,8 +203,7 @@
         }
     }
     
-    self.bgView.height = top;
-    self.height = self.bgView.height + 10;
+    self.height = top;
 }
 
 #pragma mark - UITableViewDelegate & DataSource

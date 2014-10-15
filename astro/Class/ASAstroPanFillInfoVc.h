@@ -11,6 +11,7 @@
 #import "ASFillPersonVc.h"
 #import "ASAstroStarsFillVc.h"
 #import "ASPermitInfoVc.h"
+#import "ASAstroTransitVc.h"
 #import "AstroMod.h"
 
 @interface ASAstroPanFillInfoVc : ASBaseViewController<ASPickerViewDelegate, ASFillPersonVcDelegate, UIPickerViewDelegate, UIPickerViewDataSource>

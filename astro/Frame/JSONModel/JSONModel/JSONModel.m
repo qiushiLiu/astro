@@ -528,6 +528,11 @@ static JSONKeyMapper* globalKeyMapper = nil;
             const char *propertyName = property_getName(property);
             p.name = [NSString stringWithUTF8String:propertyName];
             
+            if ([p.name isEqualToString:@"primaryKey"] || [p.name isEqualToString:@"rowid"]
+                || [p.name isEqualToString:@"hash"]|| [p.name isEqualToString:@"superclass"]|| [p.name isEqualToString:@"description"] || [p.name isEqualToString:@"debugDescription"]) {
+                continue;
+            }
+            
             //JMLog(@"property: %@", p.name);
             
             //get property attributes

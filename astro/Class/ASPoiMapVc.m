@@ -66,8 +66,19 @@
         //坐标转换
         CGPoint touchPoint = [sender locationInView:self.mapView];
         CLLocationCoordinate2D touchMapCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        //这里的touchMapCoordinate.latitude和touchMapCoordinate.longitude就是你要的经纬度，
-        [self resetAnnotationWithLocation:touchMapCoordinate];
+        
+        CLLocation *location = [[CLLocation alloc]initWithCoordinate:touchMapCoordinate
+                                                            altitude:CLLocationDistanceMax
+                                                  horizontalAccuracy:kCLLocationAccuracyBest
+                                                    verticalAccuracy:kCLLocationAccuracyBest
+                                                           timestamp:[NSDate date]];
+        [[GpsData shared].geocoder reverseGeocodeLocation:location
+                                        completionHandler:^(NSArray *placemarks, NSError *error) {
+                                            if (!error){
+                                                self.placemark = [placemarks firstObject];
+                                                [self resetAnnotationWithLocation:self.placemark.location.coordinate];
+                                            }
+                                        }];
     }
 }
 
@@ -77,7 +88,7 @@
     //先清理以前的所有覆盖物
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
     [self.mapView removeAnnotations:array];
-    self.location = loc;
+    self.loc = loc;
     //进入这个区域
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 10000, 10000);
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
@@ -97,8 +108,8 @@
         if(error){
             [self alert:[NSString stringWithFormat:@"%@", error]];
         }else{
-            CLPlacemark *mark = [placemarks firstObject];
-            [self resetAnnotationWithLocation:mark.location.coordinate];
+            self.placemark = [placemarks firstObject];
+            [self resetAnnotationWithLocation:self.placemark.location.coordinate];
         }
     }];
 }
