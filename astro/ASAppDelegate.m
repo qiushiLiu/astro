@@ -147,11 +147,18 @@
     }
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application{
+    [self start];
+}
+
 #pragma mark - GPS Method
 - (void)start{
     if(!self.locationManager){
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
+        if(IOS8_OR_LATER){
+            [self.locationManager requestWhenInUseAuthorization];
+        }
     }
     [self.locationManager startUpdatingLocation];
 }
@@ -169,11 +176,7 @@
 }
 
 - (void)handleNextQueryTimerForLm {
-    if(!self.locationManager){
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-    }
-    [self.locationManager startUpdatingLocation];
+    [self start];
 }
 
 //定位成功

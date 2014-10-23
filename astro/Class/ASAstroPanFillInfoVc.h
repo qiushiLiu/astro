@@ -15,5 +15,5 @@
 #import "AstroMod.h"
 
 @interface ASAstroPanFillInfoVc : ASBaseViewController<ASPickerViewDelegate, ASFillPersonVcDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
-@property (nonatomic, strong) AstroMod *model;
+@property (nonatomic, weak) AstroMod *model;
 @end

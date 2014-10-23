@@ -60,7 +60,7 @@
     self.tfPsw.returnKeyType = UIReturnKeyDone;
     [self.contentView addSubview:self.tfPsw];
     
-    self.btnSumbit = [ASControls newRedButton:CGRectMake(self.tfPsw.left, self.tfPsw.bottom + 10, self.tfPsw.width, 40) title:@"登陆"];
+    self.btnSumbit = [ASControls newRedButton:CGRectMake(self.tfPsw.left, self.tfPsw.bottom + 10, self.tfPsw.width, 40) title:@"登录"];
     [self.btnSumbit addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnSumbit];
     

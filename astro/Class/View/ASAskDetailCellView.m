@@ -74,7 +74,6 @@
         self.lbShang2 = [[UILabel alloc] initWithFrame:CGRectMake(self.lbShang1.right + 10, 0, 60, 20)];
         self.lbShang2.backgroundColor = [UIColor whiteColor];
         self.lbShang2.font = [UIFont systemFontOfSize:14];
-        self.lbShang2.textColor = [UIColor redColor];
         self.lbShang2.textAlignment = NSTextAlignmentCenter;
         self.lbShang2.centerY = self.ivShangBg.height/2;
         [self.ivShangBg addSubview:self.lbShang2];
@@ -84,6 +83,7 @@
         
         self.btnDelete = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [self.btnDelete setImage:[UIImage imageNamed:@"icon_del"] forState:UIControlStateNormal];
+        [self.btnDelete addTarget:self action:@selector(btnClick_delete:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.btnDelete];
         
         self.btnComment = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -121,11 +121,12 @@
     return lb;
 }
 
-- (void)setQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart customer:(ASCustomerShow *)user canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor{
+- (void)setQaProtocol:(id<ASQaProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor{
+    ASCustomerShow *user = [qa Customer];
     [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:user.NickName
                                                                             attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}];
-    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t等级"]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t等级 "]];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:user.GradeShow
                                                                 attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
     self.lbName.attributedText = str;
@@ -134,29 +135,53 @@
     self.lbFloor.top = self.faceView.top;
     self.lbFloor.right = self.lbDate.right;
     
-    str = [[NSMutableAttributedString alloc] initWithString:@"提问数"];
+    str = [[NSMutableAttributedString alloc] initWithString:@"提问数 "];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String(user.TotalQuest)
                                                                 attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
-    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" | 反馈数"]];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" | 反馈数 "]];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String(user.TotalReply)
                                                                 attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
     self.lbPostIntro.attributedText = str;
     self.lbDate.text = [[qa TS] toStrFormat:@"yyyy-MM-dd"];
     
-    CGFloat top = 0;
+    CGFloat top = self.lbPostIntro.bottom + 5;
     if(floor == 1){
         self.ivShangBg.hidden = NO;
-        self.ivShangBg.top = self.lbPostIntro.bottom + 5;
-        self.lbShang1.text = [NSString stringWithFormat:@"%d灵签", [qa Award]];
-        self.lbShang2.text = @"已结束";
+        self.ivShangBg.top = top;
+        self.lbShang1.text = [NSString stringWithFormat:@"%d 灵签", [qa Award]];
+        if([qa IsEnd]){
+            self.lbShang2.textColor = [UIColor redColor];
+            self.lbShang2.text = @"已结束";
+        }else{
+            self.lbShang2.textColor = ASColorBlueGreen;
+            self.lbShang2.text = @"进行中";
+        }
         top = self.ivShangBg.bottom + 5;
     }else{
         self.ivShangBg.hidden = YES;
     }
     
     self.panView.top = top;
+    NSArray *chart = nil;
+    if([qa respondsToSelector:@selector(Chart)]){
+        chart = [qa Chart];
+    }
     [self.panView setChart:chart context:[qa Context]];
     
+    if(floor == 1){
+        self.lbReViewInfo.hidden = NO;
+        str = [[NSMutableAttributedString alloc] initWithString:@"浏览数 "];
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String([qa ReadCount])
+                                                                    attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" | 回复数 "]];
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String([qa ReplyCount])
+                                                                    attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
+        self.lbReViewInfo.attributedText = str;
+        self.lbReViewInfo.top = self.panView.bottom + 5;
+        top = self.lbReViewInfo.bottom + 5;
+    }else{
+        self.lbReViewInfo.hidden = YES;
+    }
 
     CGFloat btnRight = self.lbDate.right;
     if(canDel){
@@ -179,8 +204,6 @@
 
     if(canDel || canComment){
         top = self.panView.bottom + 30;
-    }else{
-        top = self.panView.bottom + 10;
     }
     
     self.tbComment.hidden = YES;
@@ -204,6 +227,10 @@
     }
     
     self.height = top;
+}
+
+- (void)btnClick_delete:(UIButton *)sender{
+    
 }
 
 #pragma mark - UITableViewDelegate & DataSource
@@ -261,9 +288,13 @@
     return height;
 }
 
-+ (CGFloat)heightForQaProtocol:(id<ASQaBaseProtocol>)qa chart:(NSArray *)chart{
-    CGFloat height = 95;
-    height += [ASPanView heightForChart:chart context:qa.Context];
++ (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa{
+    CGFloat height = 75;
+    NSArray *chart = nil;
+    if([qa respondsToSelector:@selector(Chart)]){
+        chart = [qa Chart];
+    }
+    height += [ASPanView heightForChart:chart context:[qa Context]];
     if([qa isKindOfClass:[ASQaAnswer class]]){
         ASQaAnswer *as = (ASQaAnswer *)qa;
         for(ASQaComment *ct in as.TopComments){

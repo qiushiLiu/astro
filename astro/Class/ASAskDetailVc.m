@@ -11,13 +11,15 @@
 #import "ASAskDetailCellView.h"
 #import "ASQaFullBazi.h"
 #import "ASQaAnswer.h"
+#import "ASPostReplyVc.h"
+#import "ASNav.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger sysNo;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
-@property (nonatomic, strong) id<ASQaProtocol, ASCustomerShowProtocol> question;
+@property (nonatomic, strong) id<ASQaProtocol> question;
 @property (nonatomic, strong) NSMutableArray *list;
 
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
@@ -53,10 +55,16 @@
     self.list = [[NSMutableArray alloc] init];
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tbList.height = self.contentView.height;
-    [self loadQaData];
+    if([self.list count] == 0){
+        [self loadQaData];
+    }
 }
 
 - (void)setNavToParams:(NSDictionary *)params{
@@ -99,6 +107,24 @@
             }
         }];
 }
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == NSAlertViewConfirm){
+        if(alertView.cancelButtonIndex != buttonIndex){
+            UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
+            [self presentViewController:nc animated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
+            }];
+        }
+    }
+}
+
+- (void)notification_UserLogined:(NSNotification *)sender{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:sender.name object:nil];
+    if([ASGlobal isLogined]){
+        [self reply];
+    }
+}
 
 #pragma mark - UITableViewDelegate & DataSouce
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -113,6 +139,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         UIView *vline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 1)];
         vline.tag = 100;
         vline.backgroundColor = [UIColor lightGrayColor];
@@ -124,11 +151,18 @@
     }
     UIView *vline = [cell.contentView viewWithTag:100];
     ASAskDetailCellView *cv = (ASAskDetailCellView *)[cell.contentView viewWithTag:200];
+    BOOL canDel = NO;
     if(indexPath.row == 0){
-        [cv setQaProtocol:self.question chart:[self.question Chart] customer:[self.question Customer] canDel:YES canComment:YES floor:1];
+        if([self.question Customer].SysNo == [[[ASGlobal shared] user] SysNo]){
+            canDel = YES;
+        }
+        [cv setQaProtocol:self.question canDel:canDel canComment:NO floor:1];
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
-        [cv setQaProtocol:answer chart:nil customer:answer.Customer canDel:YES canComment:YES floor:indexPath.row + 1];
+        if(answer.CustomerSysNo == [[[ASGlobal shared] user] SysNo]){
+            canDel = YES;
+        }
+        [cv setQaProtocol:answer canDel:canDel canComment:YES floor:indexPath.row + 1];
     }
     vline.bottom = cv.bottom + 5;
     return cell;
@@ -136,15 +170,24 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
-        return [ASAskDetailCellView heightForQaProtocol:self.question chart:[self.question Chart]] + 40;
+        return [ASAskDetailCellView heightForQaProtocol:self.question] + 40;
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
-        return [ASAskDetailCellView heightForQaProtocol:answer chart:nil];
+        return [ASAskDetailCellView heightForQaProtocol:answer];
     }
 }
 
 - (void)reply{
-    
+    if([ASGlobal isLogined]){
+        ASPostReplyVc *vc = [[ASPostReplyVc alloc] init];
+        vc.question = self.question;
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:nc animated:YES completion:nil];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
+        alert.tag = NSAlertViewConfirm;
+        [alert show];
+    }
 }
 
 @end

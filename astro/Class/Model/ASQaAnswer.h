@@ -10,7 +10,7 @@
 #import "ASQaProtocol.h"
 #import "ASQaComment.h"
 
-@interface ASQaAnswer : JSONModel <ASQaBaseProtocol>
+@interface ASQaAnswer : JSONModel <ASQaProtocol>
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic, strong) NSString *Title;

@@ -10,7 +10,7 @@
 #import "ASQaProtocol.h"
 #import "BaziMod.h"
 
-@interface ASQaFullBazi : JSONModel <ASQaProtocol, ASCustomerShowProtocol>
+@interface ASQaFullBazi : JSONModel <ASQaProtocol>
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic, strong) NSString *Title;

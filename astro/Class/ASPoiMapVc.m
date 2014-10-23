@@ -44,6 +44,9 @@
     if([GpsData shared].haveMKGpsTag){
         self.placemark = [[CLPlacemark alloc] initWithPlacemark:[GpsData shared].placemark];
     }
+//    else{
+//        self.placemark = [[CLLocation alloc] initWithLatitude: 35.2682 longitude:115.474];
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -90,7 +93,7 @@
     [self.mapView removeAnnotations:array];
     self.loc = loc;
     //进入这个区域
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 10000, 10000);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1200000, 1200000);
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = loc;
     [self.mapView setRegion:region animated:YES];

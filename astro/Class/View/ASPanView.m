@@ -109,6 +109,7 @@
         ZiWeiMod *panModel = (ZiWeiMod *)chart1;
         NSMutableDictionary *gongs = [NSMutableDictionary dictionary];
         NSArray *arr = @[@(panModel.Ming), @((panModel.Ming + 6)%12), @((panModel.Ming + 4)%12), @((panModel.Ming + 10)%12)];
+        [self.pan1 removeAllSubViews];
         for(int i = 0; i < 4; i++){
             NSInteger index = [[arr objectAtIndex:i] intValue];
             ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:panModel index:index lx:NO];

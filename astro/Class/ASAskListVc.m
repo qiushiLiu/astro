@@ -11,7 +11,9 @@
 #import "ASAskTableViewCell.h"
 #import "ASNav.h"
 #import "ASCustomerShow.h"
+#import "ASQaMinAstro.h"
 #import "ASQaMinBazi.h"
+#import "ASQaMinZiWei.h"
 //#import "ASQaMinZiWei.h"
 //#import "ASQaMinAstro.h"
 
@@ -177,13 +179,32 @@
 - (void)loadMore{
     self.pageNo++;
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListForBazi" params:@{@"cate" : self.cate,
-                                                         @"pagesize" : @"10",
-                                                         @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
+    NSString *requestURL = nil;
+    if([ASGlobal shared].fateType == 1){
+        requestURL = @"qa/GetQuestionListForAstro";
+    }else if([ASGlobal shared].fateType == 2){
+        requestURL = @"qa/GetQuestionListForZiWei";
+    }else{
+        requestURL = @"qa/GetQuestionListForBazi";
+    }
+    
+    [HttpUtil load:requestURL params:@{@"cate" : self.cate,
+                                       @"pagesize" : @"10",
+                                       @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 [self hideWaiting];
-                [self.list addObjectsFromArray:[ASQaMinBazi arrayOfModelsFromDictionaries:json[@"list"]]];
+                NSArray *arr = nil;
+                NSError *error;
+                if([ASGlobal shared].fateType == 1){
+                    arr = [ASQaMinAstro arrayOfModelsFromDictionaries:json[@"list"] error:&error];
+                }else if([ASGlobal shared].fateType == 2){
+                    arr = [ASQaMinZiWei arrayOfModelsFromDictionaries:json[@"list"] error:&error];
+                }else{
+                    arr = [ASQaMinBazi arrayOfModelsFromDictionaries:json[@"list"] error:&error];
+                }
+                NSAssert(error == nil, @"%@", error);
+                [self.list addObjectsFromArray:arr];
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
             }else{
@@ -202,9 +223,14 @@
     ASAskTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
     if(!cell){
         cell = [[ASAskTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    ASQaMinBazi *qa = [self.list objectAtIndex:indexPath.row];
-    [cell setModelValue:qa nickName:qa.CustomerNickName];
+    id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
+    NSString *nickName = nil;
+    if([qa respondsToSelector:@selector(CustomerNickName)]){
+        nickName = [qa CustomerNickName];
+    }
+    [cell setModelValue:qa nickName:nickName];
     return cell;
 }
 

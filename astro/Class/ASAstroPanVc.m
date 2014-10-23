@@ -119,7 +119,7 @@
     [btn addTarget:self action:@selector(btnClick_favorite:) forControlEvents:UIControlEventTouchUpInside];
     [self.scPanView addSubview:btn];
     
-    btn = [ASControls newOrangeButton:CGRectMake(0, top, 90, 28) title:@"提问"];
+    btn = [ASControls newOrangeButton:CGRectMake(0, top, 90, 28) title:@"求解"];
     btn.right = self.lbP2Info.right - 5;
     [btn addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
     [self.scPanView addSubview:btn];
@@ -137,7 +137,11 @@
     [HttpUtil post:@"input/TimeToAstro" params:nil body:[self.astro toJSONString] completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
-            self.astro = [[AstroMod alloc] initWithDictionary:json error:NULL];
+            NSError *error;
+            self.astro = [[AstroMod alloc] initWithDictionary:json error:&error];
+            
+            NSAssert(error == nil, @"%@", error);
+            
             [self.gongInfo removeAllObjects];
             [self.starsInfo removeAllObjects];
             
@@ -147,7 +151,7 @@
             if([self.astro isZuhepan]){
                 self.gongInfo[1] = [NSMutableArray array];
                 self.starsInfo[1] = [NSMutableArray array];
-                [self.astro fecthStarsInfo:self.starsInfo[1] gongInfo:self.gongInfo[1] tag:0];
+                [self.astro fecthStarsInfo:self.starsInfo[1] gongInfo:self.gongInfo[1] tag:1];
             }
             
             self.pan.image = [self.astro paipan];
@@ -160,9 +164,9 @@
             self.lbTuiyun.size = [tuiText sizeWithFont:self.lbTuiyun.font constrainedToSize:CGSizeMake(160, CGFLOAT_MAX) lineBreakMode:self.lbTuiyun.lineBreakMode];
             self.lbTuiyun.top = self.page.top + 3;
             self.lbTuiyun.right = self.contentView.width- 5;
-            self.lbP1Info.text = [self textForDayLight:self.astro.IsDaylight gender:self.astro.Gender birth:self.astro.birth lon:self.astro.position.longitude lat:self.astro.position.latitude];
+            self.lbP1Info.text = [self textForDayLight:self.astro.IsDaylight quan:[self.astro isZuhepan] ? 1 : 0 gender:self.astro.Gender birth:self.astro.birth lon:self.astro.position.longitude lat:self.astro.position.latitude];
             if(self.astro.type == 2){
-                self.lbP2Info.text = [self textForDayLight:self.astro.IsDaylight1 gender:self.astro.Gender1 birth:self.astro.birth1 lon:self.astro.position1.longitude lat:self.astro.position1.latitude];
+                self.lbP2Info.text = [self textForDayLight:self.astro.IsDaylight1 quan:[self.astro isZuhepan] ? 2 : 0 gender:self.astro.Gender1 birth:self.astro.birth1 lon:self.astro.position1.longitude lat:self.astro.position1.latitude];
                 self.lbP2Info.hidden = NO;
             }else{
                 self.lbP2Info.hidden = YES;
@@ -175,10 +179,15 @@
     }];
 }
 
-- (NSString *)textForDayLight:(NSInteger)dayLight gender:(NSInteger)gender birth:(NSDate *)birth lon:(CGFloat)lon lat:(CGFloat)lat{
+- (NSString *)textForDayLight:(NSInteger)dayLight quan:(NSInteger)quan gender:(NSInteger)gender birth:(NSDate *)birth lon:(CGFloat)lon lat:(CGFloat)lat{
     NSMutableString *ret = [NSMutableString string];
     if(dayLight){
         [ret appendString:@"夏令时  "];
+    }
+    if(quan == 1){
+        [ret appendString:@"外圈 "];
+    }else if(quan == 2){
+        [ret appendString:@"内圈 "];
     }
     if(gender == 1){
         [ret appendString:@"男"];
@@ -270,7 +279,7 @@
     if(tableView == self.tbStarInfo){
         return 30;
     }else{
-        if(self.astro){
+        if( indexPath.section < [self.gongInfo count]){
             NSArray *arr = self.gongInfo[indexPath.section];
             AstroShowInfo *item = arr[indexPath.row];
             CGFloat height = [item.info sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(90, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
@@ -315,21 +324,25 @@
         UILabel *lbAngle = (UILabel *)[cell.contentView viewWithTag:101];
         UILabel *lbStars = (UILabel *)[cell.contentView viewWithTag:102];
         if(tableView == self.tbStarInfo){
-            NSArray *arr = self.starsInfo[indexPath.section];
-            AstroShowInfo *item = arr[indexPath.row];
-            lbGong.text = item.name;
-            lbAngle.text = item.angle;
-            lbStars.text = item.info;
-            lbStars.textAlignment = NSTextAlignmentCenter;
+            if( indexPath.section < [self.starsInfo count]){
+                NSArray *arr = self.starsInfo[indexPath.section];
+                AstroShowInfo *item = arr[indexPath.row];
+                lbGong.text = item.name;
+                lbAngle.text = item.angle;
+                lbStars.text = item.info;
+                lbStars.textAlignment = NSTextAlignmentCenter;
+            }
         }else if(tableView == self.tbGongInfo){
-            NSArray *arr = self.gongInfo[indexPath.section];
-            AstroShowInfo *item = arr[indexPath.row];
-            lbGong.text = item.name;
-            lbAngle.text = item.angle;
-            lbStars.text = item.info;
-            lbStars.textAlignment = NSTextAlignmentLeft;
-            CGFloat height = [lbStars.text sizeWithFont:lbStars.font constrainedToSize:CGSizeMake(lbStars.width, CGFLOAT_MAX) lineBreakMode:lbStars.lineBreakMode].height;
-            lbStars.height = MAX(30, height);
+            if( indexPath.section < [self.gongInfo count]){
+                NSArray *arr = self.gongInfo[indexPath.section];
+                AstroShowInfo *item = arr[indexPath.row];
+                lbGong.text = item.name;
+                lbAngle.text = item.angle;
+                lbStars.text = item.info;
+                lbStars.textAlignment = NSTextAlignmentLeft;
+                CGFloat height = [lbStars.text sizeWithFont:lbStars.font constrainedToSize:CGSizeMake(lbStars.width, CGFLOAT_MAX) lineBreakMode:lbStars.lineBreakMode].height;
+                lbStars.height = MAX(30, height);
+            }
         }
     }
     return cell;

@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) ASCustomer *user;
 @property (nonatomic, strong) NSString *deviceNumber;
+@property (nonatomic, readonly) NSInteger fateType;
 + (ASGlobal *)shared;
 + (void)login:(ASCustomer *)user;
 + (BOOL)isLogined;

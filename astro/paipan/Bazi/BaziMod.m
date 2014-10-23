@@ -459,13 +459,13 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     } else{
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"坤造:\t  " attributes:blueAttributes]];
     }
-    NSString *str = [NSString stringWithFormat:@"%@\t%@\t%@\t%@", GetTianGan(self.YearTG), GetTianGan(self.MonthTG), GetTianGan(self.DayTG), GetTianGan(self.HourTG)];
+    NSString *str = [NSString stringWithFormat:@"%@   %@   %@   %@", GetTianGan(self.YearTG), GetTianGan(self.MonthTG), GetTianGan(self.DayTG), GetTianGan(self.HourTG)];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:blueAttributes]];
-    NSMutableAttributedString *temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t(%@%@空)", GetDiZhi(self.XunKong0), GetDiZhi(self.XunKong1)] attributes:blueAttributes];
+    NSMutableAttributedString *temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"   (%@%@空)", GetDiZhi(self.XunKong0), GetDiZhi(self.XunKong1)] attributes:blueAttributes];
     [ret appendAttributedString:temp];
     
     // line12
-    str = [NSString stringWithFormat:@"\n\t  %@\t%@\t%@\t%@\n", GetDiZhi(self.YearDZ), GetDiZhi(self.MonthDZ), GetDiZhi(self.DayDZ), GetDiZhi(self.HourDZ)];
+    str = [NSString stringWithFormat:@"\n\t  %@   %@   %@   %@\n", GetDiZhi(self.YearDZ), GetDiZhi(self.MonthDZ), GetDiZhi(self.DayDZ), GetDiZhi(self.HourDZ)];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:blueAttributes]];
     
     [ret drawAtPoint:CGPointMake(0, 4)];

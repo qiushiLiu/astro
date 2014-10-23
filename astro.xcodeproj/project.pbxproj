@@ -40,12 +40,13 @@
 		1B1D5F1D1941F3AD00D23025 /* ASCustomerShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F1C1941F3AD00D23025 /* ASCustomerShow.m */; };
 		1B1D5F321942BD1F00D23025 /* ASQaMinBazi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F2E1942BD1F00D23025 /* ASQaMinBazi.m */; };
 		1B1D5F361942C2AC00D23025 /* ASQaFullBazi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F351942C2AC00D23025 /* ASQaFullBazi.m */; };
-		1B1D5F421942C9BC00D23025 /* ASQaMinAstro.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F411942C9BC00D23025 /* ASQaMinAstro.m */; };
 		1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F441942CC4400D23025 /* ASQaAnswer.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
 		1B29B4B4196B8C6B00EC73C6 /* ASPostQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B4B3196B8C6B00EC73C6 /* ASPostQuestion.m */; };
 		1B29B4B7196B9C2100EC73C6 /* ASFateChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B4B6196B9C2100EC73C6 /* ASFateChart.m */; };
+		1B2DA3E319F935E200E9C03D /* ASQaMinAstro.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DA3E219F935E200E9C03D /* ASQaMinAstro.m */; };
+		1B2DA3E619F9363200E9C03D /* ASQaMinZiWei.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2DA3E519F9363200E9C03D /* ASQaMinZiWei.m */; };
 		1B318E73196646AF003C157C /* ASFillPersonVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B318E72196646AF003C157C /* ASFillPersonVc.m */; };
 		1B318E7A1966A4DE003C157C /* ASWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B318E791966A4DE003C157C /* ASWaitingView.m */; };
 		1B318E7D1966A4EC003C157C /* ZJSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B318E7C1966A4EC003C157C /* ZJSwitch.m */; };
@@ -55,6 +56,7 @@
 		1B3DBE0819888B1600C1F3D2 /* ASAstroPanFillInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DBE0719888B1600C1F3D2 /* ASAstroPanFillInfoVc.m */; };
 		1B3DBE0E198B2B1900C1F3D2 /* ASQuestionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DBE0D198B2B1900C1F3D2 /* ASQuestionButton.m */; };
 		1B3FC8D919EE5A35002B49D4 /* ASAskDetailCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3FC8D819EE5A35002B49D4 /* ASAskDetailCellView.m */; };
+		1B3FC8DC19EE6DBC002B49D4 /* ASPostReplyVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3FC8DB19EE6DBC002B49D4 /* ASPostReplyVc.m */; };
 		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
 		1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
@@ -201,8 +203,6 @@
 		1B1D5F2E1942BD1F00D23025 /* ASQaMinBazi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinBazi.m; sourceTree = "<group>"; };
 		1B1D5F341942C2AC00D23025 /* ASQaFullBazi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaFullBazi.h; sourceTree = "<group>"; };
 		1B1D5F351942C2AC00D23025 /* ASQaFullBazi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaFullBazi.m; sourceTree = "<group>"; };
-		1B1D5F401942C9BC00D23025 /* ASQaMinAstro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinAstro.h; sourceTree = "<group>"; };
-		1B1D5F411942C9BC00D23025 /* ASQaMinAstro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinAstro.m; sourceTree = "<group>"; };
 		1B1D5F431942CC4400D23025 /* ASQaAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaAnswer.h; sourceTree = "<group>"; };
 		1B1D5F441942CC4400D23025 /* ASQaAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaAnswer.m; sourceTree = "<group>"; };
 		1B1F7D0518B2E48A00186229 /* ASLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoadMoreView.h; sourceTree = "<group>"; };
@@ -213,6 +213,10 @@
 		1B29B4B3196B8C6B00EC73C6 /* ASPostQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPostQuestion.m; sourceTree = "<group>"; };
 		1B29B4B5196B9C2100EC73C6 /* ASFateChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFateChart.h; sourceTree = "<group>"; };
 		1B29B4B6196B9C2100EC73C6 /* ASFateChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFateChart.m; sourceTree = "<group>"; };
+		1B2DA3E119F935E200E9C03D /* ASQaMinAstro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinAstro.h; sourceTree = "<group>"; };
+		1B2DA3E219F935E200E9C03D /* ASQaMinAstro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinAstro.m; sourceTree = "<group>"; };
+		1B2DA3E419F9363200E9C03D /* ASQaMinZiWei.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaMinZiWei.h; sourceTree = "<group>"; };
+		1B2DA3E519F9363200E9C03D /* ASQaMinZiWei.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaMinZiWei.m; sourceTree = "<group>"; };
 		1B318E71196646AF003C157C /* ASFillPersonVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFillPersonVc.h; sourceTree = "<group>"; };
 		1B318E72196646AF003C157C /* ASFillPersonVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFillPersonVc.m; sourceTree = "<group>"; };
 		1B318E781966A4DE003C157C /* ASWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASWaitingView.h; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 		1B3DBE0D198B2B1900C1F3D2 /* ASQuestionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQuestionButton.m; sourceTree = "<group>"; };
 		1B3FC8D719EE5A35002B49D4 /* ASAskDetailCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailCellView.h; sourceTree = "<group>"; };
 		1B3FC8D819EE5A35002B49D4 /* ASAskDetailCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailCellView.m; sourceTree = "<group>"; };
+		1B3FC8DA19EE6DBC002B49D4 /* ASPostReplyVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPostReplyVc.h; sourceTree = "<group>"; };
+		1B3FC8DB19EE6DBC002B49D4 /* ASPostReplyVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPostReplyVc.m; sourceTree = "<group>"; };
 		1B40FF1718FFABE50022B87B /* ASPageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPageInfo.h; sourceTree = "<group>"; };
 		1B40FF1818FFABE50022B87B /* ASPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPageInfo.m; sourceTree = "<group>"; };
 		1B442C3E1925D70E008350BD /* ASAskDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailHeaderView.h; sourceTree = "<group>"; };
@@ -621,6 +627,8 @@
 				1B004D7F19737B8E0018D14E /* ASPoiMapVc.m */,
 				1B19A27C195BBBC700831568 /* ASPostQuestionVc.h */,
 				1B19A27D195BBBC700831568 /* ASPostQuestionVc.m */,
+				1B3FC8DA19EE6DBC002B49D4 /* ASPostReplyVc.h */,
+				1B3FC8DB19EE6DBC002B49D4 /* ASPostReplyVc.m */,
 				1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */,
 				1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */,
 				1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */,
@@ -658,8 +666,12 @@
 				1B1D5F191941F22100D23025 /* ASCustomer.m */,
 				1B1D5F1B1941F3AD00D23025 /* ASCustomerShow.h */,
 				1B1D5F1C1941F3AD00D23025 /* ASCustomerShow.m */,
+				1B29B4B5196B9C2100EC73C6 /* ASFateChart.h */,
+				1B29B4B6196B9C2100EC73C6 /* ASFateChart.m */,
 				1B40FF1718FFABE50022B87B /* ASPageInfo.h */,
 				1B40FF1818FFABE50022B87B /* ASPageInfo.m */,
+				1B64BA11199C56260018C43A /* ASPerson.h */,
+				1B64BA12199C56260018C43A /* ASPerson.m */,
 				1B29B4B2196B8C6B00EC73C6 /* ASPostQuestion.h */,
 				1B29B4B3196B8C6B00EC73C6 /* ASPostQuestion.m */,
 				1B1D5F431942CC4400D23025 /* ASQaAnswer.h */,
@@ -668,15 +680,13 @@
 				1BECAC20194711AD005C330B /* ASQaComment.m */,
 				1B1D5F341942C2AC00D23025 /* ASQaFullBazi.h */,
 				1B1D5F351942C2AC00D23025 /* ASQaFullBazi.m */,
-				1B1D5F401942C9BC00D23025 /* ASQaMinAstro.h */,
-				1B1D5F411942C9BC00D23025 /* ASQaMinAstro.m */,
+				1B2DA3E119F935E200E9C03D /* ASQaMinAstro.h */,
+				1B2DA3E219F935E200E9C03D /* ASQaMinAstro.m */,
 				1B1D5F2D1942BD1F00D23025 /* ASQaMinBazi.h */,
 				1B1D5F2E1942BD1F00D23025 /* ASQaMinBazi.m */,
+				1B2DA3E419F9363200E9C03D /* ASQaMinZiWei.h */,
+				1B2DA3E519F9363200E9C03D /* ASQaMinZiWei.m */,
 				1B1D5F2A1942BC7D00D23025 /* ASQaProtocol.h */,
-				1B29B4B5196B9C2100EC73C6 /* ASFateChart.h */,
-				1B29B4B6196B9C2100EC73C6 /* ASFateChart.m */,
-				1B64BA11199C56260018C43A /* ASPerson.h */,
-				1B64BA12199C56260018C43A /* ASPerson.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -957,9 +967,11 @@
 				1B012B3B185DCB4B0046AD7A /* ASAppDelegate.m in Sources */,
 				1B19A281195D126400831568 /* ASFillQuestionVc.m in Sources */,
 				1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */,
+				1B2DA3E319F935E200E9C03D /* ASQaMinAstro.m in Sources */,
 				1BC823CC193DF1A3001CF44E /* ASIDownloadCache.m in Sources */,
 				1BC823CE193DF1A4001CF44E /* ASIHTTPRequest.m in Sources */,
 				1B1D5F321942BD1F00D23025 /* ASQaMinBazi.m in Sources */,
+				1B3FC8DC19EE6DBC002B49D4 /* ASPostReplyVc.m in Sources */,
 				1BC823CD193DF1A3001CF44E /* ASIFormDataRequest.m in Sources */,
 				1B004D8019737B8E0018D14E /* ASPoiMapVc.m in Sources */,
 				1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */,
@@ -986,10 +998,10 @@
 				1B7CAEFA18F6489C005B8C30 /* JSONModelArray.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
 				1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */,
+				1B2DA3E619F9363200E9C03D /* ASQaMinZiWei.m in Sources */,
 				1B6CF44418C88216005F1A70 /* ASAstroPanVc.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
 				1B29B4B4196B8C6B00EC73C6 /* ASPostQuestion.m in Sources */,
-				1B1D5F421942C9BC00D23025 /* ASQaMinAstro.m in Sources */,
 				1BC74CF418D1636B00FD9C34 /* BaziMod.m in Sources */,
 				1B7CAEFE18F6489C005B8C30 /* JSONAPI.m in Sources */,
 				1B29B4B7196B9C2100EC73C6 /* ASFateChart.m in Sources */,
@@ -1172,6 +1184,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "astro/astro-Prefix.pch";
@@ -1181,6 +1194,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -1194,6 +1208,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "astro/astro-Prefix.pch";
@@ -1203,6 +1218,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

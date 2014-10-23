@@ -24,7 +24,7 @@ CGFloat R2D(CGFloat radians) {return radians * 180.0/M_PI;};
 
 static NSString *startPermitKey = @"starsPermit";
 static NSString *anglePermitKey = @"anglePermit";
-static CGFloat kSpace = 10.0;
+static CGFloat kSpace = 8.0;
 
 + (NSInteger)getStarsPermit{
     ASCacheObject *obj = [[ASCache shared] readDicFiledsWithDir:NSStringFromClass([self class]) key:startPermitKey];
@@ -92,7 +92,7 @@ static CGFloat kSpace = 10.0;
 }
 
 - (NSString *)panTypeName{
-    NSString *str = nil;
+    NSString *str = @"";
     switch (self.type) {
         case 1:
             str = AstroTypeArray[self.type - 1];
@@ -269,16 +269,22 @@ static CGFloat kSpace = 10.0;
     }
     
     NSMutableArray *st0 = nil, *st1 = nil;
-    if([self.Stars count] > 0){
-        st0 = [self drawAstroStars:ctx stars:self.Stars radius:r5 relatedRadius:r5];
+    if([self isZuhepan]){
+        st0 = [self drawAstroStars:ctx stars:self.Stars radius:r4 relatedRadius:r5];
+        st1 = st0;
+    }else{
+        st0 = [self drawAstroStars:ctx stars:self.Stars radius:r4 relatedRadius:r4];
         st1 = st0;
     }
     
     if([self.Stars1 count] > 0){
-        st1 = [self drawAstroStars:ctx stars:self.Stars1 radius:r4 relatedRadius:r5];
+        st1 = [self drawAstroStars:ctx stars:self.Stars1 radius:r5 relatedRadius:r5];
     }
-    
-    [self drawRelated:ctx stars:st0 with:st1 radius:r5];
+    if([self isZuhepan]){
+        [self drawRelated:ctx stars:st0 with:st1 radius:r5];
+    }else{
+        [self drawRelated:ctx stars:st0 with:st1 radius:r4];
+    }
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

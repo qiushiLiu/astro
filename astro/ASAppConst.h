@@ -20,8 +20,9 @@ typedef NS_ENUM(NSInteger, NSAlertViewTag) {		/* UIAlertView 的类型 */
 #define BMAP_KEY @"pdzQZt6WGKTmABSGlqiMvN6d"
 
 //通知
-#define Notification_Question_NeedUpdate    @"Notification_Question_NeedUpdate"//刷新帖子列表通知
-#define Notification_LoginUser              @"Notification_LoginUser"//刷新帖子列表通知
+#define Notification_Question_NeedUpdate    @"Notification_Question_NeedUpdate" //刷新帖子列表通知
+#define Notification_LoginUser              @"Notification_LoginUser"           //刷新帖子列表通知
+
 
 extern NSString * const kAppVersion;
 extern NSString * const kAppChannel;

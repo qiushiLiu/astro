@@ -196,8 +196,8 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    self.person.Daylight = self.swDaylight.on;
-    self.person.Gender = self.swDaylight.on;
+    self.person.Daylight = self.swDaylight.on ? 1 : 0;
+    self.person.Gender = self.swGender.on ? 1 : 0;
     if([self.delegate respondsToSelector:@selector(ASFillPerson:trigger:)]){
         [self.delegate ASFillPerson:self.person trigger:self.trigger];
     }
@@ -223,5 +223,6 @@
     }
     [self reloadData];
 }
+
 
 @end

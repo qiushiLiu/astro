@@ -1,13 +1,13 @@
 //
-//  ASQaMinAstro.m
+//  ASQaMinZiWei.m
 //  astro
 //
 //  Created by kjubo on 14/10/23.
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASQaMinAstro.h"
+#import "ASQaMinZiWei.h"
 
-@implementation ASQaMinAstro
+@implementation ASQaMinZiWei
 
 @end

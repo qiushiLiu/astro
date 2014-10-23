@@ -9,24 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "ASCustomerShow.h"
 
-@protocol ASQaBaseProtocol <NSObject>
+@protocol ASQaProtocol <NSObject>
 @required
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic, strong) NSString *Title;
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic, strong) NSDate *TS;
-@end
 
-@protocol ASQaProtocol <ASQaBaseProtocol>
-@required
+@optional
 @property (nonatomic) NSInteger ReplyCount;
 @property (nonatomic) NSInteger ReadCount;
 @property (nonatomic, strong) NSArray *Chart;
-@end
+@property (nonatomic) BOOL IsEnd;
 
-@protocol ASCustomerShowProtocol <NSObject>
-@required
+@optional
+@property (nonatomic, strong) NSString *CustomerNickName;
+
+@optional
 @property (nonatomic, strong) ASCustomerShow *Customer;
 @end
 

@@ -59,7 +59,6 @@
 
 - (BOOL)isZuhepan;
 - (void)fecthStarsInfo:(NSMutableArray *)stars gongInfo:(NSMutableArray *)gongs tag:(NSInteger)tag;
-- (NSMutableArray *)gongs;
 - (UIImage *)paipan;
 - (NSString *)panTypeName;
 + (CGPoint)pointByRadius:(CGFloat)radius andDegree:(CGFloat)degree;

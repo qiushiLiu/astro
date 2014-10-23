@@ -45,6 +45,14 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
     return self;
 }
 
+- (NSInteger)fateType{
+    if(self.user){
+        return [self.user FateType];
+    }else{
+        return 1;
+    }
+}
+
 //从缓存中读取并设置登录信息
 - (void)loadCachedUser{
     ASCacheObject *cf = [[ASCache shared] readDicFiledsWithDir:kCacheDir key:kCacheKeyForUserInfo];

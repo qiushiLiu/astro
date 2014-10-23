@@ -1,5 +1,5 @@
 //
-//  ASQaMinAstro.h
+//  ASQaMinZiWei.h
 //  astro
 //
 //  Created by kjubo on 14/10/23.
@@ -7,12 +7,10 @@
 //
 
 #import "JSONModel.h"
+#import "ZiWeiMod.h"
 #import "ASQaProtocol.h"
-#import "AstroMod.h"
-@protocol ASQaMinAstro
-@end
 
-@interface ASQaMinAstro : JSONModel<ASQaProtocol>
+@interface ASQaMinZiWei : JSONModel <ASQaProtocol>
 @property (nonatomic) NSInteger SysNo;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic) NSInteger CateSysNo;
@@ -26,5 +24,5 @@
 @property (nonatomic) NSInteger ReplyCount;
 @property (nonatomic) NSInteger ReadCount;
 @property (nonatomic, strong) NSDate<NSDate> *TS;
-@property (nonatomic, strong) NSArray<AstroMod> *Chart;
+@property (nonatomic, strong) NSArray<ZiWeiMod> *Chart;
 @end
