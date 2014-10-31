@@ -8,6 +8,7 @@
 
 #import "ASBaseViewController.h"
 #import "ASBaseSingleTableView.h"
-@interface ASAskDetailVc : ASBaseViewController<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, ASBaseSingleTableViewDelegate>
+#import "ASAskDetailCellView.h"
+@interface ASAskDetailVc : ASBaseViewController<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, ASBaseSingleTableViewDelegate, ASAskDetailCellViewDelegate>
 
 @end

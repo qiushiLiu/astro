@@ -99,7 +99,7 @@
                       @"cate" : self.cate}];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-        alert.tag = NSAlertViewConfirm;
+        alert.tag = NSAlertViewNeedLogin;
         [alert show];
     }
 }
@@ -112,7 +112,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == NSAlertViewConfirm
+    if(alertView.tag == NSAlertViewNeedLogin
        && alertView.cancelButtonIndex != buttonIndex){
         UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
         [self presentViewController:nc animated:YES completion:^{
@@ -190,7 +190,7 @@
     
     [HttpUtil load:requestURL params:@{@"cate" : self.cate,
                                        @"pagesize" : @"10",
-                                       @"pageindex" : [NSString stringWithFormat:@"%d", self.pageNo]}
+                                       @"pageindex" : Int2String(self.pageNo)}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
                 [self hideWaiting];
@@ -236,7 +236,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
-    return [ASAskTableViewCell heightFor:qa];
+    return [ASAskTableViewCell heightFor:qa width:280];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

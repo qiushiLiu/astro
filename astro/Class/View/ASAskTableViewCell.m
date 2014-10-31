@@ -72,10 +72,10 @@
     return lb;
 }
 
-+ (CGFloat)heightFor:(id<ASQaProtocol>)model{
-    CGFloat height = 65;
-    height += [model.Title sizeWithFont:[UIFont boldSystemFontOfSize:14] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
-    height += [ASPanView heightForChart:[model Chart] context:model.Context];
++ (CGFloat)heightFor:(id<ASQaProtocol>)model width:(CGFloat)width{
+    CGFloat height = 60;
+    height += [model.Title sizeWithFont:[UIFont boldSystemFontOfSize:14] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height += [ASPanView heightForChart:[model Chart] context:model.Context width:width];
     return height;
 }
 
@@ -92,13 +92,13 @@
     top += 5;
     
     self.ivReply.origin = CGPointMake(self.lbTitle.left, top);
-    self.lbReply.text = [NSString stringWithFormat:@"%d回复", model.ReplyCount];
+    self.lbReply.text = [NSString stringWithFormat:@"%@回复", @(model.ReplyCount)];
     [self.lbReply sizeToFit];
     self.lbReply.left = self.ivReply.right + 2;
     self.lbReply.centerY = self.ivReply.centerY;
     
     self.ivOffer.origin = CGPointMake(self.lbReply.right + 5, top);
-    self.lbOffer.text = [NSString stringWithFormat:@"%d灵签", model.Award];
+    self.lbOffer.text = [NSString stringWithFormat:@"%@灵签", @(model.Award)];
     [self.lbOffer sizeToFit];
     self.lbOffer.left = self.ivOffer.right + 2;
     self.lbOffer.centerY = self.ivOffer.centerY;
@@ -109,13 +109,6 @@
     self.lbFrom.centerY = self.lbReply.centerY;
     
     self.bg.height = self.lbFrom.bottom + 5;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

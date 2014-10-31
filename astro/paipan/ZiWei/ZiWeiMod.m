@@ -39,7 +39,7 @@
     if(false){ //姓名
         [str appendAttributedString:[[NSAttributedString alloc] initWithString:@" " attributes:blAttribute]];
     }
-    NSString *tmp = [NSString stringWithFormat:@"%@%@  虚岁： %d", [__ShuXing objectAtIndex:self.ShuXing], [__Gender objectAtIndex:self.Gender], self.Age];
+    NSString *tmp = [NSString stringWithFormat:@"%@%@  虚岁： %ld", [__ShuXing objectAtIndex:self.ShuXing], [__Gender objectAtIndex:self.Gender], self.Age];
     [str appendAttributedString:[[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute]];
     [str drawAtPoint:CGPointMake(10, top)];
     top += __FontSize.height;

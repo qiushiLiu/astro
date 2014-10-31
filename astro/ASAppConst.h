@@ -14,14 +14,16 @@ typedef NS_ENUM(NSInteger, NSAlertViewTag) {		/* UIAlertView 的类型 */
     NSAlertViewOK,              /* 成功，提示，确认 */
     NSAlertViewError,           /* 错误 */
     NSAlertViewConfirm,         /* 确认 */
+    NSAlertViewNeedLogin,
 };
 
 //百度地图 key
 #define BMAP_KEY @"pdzQZt6WGKTmABSGlqiMvN6d"
 
 //通知
-#define Notification_Question_NeedUpdate    @"Notification_Question_NeedUpdate" //刷新帖子列表通知
-#define Notification_LoginUser              @"Notification_LoginUser"           //刷新帖子列表通知
+#define Notification_Question_NeedUpdate    @"Notification_Question_NeedUpdate"
+#define Notification_Reply_NeedUpdate       @"Notification_Reply_NeedUpdate"
+#define Notification_LoginUser              @"Notification_LoginUser"
 
 
 extern NSString * const kAppVersion;

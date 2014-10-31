@@ -11,8 +11,8 @@
 //苹果经纬度
 @property (nonatomic, readonly) BOOL haveMKGpsTag;
 @property (nonatomic, readonly) CLLocation *loc;
-//地理位置
-@property (nonatomic, strong) CLPlacemark *placemark;
+@property (nonatomic, strong) NSString *placemark;
+//解码器
 @property (nonatomic, strong) CLGeocoder *geocoder;
 + (instancetype)shared;
 - (void)setMKGpsLocation:(CLLocation *)loc;

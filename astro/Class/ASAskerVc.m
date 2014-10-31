@@ -70,7 +70,7 @@
         [self navTo:vcPostQuestion];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-        alert.tag = NSAlertViewConfirm;
+        alert.tag = NSAlertViewNeedLogin;
         [alert show];
     }
 }
@@ -83,7 +83,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == NSAlertViewConfirm
+    if(alertView.tag == NSAlertViewNeedLogin
        && alertView.cancelButtonIndex != buttonIndex){
         UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
         [self presentViewController:nc animated:YES completion:^{
@@ -146,7 +146,7 @@
     ASCategory *cate = [self.catelist objectAtIndex:indexPath.row];
     
     [cell.icon load:cate.Pic cacheDir:self.pageKey];
-    [cell.lbTitle setText:[NSString stringWithFormat:@"%@（%d）", cate.Name, cate.QuestNum]];
+    [cell.lbTitle setText:[NSString stringWithFormat:@"%@（%@）", cate.Name, @(cate.QuestNum)]];
     [cell.lbSummary setText:[NSString stringWithFormat:@"%@", cate.Intro]];
     [cell.lbSummary alignTop];
     return cell;

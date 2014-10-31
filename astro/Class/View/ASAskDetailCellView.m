@@ -88,6 +88,7 @@
         
         self.btnComment = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [self.btnComment setImage:[UIImage imageNamed:@"icon_comment"] forState:UIControlStateNormal];
+        [self.btnComment addTarget:self action:@selector(btnClick_comment:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.btnComment];
         
         self.lbReViewInfo = [self newLabel:CGRectMake(self.faceView.left, 0, 200, 20)];
@@ -130,7 +131,7 @@
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:user.GradeShow
                                                                 attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
     self.lbName.attributedText = str;
-    self.lbFloor.text = [NSString stringWithFormat:@" %d楼 ", floor];
+    self.lbFloor.text = [NSString stringWithFormat:@" %@楼 ", @(floor)];
     [self.lbFloor sizeToFit];
     self.lbFloor.top = self.faceView.top;
     self.lbFloor.right = self.lbDate.right;
@@ -145,10 +146,11 @@
     self.lbDate.text = [[qa TS] toStrFormat:@"yyyy-MM-dd"];
     
     CGFloat top = self.lbPostIntro.bottom + 5;
-    if(floor == 1){
+    if(![qa isKindOfClass:[ASQaAnswer class]]
+       && floor == 1){
         self.ivShangBg.hidden = NO;
         self.ivShangBg.top = top;
-        self.lbShang1.text = [NSString stringWithFormat:@"%d 灵签", [qa Award]];
+        self.lbShang1.text = [NSString stringWithFormat:@"%@ 灵签", @([qa Award])];
         if([qa IsEnd]){
             self.lbShang2.textColor = [UIColor redColor];
             self.lbShang2.text = @"已结束";
@@ -168,7 +170,10 @@
     }
     [self.panView setChart:chart context:[qa Context]];
     
-    if(floor == 1){
+    top = self.panView.bottom + 5;
+    
+    if(![qa isKindOfClass:[ASQaAnswer class]]
+       && floor == 1){
         self.lbReViewInfo.hidden = NO;
         str = [[NSMutableAttributedString alloc] initWithString:@"浏览数 "];
         [str appendAttributedString:[[NSAttributedString alloc] initWithString:Int2String([qa ReadCount])
@@ -222,7 +227,7 @@
             self.btnMore.top = self.tbComment.bottom + 3;
             top = self.btnMore.bottom + 10;
             self.tbComment.height = top;
-            [self.btnMore setTitle:[NSString stringWithFormat:@"更多%d条评论+", self.answer.ToalComment] forState:UIControlStateNormal];
+            [self.btnMore setTitle:[NSString stringWithFormat:@"更多%@条评论+", @(self.answer.ToalComment)] forState:UIControlStateNormal];
         }
     }
     
@@ -230,7 +235,19 @@
 }
 
 - (void)btnClick_delete:(UIButton *)sender{
-    
+    if(self.answer){
+        if([self.delegate respondsToSelector:@selector(detailCellClickDelete:)]){
+            [self.delegate detailCellClickDelete:self.answer];
+        }
+    }
+}
+
+- (void)btnClick_comment:(UIButton *)sender{
+    if(self.answer){
+        if([self.delegate respondsToSelector:@selector(detailCellClickComment:)]){
+            [self.delegate detailCellClickComment:self.answer];
+        }
+    }
 }
 
 #pragma mark - UITableViewDelegate & DataSource
@@ -260,41 +277,50 @@
         fv.tag = 100;
         [cell.contentView addSubview:fv];
         
-        UILabel *lb = [self newLabel:CGRectMake(fv.right + 5, fv.top, 230, 0)];
+        UILabel *lb = [self newLabel:CGRectMake(fv.right + 5, fv.top, 255, 0)];
         lb.tag = 200;
         lb.numberOfLines = 0;
         lb.font = [UIFont systemFontOfSize:12];
         lb.lineBreakMode = NSLineBreakByCharWrapping;
         [cell.contentView addSubview:lb];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(fv.left, 0, lb.right - fv.left, 0.5)];
+        line.tag = 300;
+        line.backgroundColor = [UIColor lightGrayColor];
+        [cell.contentView addSubview:line];
     }
     
     ASUrlImageView *fv = (ASUrlImageView *)[cell.contentView viewWithTag:100];
     UILabel *lb = (UILabel *)[cell.contentView viewWithTag:200];
+    UIView *line = [cell.contentView viewWithTag:300];
     
     if(self.answer){
         ASQaComment *comment = [self.answer.TopComments objectAtIndex:indexPath.row];
         [fv load:comment.Customer.smallPhotoShow cacheDir:NSStringFromClass([ASCustomer class])];
         lb.text = [comment.Context copy];
         lb.height = [lb.text sizeWithFont:lb.font constrainedToSize:CGSizeMake(lb.width, CGFLOAT_MAX) lineBreakMode:lb.lineBreakMode].height;
+        line.top = MAX(lb.bottom , fv.bottom) + 5;
     }
     
     return cell;
 }
 
 + (CGFloat)heightForComment:(ASQaComment *)as{
-    CGFloat height = 10 + [as.Context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(230, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
-    height = MAX(35, height);
-    height += 5;
+    CGFloat height = 12 + [as.Context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(255, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height = MAX(40, height) + 5;
     return height;
 }
 
 + (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa{
-    CGFloat height = 75;
+    if(!qa){
+        return 0;
+    }
+    CGFloat height = 85;
     NSArray *chart = nil;
     if([qa respondsToSelector:@selector(Chart)]){
         chart = [qa Chart];
     }
-    height += [ASPanView heightForChart:chart context:[qa Context]];
+    height += [ASPanView heightForChart:chart context:[qa Context] width:300];
     if([qa isKindOfClass:[ASQaAnswer class]]){
         ASQaAnswer *as = (ASQaAnswer *)qa;
         for(ASQaComment *ct in as.TopComments){

@@ -17,6 +17,7 @@
 @property (nonatomic, strong) ZJSwitch *swGender;   //性别
 @property (nonatomic, strong) ASPickerView *picker; //选择器
 @property (nonatomic, strong) UIButton *btnPoi;     //地址
+@property (nonatomic, strong) UIButton *btnCurrent; //当前位置
 @end
 
 @implementation ASFillPersonVc
@@ -132,6 +133,12 @@
     [self.btnPoi addTarget:self action:@selector(btnClick_poi:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPoi];
     
+    self.btnCurrent = [[UIButton alloc] initWithFrame:CGRectMake(self.btnPoi.right + 10, 0, 28, 28)];
+    self.btnCurrent.centerY = self.btnPoi.centerY;
+    [self.btnCurrent setImage:[UIImage imageNamed:@"icon_dingwei"] forState:UIControlStateNormal];
+    [self.btnCurrent addTarget:self action:@selector(btnClick_getCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.btnCurrent];
+    
     self.picker = [[ASPickerView alloc] initWithParentViewController:self];
     self.picker.delegate = self;
 }
@@ -145,8 +152,9 @@
     self.swDaylight.on = self.person.Daylight > 0;
     self.swGender.on = self.person.Gender > 0;
     [self.btnDate setTitle:[self.person.Birth toStrFormat:@"yyyy-MM-dd"] forState:UIControlStateNormal];
-    [self.btnTime setTitle:[self.person.Birth toStrFormat:@"hh-mm"] forState:UIControlStateNormal];
+    [self.btnTime setTitle:[self.person.Birth toStrFormat:@"hh:mm"] forState:UIControlStateNormal];
     [self.btnTimeZone setTitle:TimeZoneArray[self.person.TimeZone] forState:UIControlStateNormal];
+    [self.btnPoi setTitle:self.person.poiName forState:UIControlStateNormal];
 }
 
 - (UILabel *)newPerfixTextLabel{
@@ -190,9 +198,20 @@
     self.person.Daylight = self.swDaylight.on;
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
-    vc.loc = CLLocationCoordinate2DMake(self.person.latitude, self.person.longitude);
+    vc.loc = [[CLLocation alloc] initWithLatitude:self.person.latitude longitude:self.person.longitude];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
+}
+
+- (void)btnClick_getCurrentLocation:(UIButton *)sender{
+    if([GpsData shared].haveMKGpsTag){
+        self.person.latitude = [GpsData shared].loc.coordinate.latitude;
+        self.person.longitude = [GpsData shared].loc.coordinate.longitude;
+        self.person.poiName = [[GpsData shared].placemark copy];
+        [self reloadData];
+    }else{
+        [self alert:@"获取定位信息错误\n请确保已经在设置->隐私中打开定位功能。"];
+    }
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
@@ -205,10 +224,10 @@
 }
 
 #pragma mark - ASPoiMapDelegate Method
-- (void)asPoiMap:(CLPlacemark *)info{
-    self.person.poiName = [NSString stringWithFormat:@"%@ %@", info.administrativeArea, info.locality];
-    self.person.latitude = info.location.coordinate.latitude;
-    self.person.longitude = info.location.coordinate.longitude;
+- (void)asPoiMap:(CLLocation *)location poiName:(NSString *)poiName{
+    self.person.poiName = poiName;
+    self.person.latitude = location.coordinate.latitude;
+    self.person.longitude = location.coordinate.longitude;
     [self.btnPoi setTitle:self.person.poiName forState:UIControlStateNormal];
 }
 

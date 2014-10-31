@@ -149,6 +149,19 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
     [self start];
+    if([ASGlobal isLogined]){
+        [HttpUtil load:@"Customer/GetUserInfo"
+                params:@{@"uid" : Int2String([ASGlobal shared].user.SysNo)}
+            completion:^(BOOL succ, NSString *message, id json) {
+                if(succ){
+                    NSError *error;
+                    ASCustomer *um = [[ASCustomer alloc] initWithDictionary:json error:&error];
+                    if(!error) {
+                        [ASGlobal login:um];
+                    }
+                }
+            }];
+    }
 }
 
 #pragma mark - GPS Method

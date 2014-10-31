@@ -208,7 +208,7 @@
 #pragma mark - ASPickerView Delegate
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{
     self.model.type = [self.panTypePicker.picker selectedRowInComponent:0] + 1;
-    int subType = [self.panTypePicker.picker selectedRowInComponent:1] + 1;
+    NSInteger subType = [self.panTypePicker.picker selectedRowInComponent:1] + 1;
     switch (self.model.type) {
         case 2:
             self.model.compose = subType;

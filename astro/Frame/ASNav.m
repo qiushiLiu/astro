@@ -16,7 +16,7 @@
 #import "ASAskDetailVc.h"
 
 #import "ASPostQuestionVc.h"
-
+#import "ASCommentVc.h"
 #import "ASShareBindVc.h"
 
 #import "ASPaiPanMainVc.h"
@@ -49,6 +49,7 @@
     [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];
     [_vcDic setObject:[ASAskListVc class] forKey:vcAskList];
     [_vcDic setObject:[ASAskDetailVc class] forKey:vcAskDeltail];
+    [_vcDic setObject:[ASCommentVc class] forKey:vcComment];
     
     [_vcDic setObject:[ASPostQuestionVc class] forKey:vcPostQuestion];
     

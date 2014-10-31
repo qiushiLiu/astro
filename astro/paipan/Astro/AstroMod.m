@@ -53,7 +53,7 @@ static CGFloat kSpace = 8.0;
 
 + (NSString *)getStarsPermitTextInfo{
     NSIndexPath *path = [self getStarsPermitCount];
-    return [NSString stringWithFormat:@"主星:%d颗   小行星:%d颗", path.section, path.row];
+    return [NSString stringWithFormat:@"主星:%@颗   小行星:%@颗", @(path.section), @(path.row)];
 }
 
 + (void)setStarsPermit:(NSInteger)permit{
@@ -127,7 +127,7 @@ static CGFloat kSpace = 8.0;
         AstroStar *st = source[i];
         AstroShowInfo *item = [[AstroShowInfo alloc] init];
         item.name = [NSString stringWithFormat:@"%@宫", __DaXie[i - 19]];
-        item.angle = [NSString stringWithFormat:@"%@%d°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
+        item.angle = [NSString stringWithFormat:@"%@%ld°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
         item.info = @"";
         [gongs addObject:item];
     }
@@ -142,7 +142,7 @@ static CGFloat kSpace = 8.0;
         AstroStar *st = source[i];
         AstroShowInfo *item = [[AstroShowInfo alloc] init];
         item.name = __AstroStar[st.StarName];
-        item.angle = [NSString stringWithFormat:@"%@%d°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
+        item.angle = [NSString stringWithFormat:@"%@%ld°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
         item.info = [NSString stringWithFormat:@"%@宫", __DaXie[st.Gong]];
         [stars addObject:item];
         
@@ -443,7 +443,7 @@ static CGFloat kSpace = 8.0;
     AstroStarHD *star = st[index];
     NSInteger groupIndex = index;
     //向后看
-    for(int i = index + 1; i < st.count; i++){
+    for(NSInteger i = index + 1; i < st.count; i++){
         AstroStarHD *sr = st[i];
         if(sr.FixDegree - star.FixDegree >= kSpace * (i - index)){
             break;
@@ -457,7 +457,7 @@ static CGFloat kSpace = 8.0;
         AstroStarHD *star1 = st[groupIndex];
         CGFloat centerDegree = (star1.FixDegree + star.FixDegree) * 0.5;
         CGFloat center = (index + groupIndex) * 0.5;
-        for(int i = index; i <= groupIndex; i++){
+        for(NSInteger i = index; i <= groupIndex; i++){
             AstroStarHD *sr = st[i];
             sr.FixDegree = centerDegree + (i - center) * kSpace;
         }
@@ -474,7 +474,7 @@ static CGFloat kSpace = 8.0;
         CGPoint center = [[self class] pointByRadius:r andDegree:star.PanDegree];
         [self drawArc:ctx center:center radius:1 color:UIColorFromRGB(0xee1100)];
         CGPoint centerFix = [[self class] pointByRadius:r + 14 andDegree:star.FixDegree];
-        UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%d", star.base.StarName]];
+        UIImage *icon = [UIImage imageNamed:[NSString stringWithFormat:@"icon_star_%@", @(star.base.StarName)]];
         [icon drawInRect:CGRectMake(centerFix.x - sSize.width/2, centerFix.y - sSize.height/2, sSize.width, sSize.height)];
         
         //指向线

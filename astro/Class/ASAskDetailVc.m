@@ -8,8 +8,9 @@
 
 #import "ASAskDetailVc.h"
 #import "ASAskDetailHeaderView.h"
-#import "ASAskDetailCellView.h"
 #import "ASQaFullBazi.h"
+#import "ASQaFullZiWei.h"
+#import "ASQaFullAstro.h"
 #import "ASQaAnswer.h"
 #import "ASPostReplyVc.h"
 #import "ASNav.h"
@@ -24,6 +25,7 @@
 
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
 @property (nonatomic, strong) ASAskDetailHeaderView *headerView;
+@property (nonatomic, weak) ASQaAnswer *selectedAnswer;
 @end
 
 @implementation ASAskDetailVc
@@ -53,6 +55,8 @@
     self.pageNo = 0;
     self.hasMore = YES;
     self.list = [[NSMutableArray alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadQaData) name:Notification_Reply_NeedUpdate object:nil];
 }
 
 - (void)dealloc{
@@ -62,7 +66,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tbList.height = self.contentView.height;
-    if([self.list count] == 0){
+    if(!self.question){
         [self loadQaData];
     }
 }
@@ -74,13 +78,31 @@
 
 - (void)loadQaData{
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionForBaZi" params:@{@"sysno" : Int2String(self.sysNo)}
+    
+    NSString *requestURL = nil;
+    if([ASGlobal shared].fateType == 1){
+        requestURL = @"qa/GetQuestionForAstro";
+    }else if([ASGlobal shared].fateType == 2){
+        requestURL = @"qa/GetQuestionForZiWei";
+    }else{
+        requestURL = @"qa/GetQuestionForBaZi";
+    }
+    
+    [HttpUtil load:requestURL params:@{@"sysno" : Int2String(self.sysNo)}
         completion:^(BOOL succ, NSString *message, id json) {
             if(succ){
-                ASQaFullBazi *model = [[ASQaFullBazi alloc] initWithDictionary:json error:NULL];
-                self.question = model;
+                NSError *error;
+                if([ASGlobal shared].fateType == 1){
+                    self.question = [[ASQaFullAstro alloc] initWithDictionary:json error:NULL];
+                }else if([ASGlobal shared].fateType == 2){
+                    self.question = [[ASQaFullZiWei alloc] initWithDictionary:json error:NULL];
+                }else{
+                    self.question = [[ASQaFullBazi alloc] initWithDictionary:json error:NULL];
+                }
+                NSAssert(error == nil, @"%@", error);
                 [self.headerView setQuestion:self.question];
                 self.tbList.tableHeaderView = self.headerView;
+                self.pageNo = 0;
                 [self loadMore];
             }else{
                 [self hideWaiting];
@@ -109,11 +131,26 @@
 }
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == NSAlertViewConfirm){
+    if(alertView.tag == NSAlertViewNeedLogin){
         if(alertView.cancelButtonIndex != buttonIndex){
             UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
             [self presentViewController:nc animated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
+            }];
+        }
+    }else if(alertView.tag == NSAlertViewConfirm){
+        if(alertView.cancelButtonIndex != buttonIndex){
+            [self showWaiting];
+            [HttpUtil load:@"qa/RemoveAnswer"
+                    params:@{@"AnswerSysNo" : Int2String(self.selectedAnswer.SysNo)}
+                completion:^(BOOL succ, NSString *message, id json) {
+                    [self hideWaiting];
+                    if(succ){
+                        [self.list removeObject:self.selectedAnswer];
+                        [self.tbList reloadData];
+                    }else{
+                        [self alert:message];
+                    }
             }];
         }
     }
@@ -146,6 +183,7 @@
         [cell.contentView addSubview:vline];
         
         ASAskDetailCellView *cv = [[ASAskDetailCellView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 1)];
+        cv.delegate = self;
         cv.tag = 200;
         [cell.contentView addSubview:cv];
     }
@@ -177,6 +215,37 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row > 0){
+        ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
+        [self navToCommentVc:answer becomeEdit:NO];
+    }
+}
+
+#pragma mark - ASAskDetailCellViewDelegate
+- (void)detailCellClickComment:(ASQaAnswer *)answer{
+    [self navToCommentVc:answer becomeEdit:YES];
+}
+
+- (void)detailCellClickDelete:(ASQaAnswer *)answer{
+    self.selectedAnswer = answer;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"是否要删除您的回复" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.tag = NSAlertViewConfirm;
+    [alert show];
+}
+
+
+#pragma mark -
+- (void)navToCommentVc:(ASQaAnswer *)answer becomeEdit:(BOOL)become{
+    NSString *jsonStr = [answer toJSONString];
+    ASQaAnswer *newAs = [[ASQaAnswer alloc] initWithString:jsonStr error:nil];
+    [newAs.TopComments removeAllObjects];
+    [self navTo:vcComment params:@{@"answer" : newAs,
+                                   @"title" : self.title,
+                                   @"becomeEdit" : become ? @"1" : @"0",
+                                   }];
+}
+
 - (void)reply{
     if([ASGlobal isLogined]){
         ASPostReplyVc *vc = [[ASPostReplyVc alloc] init];
@@ -185,7 +254,7 @@
         [self presentViewController:nc animated:YES completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-        alert.tag = NSAlertViewConfirm;
+        alert.tag = NSAlertViewNeedLogin;
         [alert show];
     }
 }

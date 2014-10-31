@@ -40,7 +40,21 @@
         self.mkGpsDate = [NSDate date];
         
         [self.geocoder reverseGeocodeLocation:loc completionHandler:^(NSArray *placemarks, NSError *error) {
-            self.placemark = placemarks[0];
+            CLPlacemark *placemark = [placemarks firstObject];
+            if(!placemark){
+                return;
+            }
+            NSMutableString *str = [NSMutableString string];
+            if([placemark.administrativeArea length] > 0){
+                [str appendString:placemark.administrativeArea];
+            }
+            if([placemark.locality length] > 0){
+                if([str length] > 0){
+                    [str appendFormat:@" "];
+                }
+                [str appendString:placemark.locality];
+            }
+            self.placemark = str;
         }];
     });
 }

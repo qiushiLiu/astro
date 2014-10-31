@@ -394,14 +394,14 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\t " attributes:prefixAttributes]];
     for(int i = 0; i < 8; i++){
         BaziDayun *dy = [self.Dayun objectAtIndex:i];
-        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d岁\t", dy.Begin - self.BirthTime.Date.year] attributes:textAttributes]];
+        [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@岁\t", @(dy.Begin - self.BirthTime.Date.year)] attributes:textAttributes]];
     }
 
     if(true){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n始于:\t" attributes:prefixAttributes]];
         for(int i = 0; i < 8; i++){
             BaziDayun *dy = [self.Dayun objectAtIndex:i];
-            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\t", dy.Begin] attributes:blueAttributes]];
+            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", @(dy.Begin)] attributes:blueAttributes]];
         }
         
         //流年
@@ -429,7 +429,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"止于:\t" attributes:prefixAttributes]];
         for(int i = 0; i < 8; i++){
             BaziDayun *dy = [self.Dayun objectAtIndex:i];
-            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d\t", dy.End] attributes:blueAttributes]];
+            [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", @(dy.End)] attributes:blueAttributes]];
         }
     }
     
@@ -496,7 +496,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     NSInteger day = time / D_DAY;
     NSInteger hour = (time % D_DAY)/D_HOUR;
     NSInteger min = (time % D_DAY % D_HOUR)/D_MINUTE;
-    return [NSString stringWithFormat:@"%4d天%2d小时%2d分钟", day, hour, min];
+    return [NSString stringWithFormat:@"%4ld天%2ld小时%2ld分钟", day, hour, min];
 }
 
 - (NSString *)getNayin:(NSInteger)tag{

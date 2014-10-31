@@ -10,11 +10,10 @@
 
 @protocol ASPoiMapVcDelegate <NSObject>
 @optional
-- (void)asPoiMap:(CLPlacemark *)mark;
+- (void)asPoiMap:(CLLocation *)location poiName:(NSString *)poiName;
 @end
 
 @interface ASPoiMapVc : ASBaseViewController<MKMapViewDelegate, UISearchBarDelegate>
 @property (nonatomic, assign) id<ASPoiMapVcDelegate> delegate;
-@property (nonatomic) CLLocationCoordinate2D loc;
-@property (nonatomic, strong) NSString *poiName;
+@property (nonatomic, strong) CLLocation *loc;
 @end

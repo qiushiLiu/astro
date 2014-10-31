@@ -92,7 +92,7 @@
 - (void)btnClick_poi:(UIButton *)sender{
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
-    vc.loc = CLLocationCoordinate2DMake(self.astro.transitPosition.latitude, self.astro.transitPosition.longitude);
+    vc.loc = [[CLLocation alloc] initWithLatitude:self.astro.transitPosition.latitude longitude:self.astro.transitPosition.longitude];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }
@@ -125,10 +125,10 @@
 }
 
 #pragma mark - ASPoiDelegate
-- (void)asPoiMap:(CLPlacemark *)mark{
-    self.astro.transitPosition.name = [NSString stringWithFormat:@"%@ %@", mark.administrativeArea, mark.locality];;
-    self.astro.transitPosition.latitude = mark.location.coordinate.latitude;
-    self.astro.transitPosition.longitude = mark.location.coordinate.longitude;
+- (void)asPoiMap:(CLLocation *)location poiName:(NSString *)poiName{
+    self.astro.transitPosition.name = poiName;
+    self.astro.transitPosition.latitude = location.coordinate.latitude;
+    self.astro.transitPosition.longitude = location.coordinate.longitude;
     [self reloadData];
 }
 

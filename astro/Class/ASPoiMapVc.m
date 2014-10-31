@@ -11,7 +11,7 @@
 @interface ASPoiMapVc ()
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UISearchBar *searchPoi;
-@property (nonatomic, strong) CLPlacemark *placemark;
+@property (nonatomic, strong) NSString *poiName;
 @end
 
 @implementation ASPoiMapVc
@@ -40,26 +40,17 @@
     self.searchPoi.delegate = self;
     self.searchPoi.alpha = 0.9;
     [self.contentView addSubview:self.searchPoi];
-    
-    if([GpsData shared].haveMKGpsTag){
-        self.placemark = [[CLPlacemark alloc] initWithPlacemark:[GpsData shared].placemark];
-    }
-//    else{
-//        self.placemark = [[CLLocation alloc] initWithLatitude: 35.2682 longitude:115.474];
-//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.mapView.frame = self.contentView.bounds;
-    if(self.placemark){
-        [self resetAnnotationWithLocation:self.placemark.location.coordinate];
-    }
+    [self resetAnnotationWithLocation:self.loc distance:1200000];
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    if([self.delegate respondsToSelector:@selector(asPoiMap:)]){
-        [self.delegate asPoiMap:self.placemark];
+    if([self.delegate respondsToSelector:@selector(asPoiMap:poiName:)]){
+        [self.delegate asPoiMap:self.loc poiName:self.poiName];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -78,24 +69,42 @@
         [[GpsData shared].geocoder reverseGeocodeLocation:location
                                         completionHandler:^(NSArray *placemarks, NSError *error) {
                                             if (!error){
-                                                self.placemark = [placemarks firstObject];
-                                                [self resetAnnotationWithLocation:self.placemark.location.coordinate];
+                                                CLPlacemark *placemark = [placemarks firstObject];
+                                                [self resetPlacemark:placemark];
                                             }
                                         }];
     }
 }
 
+- (void)resetPlacemark:(CLPlacemark *)placemark{
+    if(!placemark){
+        return;
+    }
+    self.loc = placemark.location;
+    NSMutableString *str = [NSMutableString string];
+    if([placemark.administrativeArea length] > 0){
+        [str appendString:placemark.administrativeArea];
+    }
+    if([placemark.locality length] > 0){
+        if([str length] > 0){
+            [str appendFormat:@" "];
+        }
+        [str appendString:placemark.administrativeArea];
+    }
+    self.poiName = str;
+    [self resetAnnotationWithLocation:self.loc distance:250000];
+}
+
 //重新添加大头针
-- (void)resetAnnotationWithLocation:(CLLocationCoordinate2D)loc
+- (void)resetAnnotationWithLocation:(CLLocation *)loc distance:(CGFloat)distance
 {
     //先清理以前的所有覆盖物
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
     [self.mapView removeAnnotations:array];
-    self.loc = loc;
     //进入这个区域
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1200000, 1200000);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc.coordinate, distance, distance);
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = loc;
+    point.coordinate = loc.coordinate;
     [self.mapView setRegion:region animated:YES];
     [self.mapView addAnnotation:point];
 }
@@ -111,18 +120,9 @@
         if(error){
             [self alert:[NSString stringWithFormat:@"%@", error]];
         }else{
-            self.placemark = [placemarks firstObject];
-            [self resetAnnotationWithLocation:self.placemark.location.coordinate];
+            CLPlacemark *placemark = [placemarks firstObject];
+            [self resetPlacemark:placemark];
         }
     }];
 }
-
-#pragma mark - 定位相关
-//这个方法由百度地图调用, 每隔一秒执行一次
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    [self resetAnnotationWithLocation:userLocation.coordinate];
-}
-
-
 @end

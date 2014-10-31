@@ -72,7 +72,7 @@
         completion:^(BOOL succ, NSString *message, id json) {
             [self hideWaiting];
             if(succ){
-                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Question_NeedUpdate object:self.question];
+                [[NSNotificationCenter defaultCenter] postNotificationName:Notification_Reply_NeedUpdate object:self.question];
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"回复成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 alert.tag = NSAlertViewOK;
                 [alert show];

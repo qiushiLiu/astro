@@ -21,6 +21,6 @@
 @property (nonatomic, strong) UILabel *lbOffer;         //悬赏
 @property (nonatomic, strong) UILabel *lbFrom;          //发帖人和时间
 
-+ (CGFloat)heightFor:(id<ASQaProtocol>)model;
++ (CGFloat)heightFor:(id<ASQaProtocol>)model width:(CGFloat)width;
 - (void)setModelValue:(id<ASQaProtocol>)model nickName:(NSString *)nickName;
 @end

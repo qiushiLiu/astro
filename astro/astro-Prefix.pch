@@ -45,6 +45,6 @@
 #define ASColorOrange UIColorFromRGB(0xff9670)
 #define ASColorBlueGreen UIColorFromRGB(0x7accc8)
 
-#define Int2String(iValue) [NSString stringWithFormat:@"%d", iValue]
+#define Int2String(iValue) [NSString stringWithFormat:@"%@", @(iValue)]
 
 #define NSLog NSLog(@"[%s] #%d#", strrchr(__FILE__, '/'), __LINE__);NSLog

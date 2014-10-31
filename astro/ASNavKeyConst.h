@@ -15,6 +15,7 @@ extern NSString * const vcForgetPsw;
 extern NSString * const vcAsk;
 extern NSString * const vcAskList;
 extern NSString * const vcAskDeltail;
+extern NSString * const vcComment;
 
 extern NSString * const vcShareBind;
 

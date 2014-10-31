@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ASQaProtocol.h"
 #import "ASQaAnswer.h"
+
+@protocol ASAskDetailCellViewDelegate <NSObject>
+- (void)detailCellClickComment:(ASQaAnswer *)answer;
+- (void)detailCellClickDelete:(ASQaAnswer *)answer;
+@end
+
 @interface ASAskDetailCellView : UIView <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, assign) id<ASAskDetailCellViewDelegate> delegate;
+
 - (void)setQaProtocol:(id<ASQaProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor;
 + (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa;
 @end

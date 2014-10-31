@@ -148,7 +148,7 @@
 }
 
 
-+ (CGFloat)heightForChart:(NSArray *)chart context:(NSString *)context{
++ (CGFloat)heightForChart:(NSArray *)chart context:(NSString *)context width:(CGFloat)width{
     CGFloat height = 0;
     if([chart count] > 0){
         id chart1 = [chart firstObject];
@@ -162,7 +162,7 @@
     }
     
     if([context length] > 0){
-        height += [context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(280, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+        height += [context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
     }
     
     return height;

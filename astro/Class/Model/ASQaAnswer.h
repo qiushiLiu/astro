@@ -24,6 +24,6 @@
 @property (nonatomic) NSInteger Hate;
 @property (nonatomic) NSInteger Love;
 @property (nonatomic) NSInteger QuestionSysNo;
-@property (nonatomic, strong) NSArray<ASQaComment, Optional> *TopComments;
+@property (nonatomic, strong) NSMutableArray<ASQaComment, Optional> *TopComments;
 @property (nonatomic) NSInteger ToalComment;
 @end
