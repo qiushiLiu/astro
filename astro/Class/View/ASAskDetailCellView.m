@@ -101,6 +101,7 @@
         self.tbComment.dataSource = self;
         self.tbComment.separatorColor = [UIColor clearColor];
         self.tbComment.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tbComment.userInteractionEnabled = NO;
         [self addSubview:self.tbComment];
         
         self.btnMore = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tbComment.width - 20, 28)];
@@ -183,7 +184,7 @@
                                                                     attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
         self.lbReViewInfo.attributedText = str;
         self.lbReViewInfo.top = self.panView.bottom + 5;
-        top = self.lbReViewInfo.bottom + 5;
+        top = self.lbReViewInfo.bottom;
     }else{
         self.lbReViewInfo.hidden = YES;
     }
@@ -225,8 +226,8 @@
         if(self.answer.HasMoreComment){
             self.btnMore.hidden = NO;
             self.btnMore.top = self.tbComment.bottom + 3;
-            top = self.btnMore.bottom + 10;
-            self.tbComment.height = top;
+            top = self.btnMore.bottom + 6;
+            self.tbComment.height = top - self.tbComment.top;
             [self.btnMore setTitle:[NSString stringWithFormat:@"更多%@条评论+", @(self.answer.ToalComment)] forState:UIControlStateNormal];
         }
     }
@@ -307,28 +308,34 @@
 
 + (CGFloat)heightForComment:(ASQaComment *)as{
     CGFloat height = 12 + [as.Context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(255, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
-    height = MAX(40, height) + 5;
+    height = MAX(40, height);
     return height;
 }
 
-+ (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa{
++ (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa canDelOrComment:(BOOL)can{
     if(!qa){
         return 0;
     }
-    CGFloat height = 85;
+    CGFloat height = 30;
     NSArray *chart = nil;
     if([qa respondsToSelector:@selector(Chart)]){
         chart = [qa Chart];
     }
     height += [ASPanView heightForChart:chart context:[qa Context] width:300];
+    if(can){
+        height += 36;
+    }
     if([qa isKindOfClass:[ASQaAnswer class]]){
+        height += 20;
         ASQaAnswer *as = (ASQaAnswer *)qa;
         for(ASQaComment *ct in as.TopComments){
             height += [[self class] heightForComment:ct];
         }
         if(as.HasMoreComment){
-            height += 40;
+            height += 34;
         }
+    }else{
+        height += 34;
     }
     return height;
 }

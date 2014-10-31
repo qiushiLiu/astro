@@ -14,7 +14,7 @@
 
 @implementation ASAskerHeaderView
 
-#define ButtonTitles [NSArray arrayWithObjects:@"小白鼠区", @"学习研究", @"付费咨询", nil]
+#define ButtonTitles [NSArray arrayWithObjects:@"小白鼠区", @"学习研究", /* @"付费咨询",*/ nil]
 
 - (id)init
 {
@@ -29,10 +29,10 @@
         bg.image = [[UIImage imageNamed:@"ask_dh_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         [self addSubview:bg];
         
-        self.cursor = [[UIImageView alloc] initWithFrame:CGRectMake(bg.left, bg.top, 100, bg.height + 2)];
+        self.cursor = [[UIImageView alloc] initWithFrame:CGRectMake(bg.left, bg.top, 150, bg.height + 2)];
         [self addSubview:self.cursor];
         
-        for(int i = 0; i < 3 ; i++){
+        for(int i = 0; i < 2 ; i++){
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(bg.left + i * self.cursor.width, bg.top, self.cursor.width, bg.height - 2)];
             btn.tag = i;
             btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];

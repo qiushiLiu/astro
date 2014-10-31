@@ -202,16 +202,16 @@
         }
         [cv setQaProtocol:answer canDel:canDel canComment:YES floor:indexPath.row + 1];
     }
-    vline.bottom = cv.bottom + 5;
+    vline.bottom = cv.bottom + 1;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
-        return [ASAskDetailCellView heightForQaProtocol:self.question] + 40;
+        return [ASAskDetailCellView heightForQaProtocol:self.question canDelOrComment:NO] + 40;
     }else{
         ASQaAnswer *answer = [self.list objectAtIndex:indexPath.row - 1];
-        return [ASAskDetailCellView heightForQaProtocol:answer];
+        return [ASAskDetailCellView heightForQaProtocol:answer canDelOrComment:YES];
     }
 }
 
@@ -240,6 +240,7 @@
     NSString *jsonStr = [answer toJSONString];
     ASQaAnswer *newAs = [[ASQaAnswer alloc] initWithString:jsonStr error:nil];
     [newAs.TopComments removeAllObjects];
+    newAs.HasMoreComment = NO;
     [self navTo:vcComment params:@{@"answer" : newAs,
                                    @"title" : self.title,
                                    @"becomeEdit" : become ? @"1" : @"0",

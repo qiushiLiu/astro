@@ -10,6 +10,8 @@
 #import "ASQaAnswer.h"
 #import "ASQaComment.h"
 #import "ASAskDetailCellView.h"
+#import "ASNav.h"
+
 @interface ASCommentVc ()
 @property (nonatomic, strong) UITableView *tbList;
 @property (nonatomic, strong) UIView *viewBottom;
@@ -46,6 +48,9 @@
     
     self.tfComment = [ASControls newTextField:CGRectMake(10, 0, 230, 32)];
     self.tfComment.centerY = self.viewBottom.height/2;
+    self.tfComment.placeholder = @"说点什么呢 :) ";
+    self.tfComment.returnKeyType = UIReturnKeyDone;
+    self.tfComment.delegate = self;
     [self.viewBottom addSubview:self.tfComment];
     
     self.btnSumbit = [ASControls newOrangeButton:CGRectMake(0, 0, 60, 30) title:@"发送"];
@@ -102,6 +107,13 @@
 }
 
 - (void)btnClick_submit{
+    if(![ASGlobal isLogined]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能评论！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        alert.tag = NSAlertViewNeedLogin;
+        [alert show];
+        return;
+    }
+    
     NSString *context = [self.tfComment.text trim];
     if([context length] == 0){
         [self alert:@"请输入评论内容"];
@@ -124,7 +136,33 @@
         }];
 }
 
-#pragma mark - 
+
+- (void)notification_UserLogined:(NSNotification *)sender{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:sender.name object:nil];
+    if([ASGlobal isLogined]){
+        [self btnClick_submit];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(alertView.tag == NSAlertViewNeedLogin
+       && alertView.cancelButtonIndex != buttonIndex){
+        UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
+        [self presentViewController:nc animated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
+        }];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if([[textField.text trim] length] > 0){
+        [self btnClick_submit];
+    }
+    return YES;
+}
+
+#pragma mark - UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
@@ -145,7 +183,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [ASAskDetailCellView heightForQaProtocol:self.answer];
+    return [ASAskDetailCellView heightForQaProtocol:self.answer canDelOrComment:NO];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

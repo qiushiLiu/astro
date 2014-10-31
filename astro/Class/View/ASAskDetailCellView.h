@@ -19,5 +19,5 @@
 @property (nonatomic, assign) id<ASAskDetailCellViewDelegate> delegate;
 
 - (void)setQaProtocol:(id<ASQaProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor;
-+ (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa;
++ (CGFloat)heightForQaProtocol:(id<ASQaProtocol>)qa canDelOrComment:(BOOL)can;
 @end

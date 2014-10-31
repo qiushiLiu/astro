@@ -21,7 +21,7 @@
     [self setTitle:@"占星排盘"];
     self.navigationItem.leftBarButtonItem = nil;
     
-    for(int i = 1; i <= 3; i++ ){
+    for(int i = 1; i <= 1; i++ ){
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 62, 80)];
         btn.tag = i;
         if(i == 1){
