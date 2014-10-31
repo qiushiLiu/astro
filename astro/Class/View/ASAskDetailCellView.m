@@ -326,7 +326,7 @@
         height += 36;
     }
     if([qa isKindOfClass:[ASQaAnswer class]]){
-        height += 20;
+        height += 20;   //评论回复图标层
         ASQaAnswer *as = (ASQaAnswer *)qa;
         for(ASQaComment *ct in as.TopComments){
             height += [[self class] heightForComment:ct];
@@ -335,7 +335,7 @@
             height += 34;
         }
     }else{
-        height += 34;
+        height += 34;   //悬赏层
     }
     return height;
 }
