@@ -92,7 +92,6 @@
 - (void)btnClick_poi:(UIButton *)sender{
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
-    vc.loc = [[CLLocation alloc] initWithLatitude:self.astro.transitPosition.latitude longitude:self.astro.transitPosition.longitude];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }

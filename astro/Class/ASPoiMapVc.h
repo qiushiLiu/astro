@@ -15,5 +15,4 @@
 
 @interface ASPoiMapVc : ASBaseViewController<MKMapViewDelegate, UISearchBarDelegate>
 @property (nonatomic, assign) id<ASPoiMapVcDelegate> delegate;
-@property (nonatomic, strong) CLLocation *loc;
 @end

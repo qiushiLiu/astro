@@ -157,7 +157,7 @@ static CGFloat kSpace = 8.0;
 }
 
 #define _Size   CGSizeMake(320, 320)
-#define _Radius _Size.width/2 - 10
+#define _Radius _Size.width/2
 #define _Center CGPointMake(_Size.width/2, _Size.height/2)
 #define _ConstellationDegree 30.0
 

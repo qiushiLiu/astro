@@ -64,6 +64,7 @@
         [self alert:@"请输入您的回复内容"];
         return;
     }
+    [self.tvReply resignFirstResponder];
     [self showWaiting];
     [HttpUtil load:@"qa/AddAnswer" params:@{@"CustomerSysNo" : Int2String([ASGlobal shared].user.SysNo),
                                             @"QuestionSysNo" : Int2String(self.question.SysNo),

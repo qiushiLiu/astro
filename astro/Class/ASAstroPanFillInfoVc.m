@@ -81,6 +81,7 @@
     [super viewWillAppear:animated];
     [self.btnStarsInfo setInfoText:[AstroMod getStarsPermitTextInfo]];
     [self.btnPermitInfo setInfoText:[AstroMod getAnglePermitTextInfo]];
+    [self loadTransit];
     [self loadPersonInfo];
     [self loadPanType];
 }
@@ -177,9 +178,9 @@
     [self.panTypePicker showPickerView];
     [self.panTypePicker.picker selectRow:self.model.type - 1 inComponent:0 animated:YES];
     if(self.model.type == 2){
-        [self.panTypePicker.picker selectRow:self.model.compose - 1 inComponent:1 animated:NO];
+        [self.panTypePicker.picker selectRow:self.model.compose - 1 inComponent:1 animated:YES];
     }else if(self.model.type == 3){
-        [self.panTypePicker.picker selectRow:self.model.transit - 1 inComponent:1 animated:NO];
+        [self.panTypePicker.picker selectRow:self.model.transit - 1 inComponent:1 animated:YES];
     }
 }
 

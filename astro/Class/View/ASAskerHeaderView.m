@@ -29,7 +29,7 @@
         bg.image = [[UIImage imageNamed:@"ask_dh_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         [self addSubview:bg];
         
-        self.cursor = [[UIImageView alloc] initWithFrame:CGRectMake(bg.left, bg.top, 150, bg.height + 2)];
+        self.cursor = [[UIImageView alloc] initWithFrame:CGRectMake(bg.left, bg.top, 150., bg.height + 2)];
         [self addSubview:self.cursor];
         
         for(int i = 0; i < 2 ; i++){

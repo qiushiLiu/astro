@@ -21,13 +21,6 @@ extern NSString * const kUrlQQLoginByCode;
 extern NSString * const kUrlGetCates;
 extern NSString * const kUrlGetStarsList;
 
-extern NSString * const kUrlGetQuestionListForAstro;
-extern NSString * const kUrlGetQuestionListForBazi;
-extern NSString * const kUrlGetQuestionListForZiwei;
-extern NSString * const kUrlQuestionForAstro;
-extern NSString * const kUrlQuestionForBazi;
-extern NSString * const kUrlQuestionForZiwei;
-
 extern NSString * const kUrlGetAnswer;
 
 extern NSString * const kUrlAddQuestionWithChart;

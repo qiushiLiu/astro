@@ -21,14 +21,6 @@ NSString * const kUrlQQLoginByCode = @"customer/QQLogin";
 NSString * const kUrlGetCates = @"qa/GetCates";
 NSString * const kUrlGetStarsList = @"qa/GetStarsList";
 
-NSString * const kUrlQuestionListForAstro = @"qa/GetQuestionListForAstro";
-NSString * const kUrlQuestionListForBazi = @"qa/GetQuestionListForBazi";
-NSString * const kUrlQuestionListForZiwei = @"qa/GetQuestionListForZiwei";
-
-NSString * const kUrlQuestionForAstro = @"qa/GetQuestionForAstro";
-NSString * const kUrlQuestionForBazi = @"qa/GetQuestionForBazi";
-NSString * const kUrlQuestionForZiwei = @"qa/GetQuestionForZiwei";
-
 NSString * const kUrlGetAnswer = @"qa/GetAnswerByQuest";
 
 NSString * const kUrlAddQuestionWithChart = @"qa/post/AddQuestionWithChart";

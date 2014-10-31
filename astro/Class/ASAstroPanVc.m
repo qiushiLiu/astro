@@ -92,20 +92,20 @@
     self.lbTuiyun.right = self.contentView.width - 5;
     [self.contentView addSubview:self.lbTuiyun];
     
-    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom - 20, 320, 320)];
+    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom - 10, 320, 320)];
     [self.scPanView addSubview:self.pan];
     
     self.lbP1Info = [self newTextLabel:CGRectMake(ivLogo.left, 0, 120, 50)];
     self.lbP1Info.textAlignment = NSTextAlignmentLeft;
     self.lbP1Info.numberOfLines = 3;
-    self.lbP1Info.bottom = self.pan.bottom + 16;
+    self.lbP1Info.bottom = self.pan.bottom + 26;
     [self.scPanView addSubview:self.lbP1Info];
     
     self.lbP2Info = [self newTextLabel:CGRectMake(0, 0, 120, 50)];
     self.lbP2Info.numberOfLines = 3;
     self.lbP2Info.textAlignment = NSTextAlignmentRight;
     self.lbP2Info.right = self.pan.right - 10;
-    self.lbP2Info.bottom = self.pan.bottom + 16;
+    self.lbP2Info.bottom = self.pan.bottom + 26;
     [self.scPanView addSubview:self.lbP2Info];
     
     CGFloat top = self.lbP1Info.bottom + 10;

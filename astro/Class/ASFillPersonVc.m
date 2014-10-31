@@ -198,7 +198,6 @@
     self.person.Daylight = self.swDaylight.on;
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
-    vc.loc = [[CLLocation alloc] initWithLatitude:self.person.latitude longitude:self.person.longitude];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }

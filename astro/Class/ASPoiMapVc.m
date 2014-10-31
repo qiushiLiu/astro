@@ -12,6 +12,7 @@
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UISearchBar *searchPoi;
 @property (nonatomic, strong) NSString *poiName;
+@property (nonatomic, strong) CLLocation *loc;
 @end
 
 @implementation ASPoiMapVc
@@ -21,6 +22,9 @@
     // Do any additional setup after loading the view.
     self.title = @"选择出生地";
     self.navigationItem.leftBarButtonItem = nil;
+    
+    self.loc = [[CLLocation alloc] initWithLatitude:39.928 longitude:116.416];
+    self.poiName = @"安徽省 徐州市";
     
     UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"确定"];
     [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
@@ -89,7 +93,7 @@
         if([str length] > 0){
             [str appendFormat:@" "];
         }
-        [str appendString:placemark.administrativeArea];
+        [str appendString:placemark.locality];
     }
     self.poiName = str;
     [self resetAnnotationWithLocation:self.loc distance:250000];
