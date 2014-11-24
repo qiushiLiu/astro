@@ -9,6 +9,7 @@
 #import "ASNav.h"
 #import "ASTabMainVc.h"
 #import "ASLoginVc.h"
+#import "ASUserCenterVc.h"
 #import "ASRegisterVc.h"
 #import "ASForgetPswVc.h"
 #import "ASAskerVc.h"
@@ -44,6 +45,7 @@
 - (void)configPageKey{
     [_vcDic setObject:[ASTabMainVc class] forKey:vcMain];
     [_vcDic setObject:[ASLoginVc class] forKey:vcLogin];
+    [_vcDic setObject:[ASUserCenterVc class] forKey:vcUserCenter];
     [_vcDic setObject:[ASRegisterVc class] forKey:vcRegister];
     [_vcDic setObject:[ASForgetPswVc class] forKey:vcForgetPsw];
     [_vcDic setObject:[ASAskerVc class] forKey:vcAsk];

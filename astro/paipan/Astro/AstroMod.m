@@ -66,7 +66,7 @@ static CGFloat kSpace = 8.0;
     if(obj){
         value = obj.value;
     }else{
-        value = @"10,10,10,10,10"; //默认:20个星体全部显示
+        value = @"10,10,10,10,10"; //默认容许度
     }
     NSMutableArray *ret = [NSMutableArray array];
     NSArray *arr = [value componentsSeparatedByString:@","];
@@ -127,7 +127,7 @@ static CGFloat kSpace = 8.0;
         AstroStar *st = source[i];
         AstroShowInfo *item = [[AstroShowInfo alloc] init];
         item.name = [NSString stringWithFormat:@"%@宫", __DaXie[i - 19]];
-        item.angle = [NSString stringWithFormat:@"%@%ld°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
+        item.angle = [NSString stringWithFormat:@"%@%@°%.0f′", __Constellation[st.Constellation], @(st.Degree), st.Cent];
         item.info = @"";
         [gongs addObject:item];
     }
@@ -142,7 +142,7 @@ static CGFloat kSpace = 8.0;
         AstroStar *st = source[i];
         AstroShowInfo *item = [[AstroShowInfo alloc] init];
         item.name = __AstroStar[st.StarName];
-        item.angle = [NSString stringWithFormat:@"%@%ld°%.0f′", __Constellation[st.Constellation], st.Degree, st.Cent];
+        item.angle = [NSString stringWithFormat:@"%@%@°%.0f′", __Constellation[st.Constellation], @(st.Degree), st.Cent];
         item.info = [NSString stringWithFormat:@"%@宫", __DaXie[st.Gong]];
         [stars addObject:item];
         
@@ -176,15 +176,15 @@ static CGFloat kSpace = 8.0;
     
     CGFloat r0 = _Radius;   //星座外径
     CGFloat r1 = r0 - 25;   //星座内径
-    CGFloat r2 = r1 - 5;    //星座外径
-    CGFloat r3 = r2 - 15;   //星座内径
+//    CGFloat r2 = r1 - 5;    //星座外径
+    CGFloat r3 = r1 - 12;   //星座内径
     CGFloat r4 = r3 - 26;   //star星径
     CGFloat r5 = r4 - 26;   //star1星径
     
     //四个同心圆
     [self drawArc:ctx radius:r0 fillColor:[UIColor blackColor]];
     [self drawArc:ctx radius:r1];
-    [self drawArc:ctx radius:r2];
+//    [self drawArc:ctx radius:r2];
     [self drawArc:ctx radius:r3];
     
     //居中
@@ -203,7 +203,7 @@ static CGFloat kSpace = 8.0;
         }
         //写宫名
         CGFloat cd = (degree + nextDegree)*0.5;
-        CGFloat cr = (r3 + r2)*0.5;
+        CGFloat cr = (r3 + r1)*0.5;
         CGPoint ct = [[self class] pointByRadius:cr andDegree:cd];
         UIColor *color = nil;
         switch (i%4) {
@@ -229,7 +229,7 @@ static CGFloat kSpace = 8.0;
         [gn drawInRect:CGRectMake(ct.x - 6, ct.y - 6, 14, 14)];
         
         CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
-        [self drawSeparated:ctx degree:degree from:r2 to:r3];
+        [self drawSeparated:ctx degree:degree from:r1 to:r3];
         //分宫
         if(i < 6){
             CGFloat lineWidth = 0.3;
@@ -247,12 +247,13 @@ static CGFloat kSpace = 8.0;
     //12星座
     for(int i = 0; i < 360; i++){
         if(i % 30 == 0){
-            [self drawSeparated:ctx degree:(constellationStart + i) from:r0 to:r2];
-        }else if(i % 5 == 0){
-            [self drawSeparated:ctx degree:(constellationStart + i) from:r1 to:r2];
-        }else{
-            [self drawSeparated:ctx degree:(constellationStart + i) from:r1 to:r2 lineWidth:0.3];
+            [self drawSeparated:ctx degree:(constellationStart + i) from:r0 to:r1];
         }
+//        else if(i % 5 == 0){
+//            [self drawSeparated:ctx degree:(constellationStart + i) from:r1 to:r2];
+//        }else{
+//            [self drawSeparated:ctx degree:(constellationStart + i) from:r1 to:r2 lineWidth:0.3];
+//        }
         if(i % 30 == 15){
             int cons = i/30 + 1;
             UIImage *constellation = [UIImage imageNamed:[NSString stringWithFormat:@"icon_cons_%d", cons]];
@@ -468,7 +469,7 @@ static CGFloat kSpace = 8.0;
 }
 
 - (void)drawGroupStar:(CGContextRef)ctx group:(NSArray *)group radius:(CGFloat)r{
-    CGSize sSize = CGSizeMake(14, 14);
+    CGSize sSize = CGSizeMake(16, 16);
     for(NSInteger i = 0; i <  [group count]; i++){
         AstroStarHD *star = [group objectAtIndex:i];
         CGPoint center = [[self class] pointByRadius:r andDegree:star.PanDegree];

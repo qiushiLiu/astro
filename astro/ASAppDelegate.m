@@ -82,6 +82,7 @@
                                                 forState:UIControlStateNormal
                                               barMetrics:UIBarMetricsDefault];
         [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(0xCECABA) size:CGSizeMake(1, 49)]];
+        [[UITabBar appearance] setShadowImage:[UIImage new]];
         [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
     }
     

@@ -8,6 +8,7 @@
 
 #import "ASBaseViewController.h"
 
-@interface ASUserCenterVc : ASBaseViewController
-
+@interface ASUserCenterVc : ASBaseViewController<UIAlertViewDelegate>
+- (void)loadUserInfo;
+@property (nonatomic) NSInteger uid;
 @end

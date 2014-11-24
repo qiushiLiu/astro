@@ -16,4 +16,5 @@
 + (ASGlobal *)shared;
 + (void)login:(ASCustomer *)user;
 + (BOOL)isLogined;
++ (void)loginOut;
 @end

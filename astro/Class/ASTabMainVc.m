@@ -37,7 +37,7 @@
         self.ncPaipan.tabBarItem = [UITabBarItem itemWithTitle:@"排盘" image:[UIImage imageNamed:@"icon_mod_3"] selectedImage:[UIImage imageNamed:@"icon_mod_3_hl"]];
 //        self.ncLesson = [[ASNav shared] newNav:vcRegister];
 //        self.ncLesson.tabBarItem = [UITabBarItem itemWithTitle:@"课程" image:[UIImage imageNamed:@"icon_mod_4"] selectedImage:[UIImage imageNamed:@"icon_mod_4_hl"]];
-        self.ncUserCenter = [[ASNav shared] newNav:vcRegister];
+        self.ncUserCenter = [[ASNav shared] newNav:vcUserCenter];
         self.ncUserCenter.tabBarItem = [UITabBarItem itemWithTitle:@"我的" image:[UIImage imageNamed:@"icon_mod_5"] selectedImage:[UIImage imageNamed:@"icon_mod_5_hl"]];
         [self setViewControllers:[NSArray arrayWithObjects:self.ncAsk, self.ncPaipan, self.ncUserCenter, nil]];
     }

@@ -38,8 +38,8 @@ extern NSString *const kSinaiPadSSOUrl;
 extern NSString *const kSinaiPhoneSSOUrl;
 extern NSString *const kInterceptURL;
 
-
-#define PanTypeArray @[@"占星排盘", @"八字排盘", @"紫斗排盘"]
+#define FateTypeArray @[@"占星", @"紫薇斗数", @"八字"]
+#define PanTypeArray @[@"占星排盘", @"紫斗排盘", @"八字排盘"]
 #define AstroTypeArray @[@"本命盘", @"合盘", @"推运盘"]
 #define AstroZuheArray @[@"比较盘(comparison)", @"组合中点盘(composite)", @"时空中点盘(midpoint)", @"合并盘(synastry)"]
 #define AstroTuiyunArray @[@"行运VS本命(Transit)", @"月亮次限法(365.25636)", @"月亮三限法(29.530588)", @"月亮三限法(27.321582)", @"太阳反照法(Solar Return)", @"月亮反照法(Lunar Return)", @"太阳弧法(Solar Arc)"]

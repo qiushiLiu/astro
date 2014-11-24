@@ -41,6 +41,7 @@
 		1B1D5F321942BD1F00D23025 /* ASQaMinBazi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F2E1942BD1F00D23025 /* ASQaMinBazi.m */; };
 		1B1D5F361942C2AC00D23025 /* ASQaFullBazi.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F351942C2AC00D23025 /* ASQaFullBazi.m */; };
 		1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D5F441942CC4400D23025 /* ASQaAnswer.m */; };
+		1B1E6CED1A22E3FC00DE93B2 /* ASUserEditVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1E6CEC1A22E3FC00DE93B2 /* ASUserEditVc.m */; };
 		1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */; };
 		1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */; };
 		1B29B4B4196B8C6B00EC73C6 /* ASPostQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B29B4B3196B8C6B00EC73C6 /* ASPostQuestion.m */; };
@@ -208,6 +209,8 @@
 		1B1D5F351942C2AC00D23025 /* ASQaFullBazi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaFullBazi.m; sourceTree = "<group>"; };
 		1B1D5F431942CC4400D23025 /* ASQaAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaAnswer.h; sourceTree = "<group>"; };
 		1B1D5F441942CC4400D23025 /* ASQaAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaAnswer.m; sourceTree = "<group>"; };
+		1B1E6CEB1A22E3FC00DE93B2 /* ASUserEditVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserEditVc.h; sourceTree = "<group>"; };
+		1B1E6CEC1A22E3FC00DE93B2 /* ASUserEditVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserEditVc.m; sourceTree = "<group>"; };
 		1B1F7D0518B2E48A00186229 /* ASLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASLoadMoreView.h; sourceTree = "<group>"; };
 		1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoadMoreView.m; sourceTree = "<group>"; };
 		1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaseSingleTableView.h; sourceTree = "<group>"; };
@@ -836,6 +839,8 @@
 				1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */,
 				1BFBDFAB195161660063DDE2 /* ASUserCenterVc.h */,
 				1BFBDFAC195161660063DDE2 /* ASUserCenterVc.m */,
+				1B1E6CEB1A22E3FC00DE93B2 /* ASUserEditVc.h */,
+				1B1E6CEC1A22E3FC00DE93B2 /* ASUserEditVc.m */,
 			);
 			name = user;
 			sourceTree = "<group>";
@@ -1017,6 +1022,7 @@
 				1B7CAEF818F6489C005B8C30 /* JSONModel+CoreData.m in Sources */,
 				1B7CAEF918F6489C005B8C30 /* JSONModel.m in Sources */,
 				1B1A970B18D929F40039413E /* AstroMod.m in Sources */,
+				1B1E6CED1A22E3FC00DE93B2 /* ASUserEditVc.m in Sources */,
 				1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */,
 				1B19A27E195BBBC700831568 /* ASPostQuestionVc.m in Sources */,
 				1BC823CF193DF1A4001CF44E /* ASIInputStream.m in Sources */,

@@ -11,6 +11,7 @@
 extern NSString * const vcMain;
 extern NSString * const vcLogin;
 extern NSString * const vcRegister;
+extern NSString * const vcUserCenter;
 extern NSString * const vcForgetPsw;
 extern NSString * const vcAsk;
 extern NSString * const vcAskList;

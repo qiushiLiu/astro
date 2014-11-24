@@ -37,6 +37,7 @@ extern NSInteger const kImageCacheMaxNum;
 - (void)cleanAllValueCache;
 - (void)storeValue:(NSString *)value dir:(NSString *)dir key:(NSString *)key;
 - (void)storeValue:(NSString *)value dir:(NSString *)dir key:(NSString *)key expire:(NSDate *)expire;
+- (void)removeDir:(NSString *)dir key:(NSString *)key;
 
 - (BOOL)chkExistImageWithDir:(NSString *)dir url:(NSString *)url;
 - (UIImage *)readImageWithDir:(NSString *)dir url:(NSString *)url;

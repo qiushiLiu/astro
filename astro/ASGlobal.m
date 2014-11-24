@@ -24,9 +24,16 @@ static NSString *kCacheKeyForUserInfo = @"kCacheKeyForUserInfo";
 }
 
 + (void)login:(ASCustomer *)user{
+    if(user == nil)
+        return;
     [[ASCache shared] storeValue:[user toJSONString] dir:kCacheDir key:kCacheKeyForUserInfo];
     [self shared].user = user;
     [[NSNotificationCenter defaultCenter] postNotificationName:Notification_LoginUser object:nil];
+}
+
++ (void)loginOut{
+    [self shared].user = nil;
+    [[ASCache shared] removeDir:kCacheDir key:kCacheKeyForUserInfo];
 }
 
 + (BOOL)isLogined{
