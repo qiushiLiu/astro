@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, NSAlertViewTag) {		/* UIAlertView 的类型 */
 #define Notification_Question_NeedUpdate    @"Notification_Question_NeedUpdate"
 #define Notification_Reply_NeedUpdate       @"Notification_Reply_NeedUpdate"
 #define Notification_LoginUser              @"Notification_LoginUser"
+#define Notification_MainVc                 @"Notification_MainVc"  //返回首页
 
 
 extern NSString * const kAppVersion;

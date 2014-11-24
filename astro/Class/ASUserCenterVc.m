@@ -9,6 +9,7 @@
 #import "ASUserCenterVc.h"
 #import "ASCustomerShow.h"
 #import "ASUserEditVc.h"
+#import "ASAskerCell.h"
 
 @interface ASUserCenterVc ()
 @property (nonatomic, strong) UIView *bgView;
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UIButton *btnEdit;
 @property (nonatomic, strong) UIView *bgScoreView;
 @property (nonatomic, strong) NSMutableArray *arrScoreLabel;
+@property (nonatomic, strong) UITableView *tbList;
 
 @property (nonatomic, strong) ASCustomerShow *um;
 @end
@@ -26,7 +28,7 @@
 @implementation ASUserCenterVc
 
 #define kScoreTitleArray @[@"灵签", @"提问数", @"解答数"]
-
+#define kUserTableRowTitle @[@"勋章", @"回帖", @"发帖", @"消息"]
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -99,8 +101,23 @@
         [self.bgScoreView addSubview:lbScore];
         [self.arrScoreLabel addObject:lbScore];
     }
-    [self showWaiting];
     
+    self.tbList = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 320)];
+    self.tbList.backgroundColor = [UIColor clearColor];
+    self.tbList.delegate = self;
+    self.tbList.dataSource = self;
+    self.tbList.separatorColor = [UIColor clearColor];
+    self.tbList.separatorStyle = UITableViewCellSeparatorStyleNone;
+    if([self.tbList respondsToSelector:@selector(setSeparatorInset:)]){
+        [self.tbList setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    [self.contentView addSubview:self.tbList];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self showWaiting];
     NSInteger uid = self.uid > 0 ? self.uid : [ASGlobal shared].user.SysNo;
     [HttpUtil load:@"customer/GetUserInfo"
             params:@{@"uid" : @(uid)}
@@ -116,10 +133,6 @@
                 [self alert:message];
             }
         }];
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
 }
 
 - (void)loadUserInfo{
@@ -159,12 +172,14 @@
     ((UILabel *)self.arrScoreLabel[0]).text = Int2String(self.um.Point);
     ((UILabel *)self.arrScoreLabel[1]).text = Int2String(self.um.TotalQuest);
     ((UILabel *)self.arrScoreLabel[2]).text = Int2String(self.um.TotalAnswer);
+    
+    self.tbList.top = self.bgView.bottom + 10;
+    self.contentView.contentSize = CGSizeMake(self.contentView.width, self.tbList.bottom + 10);
 }
 
 
 - (void)btnClick_edit{
     ASUserEditVc *vc = [[ASUserEditVc alloc] init];
-    vc.parent = self;
     vc.um = self.um;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -179,8 +194,51 @@
     if(alertView.tag == NSAlertViewConfirm
        && alertView.cancelButtonIndex != buttonIndex){
         [ASGlobal loginOut];
+        [[NSNotificationCenter defaultCenter] postNotificationName:Notification_MainVc object:nil];
     }
 }
 
+#pragma mark - UITableView Delegate & Data Source
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ASAskerCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
+    if(!cell){
+        cell = [[ASAskerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+    }
+    
+    [cell.icon loadLocalImage:@""];
+    NSString *whos = self.uid > 0 ? @"Ta的" : @"我的";
+    NSInteger count = 0;
+    if(indexPath.row == 0){ //勋章
+        
+    }else if(indexPath.row == 1){
+        count = self.um.TotalQuest + self.um.TotalTalk;
+    }else if(indexPath.row == 2){
+        count = self.um.TotalAnswer + self.um.TotalTalkReply;
+    }else if(indexPath.row == 3){
+        
+    }
+    [cell.lbTitle setText:[NSString stringWithFormat:@"%@%@（%@）", whos, kUserTableRowTitle[indexPath.row], @(count)]];
+    [cell.lbSummary setText:@""];
+    [cell.lbSummary alignTop];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+}
+
+#pragma mark -
+
+- (BOOL) hidesBottomBarWhenPushed
+{
+    return (self.navigationController.topViewController != self);
+}
 
 @end

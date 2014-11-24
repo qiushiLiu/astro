@@ -40,6 +40,8 @@
         self.ncUserCenter = [[ASNav shared] newNav:vcUserCenter];
         self.ncUserCenter.tabBarItem = [UITabBarItem itemWithTitle:@"我的" image:[UIImage imageNamed:@"icon_mod_5"] selectedImage:[UIImage imageNamed:@"icon_mod_5_hl"]];
         [self setViewControllers:[NSArray arrayWithObjects:self.ncAsk, self.ncPaipan, self.ncUserCenter, nil]];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification:) name:Notification_MainVc object:nil];
     }
     return self;
 }
@@ -57,28 +59,22 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)notification:(NSNotification *)sender{
+    if([sender.name isEqual:Notification_MainVc]){
+        self.tabBarController.selectedIndex = 0;
+    }
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if(viewController == self.ncUserCenter
        && ![ASGlobal isLogined]){
         UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
-        [self presentViewController:nc animated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
-        }];
+        [self presentViewController:nc animated:YES completion:nil];
         return NO;
     }
     return YES;
-}
-
-- (void)notification_UserLogined:(NSNotification *)sender{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:sender.name object:nil];
-    if([ASGlobal isLogined]){
-        NSInteger index = [self.viewControllers indexOfObject:self.ncUserCenter];
-        self.selectedIndex = index;
-    }
 }
 
 - (void)didReceiveMemoryWarning

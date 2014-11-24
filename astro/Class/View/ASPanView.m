@@ -157,7 +157,7 @@
         }else if([chart1 isKindOfClass:[BaziMod class]]){
             height += 42 *  [chart count];
         }else if([chart1 isKindOfClass:[ZiWeiMod class]]){
-            height += __CellSize.height + 8;
+            height += __CellSize.height * 0.9 + 3;
         }
     }
     

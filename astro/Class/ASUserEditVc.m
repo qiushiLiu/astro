@@ -117,7 +117,7 @@
     [self.contentView addSubview:line];
     
     self.sgFateType = [[UISegmentedControl alloc] initWithItems:FateTypeArray];
-    self.sgFateType.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8);
+    self.sgFateType.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 0.9);
     self.sgFateType.top = line.bottom + margin;
     self.sgFateType.right = self.btnFace.right;
     [self.contentView addSubview:self.sgFateType];
@@ -128,10 +128,14 @@
     [self.contentView addSubview:lb];
     
     self.bgView.height = self.sgFateType.bottom + 10;
+    //添加键盘监听事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.contentView.contentSize = CGSizeMake(self.contentView.width, self.contentView.height);
     [self loadUserInfo];
 }
 
@@ -171,9 +175,6 @@
         completion:^(BOOL succ, NSString *message, id json) {
             [self hideWaiting];
             if(succ){
-                if(self.parent){
-                    [self.parent loadUserInfo];
-                }
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [self alert:message];
@@ -183,6 +184,20 @@
 
 - (void)btnClick_changeFace{
     
+}
+
+
+#pragma mark - KeyBoardEvent Method
+- (void)keyboardEvent:(NSNotification *)sender{
+    CGSize cSize = self.contentView.contentSize;
+    CGRect keyboardFrame;
+    [[[sender userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
+    if([sender.name isEqualToString:UIKeyboardWillHideNotification]){
+        self.contentView.height = self.view.height;
+    }else{
+        self.contentView.height = self.view.height - keyboardFrame.size.height;
+    }
+    self.contentView.contentSize = cSize;
 }
 
 @end

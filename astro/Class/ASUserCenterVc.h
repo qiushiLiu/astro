@@ -8,7 +8,6 @@
 
 #import "ASBaseViewController.h"
 
-@interface ASUserCenterVc : ASBaseViewController<UIAlertViewDelegate>
-- (void)loadUserInfo;
-@property (nonatomic) NSInteger uid;
+@interface ASUserCenterVc : ASBaseViewController<UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic) NSInteger uid;    //如果是他人用户中心 uid > 0
 @end

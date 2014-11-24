@@ -16,7 +16,7 @@ extern NSString *const kLoadFaildImageName;
 @property (nonatomic) BOOL showProgress;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *dir;
-
+- (void)loadLocalImage:(NSString *)imageName;
 - (void)load:(NSString *)url cacheDir:(NSString *)dir;
 - (void)load:(NSString *)url cacheDir:(NSString *)dir failImageName:(NSString *)imageName;
 @end

@@ -29,6 +29,15 @@
     return self;
 }
 
+- (void)loadLocalImage:(NSString *)imageName{
+    UIImage *img = [UIImage imageNamed:imageName];
+    if(img){
+        self.imageView.image = img;
+    }else{
+        [self loadFaildImage];
+    }
+}
+
 - (void)load:(NSString *)url cacheDir:(NSString *)dir{
     if([dir length] == 0){
         dir = NSStringFromClass([self class]);

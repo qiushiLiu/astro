@@ -12,5 +12,4 @@
 
 @interface ASUserEditVc : ASBaseViewController <UITextViewDelegate>
 @property (nonatomic, weak) ASCustomerShow *um;
-@property (nonatomic, weak) ASUserCenterVc *parent;
 @end
