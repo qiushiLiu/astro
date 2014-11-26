@@ -30,7 +30,7 @@
 @implementation ASUserCenterVc
 
 #define kScoreTitleArray @[@"灵签", @"提问数", @"解答数"]
-#define kUserTableRowTitle @[@"勋章", @"回帖", @"发帖", @"消息"]
+#define kUserTableRowTitle @[@"回帖", @"发帖", @"消息"]
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -104,7 +104,7 @@
         [self.arrScoreLabel addObject:lbScore];
     }
     
-    self.tbList = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 320)];
+    self.tbList = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 80 * [kUserTableRowTitle count])];
     self.tbList.backgroundColor = [UIColor clearColor];
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
@@ -144,7 +144,7 @@
     ASCustomer *um = [ASGlobal shared].user;
     [self.ivFace load:um.smallPhotoShow cacheDir:nil];
     NSMutableString *str = [NSMutableString stringWithString:um.NickName];
-    [str appendFormat:@"    %@ 等级", (um.Gender == 1 ? @"男" : @"女")];
+    [str appendFormat:@"    %@ 等级 ", (um.Gender == 1 ? @"男" : @"女")];
     NSMutableAttributedString *attName = [[NSMutableAttributedString alloc] initWithString:str];
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:self.um.GradeShow
                                                                     attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
@@ -205,7 +205,7 @@
 
 #pragma mark - UITableView Delegate & Data Source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return [kUserTableRowTitle count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -221,13 +221,11 @@
     [cell.icon loadLocalImage:@""];
     NSString *whos = self.uid > 0 ? @"Ta的" : @"我的";
     NSInteger count = 0;
-    if(indexPath.row == 0){ //勋章
-        count = self.um.TotalMedal;
-    }else if(indexPath.row == 1){   //回帖
+    if(indexPath.row == 0){   //回帖
         count = self.um.TotalQuest + self.um.TotalTalk;
-    }else if(indexPath.row == 2){   //发帖
+    }else if(indexPath.row == 1){   //发帖
         count = self.um.TotalAnswer + self.um.TotalTalkReply;
-    }else if(indexPath.row == 3){   //消息
+    }else if(indexPath.row == 2){   //消息
         count = self.um.NewMessage;
     }
     [cell.lbTitle setText:[NSString stringWithFormat:@"%@%@（%@）", whos, kUserTableRowTitle[indexPath.row], @(count)]];
@@ -240,12 +238,10 @@
     if(indexPath.row == 0){
         
     }else if(indexPath.row == 1){
-        
-    }else if(indexPath.row == 2){
         ASUserTopicVc *vc = [[ASUserTopicVc alloc] init];
         vc.uid = self.uid;
         [self.navigationController pushViewController:vc animated:YES];
-    }else if(indexPath.row == 3){
+    }else if(indexPath.row == 2){
         ASUserMessageVc *vc = [[ASUserMessageVc alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }

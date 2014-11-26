@@ -57,9 +57,7 @@
     
     [_vcDic setObject:[ASShareBindVc class] forKey:vcShareBind];
     
-    [_vcDic setObject:[ASPaiPanMainVc class] forKey:vcPanMain];
-    [_vcDic setObject:[ASAstroPanVc class] forKey:vcBaziPan];
-    
+    [_vcDic setObject:[ASPaiPanMainVc class] forKey:vcPanMain];    
 }
 
 - (UINavigationController *)newNav:(NSString *)key{

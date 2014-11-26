@@ -7,8 +7,6 @@
 //
 
 #import "ASBaseViewController.h"
-#import "BaziMod.h"
-#import "ZiWeiMod.h"
 #import "AstroMod.h"
 @interface ASAstroPanVc : ASBaseViewController<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @end

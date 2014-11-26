@@ -74,6 +74,7 @@
 		1B7838761A241B4D000E30BA /* ASUSR_Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838751A241B4D000E30BA /* ASUSR_Message.m */; };
 		1B7838791A2427D4000E30BA /* ASUSR_SMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838781A2427D4000E30BA /* ASUSR_SMS.m */; };
 		1B7838AE1A256D95000E30BA /* ASUserTopicVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838AD1A256D95000E30BA /* ASUserTopicVc.m */; };
+		1B7838B11A2604FB000E30BA /* ASBaZiPanVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838B01A2604FB000E30BA /* ASBaZiPanVc.m */; };
 		1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */; };
 		1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */; };
 		1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */; };
@@ -278,6 +279,8 @@
 		1B7838781A2427D4000E30BA /* ASUSR_SMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUSR_SMS.m; sourceTree = "<group>"; };
 		1B7838AC1A256D95000E30BA /* ASUserTopicVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserTopicVc.h; sourceTree = "<group>"; };
 		1B7838AD1A256D95000E30BA /* ASUserTopicVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserTopicVc.m; sourceTree = "<group>"; };
+		1B7838AF1A2604FB000E30BA /* ASBaZiPanVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaZiPanVc.h; sourceTree = "<group>"; };
+		1B7838B01A2604FB000E30BA /* ASBaZiPanVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaZiPanVc.m; sourceTree = "<group>"; };
 		1B7A15611915CA4900AECD59 /* ASAskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskTableViewCell.h; sourceTree = "<group>"; };
 		1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskTableViewCell.m; sourceTree = "<group>"; };
 		1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASForgetPswVc.h; sourceTree = "<group>"; };
@@ -834,6 +837,8 @@
 				1B3BD8A7199CB2D1006111F1 /* ASAstroStarsFillVc.m */,
 				1B3B336C19C2C102009EB212 /* ASAstroTransitVc.h */,
 				1B3B336D19C2C102009EB212 /* ASAstroTransitVc.m */,
+				1B7838AF1A2604FB000E30BA /* ASBaZiPanVc.h */,
+				1B7838B01A2604FB000E30BA /* ASBaZiPanVc.m */,
 				1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */,
 				1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */,
 				1B9DC4E019AACF04006CBB3D /* ASPermitInfoVc.h */,
@@ -1117,6 +1122,7 @@
 				1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */,
 				1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */,
 				1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */,
+				1B7838B11A2604FB000E30BA /* ASBaZiPanVc.m in Sources */,
 				1B7838761A241B4D000E30BA /* ASUSR_Message.m in Sources */,
 				1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */,
 				1B1D5F1A1941F22100D23025 /* ASCustomer.m in Sources */,

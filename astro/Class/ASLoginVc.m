@@ -134,7 +134,6 @@
 
 - (void)shareTo{
     [self hideKeyboard];
-    [self navTo:vcBaziPan];
 }
 
 - (void)login{

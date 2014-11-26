@@ -7,6 +7,8 @@
 //
 
 #import "ASPaiPanMainVc.h"
+#import "ASAstroPanVc.h"
+#import "ASBaZiPanVc.h"
 
 @interface ASPaiPanMainVc ()
 
@@ -18,10 +20,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setTitle:@"占星排盘"];
+    [self setTitle:@"排盘"];
     self.navigationItem.leftBarButtonItem = nil;
     
-    for(int i = 1; i <= 1; i++ ){
+    for(int i = 1; i <= 3; i++ ){
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 40, 62, 80)];
         btn.tag = i;
         if(i == 1){
@@ -60,7 +62,15 @@
 
 
 - (void)btnClick_panType:(UIButton *)sender{
-    [self navTo:vcBaziPan params:@{@"type" : @(sender.tag)}];
+    if(sender.tag == 1){
+        ASAstroPanVc *vc = [[ASAstroPanVc alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(sender.tag == 2){
+        
+    }else if(sender.tag == 3){
+        ASBaZiPanVc *vc = [[ASBaZiPanVc alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end
