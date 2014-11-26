@@ -39,6 +39,8 @@
         self.backgroundColor = [UIColor clearColor];
 
         self.faceView = [[ASUrlImageView alloc] initWithFrame:CGRectMake(margin, margin, 30, 30)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_faceView:)];
+        [self.faceView addGestureRecognizer:tap];
         [self addSubview:self.faceView];
         
         self.lbName = [self newLabel:CGRectMake(self.faceView.right + margin, margin, 200, 15)];
@@ -247,6 +249,14 @@
     if(self.answer){
         if([self.delegate respondsToSelector:@selector(detailCellClickComment:)]){
             [self.delegate detailCellClickComment:self.answer];
+        }
+    }
+}
+
+- (void)tap_faceView:(UITapGestureRecognizer *)sender{
+    if(self.answer){
+        if([self.delegate respondsToSelector:@selector(detailCellClickFace:)]){
+            [self.delegate detailCellClickFace:self.answer.CustomerSysNo];
         }
     }
 }

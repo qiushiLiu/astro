@@ -14,8 +14,6 @@
 #import "ASQaMinAstro.h"
 #import "ASQaMinBazi.h"
 #import "ASQaMinZiWei.h"
-//#import "ASQaMinZiWei.h"
-//#import "ASQaMinAstro.h"
 
 @interface ASAskListVc ()
 @property (nonatomic, strong) UIView *headerView;

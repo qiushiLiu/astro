@@ -18,6 +18,8 @@
 @interface ASAskerHeaderView : UIView
 
 @property (nonatomic) NSInteger selected;
+@property (nonatomic, readonly) NSString *selectedTitle;
 @property (nonatomic, assign) id<ASAskerHeaderViewDelegate> delegate;
 
+- (id)initWithItems:(NSArray *)items;
 @end

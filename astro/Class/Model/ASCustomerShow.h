@@ -33,4 +33,6 @@
 @property (nonatomic) NSInteger TotalTalk;
 @property (nonatomic) NSInteger TotalTalkReply;
 @property (nonatomic, strong) NSString *smallPhotoShow;
+@property (nonatomic) NSInteger NewMessage; //消息
+@property (nonatomic) NSInteger TotalMedal; //勋章
 @end

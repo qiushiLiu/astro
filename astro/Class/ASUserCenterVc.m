@@ -10,6 +10,8 @@
 #import "ASCustomerShow.h"
 #import "ASUserEditVc.h"
 #import "ASAskerCell.h"
+#import "ASUserMessageVc.h"
+#import "ASUserTopicVc.h"
 
 @interface ASUserCenterVc ()
 @property (nonatomic, strong) UIView *bgView;
@@ -111,8 +113,11 @@
     if([self.tbList respondsToSelector:@selector(setSeparatorInset:)]){
         [self.tbList setSeparatorInset:UIEdgeInsetsZero];
     }
-    
     [self.contentView addSubview:self.tbList];
+    
+    if(self.uid == [ASGlobal shared].user.SysNo){
+        self.uid = 0;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -217,13 +222,13 @@
     NSString *whos = self.uid > 0 ? @"Ta的" : @"我的";
     NSInteger count = 0;
     if(indexPath.row == 0){ //勋章
-        
-    }else if(indexPath.row == 1){
+        count = self.um.TotalMedal;
+    }else if(indexPath.row == 1){   //回帖
         count = self.um.TotalQuest + self.um.TotalTalk;
-    }else if(indexPath.row == 2){
+    }else if(indexPath.row == 2){   //发帖
         count = self.um.TotalAnswer + self.um.TotalTalkReply;
-    }else if(indexPath.row == 3){
-        
+    }else if(indexPath.row == 3){   //消息
+        count = self.um.NewMessage;
     }
     [cell.lbTitle setText:[NSString stringWithFormat:@"%@%@（%@）", whos, kUserTableRowTitle[indexPath.row], @(count)]];
     [cell.lbSummary setText:@""];
@@ -232,6 +237,18 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row == 0){
+        
+    }else if(indexPath.row == 1){
+        
+    }else if(indexPath.row == 2){
+        ASUserTopicVc *vc = [[ASUserTopicVc alloc] init];
+        vc.uid = self.uid;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(indexPath.row == 3){
+        ASUserMessageVc *vc = [[ASUserMessageVc alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark -

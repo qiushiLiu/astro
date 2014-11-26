@@ -8,21 +8,21 @@
 
 #import "ASAskerHeaderView.h"
 @interface ASAskerHeaderView()
+@property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) NSMutableArray *buttons;
 @property (nonatomic, strong) UIImageView *cursor;
 @end
 
 @implementation ASAskerHeaderView
 
-#define ButtonTitles [NSArray arrayWithObjects:@"小白鼠区", @"学习研究", /* @"付费咨询",*/ nil]
-
-- (id)init
+- (id)initWithItems:(NSArray *)items
 {
     self = [super initWithFrame:CGRectMake(0, 0, 320, 40)];
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         self.buttons = [[NSMutableArray alloc] init];
+        self.items = [items copy];
         _selected = -1;
         
         UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
@@ -32,13 +32,13 @@
         self.cursor = [[UIImageView alloc] initWithFrame:CGRectMake(bg.left, bg.top, 150., bg.height + 2)];
         [self addSubview:self.cursor];
         
-        for(int i = 0; i < 2 ; i++){
+        for(int i = 0; i < [items count] ; i++){
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(bg.left + i * self.cursor.width, bg.top, self.cursor.width, bg.height - 2)];
             btn.tag = i;
             btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
             [btn setTitleColor:ASColorDarkGray forState:UIControlStateNormal];
             [btn setTitleColor:ASColorDarkRed forState:UIControlStateHighlighted];
-            [btn setTitle:[ButtonTitles objectAtIndex:i] forState:UIControlStateNormal];
+            [btn setTitle:items[i] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
             [self.buttons addObject:btn];
@@ -75,6 +75,13 @@
         
     }];
     
+}
+
+- (NSString *)selectedTitle{
+    if(_selected < 0 || _selected >= [self.items count]){
+        return nil;
+    }
+    return self.items[_selected];
 }
 
 - (void)btnClick:(UIButton *)sender{

@@ -14,6 +14,7 @@
 #import "ASQaAnswer.h"
 #import "ASPostReplyVc.h"
 #import "ASNav.h"
+#import "ASUserCenterVc.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
@@ -223,6 +224,12 @@
 }
 
 #pragma mark - ASAskDetailCellViewDelegate
+- (void)detailCellClickFace:(NSInteger)uid{
+    ASUserCenterVc *vc = [[ASUserCenterVc alloc] init];
+    vc.uid = uid;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)detailCellClickComment:(ASQaAnswer *)answer{
     [self navToCommentVc:answer becomeEdit:YES];
 }

@@ -35,7 +35,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.btnRight];
     
     //tableheader view
-    self.header = [[ASAskerHeaderView alloc] init];
+    self.header = [[ASAskerHeaderView alloc] initWithItems:@[@"小白鼠区", @"学习研究"]];
     self.header.delegate = self;
     
     //table

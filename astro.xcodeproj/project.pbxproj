@@ -70,6 +70,10 @@
 		1B6CF44118C6FBA2005F1A70 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */; };
 		1B6CF44418C88216005F1A70 /* ASAstroPanVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44318C88216005F1A70 /* ASAstroPanVc.m */; };
 		1B6CF44618C88AC5005F1A70 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6CF44518C88AC5005F1A70 /* CoreText.framework */; };
+		1B7838731A241481000E30BA /* ASUserMessageVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838721A241481000E30BA /* ASUserMessageVc.m */; };
+		1B7838761A241B4D000E30BA /* ASUSR_Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838751A241B4D000E30BA /* ASUSR_Message.m */; };
+		1B7838791A2427D4000E30BA /* ASUSR_SMS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838781A2427D4000E30BA /* ASUSR_SMS.m */; };
+		1B7838AE1A256D95000E30BA /* ASUserTopicVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7838AD1A256D95000E30BA /* ASUserTopicVc.m */; };
 		1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */; };
 		1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9118924EDF000C59C0 /* ASForgetPswVc.m */; };
 		1B7ACF9C1897A9BD000C59C0 /* ASAppUrlConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7ACF9B1897A9BD000C59C0 /* ASAppUrlConst.m */; };
@@ -266,6 +270,14 @@
 		1B6CF44218C88216005F1A70 /* ASAstroPanVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAstroPanVc.h; sourceTree = "<group>"; };
 		1B6CF44318C88216005F1A70 /* ASAstroPanVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAstroPanVc.m; sourceTree = "<group>"; };
 		1B6CF44518C88AC5005F1A70 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1B7838711A241481000E30BA /* ASUserMessageVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserMessageVc.h; sourceTree = "<group>"; };
+		1B7838721A241481000E30BA /* ASUserMessageVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserMessageVc.m; sourceTree = "<group>"; };
+		1B7838741A241B4D000E30BA /* ASUSR_Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUSR_Message.h; sourceTree = "<group>"; };
+		1B7838751A241B4D000E30BA /* ASUSR_Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUSR_Message.m; sourceTree = "<group>"; };
+		1B7838771A2427D4000E30BA /* ASUSR_SMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUSR_SMS.h; sourceTree = "<group>"; };
+		1B7838781A2427D4000E30BA /* ASUSR_SMS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUSR_SMS.m; sourceTree = "<group>"; };
+		1B7838AC1A256D95000E30BA /* ASUserTopicVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserTopicVc.h; sourceTree = "<group>"; };
+		1B7838AD1A256D95000E30BA /* ASUserTopicVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserTopicVc.m; sourceTree = "<group>"; };
 		1B7A15611915CA4900AECD59 /* ASAskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskTableViewCell.h; sourceTree = "<group>"; };
 		1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskTableViewCell.m; sourceTree = "<group>"; };
 		1B7ACF9018924EDF000C59C0 /* ASForgetPswVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASForgetPswVc.h; sourceTree = "<group>"; };
@@ -668,6 +680,10 @@
 				1B2DA3E419F9363200E9C03D /* ASQaMinZiWei.h */,
 				1B2DA3E519F9363200E9C03D /* ASQaMinZiWei.m */,
 				1B1D5F2A1942BC7D00D23025 /* ASQaProtocol.h */,
+				1B7838741A241B4D000E30BA /* ASUSR_Message.h */,
+				1B7838751A241B4D000E30BA /* ASUSR_Message.m */,
+				1B7838771A2427D4000E30BA /* ASUSR_SMS.h */,
+				1B7838781A2427D4000E30BA /* ASUSR_SMS.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -841,6 +857,10 @@
 				1BFBDFAC195161660063DDE2 /* ASUserCenterVc.m */,
 				1B1E6CEB1A22E3FC00DE93B2 /* ASUserEditVc.h */,
 				1B1E6CEC1A22E3FC00DE93B2 /* ASUserEditVc.m */,
+				1B7838711A241481000E30BA /* ASUserMessageVc.h */,
+				1B7838721A241481000E30BA /* ASUserMessageVc.m */,
+				1B7838AC1A256D95000E30BA /* ASUserTopicVc.h */,
+				1B7838AD1A256D95000E30BA /* ASUserTopicVc.m */,
 			);
 			name = user;
 			sourceTree = "<group>";
@@ -1005,6 +1025,7 @@
 			files = (
 				1B1F7D0A18B309FF00186229 /* ASBaseSingleTableView.m in Sources */,
 				1B3BD8A8199CB2D1006111F1 /* ASAstroStarsFillVc.m in Sources */,
+				1B7838791A2427D4000E30BA /* ASUSR_SMS.m in Sources */,
 				1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */,
 				1B7ACF9218924EDF000C59C0 /* ASForgetPswVc.m in Sources */,
 				1B012B6D185DD4ED0046AD7A /* UIImage+Scale.m in Sources */,
@@ -1032,6 +1053,7 @@
 				1B8A039219867B780087A4E0 /* ASPaiPanMainVc.m in Sources */,
 				1B6CF44118C6FBA2005F1A70 /* NSDate+Addition.m in Sources */,
 				1B7CAEFD18F6489C005B8C30 /* NSArray+JSONModel.m in Sources */,
+				1B7838731A241481000E30BA /* ASUserMessageVc.m in Sources */,
 				1B012B6E185DD4ED0046AD7A /* UIView+Layout.m in Sources */,
 				1BC823C9193DF1A3001CF44E /* ASIAuthenticationDialog.m in Sources */,
 				1BA69372187FD1B900478D08 /* ASControls.m in Sources */,
@@ -1071,6 +1093,7 @@
 				1B3DBE0E198B2B1900C1F3D2 /* ASQuestionButton.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
+				1B7838AE1A256D95000E30BA /* ASUserTopicVc.m in Sources */,
 				1B3B336E19C2C102009EB212 /* ASAstroTransitVc.m in Sources */,
 				1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */,
 				1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */,
@@ -1094,6 +1117,7 @@
 				1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */,
 				1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */,
 				1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */,
+				1B7838761A241B4D000E30BA /* ASUSR_Message.m in Sources */,
 				1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */,
 				1B1D5F1A1941F22100D23025 /* ASCustomer.m in Sources */,
 				1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */,

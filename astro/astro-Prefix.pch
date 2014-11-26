@@ -45,6 +45,7 @@
 #define ASColorOrange UIColorFromRGB(0xff9670)
 #define ASColorBlueGreen UIColorFromRGB(0x7accc8)
 #define ASColorQing UIColorFromRGB(0xbee3db)
+#define ASColorLightQing UIColorFromRGB(0xeffefb)
 
 #define Int2String(iValue) [NSString stringWithFormat:@"%@", @(iValue)]
 

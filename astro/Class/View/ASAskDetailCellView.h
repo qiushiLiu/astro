@@ -13,6 +13,7 @@
 @protocol ASAskDetailCellViewDelegate <NSObject>
 - (void)detailCellClickComment:(ASQaAnswer *)answer;
 - (void)detailCellClickDelete:(ASQaAnswer *)answer;
+- (void)detailCellClickFace:(NSInteger)uid;
 @end
 
 @interface ASAskDetailCellView : UIView <UITableViewDelegate, UITableViewDataSource>
