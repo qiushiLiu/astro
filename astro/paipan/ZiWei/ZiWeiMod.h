@@ -59,5 +59,5 @@
 @property (nonatomic, strong) NSMutableArray *YunYao;
 @property (nonatomic) NSInteger ZiDou;
 
-- (UIImage *)centerImage:(BOOL)lxTag;
+- (UIImageView *)paipan:(BOOL)lxTag;
 @end

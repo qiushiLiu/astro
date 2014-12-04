@@ -1,14 +1,15 @@
 //
-//  ASBaZiPanVc.m
+//  ASZiWeiPanVc.m
 //  astro
 //
-//  Created by kjubo on 14/11/26.
+//  Created by kjubo on 14/12/2.
 //  Copyright (c) 2014年 kjubo. All rights reserved.
 //
 
-#import "ASBaZiPanVc.h"
+#import "ASZiWeiPanVc.h"
+#import "ASZiWeiGrid.h"
 
-@interface ASBaZiPanVc ()
+@interface ASZiWeiPanVc ()
 @property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
 @property (nonatomic, strong) UITableView *tbGongInfo;  //宫位信息
 @property (nonatomic, strong) UITableView *tbStarInfo;  //星位信息
@@ -17,14 +18,18 @@
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
+@property (nonatomic, strong) UIImageView *panCenter;
+@property (nonatomic, strong) NSMutableArray *gongs;
+@property (nonatomic, strong) ASZiWeiGrid *lastSelected;
 @end
 
-@implementation ASBaZiPanVc
+
+@implementation ASZiWeiPanVc
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self setTitle:@"八字排盘"];
+    [self setTitle:@"紫薇排盘"];
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_paipan"]];
     self.contentView.pagingEnabled = YES;
     self.contentView.showsHorizontalScrollIndicator = NO;
@@ -32,7 +37,7 @@
     self.contentView.delegate = self;
     
     UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"排盘"];
-//    [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     self.page = [[UIPageControl alloc] init];
@@ -49,20 +54,6 @@
     self.scPanView.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.scPanView];
     
-    self.tbStarInfo = [[UITableView alloc] initWithFrame:CGRectMake(self.contentView.width  + 5, self.page.bottom + 5, self.contentView.width - 10, 0) style:UITableViewStyleGrouped];
-    self.tbStarInfo.delegate = self;
-    self.tbStarInfo.dataSource = self;
-    self.tbStarInfo.separatorColor = [UIColor clearColor];
-    self.tbStarInfo.bounces = NO;
-    [self.contentView addSubview:self.tbStarInfo];
-    
-    self.tbGongInfo = [[UITableView alloc] initWithFrame:CGRectMake(self.contentView.width * 2 + 5, self.page.bottom + 5, self.contentView.width - 10, 0) style:UITableViewStyleGrouped];
-    self.tbGongInfo.delegate = self;
-    self.tbGongInfo.dataSource = self;
-    self.tbGongInfo.separatorColor = [UIColor clearColor];
-    self.tbGongInfo.bounces = NO;
-    [self.contentView addSubview:self.tbGongInfo];
-    
     UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_dl_logo"]];
     ivLogo.frame = CGRectMake(5, 5, ivLogo.width/2, ivLogo.height/2);
     [self.scPanView addSubview:ivLogo];
@@ -75,7 +66,7 @@
     self.lbTuiyun.right = self.contentView.width - 5;
     [self.contentView addSubview:self.lbTuiyun];
     
-    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom - 10, __BaiZiPanSize.width, __BaiZiPanSize.height)];
+    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom - 10, 320, 320)];
     [self.scPanView addSubview:self.pan];
     
     self.lbP1Info = [self newTextLabel:CGRectMake(ivLogo.left, 0, 120, 50)];
@@ -117,15 +108,13 @@
     self.tbStarInfo.height = self.tbGongInfo.height;
     
     [self showWaiting];
-    [HttpUtil post:@"input/TimeToBazi" params:nil body:[self.model toJSONString] completion:^(BOOL succ, NSString *message, id json) {
+    [HttpUtil post:@"input/TimeToZiWei" params:nil body:[self.model toJSONString] completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
             NSError *error;
-            self.model = [[BaziMod alloc] initWithDictionary:json error:&error];
+            self.model = [[ZiWeiMod alloc] initWithDictionary:json error:&error];
             NSAssert(error == nil, @"%@", error);
-            self.pan.image = [self.model paipan];
-            [self.tbStarInfo reloadData];
-            [self.tbGongInfo reloadData];
+            self.pan = [self.model paipan:NO];
         }else{
             [self alert:message];
         }
@@ -141,33 +130,6 @@
     }
 }
 
-#pragma mark - UITableView Delegate & DataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 35;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
-    if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
-        
-    }
-    return cell;
-}
-
 #pragma mark --
 - (UILabel *)newTextLabel:(CGRect)frame{
     UILabel *lb = [[UILabel alloc] initWithFrame:frame];
@@ -175,6 +137,9 @@
     lb.textColor = [UIColor blackColor];
     lb.font = [UIFont systemFontOfSize:13];
     return lb;
+}
+
+- (void)btnClick_fillInfo{
 }
 
 - (void)btnClick_share:(UIButton *)sender{

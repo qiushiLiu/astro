@@ -10,6 +10,8 @@
 #import "BaziDayun.h"
 #import "DateEntity.h"
 
+#define __BaiZiPanSize CGSizeMake(320, 460)
+
 @protocol BaziMod
 @end
 

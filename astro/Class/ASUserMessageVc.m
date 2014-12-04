@@ -8,6 +8,7 @@
 
 #import "ASUserMessageVc.h"
 #import "ASUSR_Message.h"
+#import "ASSMSVc.h"
 #import "ASUSR_SMS.h"
 
 @interface ASUserMessageVc ()
@@ -197,6 +198,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.header.selected == 1){
+        ASUSR_SMS *msg = [self.list objectAtIndex:indexPath.row];
+        ASSMSVc *vc = [[ASSMSVc alloc] init];
+        vc.sysNo = msg.SysNo;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 @end

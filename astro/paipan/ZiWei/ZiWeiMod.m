@@ -10,8 +10,55 @@
 #import "NSDate+Addition.h"
 #import "ZiWeiMod.h"
 #import "BaziMod.h"
+#import "ASZiWeiGrid.h"
+
+@interface ZiWeiMod ()
+@property (nonatomic, strong) NSMutableArray *gongs;
+@end
 
 @implementation ZiWeiMod
+
+- (UIImageView *)paipan:(BOOL)lxTag{
+    self.gongs = [NSMutableArray array];
+    CGSize cellSize = lxTag ? __LxCellSize : __CellSize;
+    
+    UIImageView *pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellSize.width * 4, cellSize.height * 4)];
+    
+    UIImageView *panCenter = [[UIImageView alloc] initWithImage:[self centerImage:lxTag]];
+    panCenter.origin = CGPointMake(cellSize.width, cellSize.height);
+
+    for(int i = 0; i < 12; i++){
+        ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:self index:i lx:lxTag];
+        gd.tag = i + 100;
+//        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
+        [self.gongs addObject:gd];
+        [pan addSubview:gd];
+    }
+    
+    //星旺宫
+    for(int i = 0; i < [self.Xing count]; i++){
+        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
+            continue;
+        }
+        ZiWeiStar *star = [self.Xing objectAtIndex:i];
+        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
+        [gd addStar:star withIndex:i];
+    }
+    
+    if(lxTag){
+        //流耀
+        for(int i = 0; i < 7; i++){
+            int gong = [[self.YunYao objectAtIndex:i] intValue];
+            ASZiWeiGrid *gd = [self.gongs objectAtIndex:gong];
+            [gd addYunYao:i];
+            
+            gong = [[self.LiuYao objectAtIndex:i] intValue];
+            gd = [self.gongs objectAtIndex:gong];
+            [gd addLiuYao:i];
+        }
+    }
+    return pan;
+}
 
 - (UIImage *)centerImage:(BOOL)lxTag
 {

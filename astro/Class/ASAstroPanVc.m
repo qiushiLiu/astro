@@ -10,7 +10,6 @@
 #import "ASZiWeiGrid.h"
 #import "ZiWeiStar.h"
 #import "AstroStar.h"
-#import "Paipan.h"
 #import "ASAstroPanFillInfoVc.h"
 
 @interface ASAstroPanVc ()

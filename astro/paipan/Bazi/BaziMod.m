@@ -232,7 +232,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
                                        UIColorFromRGB(0xfe30d9), NSForegroundColorAttributeName,nil];
     
     
-    CGSize size = CGSizeMake(320, 460);
+    CGSize size = __BaiZiPanSize;
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     [UIColorFromRGB(0xf7f4ee) setFill];
     UIRectFill(CGRectMake(0, 0, size.width, size.height));

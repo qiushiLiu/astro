@@ -9,7 +9,7 @@
 #import "ASPaiPanMainVc.h"
 #import "ASAstroPanVc.h"
 #import "ASBaZiPanVc.h"
-
+#import "ASZiWeiPanVc.h"
 @interface ASPaiPanMainVc ()
 
 @end
@@ -66,7 +66,8 @@
         ASAstroPanVc *vc = [[ASAstroPanVc alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }else if(sender.tag == 2){
-        
+        ASZiWeiPanVc *vc = [[ASZiWeiPanVc alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }else if(sender.tag == 3){
         ASBaZiPanVc *vc = [[ASBaZiPanVc alloc] init];
         [self.navigationController pushViewController:vc animated:YES];

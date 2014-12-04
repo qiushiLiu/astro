@@ -98,9 +98,6 @@
     }else if([self.topCateId intValue] == 2){
         [self.btnRight setTitle:@"我要发帖" forState:UIControlStateNormal];
     }
-//    else{
-//        [self.btnRight setTitle:@"发起咨询" forState:UIControlStateNormal];
-//    }
 }
 
 #pragma mark - ASAskerHeaderViewDelegate
@@ -110,9 +107,6 @@
     }else if(tag == 1){
         self.topCateId = @"2";
     }
-//    else{
-//        self.topCateId = @"17";
-//    }
     [self loadRightButtonTitle];
     
     NSDictionary *params = @{@"parent" : self.topCateId};
