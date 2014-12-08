@@ -9,6 +9,6 @@
 #import "ASBaseViewController.h"
 #import "Paipan.h"
 #import "ZiWeiMod.h"
-@interface ASZiWeiPanVc : ASBaseViewController<UIScrollViewDelegate>
+@interface ASZiWeiPanVc : ASBaseViewController
 @property (nonatomic, strong) ZiWeiMod *model;
 @end

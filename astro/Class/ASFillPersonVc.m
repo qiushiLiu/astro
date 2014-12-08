@@ -48,6 +48,24 @@
     return str;
 }
 
++ (NSString *)stringForBirth:(NSDate *)birth gender:(NSInteger)gender daylight:(NSInteger)daylight poi:(NSString *)poi{
+    NSMutableString *str = [NSMutableString stringWithString:[birth toStrFormat:@"yyyy-MM-dd HH:mm"]];
+    if(daylight > 0){
+        [str appendString:@" 夏令时"];
+    }
+    if(gender == 1){
+        [str appendString:@" 男"];
+    }else{
+        [str appendString:@" 女"];
+    }
+    [str appendString:@" "];
+    if([poi length] > 0){
+        [str appendString:poi];
+        [str appendString:@" "];
+    }
+    return str;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -149,7 +167,7 @@
 }
 
 - (void)reloadData{
-    self.swDaylight.on = self.person.Daylight > 0;
+    self.swDaylight.on = self.person.DayLight > 0;
     self.swGender.on = self.person.Gender > 0;
     [self.btnDate setTitle:[self.person.Birth toStrFormat:@"yyyy-MM-dd"] forState:UIControlStateNormal];
     [self.btnTime setTitle:[self.person.Birth toStrFormat:@"hh:mm"] forState:UIControlStateNormal];
@@ -195,7 +213,7 @@
 
 - (void)btnClick_poi:(UIButton *)sender{
     self.person.Gender = self.swGender.on;
-    self.person.Daylight = self.swDaylight.on;
+    self.person.DayLight = self.swDaylight.on;
     ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
     vc.delegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -214,7 +232,7 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    self.person.Daylight = self.swDaylight.on ? 1 : 0;
+    self.person.DayLight = self.swDaylight.on ? 1 : 0;
     self.person.Gender = self.swGender.on ? 1 : 0;
     if([self.delegate respondsToSelector:@selector(ASFillPerson:trigger:)]){
         [self.delegate ASFillPerson:self.person trigger:self.trigger];

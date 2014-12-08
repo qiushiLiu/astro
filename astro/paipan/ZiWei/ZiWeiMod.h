@@ -34,14 +34,15 @@
 @interface ZiWeiMod : JSONModel
 @property (nonatomic, strong) DateEntity *BirthTime;
 @property (nonatomic, strong) DateEntity *TransitTime;
+@property (nonatomic) NSInteger Type;
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic) NSInteger ShuXing;
 @property (nonatomic) NSInteger Age;
 @property (nonatomic) NSInteger Ming;
 @property (nonatomic) NSInteger Shen;
 @property (nonatomic) NSInteger MingJu;
-@property (nonatomic, strong) NSMutableArray<ZiWeiGong> *Gong;
-@property (nonatomic, strong) NSMutableArray<ZiWeiStar> *Xing;
+@property (nonatomic, strong) NSArray<ZiWeiGong> *Gong;
+@property (nonatomic, strong) NSArray<ZiWeiStar> *Xing;
 @property (nonatomic) NSInteger MingZhu;
 @property (nonatomic) NSInteger ShenZhu;
 @property (nonatomic) NSInteger RunYue;
@@ -55,9 +56,12 @@
 @property (nonatomic) NSInteger LiuNianGong;
 @property (nonatomic) NSInteger DaYunGong;
 @property (nonatomic) NSInteger LiuYueGong;
-@property (nonatomic, strong) NSMutableArray *LiuYao;
-@property (nonatomic, strong) NSMutableArray *YunYao;
+@property (nonatomic, strong) NSArray *LiuYao;
+@property (nonatomic, strong) NSArray *YunYao;
 @property (nonatomic) NSInteger ZiDou;
-
-- (UIImageView *)paipan:(BOOL)lxTag;
+@property (nonatomic, strong) NSString<Optional> *AreaName;
+@property (nonatomic, strong) NSString<Optional> *Longitude;
+@property (nonatomic) BOOL RealTime;
+@property (nonatomic) BOOL IsDayLight;
+- (UIImageView *)paipan;
 @end

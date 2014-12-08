@@ -31,18 +31,17 @@
 @property (nonatomic) NSInteger YinYang;
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic, strong) NSArray<BaziDayun> *Dayun;
-@property (nonatomic) NSDate *JiaoYun;
+@property (nonatomic) NSDate<NSDate> *JiaoYun;
 @property (nonatomic) long QiYunShow;
 @property (nonatomic, strong) NSMutableArray *CangGanShow;
 @property (nonatomic, strong) NSMutableArray *NaYin;
 @property (nonatomic, strong) NSMutableArray<Ignore> *WangShuai;
-@property (nonatomic, strong) NSArray<NSDate> *JieQi;
-@property (nonatomic, strong) NSMutableArray *JieQiName;
+@property (nonatomic, strong) NSArray *JieQiShow;
+@property (nonatomic, strong) NSArray *JieQiName;
 @property (nonatomic) BOOL RealTime;
-@property (nonatomic) NSInteger AreaSysNo;
+@property (nonatomic) BOOL IsDayLight;
 @property (nonatomic, strong) NSString *AreaName;
 @property (nonatomic, strong) NSString *Longitude;
-@property (nonatomic) long RealTimeSpanShow;
 
 - (id)initWithDateEntity:(DateEntity *)entity;
 - (NSInteger)getCangGanByX:(NSInteger)x andY:(NSInteger)y;

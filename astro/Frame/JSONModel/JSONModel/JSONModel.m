@@ -906,7 +906,6 @@ static JSONKeyMapper* globalKeyMapper = nil;
 
     //loop over all properties
     for (JSONModelClassProperty* p in properties) {
-
         //skip if unwanted
         if (propertyNames != nil && ![propertyNames containsObject:p.name])
             continue;

@@ -65,6 +65,8 @@
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
 		1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */; };
 		1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */; };
+		1B608A8B1A342101008B3645 /* ASZiWeiSeniorVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B608A8A1A342101008B3645 /* ASZiWeiSeniorVc.m */; };
+		1B608A8E1A34511C008B3645 /* ASBaZiPanFillInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B608A8D1A34511C008B3645 /* ASBaZiPanFillInfoVc.m */; };
 		1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B628F0E1925B6DB00C802B6 /* ASPosition.m */; };
 		1B64BA13199C56260018C43A /* ASPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B64BA12199C56260018C43A /* ASPerson.m */; };
 		1B6CF44118C6FBA2005F1A70 /* NSDate+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6CF44018C6FBA2005F1A70 /* NSDate+Addition.m */; };
@@ -101,6 +103,7 @@
 		1B7F755A19BE8A3B00F01EF4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7F755919BE8A3B00F01EF4 /* CoreLocation.framework */; };
 		1B81A7B9196D26F600055137 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81A7B8196D26F600055137 /* Images.xcassets */; };
 		1B8A039219867B780087A4E0 /* ASPaiPanMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */; };
+		1B96B97B1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B96B97A1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m */; };
 		1B9DC4E219AACF04006CBB3D /* ASPermitInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */; };
 		1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */; };
 		1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9F1EB21861BD6D00278E62 /* NSObject+JSON.m */; };
@@ -264,6 +267,10 @@
 		1B5D5E99187A53B50030A7E8 /* ASLoginVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASLoginVc.m; sourceTree = "<group>"; };
 		1B5D5E9B187A54AF0030A7E8 /* ASNavKeyConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASNavKeyConst.h; sourceTree = "<group>"; };
 		1B5D5E9C187A54AF0030A7E8 /* ASNavKeyConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASNavKeyConst.m; sourceTree = "<group>"; };
+		1B608A891A342101008B3645 /* ASZiWeiSeniorVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiSeniorVc.h; sourceTree = "<group>"; };
+		1B608A8A1A342101008B3645 /* ASZiWeiSeniorVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZiWeiSeniorVc.m; sourceTree = "<group>"; };
+		1B608A8C1A34511C008B3645 /* ASBaZiPanFillInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBaZiPanFillInfoVc.h; sourceTree = "<group>"; };
+		1B608A8D1A34511C008B3645 /* ASBaZiPanFillInfoVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBaZiPanFillInfoVc.m; sourceTree = "<group>"; };
 		1B628F0D1925B6DB00C802B6 /* ASPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPosition.h; sourceTree = "<group>"; };
 		1B628F0E1925B6DB00C802B6 /* ASPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPosition.m; sourceTree = "<group>"; };
 		1B64BA11199C56260018C43A /* ASPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPerson.h; sourceTree = "<group>"; };
@@ -333,6 +340,8 @@
 		1B81A7B8196D26F600055137 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPaiPanMainVc.h; sourceTree = "<group>"; };
 		1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPaiPanMainVc.m; sourceTree = "<group>"; };
+		1B96B9791A3146E100D3D42F /* ASZiWeiPanFillInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiPanFillInfoVc.h; sourceTree = "<group>"; };
+		1B96B97A1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZiWeiPanFillInfoVc.m; sourceTree = "<group>"; };
 		1B9DC4E019AACF04006CBB3D /* ASPermitInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPermitInfoVc.h; sourceTree = "<group>"; };
 		1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPermitInfoVc.m; sourceTree = "<group>"; };
 		1B9DF44E18A614A900D4DCF4 /* ASToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASToolBar.h; sourceTree = "<group>"; };
@@ -843,14 +852,20 @@
 				1B3BD8A7199CB2D1006111F1 /* ASAstroStarsFillVc.m */,
 				1B3B336C19C2C102009EB212 /* ASAstroTransitVc.h */,
 				1B3B336D19C2C102009EB212 /* ASAstroTransitVc.m */,
+				1B608A8C1A34511C008B3645 /* ASBaZiPanFillInfoVc.h */,
+				1B608A8D1A34511C008B3645 /* ASBaZiPanFillInfoVc.m */,
 				1B7838AF1A2604FB000E30BA /* ASBaZiPanVc.h */,
 				1B7838B01A2604FB000E30BA /* ASBaZiPanVc.m */,
 				1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */,
 				1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */,
 				1B9DC4E019AACF04006CBB3D /* ASPermitInfoVc.h */,
 				1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */,
+				1B96B9791A3146E100D3D42F /* ASZiWeiPanFillInfoVc.h */,
+				1B96B97A1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m */,
 				1B7838B31A2DBD44000E30BA /* ASZiWeiPanVc.h */,
 				1B7838B41A2DBD44000E30BA /* ASZiWeiPanVc.m */,
+				1B608A891A342101008B3645 /* ASZiWeiSeniorVc.h */,
+				1B608A8A1A342101008B3645 /* ASZiWeiSeniorVc.m */,
 			);
 			name = pan;
 			sourceTree = "<group>";
@@ -1047,6 +1062,7 @@
 				1B012B3B185DCB4B0046AD7A /* ASAppDelegate.m in Sources */,
 				1B19A281195D126400831568 /* ASFillQuestionVc.m in Sources */,
 				1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */,
+				1B608A8B1A342101008B3645 /* ASZiWeiSeniorVc.m in Sources */,
 				1B2DA3E319F935E200E9C03D /* ASQaMinAstro.m in Sources */,
 				1BC823CC193DF1A3001CF44E /* ASIDownloadCache.m in Sources */,
 				1BC823CE193DF1A4001CF44E /* ASIHTTPRequest.m in Sources */,
@@ -1081,6 +1097,7 @@
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
 				1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */,
 				1B2DA3E619F9363200E9C03D /* ASQaMinZiWei.m in Sources */,
+				1B608A8E1A34511C008B3645 /* ASBaZiPanFillInfoVc.m in Sources */,
 				1BAC959E1A032E6800B0FBF7 /* ASQaFullAstro.m in Sources */,
 				1B6CF44418C88216005F1A70 /* ASAstroPanVc.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
@@ -1128,6 +1145,7 @@
 				1B7CAF1118F7CEF8005B8C30 /* ASAskListVc.m in Sources */,
 				1B7F755619BD92D600F01EF4 /* GpsData.m in Sources */,
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
+				1B96B97B1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m in Sources */,
 				1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */,
 				1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */,
 				1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */,

@@ -120,9 +120,9 @@
 }
 
 - (void)loadPersonInfo{
-    [self.btnFirstPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.birth gender:self.model.Gender daylight:self.model.IsDaylight poi:self.model.position.name timeZone:self.model.zone]];
+    [self.btnFirstPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.birth gender:self.model.Gender daylight:self.model.IsDayLight poi:self.model.position.name timeZone:self.model.zone]];
     if(self.model.type == 2){
-        [self.btnSecondPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.birth1 gender:self.model.Gender1 daylight:self.model.IsDaylight1 poi:self.model.position1.name timeZone:self.model.zone1]];
+        [self.btnSecondPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.birth1 gender:self.model.Gender1 daylight:self.model.IsDayLight1 poi:self.model.position1.name timeZone:self.model.zone1]];
     }
 }
 
@@ -137,7 +137,7 @@
         vc.trigger = sender;
         vc.person.Birth = self.model.birth;
         vc.person.Gender = self.model.Gender;
-        vc.person.Daylight = self.model.IsDaylight;
+        vc.person.DayLight = self.model.IsDayLight;
         vc.person.TimeZone = self.model.zone + 12;
         vc.person.latitude = self.model.position.latitude;
         vc.person.longitude = self.model.position.longitude;
@@ -150,7 +150,7 @@
         vc.trigger = sender;
         vc.person.Birth = self.model.birth1;
         vc.person.Gender = self.model.Gender1;
-        vc.person.Daylight = self.model.IsDaylight1;
+        vc.person.DayLight = self.model.IsDayLight1;
         vc.person.TimeZone = self.model.zone1 + 12;
         vc.person.latitude = self.model.position1.latitude;
         vc.person.longitude = self.model.position1.longitude;
@@ -159,7 +159,8 @@
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnTransit){
         ASAstroTransitVc *vc = [[ASAstroTransitVc alloc] init];
-        vc.astro = self.model;
+        vc.transitTime = self.model.transitTime;
+        vc.transitPosition = self.model.transitPosition;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnPermitInfo){
@@ -190,7 +191,7 @@
         self.model.Gender = person.Gender;
         self.model.birth = (NSDate<NSDate> *)person.Birth;
         self.model.zone = person.TimeZone - 12;
-        self.model.IsDaylight = person.Daylight;
+        self.model.IsDayLight = person.DayLight;
         self.model.position.name = person.poiName;
         self.model.position.latitude = person.latitude;
         self.model.position.longitude = person.longitude;
@@ -198,7 +199,7 @@
         self.model.Gender1 = person.Gender;
         self.model.birth1 = (NSDate<NSDate> *)person.Birth;
         self.model.zone1 = person.TimeZone - 12;
-        self.model.IsDaylight1 = person.Daylight;
+        self.model.IsDayLight1 = person.DayLight;
         self.model.position1.name = person.poiName;
         self.model.position1.latitude = person.latitude;
         self.model.position1.longitude = person.longitude;

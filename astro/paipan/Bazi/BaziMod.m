@@ -103,7 +103,8 @@ NSInteger _GetYearDZ(NSInteger year){
 
 - (NSInteger)checkMon:(DateEntity *)entity{
     NSInteger mon = entity.Date.month;
-    if(entity.Date < entity.BeginMonth[mon - 1]){
+    long entityDate = [entity.Date timeIntervalSince1970];
+    if(entityDate < [entity.BeginMonthShow[mon - 1] longLongValue]){
         mon--;
     }
     if(mon == 0){
@@ -114,7 +115,8 @@ NSInteger _GetYearDZ(NSInteger year){
 
 - (NSInteger)checkYear:(DateEntity *)entity{
     NSInteger year = entity.Date.year;
-    if(entity.Date < entity.BeginMonth[1]){
+    long entityDate = [entity.Date timeIntervalSince1970];
+    if(entityDate < [entity.BeginMonthShow[1] longLongValue]){
         year--;
     }
     return year;
@@ -275,7 +277,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
 
     // line6
     NSInteger jieqi = [[self.JieQiName objectAtIndex:0] intValue];
-    NSDate *date = [self.JieQi objectAtIndex:0];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.JieQiShow[0] longLongValue]];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@:", [self getJieQi:jieqi]] attributes:textAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日HH时mm分ss秒(高精度天文算法)"] attributes:textAttributes];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];
@@ -288,7 +290,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
 
     // line7
     jieqi = [[self.JieQiName objectAtIndex:1] intValue];
-    date = [self.JieQi objectAtIndex:1];
+    date = [NSDate dateWithTimeIntervalSince1970:[self.JieQiShow[1] longLongValue]];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@:", [self getJieQi:jieqi]] attributes:textAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日HH时mm分ss秒"] attributes:textAttributes];
     [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];

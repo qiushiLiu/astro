@@ -42,8 +42,8 @@
 @property (nonatomic, strong) ASPosition<ASPosition> *position1;
 @property (nonatomic) NSInteger zone;
 @property (nonatomic) NSInteger zone1;
-@property (nonatomic) BOOL IsDaylight;
-@property (nonatomic) BOOL IsDaylight1;
+@property (nonatomic) BOOL IsDayLight;
+@property (nonatomic) BOOL IsDayLight1;
 //推运
 @property (nonatomic, strong) NSDate<NSDate, Optional> *transitTime;
 @property (nonatomic, strong) ASPosition<ASPosition> *transitPosition;

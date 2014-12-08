@@ -11,5 +11,6 @@
 #import "AstroMod.h"
 #import "ASPoiMapVc.h"
 @interface ASAstroTransitVc : ASBaseViewController<ASPickerViewDelegate, ASPoiMapVcDelegate>
-@property (nonatomic, weak) AstroMod *astro;
+@property (nonatomic, weak) ASPosition *transitPosition;
+@property (nonatomic, weak) NSDate *transitTime;
 @end

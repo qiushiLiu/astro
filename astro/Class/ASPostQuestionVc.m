@@ -271,12 +271,12 @@
     if(chart){
         if(trigger == self.btnFirstPersonInfo){
             chart.FirstBirth = (NSDate<NSDate> *)person.Birth;
-            chart.FirstDayLight = person.Daylight;
+            chart.FirstDayLight = person.DayLight;
             chart.FirstGender = person.Gender;
             chart.FirstTimeZone = person.TimeZone;
         }else if(trigger == self.btnSecondPersonInfo){
             chart.SecondBirth = (NSDate<NSDate> *)person.Birth;
-            chart.SecondDayLight = person.Daylight;
+            chart.SecondDayLight = person.DayLight;
             chart.SecondGender = person.Gender;
             chart.SecondTimeZone = person.TimeZone;
         }

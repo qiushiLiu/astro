@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 @interface DateEntity : JSONModel <NSCopying>
-@property (nonatomic, strong) NSDate *Date;
-@property (nonatomic, strong) NSArray<NSDate> *BeginMonth;
-@property (nonatomic, strong) NSArray<NSDate> *BeginZodiac;
+@property (nonatomic, strong) NSDate<NSDate> *Date;
+@property (nonatomic, strong) NSArray *BeginMonthShow;
+@property (nonatomic, strong) NSArray *BeginZodiacShow;
 @property (nonatomic) NSInteger NongliTG;
 @property (nonatomic) NSInteger NongliDZ;
 @property (nonatomic) NSInteger NongliMonth;

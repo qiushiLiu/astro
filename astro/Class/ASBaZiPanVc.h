@@ -10,6 +10,6 @@
 #import "BaziMod.h"
 #import "Paipan.h"
 
-@interface ASBaZiPanVc : ASBaseViewController<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ASBaZiPanVc : ASBaseViewController
 @property (nonatomic, strong) BaziMod *model;      //盘数据
 @end

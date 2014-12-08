@@ -33,15 +33,22 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tbList.height = self.contentView.height;
+    [self loadMore];
 }
 
 - (void)loadMore{
+    [self showWaiting];
     [HttpUtil load:@"customer/GetSMSTalk"
             params:@{@"sysno" : @(self.sysNo)}
         completion:^(BOOL succ, NSString *message, id json) {
-            [self.list addObjectsFromArray:[ASUSR_SMS arrayOfModelsFromDictionaries:json]];
-            [self.tbList reloadData];
-    }];
+            [self hideWaiting];
+            if(succ){
+                [self.list addObjectsFromArray:[ASUSR_SMS arrayOfModelsFromDictionaries:json]];
+                [self.tbList reloadData];
+            }else{
+                [self alert:message];
+            }
+        }];
 
 }
 

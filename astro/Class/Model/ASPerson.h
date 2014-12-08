@@ -11,7 +11,7 @@
 @interface ASPerson : NSObject
 @property (nonatomic, strong) NSDate *Birth;
 @property (nonatomic) NSInteger Gender;
-@property (nonatomic) NSInteger Daylight;
+@property (nonatomic) NSInteger DayLight;
 @property (nonatomic) NSInteger TimeZone;
 @property (nonatomic) float longitude;
 @property (nonatomic) float latitude;

@@ -13,25 +13,28 @@
 #import "ASZiWeiGrid.h"
 
 @interface ZiWeiMod ()
-@property (nonatomic, strong) NSMutableArray *gongs;
+//@property (nonatomic, strong) NSMutableArray<Ignore> *gongs;
 @end
 
 @implementation ZiWeiMod
 
-- (UIImageView *)paipan:(BOOL)lxTag{
-    self.gongs = [NSMutableArray array];
+- (UIImageView *)paipan{
+    BOOL lxTag = self.Type == 1;
+    NSMutableArray *gongs = [NSMutableArray array];
     CGSize cellSize = lxTag ? __LxCellSize : __CellSize;
     
     UIImageView *pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellSize.width * 4, cellSize.height * 4)];
-    
+    pan.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    pan.layer.borderWidth = 1;
     UIImageView *panCenter = [[UIImageView alloc] initWithImage:[self centerImage:lxTag]];
     panCenter.origin = CGPointMake(cellSize.width, cellSize.height);
-
+    [pan addSubview:panCenter];
+    
     for(int i = 0; i < 12; i++){
         ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:self index:i lx:lxTag];
         gd.tag = i + 100;
 //        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
-        [self.gongs addObject:gd];
+        [gongs addObject:gd];
         [pan addSubview:gd];
     }
     
@@ -41,7 +44,7 @@
             continue;
         }
         ZiWeiStar *star = [self.Xing objectAtIndex:i];
-        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
+        ASZiWeiGrid *gd = [gongs objectAtIndex:star.Gong];
         [gd addStar:star withIndex:i];
     }
     
@@ -49,11 +52,11 @@
         //流耀
         for(int i = 0; i < 7; i++){
             int gong = [[self.YunYao objectAtIndex:i] intValue];
-            ASZiWeiGrid *gd = [self.gongs objectAtIndex:gong];
+            ASZiWeiGrid *gd = [gongs objectAtIndex:gong];
             [gd addYunYao:i];
             
             gong = [[self.LiuYao objectAtIndex:i] intValue];
-            gd = [self.gongs objectAtIndex:gong];
+            gd = [gongs objectAtIndex:gong];
             [gd addLiuYao:i];
         }
     }

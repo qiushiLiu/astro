@@ -76,15 +76,15 @@
 }
 
 - (void)reloadData{
-    [self.btnDate setTitle:[self.astro.transitTime toStrFormat:@"yyyy-MM-dd"] forState:UIControlStateNormal];
-    [self.btnPoi setTitle:self.astro.transitPosition.name forState:UIControlStateNormal];
+    [self.btnDate setTitle:[self.transitTime toStrFormat:@"yyyy-MM-dd"] forState:UIControlStateNormal];
+    [self.btnPoi setTitle:self.transitPosition.name forState:UIControlStateNormal];
 }
 
 - (void)btnClick_picker:(UIButton *)sender{
     self.picker.trigger = sender;
     if(self.btnDate == sender){
         self.picker.trigger = sender;
-        [self.picker setDatePickerMode:UIDatePickerModeDate selected:self.astro.transitTime];
+        [self.picker setDatePickerMode:UIDatePickerModeDate selected:self.transitTime];
     }
     [self.picker showPickerView];
 }
@@ -125,16 +125,16 @@
 
 #pragma mark - ASPoiDelegate
 - (void)asPoiMap:(CLLocation *)location poiName:(NSString *)poiName{
-    self.astro.transitPosition.name = poiName;
-    self.astro.transitPosition.latitude = location.coordinate.latitude;
-    self.astro.transitPosition.longitude = location.coordinate.longitude;
+    self.transitPosition.name = poiName;
+    self.transitPosition.latitude = location.coordinate.latitude;
+    self.transitPosition.longitude = location.coordinate.longitude;
     [self reloadData];
 }
 
 #pragma mark - ASPickerViewDelegate Method
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{
     if(self.picker.trigger == self.btnDate){
-        self.astro.transitTime = (NSDate<NSDate, Optional> *)[self.picker pickerDate];
+        self.transitTime = [self.picker pickerDate];
     }
     [self reloadData];
 }

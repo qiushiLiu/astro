@@ -163,9 +163,9 @@
             self.lbTuiyun.size = [tuiText sizeWithFont:self.lbTuiyun.font constrainedToSize:CGSizeMake(160, CGFLOAT_MAX) lineBreakMode:self.lbTuiyun.lineBreakMode];
             self.lbTuiyun.top = self.page.top + 3;
             self.lbTuiyun.right = self.contentView.width- 5;
-            self.lbP1Info.text = [self textForDayLight:self.astro.IsDaylight quan:[self.astro isZuhepan] ? 1 : 0 gender:self.astro.Gender birth:self.astro.birth lon:self.astro.position.longitude lat:self.astro.position.latitude];
+            self.lbP1Info.text = [self textForDayLight:self.astro.IsDayLight quan:[self.astro isZuhepan] ? 1 : 0 gender:self.astro.Gender birth:self.astro.birth lon:self.astro.position.longitude lat:self.astro.position.latitude];
             if(self.astro.type == 2){
-                self.lbP2Info.text = [self textForDayLight:self.astro.IsDaylight1 quan:[self.astro isZuhepan] ? 2 : 0 gender:self.astro.Gender1 birth:self.astro.birth1 lon:self.astro.position1.longitude lat:self.astro.position1.latitude];
+                self.lbP2Info.text = [self textForDayLight:self.astro.IsDayLight1 quan:[self.astro isZuhepan] ? 2 : 0 gender:self.astro.Gender1 birth:self.astro.birth1 lon:self.astro.position1.longitude lat:self.astro.position1.latitude];
                 self.lbP2Info.hidden = NO;
             }else{
                 self.lbP2Info.hidden = YES;
