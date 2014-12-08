@@ -103,7 +103,9 @@
         self.tbComment.dataSource = self;
         self.tbComment.separatorColor = [UIColor clearColor];
         self.tbComment.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.tbComment.userInteractionEnabled = NO;
+        if([self.tbComment respondsToSelector:@selector(setSeparatorInset:)]){
+            [self.tbComment setSeparatorInset:UIEdgeInsetsZero];
+        }
         [self addSubview:self.tbComment];
         
         self.btnMore = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tbComment.width - 20, 28)];
@@ -128,7 +130,7 @@
 - (void)setQaProtocol:(id<ASQaProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor{
     ASCustomerShow *user = [qa Customer];
     [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
-    self.faceView.tag = user.SysNo;
+    self.faceView.userInfo = @(user.SysNo);
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:user.NickName
                                                                             attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t等级 "]];
@@ -255,9 +257,11 @@
 }
 
 - (void)tap_faceView:(UITapGestureRecognizer *)sender{
-    if(self.faceView.tag > 0){
+    ASUrlImageView *iv = (ASUrlImageView *)sender.view;
+    NSInteger uid = [iv.userInfo intValue];
+    if(uid > 0){
         if([self.delegate respondsToSelector:@selector(detailCellClickFace:)]){
-            [self.delegate detailCellClickFace:self.faceView.tag];
+            [self.delegate detailCellClickFace:uid];
         }
     }
 }
@@ -285,7 +289,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
         
-        ASUrlImageView *fv = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 6, 30, 30)];
+        ASUrlImageView *fv = [[ASUrlImageView alloc] initWithFrame:CGRectMake(15, 10, 30, 30)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_faceView:)];
+        [fv addGestureRecognizer:tap];
         fv.tag = 100;
         [cell.contentView addSubview:fv];
         
@@ -309,17 +315,18 @@
     if(self.answer){
         ASQaComment *comment = [self.answer.TopComments objectAtIndex:indexPath.row];
         [fv load:comment.Customer.smallPhotoShow cacheDir:NSStringFromClass([ASCustomer class])];
+        fv.userInfo = @(comment.CustomerSysNo);
         lb.text = [comment.Context copy];
-        lb.height = [lb.text sizeWithFont:lb.font constrainedToSize:CGSizeMake(lb.width, CGFLOAT_MAX) lineBreakMode:lb.lineBreakMode].height;
-        line.top = MAX(lb.bottom , fv.bottom) + 5;
+        lb.height = [lb.text boundingRectWithSize:CGSizeMake(lb.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : lb.font} context:nil].size.height;
+        line.top = MAX(lb.bottom , fv.bottom) + 10;
     }
     
     return cell;
 }
 
 + (CGFloat)heightForComment:(ASQaComment *)as{
-    CGFloat height = 12 + [as.Context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(255, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
-    height = MAX(40, height);
+    CGFloat height = 12 + [as.Context boundingRectWithSize:CGSizeMake(255, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.height;
+    height = MAX(50, height);
     return height;
 }
 

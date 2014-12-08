@@ -13,6 +13,7 @@ extern CGFloat const kProgressViewHeight;
 extern NSString *const kLoadFaildImageName;
 
 @interface ASUrlImageView : UIView
+@property (nonatomic, strong) id userInfo;
 @property (nonatomic) BOOL showProgress;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *dir;

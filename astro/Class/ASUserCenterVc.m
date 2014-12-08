@@ -35,9 +35,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"注销"];
-    [btn addTarget:self action:@selector(btnClick_loginOut) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
     self.bgView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, self.contentView.width - 20, 1)];
     self.bgView.backgroundColor = [UIColor whiteColor];
@@ -118,19 +115,19 @@
     if([self.navigationController.viewControllers count] == 1){
         self.navigationItem.leftBarButtonItem = nil;
     }
-    if(self.uid == [ASGlobal shared].user.SysNo){
-        self.uid = 0;
-    }
-    if(self.uid == 0){
+    if([self isCurrentUser]){
         [self setTitle:@"个人首页"];
+        UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"注销"];
+        [btn addTarget:self action:@selector(btnClick_loginOut) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }else{
         [self setTitle:@"Ta的首页"];
+        self.navigationItem.rightBarButtonItem = nil;
     }
     
     [self showWaiting];
-    NSInteger uid = self.uid > 0 ? self.uid : [ASGlobal shared].user.SysNo;
     [HttpUtil load:@"customer/GetUserInfo"
-            params:@{@"uid" : @(uid)}
+            params:@{@"uid" : @(self.uid)}
         completion:^(BOOL succ, NSString *message, id json) {
             [self hideWaiting];
             if(succ){
@@ -145,11 +142,17 @@
         }];
 }
 
+- (BOOL)isCurrentUser{
+    if(self.uid == 0){
+        self.uid = [ASGlobal shared].user.SysNo;
+    }
+    return self.uid == [ASGlobal shared].user.SysNo;
+}
+
 - (void)loadUserInfo{
-    ASCustomer *um = [ASGlobal shared].user;
-    [self.ivFace load:um.smallPhotoShow cacheDir:nil];
-    NSMutableString *str = [NSMutableString stringWithString:um.NickName];
-    [str appendFormat:@"    %@ 等级 ", (um.Gender == 1 ? @"男" : @"女")];
+    [self.ivFace load:self.um.smallPhotoShow cacheDir:nil];
+    NSMutableString *str = [NSMutableString stringWithString:self.um.NickName];
+    [str appendFormat:@"    %@ 等级 ", (self.um.Gender == 1 ? @"男" : @"女")];
     NSMutableAttributedString *attName = [[NSMutableAttributedString alloc] initWithString:str];
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:self.um.GradeShow
                                                                     attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}]];
@@ -168,15 +171,17 @@
     [self.lbUserPan sizeToFit];
     self.lbUserPan.origin = CGPointMake(self.ivFace.left, MAX(self.ivFace.bottom , self.lbUserIntro.bottom) + 15);
     
-    if(self.uid == 0){
+    CGFloat top = self.ivFace.bottom;
+    if([self isCurrentUser]){
         self.btnEdit.hidden = NO;
         self.btnEdit.right = self.bgScoreView.right;
         self.btnEdit.centerY = self.lbUserPan.centerY;
+        top = self.btnEdit.bottom;
     }else{
         self.btnEdit.hidden = YES;
     }
     
-    self.bgScoreView.top = self.btnEdit.bottom + 15;
+    self.bgScoreView.top = top + 15;
     self.bgView.height = self.bgScoreView.bottom + 25;
     ((UILabel *)self.arrScoreLabel[0]).text = Int2String(self.um.Point);
     ((UILabel *)self.arrScoreLabel[1]).text = Int2String(self.um.TotalQuest);
@@ -223,7 +228,7 @@
     }
     
     [cell.icon loadLocalImage:@""];
-    NSString *whos = self.uid > 0 ? @"Ta的" : @"我的";
+    NSString *whos = [self isCurrentUser] ? @"我的" : @"Ta的";
     NSInteger count = 0;
     if(indexPath.row == 0){   //回帖
         count = self.um.TotalQuest + self.um.TotalTalk;

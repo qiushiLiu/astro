@@ -9,7 +9,7 @@
 #import "ASCommentVc.h"
 #import "ASQaAnswer.h"
 #import "ASQaComment.h"
-#import "ASAskDetailCellView.h"
+#import "ASUserCenterVc.h"
 #import "ASNav.h"
 
 @interface ASCommentVc ()
@@ -178,6 +178,7 @@
         [cell.contentView addSubview:cv];
     }
     ASAskDetailCellView *cv = (ASAskDetailCellView *)[cell.contentView viewWithTag:200];
+    cv.delegate = self;
     [cv setQaProtocol:self.answer canDel:NO canComment:NO floor:indexPath.row + 1];
     return cell;
 }
@@ -188,6 +189,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tfComment resignFirstResponder];
+}
+
+#pragma mark - ASAskDetailCellView Delegate
+- (void)detailCellClickFace:(NSInteger)uid{
+    ASUserCenterVc *vc = [[ASUserCenterVc alloc] init];
+    vc.uid = uid;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - KeyBoardEvent Method

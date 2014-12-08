@@ -11,6 +11,7 @@
 #import "ASQaAnswer.h"
 
 @protocol ASAskDetailCellViewDelegate <NSObject>
+@optional
 - (void)detailCellClickComment:(ASQaAnswer *)answer;
 - (void)detailCellClickDelete:(ASQaAnswer *)answer;
 - (void)detailCellClickFace:(NSInteger)uid;
