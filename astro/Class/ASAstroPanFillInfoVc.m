@@ -132,7 +132,7 @@
 
 - (void)btnClick_fill:(UIButton *)sender{
     if(sender == self.btnFirstPersonInfo){
-        ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
+        ASFillPersonVc *vc = [[ASFillPersonVc alloc] initWithType:0];
         vc.delegate = self;
         vc.trigger = sender;
         vc.person.Birth = self.model.birth;
@@ -145,7 +145,7 @@
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnSecondPersonInfo){
-        ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
+        ASFillPersonVc *vc = [[ASFillPersonVc alloc] initWithType:0];
         vc.delegate = self;
         vc.trigger = sender;
         vc.person.Birth = self.model.birth1;

@@ -27,4 +27,6 @@
 - (void)hideWaiting;
 - (void)didShowWaiting;
 - (void)didHideWaiting;
+
+- (void)navToUserCenter:(NSInteger)uid;
 @end

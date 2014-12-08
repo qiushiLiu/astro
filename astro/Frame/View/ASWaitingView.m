@@ -67,7 +67,7 @@ extern NSString * const kDefalutLoadingText;
     }
     
     self.title.text = tips;
-    self.title.size = [self.title.text sizeWithFont:self.title.font constrainedToSize:CGSizeMake(self.maxLoadingViewWidth, CGFLOAT_MAX) lineBreakMode:self.title.lineBreakMode];
+    self.title.size = [self.title.text boundingRectWithSize:CGSizeMake(self.maxLoadingViewWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.title.font} context:nil].size;
     self.loadview.size = CGSizeMake(self.title.width + 20, self.title.height + 70);
     self.loadview.center = CGPointMake(self.width * 0.5, self.height * 0.4);
     

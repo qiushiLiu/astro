@@ -61,7 +61,6 @@
                 [self.pan removeFromSuperview];
             }
             self.pan = [self.model paipan];
-            self.pan.top = 15;
             [self.contentView addSubview:self.pan];
             self.btnFav.top = self.btnQueston.top = self.btnShare.top = self.pan.bottom + 10;
             self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnShare.bottom + 10);

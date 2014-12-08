@@ -164,7 +164,7 @@ static NSMutableParagraphStyle *style = nil;
         
         NSMutableAttributedString *tran = nil;
         if(self.gong.TransitA > 0){
-            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02ld-%02ld", self.gong.TransitA, self.gong.TransitB]];
+            tran = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%02ld-%02ld", (long)self.gong.TransitA, (long)self.gong.TransitB]];
             [tran addAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:__TextFont],
                                   NSParagraphStyleAttributeName : style,
                                   NSForegroundColorAttributeName : ZWColorGray,

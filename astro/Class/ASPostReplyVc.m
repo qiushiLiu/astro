@@ -50,7 +50,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.lbTitle.text = [self.question Title];
-    self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, CGFLOAT_MAX) lineBreakMode:self.lbTitle.lineBreakMode].height;
+    self.lbTitle.height = [self.lbTitle.text boundingRectWithSize:CGSizeMake(self.lbTitle.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.lbTitle.font} context:nil].size.height;
     self.tvReply.top = self.lbTitle.bottom + 10;
 }
 

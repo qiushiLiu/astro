@@ -125,7 +125,7 @@ static NSRegularExpression *regDate;
 - (NSInteger) week
 {
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
-	return components.week;
+	return components.weekOfMonth;
 }
 
 - (NSInteger) weekday

@@ -12,12 +12,7 @@
 + (instancetype)itemWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage
 {
     UITabBarItem *tabBarItem = nil;
-    if (IOS7_OR_LATER) {
-        tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    } else {
-        tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:nil tag:0];
-        [tabBarItem setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:image];
-    }
+    tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     return tabBarItem;
 }
 @end

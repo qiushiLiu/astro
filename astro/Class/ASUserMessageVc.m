@@ -101,7 +101,7 @@
         maxWidth = 260;
     }
     CGFloat height = 36;
-    height += [context sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(maxWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height += [context boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]} context:nil].size.height;
     return MAX(50, height);
 }
 
@@ -168,7 +168,7 @@
         icon.hidden = msg.IsRead;
         
         lbContext.text = msg.Title;
-        lbContext.size = [lbContext.text sizeWithFont:lbContext.font constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:lbContext.lineBreakMode];
+        lbContext.size = [lbContext.text boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : lbContext.font} context:nil].size;
         lbContext.origin = CGPointMake(lbDate.left, lbDate.bottom + 5);
     }else{
         ASUSR_SMS *msg = [self.list objectAtIndex:indexPath.row];
@@ -190,7 +190,7 @@
         lbDate.top = lbName.top;
         
         lbContext.text = msg.Context;
-        lbContext.size = [lbContext.text sizeWithFont:lbContext.font constrainedToSize:CGSizeMake(260, CGFLOAT_MAX) lineBreakMode:lbContext.lineBreakMode];
+        lbContext.size = [lbContext.text boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : lbContext.font} context:nil].size;
         lbContext.origin = CGPointMake(lbName.left, lbName.bottom + 5);
     }
     

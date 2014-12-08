@@ -12,7 +12,6 @@
 @interface ASBaZiPanFillInfoVc ()
 @property (nonatomic, strong) UISegmentedControl *sgPanType;
 @property (nonatomic, strong) ASQuestionButton *btnPersonInfo;      //第一当事人
-@property (nonatomic, strong) ASQuestionButton *btnSenior;          //高级
 @end
 
 @implementation ASBaZiPanFillInfoVc
@@ -41,12 +40,6 @@
     self.btnPersonInfo.centerX = self.contentView.width/2;
     [self.btnPersonInfo addTarget:self action:@selector(btnClick_fill:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnPersonInfo];
-    top = self.btnPersonInfo.bottom + 10;
-    
-    self.btnSenior = [[ASQuestionButton alloc] initWithFrame:CGRectMake(0, top, 280, 60) iconName:@"icon_fill_2" preFix:@"高级选项"];
-    self.btnSenior.centerX = self.contentView.width/2;
-    [self.btnSenior addTarget:self action:@selector(btnClick_fill:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnSenior];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -64,27 +57,29 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    self.Type = @(self.sgPanType.selectedSegmentIndex);
+    self.Type = self.sgPanType.selectedSegmentIndex;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)btnClick_fill:(UIButton *)sender{
     if(sender == self.btnPersonInfo){
-        ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
+        ASFillPersonVc *vc = [[ASFillPersonVc alloc] initWithType:1];
         vc.delegate = self;
         vc.trigger = sender;
+        vc.person.RealTime = self.model.RealTime;
+        vc.person.Birth = self.model.BirthTime.Date;
+        vc.person.Gender = self.model.Gender;
+        vc.person.DayLight = self.model.IsDayLight;
+        vc.person.longitude = [self.model.Longitude floatValue];
+        vc.person.poiName = self.model.AreaName;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
-    }else if(sender == self.btnSenior){
-//        ASZiWeiSeniorVc *vc = [[ASZiWeiSeniorVc alloc] init];
-//        vc.model = self.model;
-//        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-//        [self presentViewController:nc animated:YES completion:nil];
     }
 }
 
 #pragma mark - ASFillPersonVc Delegate Method
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
+    self.model.RealTime = person.RealTime;
     self.model.Gender = person.Gender;
     self.model.BirthTime.Date = (NSDate<NSDate> *)person.Birth;
     self.model.AreaName = person.poiName;

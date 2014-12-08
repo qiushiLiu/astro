@@ -262,11 +262,11 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     // line4
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n公历:" attributes:prefixAttributes]];
     NSMutableAttributedString *temp = [[NSMutableAttributedString alloc] initWithString:[self.BirthTime.Date toStrFormat:@"yyyy年MM月dd日hh时mm分"] attributes:textAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(5, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(11, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(14, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 4)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(8, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(11, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(14, 2)];
     [ret appendAttributedString:temp];
 
     // line5
@@ -280,12 +280,12 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[self.JieQiShow[0] longLongValue]];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@:", [self getJieQi:jieqi]] attributes:textAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日HH时mm分ss秒(高精度天文算法)"] attributes:textAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(5, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(11, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(14, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(17, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 4)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(8, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(11, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(14, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(17, 2)];
     [ret appendAttributedString:temp];
 
     // line7
@@ -293,30 +293,30 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     date = [NSDate dateWithTimeIntervalSince1970:[self.JieQiShow[1] longLongValue]];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@:", [self getJieQi:jieqi]] attributes:textAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[date toStrFormat:@"yyyy年MM月dd日HH时mm分ss秒"] attributes:textAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(0, 4)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(5, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(11, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(14, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(17, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 4)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(8, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(11, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(14, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(17, 2)];
     [ret appendAttributedString:temp];
 
     // line8 起运
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n起运:" attributes:prefixAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"于出生后%@", [self getAllDayTimeSpan:self.QiYunShow]] attributes:textAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(4, 4)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(9, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(13, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, 4)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(9, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(13, 2)];
     [ret appendAttributedString:temp];
 
     // line9 交运
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n交运:" attributes:prefixAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"于公历%@交运", [self.JiaoYun toStrFormat:@"yyyy年MM月dd日HH时mm分"]] attributes:textAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(3, 4)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(8, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(11, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(14, 2)];
-    [temp addAttribute:UITextAttributeTextColor value:[UIColor redColor] range:NSMakeRange(17, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(3, 4)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(8, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(11, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(14, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(17, 2)];
     [ret appendAttributedString:temp];
 
     // line10
@@ -332,7 +332,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     NSString *str = [NSString stringWithFormat:@"%@\t\t%@\t\t%@\t\t%@", GetTianGan(self.YearTG), GetTianGan(self.MonthTG), GetTianGan(self.DayTG), GetTianGan(self.HourTG)];
     [ret appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:redAttributes]];
     temp = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\t(%@%@空)", GetDiZhi(self.XunKong0), GetDiZhi(self.XunKong1)] attributes:textAttributes];
-    [temp addAttribute:UITextAttributeTextColor value:UIColorFromRGB(0xfe30d9) range:NSMakeRange(2, 2)];
+    [temp addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xfe30d9) range:NSMakeRange(2, 2)];
     [ret appendAttributedString:temp];
     
     // line12

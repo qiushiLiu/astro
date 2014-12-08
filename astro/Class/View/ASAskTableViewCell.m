@@ -74,14 +74,14 @@
 
 + (CGFloat)heightFor:(id<ASQaProtocol>)model width:(CGFloat)width{
     CGFloat height = 60;
-    height += [model.Title sizeWithFont:[UIFont boldSystemFontOfSize:14] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    height += [model.Title boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]} context:nil].size.height;
     height += [ASPanView heightForChart:[model Chart] context:model.Context width:width];
     return height;
 }
 
 - (void)setModelValue:(id<ASQaProtocol>)model nickName:(NSString *)nickName{
     self.lbTitle.text = [model.Title copy];
-    self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 50) lineBreakMode:NSLineBreakByCharWrapping].height;
+    self.lbTitle.height = [self.lbTitle.text boundingRectWithSize:CGSizeMake(self.lbTitle.width, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.lbTitle.font} context:nil].size.height;
     CGFloat top = self.lbTitle.bottom + 5;
     
     [self.panView setChart:[model Chart] context:[model Context]];

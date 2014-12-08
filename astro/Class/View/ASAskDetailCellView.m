@@ -128,6 +128,7 @@
 - (void)setQaProtocol:(id<ASQaProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor{
     ASCustomerShow *user = [qa Customer];
     [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
+    self.faceView.tag = user.SysNo;
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:user.NickName
                                                                             attributes:@{NSForegroundColorAttributeName : [UIColor redColor]}];
     [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"\t等级 "]];
@@ -254,9 +255,9 @@
 }
 
 - (void)tap_faceView:(UITapGestureRecognizer *)sender{
-    if(self.answer){
+    if(self.faceView.tag > 0){
         if([self.delegate respondsToSelector:@selector(detailCellClickFace:)]){
-            [self.delegate detailCellClickFace:self.answer.CustomerSysNo];
+            [self.delegate detailCellClickFace:self.faceView.tag];
         }
     }
 }

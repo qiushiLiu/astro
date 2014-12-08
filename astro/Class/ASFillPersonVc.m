@@ -10,21 +10,25 @@
 #import "ZJSwitch.h"
 
 @interface ASFillPersonVc ()
+@property (nonatomic) NSInteger type;   //0:Astro  1:BaZi&ZiWei
+@property (nonatomic, strong) ASPickerView *picker; //选择器
 @property (nonatomic, strong) UIButton *btnDate;
 @property (nonatomic, strong) UIButton *btnTime;
 @property (nonatomic, strong) ZJSwitch *swDaylight; //夏令时
+@property (nonatomic, strong) ZJSwitch *swRealTime; //真太阳时
 @property (nonatomic, strong) UIButton *btnTimeZone;//时区
 @property (nonatomic, strong) ZJSwitch *swGender;   //性别
-@property (nonatomic, strong) ASPickerView *picker; //选择器
+@property (nonatomic, strong) UIView *viewPoi;      //地址选择层
 @property (nonatomic, strong) UIButton *btnPoi;     //地址
 @property (nonatomic, strong) UIButton *btnCurrent; //当前位置
 @end
 
 @implementation ASFillPersonVc
 
-- (id)init{
+- (id)initWithType:(NSInteger)type{
     if(self = [super init]){
         self.person = [[ASPerson alloc] init];
+        self.type = type;
     }
     return self;
 }
@@ -117,17 +121,6 @@
     
     lb = [self newPerfixTextLabel];
     lb.origin = CGPointMake(titleView.left, top);
-    lb.text = @"所属时区";
-    [self.contentView addSubview:lb];
-    
-    self.btnTimeZone = [self newPickerButton:CGRectMake(lb.right + 10, top, 100, 30)];
-    [self.btnTimeZone setTitle:@"东8区" forState:UIControlStateNormal];
-    [self.btnTimeZone addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnTimeZone];
-    top = self.btnTimeZone.bottom + 10;
-    
-    lb = [self newPerfixTextLabel];
-    lb.origin = CGPointMake(titleView.left, top);
     lb.text = @"性       别";
     [self.contentView addSubview:lb];
     
@@ -140,22 +133,52 @@
     [self.contentView addSubview:self.swGender];
     top = self.swGender.bottom + 10;
     
-    lb = [self newPerfixTextLabel];
-    lb.origin = CGPointMake(titleView.left, top);
-    lb.text = @"出生地点";
-    [self.contentView addSubview:lb];
+    if(self.type == 0){
+        lb = [self newPerfixTextLabel];
+        lb.origin = CGPointMake(titleView.left, top);
+        lb.text = @"所属时区";
+        [self.contentView addSubview:lb];
+        
+        self.btnTimeZone = [self newPickerButton:CGRectMake(lb.right + 10, top, 100, 30)];
+        [self.btnTimeZone setTitle:@"东8区" forState:UIControlStateNormal];
+        [self.btnTimeZone addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:self.btnTimeZone];
+        top = self.btnTimeZone.bottom + 10;
+    }else{
+        lb = [self newPerfixTextLabel];
+        lb.origin = CGPointMake(titleView.left, top);
+        lb.text = @"真太阳时";
+        [self.contentView addSubview:lb];
+        
+        self.swRealTime = [[ZJSwitch alloc] initWithFrame:CGRectMake(lb.right + 10, top, 80, 30)];
+        self.swRealTime.textFont = [UIFont systemFontOfSize:16];
+        self.swRealTime.offText = @"否";
+        self.swRealTime.onText = @"是";
+        [self.swRealTime setTintColor:ASColorBlue];
+        [self.swRealTime setOnTintColor:ASColorDarkRed];
+        [self.swRealTime addTarget:self action:@selector(swRealTime_change:) forControlEvents:UIControlEventValueChanged];
+        [self.contentView addSubview:self.swGender];
+        top = self.swGender.bottom + 10;
+    }
     
-    self.btnPoi = [self newPickerButton:CGRectMake(lb.right + 10, top, 160, 30)];
+    self.viewPoi = [[UIView alloc] initWithFrame:CGRectMake(titleView.left, top, 300, 30)];
+    [self.contentView addSubview:self.viewPoi];
+    
+    lb = [self newPerfixTextLabel];
+    lb.text = @"出生地点";
+    [self.viewPoi addSubview:lb];
+    
+    self.btnPoi = [self newPickerButton:CGRectMake(lb.right + 10, 0, 160, self.viewPoi.height)];
     [self.btnPoi setTitle:@"请选择出生城市" forState:UIControlStateNormal];
     self.btnPoi.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.btnPoi addTarget:self action:@selector(btnClick_poi:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnPoi];
+    [self.viewPoi addSubview:self.btnPoi];
     
     self.btnCurrent = [[UIButton alloc] initWithFrame:CGRectMake(self.btnPoi.right + 10, 0, 28, 28)];
     self.btnCurrent.centerY = self.btnPoi.centerY;
     [self.btnCurrent setImage:[UIImage imageNamed:@"icon_dingwei"] forState:UIControlStateNormal];
     [self.btnCurrent addTarget:self action:@selector(btnClick_getCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnCurrent];
+    [self.viewPoi addSubview:self.btnCurrent];
     
     self.picker = [[ASPickerView alloc] initWithParentViewController:self];
     self.picker.delegate = self;
@@ -173,6 +196,9 @@
     [self.btnTime setTitle:[self.person.Birth toStrFormat:@"hh:mm"] forState:UIControlStateNormal];
     [self.btnTimeZone setTitle:TimeZoneArray[self.person.TimeZone] forState:UIControlStateNormal];
     [self.btnPoi setTitle:self.person.poiName forState:UIControlStateNormal];
+    if(self.type > 0){
+        [self.swRealTime setOn:self.person.RealTime];
+    }
 }
 
 - (UILabel *)newPerfixTextLabel{
@@ -196,6 +222,10 @@
     [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     btn.titleLabel.font = [UIFont systemFontOfSize:12];
     return btn;
+}
+
+- (void)swRealTime_change:(ZJSwitch *)sender{
+    self.viewPoi.hidden = !self.swRealTime.on;
 }
 
 - (void)btnClick_picker:(UIButton *)sender{

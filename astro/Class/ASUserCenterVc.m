@@ -35,9 +35,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setTitle:@"个人首页"];
-    
-    self.navigationItem.leftBarButtonItem = nil;
     UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"注销"];
     [btn addTarget:self action:@selector(btnClick_loginOut) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
@@ -114,14 +111,22 @@
         [self.tbList setSeparatorInset:UIEdgeInsetsZero];
     }
     [self.contentView addSubview:self.tbList];
-    
-    if(self.uid == [ASGlobal shared].user.SysNo){
-        self.uid = 0;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if([self.navigationController.viewControllers count] == 1){
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    if(self.uid == [ASGlobal shared].user.SysNo){
+        self.uid = 0;
+    }
+    if(self.uid == 0){
+        [self setTitle:@"个人首页"];
+    }else{
+        [self setTitle:@"Ta的首页"];
+    }
+    
     [self showWaiting];
     NSInteger uid = self.uid > 0 ? self.uid : [ASGlobal shared].user.SysNo;
     [HttpUtil load:@"customer/GetUserInfo"
@@ -153,9 +158,8 @@
     self.lbNameInfo.origin = CGPointMake(self.ivFace.right + 10, self.ivFace.top);
     
     self.lbUserIntro.text = self.um.Intro;
-    self.lbUserIntro.height = [self.um.Intro sizeWithFont:self.lbUserIntro.font constrainedToSize:CGSizeMake(self.lbUserIntro.width, CGFLOAT_MAX) lineBreakMode:self.lbUserIntro.lineBreakMode].height;
+    self.lbUserIntro.height = [self.um.Intro boundingRectWithSize:CGSizeMake(self.lbUserIntro.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.lbUserIntro.font} context:nil].size.height;
     self.lbUserIntro.origin = CGPointMake(self.lbNameInfo.left, self.lbNameInfo.bottom + 2);
-    
     
     NSMutableAttributedString *attPan = [[NSMutableAttributedString alloc] initWithString:@"我目前最感兴趣的是: "];
     [attPan appendAttributedString:[[NSAttributedString alloc] initWithString:FateTypeArray[self.um.FateType - 1]
@@ -230,7 +234,6 @@
     }
     [cell.lbTitle setText:[NSString stringWithFormat:@"%@%@（%@）", whos, kUserTableRowTitle[indexPath.row], @(count)]];
     [cell.lbSummary setText:@""];
-    [cell.lbSummary alignTop];
     return cell;
 }
 

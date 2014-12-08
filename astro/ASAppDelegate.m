@@ -26,11 +26,18 @@
 {
     // Override point for customization after application launch.
     //设置状态栏
-    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleBlackOpaque;
+    UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
     //可以接收服务器推送消息
-    [UIApplication.sharedApplication registerForRemoteNotificationTypes:(UIRemoteNotificationTypeSound |
-                                                                         UIRemoteNotificationTypeBadge |
-                                                                         UIRemoteNotificationTypeAlert)];
+    /** 注册推送通知功能,*/
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+                                                                                             |UIRemoteNotificationTypeSound
+                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
+        [application registerUserNotificationSettings:settings];
+    } else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
     
     //设置时区
     NSTimeZone *tzGMT = [[NSTimeZone alloc] initWithName:@"Asia/Shanghai"];
@@ -45,12 +52,12 @@
     }
     
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIFont boldSystemFontOfSize:12], UITextAttributeFont,
-                                                       ASColorDarkGray, UITextAttributeTextColor,
+                                                       [UIFont boldSystemFontOfSize:12], NSFontAttributeName,
+                                                       ASColorDarkGray, NSForegroundColorAttributeName,
                                                        nil] forState:UIControlStateNormal];
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIFont boldSystemFontOfSize:12], UITextAttributeFont,
-                                                       ASColorBlue, UITextAttributeTextColor,
+                                                       [UIFont boldSystemFontOfSize:12], NSFontAttributeName,
+                                                       ASColorBlue, NSForegroundColorAttributeName,
                                                        nil] forState:UIControlStateSelected];
     
     //初始化window
@@ -68,23 +75,9 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{NSForegroundColorAttributeName : [UIColor whiteColor],
                                                             NSFontAttributeName : [UIFont boldSystemFontOfSize:18],
-                                                            UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetZero]
                                                             }];
-    //兼容ios7
-    if (IOS7_OR_LATER) {
-        [[UINavigationBar appearance] setBarTintColor:ASColorDarkGray];
-        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    }else{
-        [[UINavigationBar appearance] setTintColor:ASColorDarkGray];
-        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:ASColorDarkGray size:CGSizeMake(1, 44)]
-                                           forBarMetrics:UIBarMetricsDefault];
-        [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new]
-                                                forState:UIControlStateNormal
-                                              barMetrics:UIBarMetricsDefault];
-        [[UITabBar appearance] setBackgroundImage:[UIImage imageWithColor:UIColorFromRGB(0xCECABA) size:CGSizeMake(1, 49)]];
-        [[UITabBar appearance] setShadowImage:[UIImage new]];
-        [[UITabBar appearance] setSelectionIndicatorImage:[UIImage new]];
-    }
+    [[UINavigationBar appearance] setBarTintColor:ASColorDarkGray];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     self.locOpenCount = 0;
     [self handleNextQueryTimerForLm];

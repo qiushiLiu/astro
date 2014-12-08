@@ -86,9 +86,15 @@
 
 - (void)btnClick_fill:(UIButton *)sender{
     if(sender == self.btnPersonInfo){
-        ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
+        ASFillPersonVc *vc = [[ASFillPersonVc alloc] initWithType:1];
         vc.delegate = self;
         vc.trigger = sender;
+        vc.person.RealTime = self.model.RealTime;
+        vc.person.Birth = self.model.BirthTime.Date;
+        vc.person.Gender = self.model.Gender;
+        vc.person.DayLight = self.model.IsDayLight;
+        vc.person.longitude = [self.model.Longitude floatValue];
+        vc.person.poiName = self.model.AreaName;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnTransit){
@@ -105,6 +111,7 @@
 
 #pragma mark - ASFillPersonVc Delegate Method
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
+    self.model.RealTime = person.RealTime;
     self.model.Gender = person.Gender;
     self.model.BirthTime.Date = (NSDate<NSDate> *)person.Birth;
     self.model.AreaName = person.poiName;

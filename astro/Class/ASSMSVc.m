@@ -59,7 +59,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     ASUSR_SMS *item = [self.list objectAtIndex:indexPath.row];
-    return 40 + [item.Context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(260, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+    return 40 + [item.Context boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -91,18 +91,20 @@
     ASUSR_SMS *item = [self.list objectAtIndex:indexPath.row];
     [ivFace load:item.smallFromPhotoShow cacheDir:nil];
     lbContext.text = [item.Context copy];
-    lbContext.height = [lbContext.text sizeWithFont:lbContext.font constrainedToSize:CGSizeMake(lbContext.width, CGFLOAT_MAX) lineBreakMode:lbContext.lineBreakMode].height;
-    ivContentBg.height = lbContext.height + 12;
+    lbContext.height = [lbContext.text boundingRectWithSize:CGSizeMake(lbContext.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : lbContext.font} context:nil].size.height;
+    ivContentBg.height = lbContext.height + 20;
     if(item.FromSysNo == [ASGlobal shared].user.SysNo){//发出去的
         ivFace.origin = CGPointMake(10, 10);
         ivContentBg.origin = CGPointMake(ivFace.right + 6, ivFace.top);
+        ivContentBg.image = [UIImage imageNamed:@"sms_bg_send"];
     }else{
         ivFace.right = 310;
         ivFace.top = 10;
         ivContentBg.right = ivFace.left - 6;
         ivContentBg.top = ivFace.top;
+        ivContentBg.image = [UIImage imageNamed:@"sms_bg_receive"];
     }
-    lbContext.origin = CGPointMake(ivContentBg.left + 6, ivContentBg.top + 6);
+    lbContext.origin = CGPointMake(ivContentBg.left + 12, ivContentBg.top + 6);
     
     return cell;
 }

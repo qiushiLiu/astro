@@ -142,8 +142,9 @@
     
     [cell.icon load:cate.Pic cacheDir:self.pageKey];
     [cell.lbTitle setText:[NSString stringWithFormat:@"%@（%@）", cate.Name, @(cate.QuestNum)]];
-    [cell.lbSummary setText:[NSString stringWithFormat:@"%@", cate.Intro]];
-    [cell.lbSummary alignTop];
+    cell.lbSummary.text = [cate.Intro copy];
+    cell.lbSummary.height = [cate.Intro boundingRectWithSize:CGSizeMake(cell.lbSummary.width, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : cell.lbSummary.font} context:nil].size.height;
+    cell.lbSummary.top = cell.lbTitle.bottom + 3;
     return cell;
 }
 

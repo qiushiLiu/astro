@@ -13,17 +13,18 @@
 #import "ASZiWeiGrid.h"
 
 @interface ZiWeiMod ()
-//@property (nonatomic, strong) NSMutableArray<Ignore> *gongs;
+@property (nonatomic, strong) NSMutableArray<Ignore> *gongs;
 @end
 
 @implementation ZiWeiMod
 
 - (UIImageView *)paipan{
     BOOL lxTag = self.Type == 1;
-    NSMutableArray *gongs = [NSMutableArray array];
+    self.gongs = [NSMutableArray array];
     CGSize cellSize = lxTag ? __LxCellSize : __CellSize;
     
     UIImageView *pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellSize.width * 4, cellSize.height * 4)];
+    pan.userInteractionEnabled = YES;
     pan.layer.borderColor = [UIColor lightGrayColor].CGColor;
     pan.layer.borderWidth = 1;
     UIImageView *panCenter = [[UIImageView alloc] initWithImage:[self centerImage:lxTag]];
@@ -32,9 +33,9 @@
     
     for(int i = 0; i < 12; i++){
         ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:self index:i lx:lxTag];
-        gd.tag = i + 100;
-//        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
-        [gongs addObject:gd];
+        gd.tag = i;
+        [gd addTarget:self action:@selector(gongSelected:) forControlEvents:UIControlEventTouchUpInside];
+        [self.gongs addObject:gd];
         [pan addSubview:gd];
     }
     
@@ -44,7 +45,7 @@
             continue;
         }
         ZiWeiStar *star = [self.Xing objectAtIndex:i];
-        ASZiWeiGrid *gd = [gongs objectAtIndex:star.Gong];
+        ASZiWeiGrid *gd = [self.gongs objectAtIndex:star.Gong];
         [gd addStar:star withIndex:i];
     }
     
@@ -52,15 +53,29 @@
         //流耀
         for(int i = 0; i < 7; i++){
             int gong = [[self.YunYao objectAtIndex:i] intValue];
-            ASZiWeiGrid *gd = [gongs objectAtIndex:gong];
+            ASZiWeiGrid *gd = [self.gongs objectAtIndex:gong];
             [gd addYunYao:i];
             
             gong = [[self.LiuYao objectAtIndex:i] intValue];
-            gd = [gongs objectAtIndex:gong];
+            gd = [self.gongs objectAtIndex:gong];
             [gd addLiuYao:i];
         }
     }
     return pan;
+}
+
+- (void)gongSelected:(ASZiWeiGrid *)sender{
+    int i = sender.tag;
+    for(ASZiWeiGrid *item in self.gongs){
+        if(item.tag == i||
+           item.tag == (i + 4)%12||
+           item.tag == (i + 6)%12||
+           item.tag == (i + 8)%12){
+            item.selected = YES;
+        }else{
+            item.selected = NO;
+        }
+    }
 }
 
 - (UIImage *)centerImage:(BOOL)lxTag

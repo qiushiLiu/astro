@@ -38,7 +38,8 @@
         self.lbSummary.backgroundColor = [UIColor clearColor];
         self.lbSummary.textColor = [UIColor blackColor];
         self.lbSummary.font = [UIFont systemFontOfSize:12];
-        self.lbSummary.numberOfLines = 2;
+        self.lbSummary.lineBreakMode = NSLineBreakByCharWrapping;
+        self.lbSummary.numberOfLines = 0;
         [self.contentView addSubview:self.lbSummary];
         
         self.arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow_right"]];

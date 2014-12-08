@@ -7,6 +7,7 @@
 //
 
 #import "ASBaseViewController.h"
+#import "ASUserCenterVc.h"
 #import "ASNav.h"
 
 @interface ASBaseViewController ()
@@ -175,6 +176,12 @@
         [self.navigationController popToViewController:vc animated:YES];
         return vc;
     }
+}
+
+- (void)navToUserCenter:(NSInteger)uid{
+    ASUserCenterVc *vc = [[ASUserCenterVc alloc] init];
+    vc.uid = uid;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

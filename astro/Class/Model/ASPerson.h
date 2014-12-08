@@ -15,5 +15,6 @@
 @property (nonatomic) NSInteger TimeZone;
 @property (nonatomic) float longitude;
 @property (nonatomic) float latitude;
+@property (nonatomic) BOOL RealTime;
 @property (nonatomic) NSString *poiName;
 @end

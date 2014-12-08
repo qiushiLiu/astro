@@ -94,7 +94,6 @@
 		1B7CAF0018F6489C005B8C30 /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEF218F6489C005B8C30 /* JSONModel+networking.m */; };
 		1B7CAF0118F6489C005B8C30 /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEF518F6489C005B8C30 /* JSONKeyMapper.m */; };
 		1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAEF718F6489C005B8C30 /* JSONValueTransformer.m */; };
-		1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */; };
 		1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */; };
 		1B7CAF1118F7CEF8005B8C30 /* ASAskListVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CAF1018F7CEF8005B8C30 /* ASAskListVc.m */; };
 		1B7EDF6A18AE3A0A00C82F0C /* ASAskerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7EDF6918AE3A0A00C82F0C /* ASAskerHeaderView.m */; };
@@ -325,8 +324,6 @@
 		1B7CAEF518F6489C005B8C30 /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
 		1B7CAEF618F6489C005B8C30 /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		1B7CAEF718F6489C005B8C30 /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
-		1B7CAF0318F77E61005B8C30 /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
-		1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		1B7CAF0918F7C99B005B8C30 /* ASUserSimpleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUserSimpleView.h; sourceTree = "<group>"; };
 		1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUserSimpleView.m; sourceTree = "<group>"; };
 		1B7CAF0F18F7CEF8005B8C30 /* ASAskListVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskListVc.h; sourceTree = "<group>"; };
@@ -570,8 +567,6 @@
 				1B012B65185DD4ED0046AD7A /* UIDevice+Addition.m */,
 				1B012B66185DD4ED0046AD7A /* UIImage+Scale.h */,
 				1B012B67185DD4ED0046AD7A /* UIImage+Scale.m */,
-				1B7CAF0318F77E61005B8C30 /* UILabel+VerticalAlign.h */,
-				1B7CAF0418F77E61005B8C30 /* UILabel+VerticalAlign.m */,
 				1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */,
 				1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */,
 				1B012B68185DD4ED0046AD7A /* UIView+Layout.h */,
@@ -1153,7 +1148,6 @@
 				1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */,
 				1B7838B11A2604FB000E30BA /* ASBaZiPanVc.m in Sources */,
 				1B7838761A241B4D000E30BA /* ASUSR_Message.m in Sources */,
-				1B7CAF0518F77E61005B8C30 /* UILabel+VerticalAlign.m in Sources */,
 				1B1D5F1A1941F22100D23025 /* ASCustomer.m in Sources */,
 				1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */,
 				1BEA34161A2FF32F00A3C382 /* ASSMSVc.m in Sources */,
@@ -1297,7 +1291,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "astro/astro-Prefix.pch";
 				INFOPLIST_FILE = "astro/astro-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/astro/Frame/libWeiboSDK";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1321,7 +1315,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "astro/astro-Prefix.pch";
 				INFOPLIST_FILE = "astro/astro-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/astro/Frame/libWeiboSDK";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
