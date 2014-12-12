@@ -996,7 +996,7 @@
 				ORGANIZATIONNAME = kjubo;
 				TargetAttributes = {
 					1B012B26185DCB4B0046AD7A = {
-						DevelopmentTeam = CL3S2N6PSJ;
+						DevelopmentTeam = A72G28U543;
 					};
 					1B012B47185DCB4B0046AD7A = {
 						TestTargetID = 1B012B26185DCB4B0046AD7A;

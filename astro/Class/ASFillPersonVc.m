@@ -18,6 +18,8 @@
 @property (nonatomic, strong) ZJSwitch *swRealTime; //真太阳时
 @property (nonatomic, strong) UIButton *btnTimeZone;//时区
 @property (nonatomic, strong) ZJSwitch *swGender;   //性别
+@property (nonatomic, strong) UIView *viewTimeZone; //时区
+@property (nonatomic, strong) UIView *viewRealTime; //真时区
 @property (nonatomic, strong) UIView *viewPoi;      //地址选择层
 @property (nonatomic, strong) UIButton *btnPoi;     //地址
 @property (nonatomic, strong) UIButton *btnCurrent; //当前位置
@@ -133,34 +135,37 @@
     [self.contentView addSubview:self.swGender];
     top = self.swGender.bottom + 10;
     
-    if(self.type == 0){
-        lb = [self newPerfixTextLabel];
-        lb.origin = CGPointMake(titleView.left, top);
-        lb.text = @"所属时区";
-        [self.contentView addSubview:lb];
-        
-        self.btnTimeZone = [self newPickerButton:CGRectMake(lb.right + 10, top, 100, 30)];
-        [self.btnTimeZone setTitle:@"东8区" forState:UIControlStateNormal];
-        [self.btnTimeZone addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:self.btnTimeZone];
-        top = self.btnTimeZone.bottom + 10;
-    }else{
-        lb = [self newPerfixTextLabel];
-        lb.origin = CGPointMake(titleView.left, top);
-        lb.text = @"真太阳时";
-        [self.contentView addSubview:lb];
-        
-        self.swRealTime = [[ZJSwitch alloc] initWithFrame:CGRectMake(lb.right + 10, top, 80, 30)];
-        self.swRealTime.textFont = [UIFont systemFontOfSize:16];
-        self.swRealTime.offText = @"否";
-        self.swRealTime.onText = @"是";
-        [self.swRealTime setTintColor:ASColorBlue];
-        [self.swRealTime setOnTintColor:ASColorDarkRed];
-        [self.swRealTime addTarget:self action:@selector(swRealTime_change:) forControlEvents:UIControlEventValueChanged];
-        [self.contentView addSubview:self.swGender];
-        top = self.swGender.bottom + 10;
-    }
+    self.viewTimeZone = [[UIView alloc] initWithFrame:CGRectMake(titleView.left, top, 300, 30)];
+    [self.contentView addSubview:self.viewTimeZone];
     
+    lb = [self newPerfixTextLabel];
+    lb.text = @"所属时区";
+    [self.viewTimeZone addSubview:lb];
+    
+    self.btnTimeZone = [self newPickerButton:CGRectMake(lb.right + 10, 0, 100, 30)];
+    [self.btnTimeZone setTitle:@"东8区" forState:UIControlStateNormal];
+    [self.btnTimeZone addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewTimeZone addSubview:self.btnTimeZone];
+
+    self.viewRealTime = [[UIView alloc] initWithFrame:CGRectMake(titleView.left, top, 300, 30)];
+    self.viewRealTime.hidden = YES;
+    [self.contentView addSubview:self.viewRealTime];
+    lb = [self newPerfixTextLabel];
+    lb.text = @"真太阳时";
+    [self.viewRealTime addSubview:lb];
+    
+    self.swRealTime = [[ZJSwitch alloc] initWithFrame:CGRectMake(lb.right + 10, 0, 80, 30)];
+    self.swRealTime.textFont = [UIFont systemFontOfSize:16];
+    self.swRealTime.on = YES;
+    self.swRealTime.offText = @"否";
+    self.swRealTime.onText = @"是";
+    [self.swRealTime setTintColor:ASColorBlue];
+    [self.swRealTime setOnTintColor:ASColorDarkRed];
+    [self.swRealTime addTarget:self action:@selector(swRealTime_change:) forControlEvents:UIControlEventValueChanged];
+    [self.viewRealTime addSubview:self.swRealTime];
+
+    top = self.viewRealTime.bottom + 10;
+
     self.viewPoi = [[UIView alloc] initWithFrame:CGRectMake(titleView.left, top, 300, 30)];
     [self.contentView addSubview:self.viewPoi];
     
@@ -197,7 +202,12 @@
     [self.btnTimeZone setTitle:TimeZoneArray[self.person.TimeZone] forState:UIControlStateNormal];
     [self.btnPoi setTitle:self.person.poiName forState:UIControlStateNormal];
     if(self.type > 0){
+        self.viewRealTime.hidden = NO;
+        self.viewTimeZone.hidden = YES;
         [self.swRealTime setOn:self.person.RealTime];
+    }else{
+        self.viewRealTime.hidden = YES;
+        self.viewTimeZone.hidden = NO;
     }
 }
 

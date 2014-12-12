@@ -10,6 +10,9 @@
 #import "ASUSR_SMS.h"
 @interface ASSMSVc ()
 @property (nonatomic, strong) ASBaseSingleTableView *tbList;
+@property (nonatomic, strong) UIView *viewBottom;
+@property (nonatomic, strong) UITextField *tfComment;
+@property (nonatomic, strong) UIButton *btnSumbit;
 @property (nonatomic, strong) NSMutableArray *list;
 @end
 
@@ -26,13 +29,41 @@
     self.tbList.dataSource = self;
     [self.contentView addSubview:self.tbList];
     self.tbList.hasMore = NO;
+    
+    self.viewBottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 44)];
+    self.viewBottom.backgroundColor = [UIColor lightGrayColor];
+    self.viewBottom.layer.borderColor = [UIColor blackColor].CGColor;
+    self.viewBottom.layer.borderWidth = 0.3;
+    [self.contentView addSubview:self.viewBottom];
+    
+    self.tfComment = [ASControls newTextField:CGRectMake(10, 0, 230, 32)];
+    self.tfComment.centerY = self.viewBottom.height/2;
+    self.tfComment.placeholder = @"说点什么呢 :) ";
+    self.tfComment.returnKeyType = UIReturnKeyDone;
+    self.tfComment.delegate = self;
+    [self.viewBottom addSubview:self.tfComment];
+    
+    self.btnSumbit = [ASControls newOrangeButton:CGRectMake(0, 0, 60, 30) title:@"发送"];
+    self.btnSumbit.right = self.viewBottom.width - 10;
+    self.btnSumbit.centerY = self.viewBottom.height/2;
+    [self.btnSumbit addTarget:self action:@selector(btnClick_submit) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewBottom addSubview:self.btnSumbit];
+    
+    //添加键盘监听事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardEvent:) name:UIKeyboardWillHideNotification object:nil];
+    
     self.list = [NSMutableArray array];
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tbList.height = self.contentView.height;
+    self.viewBottom.bottom = self.contentView.height;
+    self.tbList.height = self.viewBottom.top;
     [self loadMore];
 }
 
@@ -50,6 +81,10 @@
             }
         }];
 
+}
+
+- (void)btnClick_submit{
+    
 }
 
 #pragma mark - UITableView Delegate & Data Source
@@ -107,6 +142,21 @@
     lbContext.origin = CGPointMake(ivContentBg.left + 12, ivContentBg.top + 6);
     
     return cell;
+}
+
+#pragma mark - KeyBoardEvent Method
+- (void)keyboardEvent:(NSNotification *)sender{
+    CGSize cSize = self.contentView.contentSize;
+    CGRect keyboardFrame;
+    [[[sender userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];
+    if([sender.name isEqualToString:UIKeyboardWillHideNotification]){
+        self.viewBottom.bottom = self.contentView.height;
+        self.tbList.height = self.viewBottom.top;
+    }else{
+        self.viewBottom.bottom = self.view.height - keyboardFrame.size.height;
+        self.tbList.height = self.viewBottom.top;
+    }
+    self.contentView.contentSize = cSize;
 }
 
 @end

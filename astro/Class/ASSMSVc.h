@@ -8,7 +8,7 @@
 
 #import "ASBaseViewController.h"
 #import "ASBaseSingleTableView.h"
-@interface ASSMSVc : ASBaseViewController<ASBaseSingleTableViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ASSMSVc : ASBaseViewController<ASBaseSingleTableViewDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 @property (nonatomic) NSInteger sysNo;
 
 @end

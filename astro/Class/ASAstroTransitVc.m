@@ -9,7 +9,9 @@
 #import "ASAstroTransitVc.h"
 
 @interface ASAstroTransitVc ()
+@property (nonatomic, strong) UITableView *tbList;
 @property (nonatomic, strong) UIButton *btnDate;
+@property (nonatomic, strong) UIView *viewPoi;
 @property (nonatomic, strong) UIButton *btnPoi;     //地址
 @property (nonatomic, strong) ASPickerView *picker;
 @end
@@ -55,16 +57,19 @@
     [self.contentView addSubview:self.btnDate];
     top = self.btnDate.bottom + 10;
     
+    self.viewPoi = [[UIView alloc] initWithFrame:CGRectMake(left, top, titleView.width, 30)];
+    self.viewPoi.hidden = YES;
+    [self.contentView addSubview:self.viewPoi];
+    
     lb = [self newPerfixTextLabel];
-    lb.origin = CGPointMake(titleView.left, top);
     lb.text = @"推运地点";
-    [self.contentView addSubview:lb];
+    [self.viewPoi addSubview:lb];
     
     self.btnPoi = [self newPickerButton:CGRectMake(lb.right + 10, top, 160, 30)];
     [self.btnPoi setTitle:@"请选择出生城市" forState:UIControlStateNormal];
     self.btnPoi.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.btnPoi addTarget:self action:@selector(btnClick_poi:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnPoi];
+    [self.viewPoi addSubview:self.btnPoi];
     
     self.picker = [[ASPickerView alloc] initWithParentViewController:self];
     self.picker.delegate = self;
@@ -73,6 +78,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self reloadData];
+    if(self.transitPosition == nil){
+        self.viewPoi.hidden = YES;
+    }else{
+        self.viewPoi.hidden = NO;
+    }
 }
 
 - (void)reloadData{

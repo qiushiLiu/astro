@@ -28,9 +28,6 @@
 @end
 
 @implementation ASUserCenterVc
-
-#define kScoreTitleArray @[@"灵签", @"提问数", @"解答数"]
-#define kUserTableRowTitle @[@"回帖", @"发帖", @"消息"]
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -243,10 +240,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == 0){
-        
-    }else if(indexPath.row == 1){
+    if(indexPath.row <= 1){
         ASUserTopicVc *vc = [[ASUserTopicVc alloc] init];
+        vc.type = indexPath.row;
         vc.uid = self.uid;
         [self.navigationController pushViewController:vc animated:YES];
     }else if(indexPath.row == 2){

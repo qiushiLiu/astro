@@ -35,6 +35,7 @@
     [self.contentView addSubview:lb];
     
     self.sgPanType = [[UISegmentedControl alloc] initWithItems:@[@"天盘", @"流限盘"]];
+    [self.sgPanType addTarget:self action:@selector(panType_change) forControlEvents:UIControlEventValueChanged];
     self.sgPanType.frame = CGRectMake(lb.right, 0, 200, 26);
     self.sgPanType.centerY = lb.centerY;
     [self.contentView addSubview:self.sgPanType];
@@ -70,12 +71,22 @@
     [self.btnSenior setInfoText:[ASZiWeiSeniorVc strForRy:self.model.RunYue tm:self.model.YueMa sz:self.model.MingShenZhu ss:self.model.ShiShang dy:self.model.HuanYun]];
 }
 
+- (void)panType_change{
+    if(self.sgPanType.selectedSegmentIndex == 0){
+        self.btnTransit.hidden = YES;
+        self.btnSenior.top = self.btnTransit.top;
+    }else{
+        self.btnTransit.hidden = NO;
+        self.btnSenior.top = self.btnTransit.bottom + 10;
+    }
+}
+
 - (void)loadPersonInfo{
     [self.btnPersonInfo setInfoText:[ASFillPersonVc stringForBirth:self.model.BirthTime.Date gender:self.model.Gender daylight:self.model.IsDayLight poi:self.model.AreaName]];
 }
 
 - (void)loadTransit{
-    NSString *transitStr = [NSString stringWithFormat:@"%@，%@", [self.model.TransitTime.Date toStrFormat:@"yyyy-MM-dd"], self.model.AreaName];
+    NSString *transitStr = [self.model.TransitTime.Date toStrFormat:@"yyyy-MM-dd"];
     [self.btnTransit setInfoText:transitStr];
 }
 
@@ -99,6 +110,7 @@
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnTransit){
         ASAstroTransitVc *vc = [[ASAstroTransitVc alloc] init];
+        vc.transitTime = self.model.TransitTime.Date;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnSenior){

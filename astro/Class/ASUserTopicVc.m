@@ -8,6 +8,7 @@
 
 #import "ASUserTopicVc.h"
 #import "ASQaAnswer.h"
+#import "ASUserCenterVc.h"
 
 @interface ASUserTopicVc ()
 @property (nonatomic, strong) ASAskerHeaderView *header;
@@ -36,30 +37,23 @@
     self.header.selected = 0;
     self.tbList.hasMore = NO;
     self.list = [NSMutableArray array];
-    
-    if(self.uid == [ASGlobal shared].user.SysNo){
-        self.uid = 0;
-    }
-    
-    if(self.uid == 0){
-        self.title = @"他的帖子";
-        self.uid = [ASGlobal shared].user.SysNo;
-    }else{
-        self.title = @"Ta的帖子";
-    }
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tbList.height = self.contentView.height;
+    
+    NSString *perFix = [self isCurrentUser] ? kScroePerfixArray[0] : kScroePerfixArray[1];
+    NSString *sub = kUserTableRowTitle[self.type];
+    self.title = [NSString stringWithFormat:@"%@%@", perFix, sub];
 }
 
 - (void)loadMore{
     self.pageNo++;
-    
+    NSString *url = self.type == 0 ? @"qa/GetQuestionListByUserAnswer" : @"qa/GetQuestionListByUserAsk";
     [self showWaiting];
-    [HttpUtil load:@"qa/GetQuestionListByUserAnswer"
+    [HttpUtil load:url
             params:@{@"customersysno" : @(self.uid),
                      @"cate" : @(self.header.selected + 1),
                      @"pageindex" : @(self.pageNo),
@@ -78,6 +72,13 @@
                 [self alert:message];
             }
         }];
+}
+
+- (BOOL)isCurrentUser{
+    if(self.uid == 0){
+        self.uid = [ASGlobal shared].user.SysNo;
+    }
+    return self.uid == [ASGlobal shared].user.SysNo;
 }
 
 #pragma mark - ASAskerHeaderViewDelegate
