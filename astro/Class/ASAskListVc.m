@@ -222,6 +222,7 @@
     if(!cell){
         cell = [[ASAskTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.panView.userInteractionEnabled = NO;
     }
     id<ASQaProtocol> qa = [self.list objectAtIndex:indexPath.row];
     NSString *nickName = nil;

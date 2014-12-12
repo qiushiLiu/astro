@@ -18,6 +18,42 @@
 
 @implementation ZiWeiMod
 
+- (UIImageView *)paipanSimple{
+    UIImageView *pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, __CellSize.width * 4, __CellSize.height)];
+    pan.userInteractionEnabled = YES;
+    pan.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    pan.layer.borderWidth = 1;
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSArray *arr = @[@(self.Ming), @((self.Ming + 6)%12), @((self.Ming + 4)%12), @((self.Ming + 10)%12)];
+    for(int i = 0; i < 4; i++){
+        NSInteger index = [[arr objectAtIndex:i] intValue];
+        ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:self index:index lx:NO];
+        gd.userInteractionEnabled = NO;
+        if(i < 3){
+            gd.borderEdge = UIEdgeInsetsMake(1, 1, 1, 0);
+        }else{
+            gd.borderEdge = UIEdgeInsetsMake(1, 1, 1, 1);
+        }
+        gd.origin = CGPointMake(i * gd.width, 0);
+        [dict setObject:gd forKey:@(index)];
+        [pan addSubview:gd];
+    }
+    
+    //星旺宫
+    for(int i = 0; i < [self.Xing count]; i++){
+        if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
+            continue;
+        }
+        ZiWeiStar *star = [self.Xing objectAtIndex:i];
+        if(![[dict allKeys] containsObject:@(star.Gong)]){
+            continue;
+        }
+        ASZiWeiGrid *gd = [dict objectForKey:@(star.Gong)];
+        [gd addStar:star withIndex:i];
+    }
+    return pan;
+}
+
 - (UIImageView *)paipan{
     BOOL lxTag = self.Type == 1;
     self.gongs = [NSMutableArray array];

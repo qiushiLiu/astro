@@ -8,6 +8,7 @@
 
 #import "ASUserTopicVc.h"
 #import "ASQaAnswer.h"
+#import "ASQaMinAstro.h"
 #import "ASUserCenterVc.h"
 
 @interface ASUserTopicVc ()
@@ -64,7 +65,11 @@
                 if(self.pageNo == 1){
                     [self.list removeAllObjects];
                 }
-                [self.list addObjectsFromArray:[ASQaAnswer arrayOfModelsFromDictionaries:json[@"list"]]];
+                if(self.type == 0){
+                    [self.list addObjectsFromArray:[ASQaAnswer arrayOfModelsFromDictionaries:json[@"list"]]];
+                }else{
+                    [self.list addObjectsFromArray:[ASQaMinAstro arrayOfModelsFromDictionaries:json[@"list"]]];
+                }
                 self.tbList.hasMore = [json[@"hasNextPage"] boolValue];
                 [self.tbList reloadData];
                 [self hideWaiting];
@@ -135,16 +140,15 @@
     UILabel *lbDate = (UILabel *)[cell.contentView viewWithTag:100];
     UILabel *lbContext = (UILabel *)[cell.contentView viewWithTag:101];
 
-    ASQaAnswer *item = [self.list objectAtIndex:indexPath.row];
+    id<ASQaProtocol> item = self.list[indexPath.row];
     lbTitle.text = item.Title;
     lbDate.text = [item.TS toStrFormat:@"yyyy/M/d"];
     lbContext.text = item.Context;
-
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ASQaAnswer *item = [self.list objectAtIndex:indexPath.row];
+    id<ASQaProtocol> item = [self.list objectAtIndex:indexPath.row];
     [self navTo:vcAskDeltail params:@{@"title" : item.Title,
                                       @"sysno" : @(item.SysNo)}];
 }

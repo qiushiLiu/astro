@@ -15,6 +15,7 @@
 - (void)detailCellClickComment:(ASQaAnswer *)answer;
 - (void)detailCellClickDelete:(ASQaAnswer *)answer;
 - (void)detailCellClickFace:(NSInteger)uid;
+- (void)detailCellClickPan:(id)pan;
 @end
 
 @interface ASAskDetailCellView : UIView <UITableViewDelegate, UITableViewDataSource>

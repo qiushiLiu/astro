@@ -26,7 +26,7 @@
 @property (nonatomic, strong) UIButton *btnDelete;  //删除
 @property (nonatomic, strong) UITableView *tbComment;//评论列表
 @property (nonatomic, strong) UIButton *btnMore; //更多评论
-@property (nonatomic, weak) ASQaAnswer *answer;
+@property (nonatomic, weak) id<ASQaProtocol> model;
 @end
 
 @implementation ASAskDetailCellView
@@ -81,6 +81,8 @@
         [self.ivShangBg addSubview:self.lbShang2];
         
         self.panView = [[ASPanView alloc] initWithFrame:CGRectMake(margin, self.lbPostIntro.bottom + 5, self.width - 2*margin, 0)];
+        [self.panView.pan1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_pan:)]];
+        [self.panView.pan2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_pan:)]];
         [self addSubview:self.panView];
         
         self.btnDelete = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -128,6 +130,8 @@
 }
 
 - (void)setQaProtocol:(id<ASQaProtocol>)qa canDel:(BOOL)canDel canComment:(BOOL)canComment floor:(NSInteger)floor{
+    self.model = qa;
+    
     ASCustomerShow *user = [qa Customer];
     [self.faceView load:user.smallPhotoShow cacheDir:NSStringFromClass([ASCustomerShow class])];
     self.faceView.userInfo = @(user.SysNo);
@@ -220,20 +224,20 @@
     self.tbComment.hidden = YES;
     self.btnMore.hidden = YES;
     if([qa isKindOfClass:[ASQaAnswer class]]){
-        self.answer = (ASQaAnswer *)qa;
-        if([self.answer.TopComments count] > 0){
+        ASQaAnswer *as = (ASQaAnswer *)qa;
+        if([as.TopComments count] > 0){
             self.tbComment.hidden = NO;
             [self.tbComment reloadData];
             self.tbComment.height = self.tbComment.contentSize.height;
             self.tbComment.top = top;
             top = self.tbComment.bottom;
         }
-        if(self.answer.HasMoreComment){
+        if(as.HasMoreComment){
             self.btnMore.hidden = NO;
             self.btnMore.top = self.tbComment.bottom + 3;
             top = self.btnMore.bottom + 6;
             self.tbComment.height = top - self.tbComment.top;
-            [self.btnMore setTitle:[NSString stringWithFormat:@"更多%@条评论+", @(self.answer.ToalComment)] forState:UIControlStateNormal];
+            [self.btnMore setTitle:[NSString stringWithFormat:@"更多%@条评论+", @(as.ToalComment)] forState:UIControlStateNormal];
         }
     }
     
@@ -241,17 +245,19 @@
 }
 
 - (void)btnClick_delete:(UIButton *)sender{
-    if(self.answer){
+    if(self.model && [self.model isKindOfClass:[ASQaAnswer class]]){
+        ASQaAnswer *as = (ASQaAnswer *)self.model;
         if([self.delegate respondsToSelector:@selector(detailCellClickDelete:)]){
-            [self.delegate detailCellClickDelete:self.answer];
+            [self.delegate detailCellClickDelete:as];
         }
     }
 }
 
 - (void)btnClick_comment:(UIButton *)sender{
-    if(self.answer){
+    if(self.model && [self.model isKindOfClass:[ASQaAnswer class]]){
+        ASQaAnswer *as = (ASQaAnswer *)self.model;
         if([self.delegate respondsToSelector:@selector(detailCellClickComment:)]){
-            [self.delegate detailCellClickComment:self.answer];
+            [self.delegate detailCellClickComment:as];
         }
     }
 }
@@ -266,17 +272,31 @@
     }
 }
 
+- (void)tap_pan:(UITapGestureRecognizer *)sender{
+    id pan = nil;
+    if(sender.view == self.panView.pan1){
+        pan = [self.model Chart][0];
+    }else if(sender.view == self.panView.pan2){
+        pan = [self.model Chart][1];
+    }
+    if(pan && [self.delegate respondsToSelector:@selector(detailCellClickPan:)]){
+        [self.delegate detailCellClickPan:pan];
+    }
+}
+
 #pragma mark - UITableViewDelegate & DataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(self.answer){
-        return [self.answer.TopComments count];
+    if(self.model && [self.model isKindOfClass:[ASQaAnswer class]]){
+        ASQaAnswer *as = (ASQaAnswer *)self.model;
+        return [as.TopComments count];
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(self.answer){
-        ASQaComment *comment = [self.answer.TopComments objectAtIndex:indexPath.row];
+    if(self.model && [self.model isKindOfClass:[ASQaAnswer class]]){
+        ASQaAnswer *as = (ASQaAnswer *)self.model;
+        ASQaComment *comment = [as.TopComments objectAtIndex:indexPath.row];
         return [[self class] heightForComment:comment];
     }
     return 0;
@@ -312,8 +332,9 @@
     UILabel *lb = (UILabel *)[cell.contentView viewWithTag:200];
     UIView *line = [cell.contentView viewWithTag:300];
     
-    if(self.answer){
-        ASQaComment *comment = [self.answer.TopComments objectAtIndex:indexPath.row];
+    if(self.model && [self.model isKindOfClass:[ASQaAnswer class]]){
+        ASQaAnswer *as = (ASQaAnswer *)self.model;
+        ASQaComment *comment = [as.TopComments objectAtIndex:indexPath.row];
         [fv load:comment.Customer.smallPhotoShow cacheDir:NSStringFromClass([ASCustomer class])];
         fv.userInfo = @(comment.CustomerSysNo);
         lb.text = [comment.Context copy];

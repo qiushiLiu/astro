@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @interface ASPanView : UIView
+@property (nonatomic, strong) UIImageView *pan1;
+@property (nonatomic, strong) UIImageView *pan2;
 
 - (void)setChart:(NSArray *)chartList context:(NSString *)context;
 + (CGFloat)heightForChart:(NSArray *)chart context:(NSString *)context width:(CGFloat)width;

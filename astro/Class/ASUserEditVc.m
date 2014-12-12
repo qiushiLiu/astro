@@ -175,6 +175,8 @@
         completion:^(BOOL succ, NSString *message, id json) {
             [self hideWaiting];
             if(succ){
+                [ASGlobal shared].user.Gender = self.um.Gender;
+                [ASGlobal shared].user.FateType = self.um.FateType;
                 [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [self alert:message];

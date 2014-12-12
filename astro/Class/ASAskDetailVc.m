@@ -15,6 +15,9 @@
 #import "ASPostReplyVc.h"
 #import "ASNav.h"
 #import "ASUserCenterVc.h"
+#import "ASAstroPanVc.h"
+#import "ASZiWeiPanVc.h"
+#import "ASBaZiPanVc.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
@@ -241,6 +244,21 @@
     [alert show];
 }
 
+- (void)detailCellClickPan:(id)pan{
+    if([pan isKindOfClass:[AstroMod class]]){
+        ASAstroPanVc *vc = [[ASAstroPanVc alloc] init];
+        vc.astro = [[AstroMod alloc] initWithString:[pan toJSONString] error:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([pan isKindOfClass:[BaziMod class]]){
+        ASBaZiPanVc *vc = [[ASBaZiPanVc alloc] init];
+        vc.model = [[BaziMod alloc] initWithString:[pan toJSONString] error:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if([pan isKindOfClass:[ZiWeiMod class]]){
+        ASZiWeiPanVc *vc = [[ASZiWeiPanVc alloc] init];
+        vc.model = [[ZiWeiMod alloc] initWithString:[pan toJSONString] error:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 
 #pragma mark -
 - (void)navToCommentVc:(ASQaAnswer *)answer becomeEdit:(BOOL)become{

@@ -13,8 +13,6 @@
 #import "ASZiWeiGrid.h"
 
 @interface ASPanView()
-@property (nonatomic, strong) UIImageView *pan1;
-@property (nonatomic, strong) UIImageView *pan2;
 @property (nonatomic, strong) UILabel *lbAstroIntro;    //占星盘的简介
 @property (nonatomic, strong) UILabel *lbDetail;        //问题说明
 @end
@@ -27,8 +25,10 @@
     if (self) {
         // Initialization code
         self.pan1 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.pan1.userInteractionEnabled = YES;
         [self addSubview:self.pan1];
         self.pan2 = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.pan2.userInteractionEnabled = YES;
         [self addSubview:self.pan2];
         
         self.lbAstroIntro = [[UILabel alloc] init];
@@ -60,7 +60,7 @@
     if([context length] > 0){
         self.lbDetail.hidden = NO;
         self.lbDetail.text = [context copy];
-        self.lbDetail.height = [self.lbDetail.text sizeWithFont:self.lbDetail.font constrainedToSize:CGSizeMake(self.lbDetail.width, CGFLOAT_MAX) lineBreakMode:self.lbDetail.lineBreakMode].height;
+        self.lbDetail.height = [self.lbDetail.text boundingRectWithSize:CGSizeMake(self.lbDetail.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.lbDetail.font} context:nil].size.height;
         self.lbDetail.origin = CGPointMake(0, top);
         top = self.lbDetail.bottom + 5;
     }else{
@@ -107,38 +107,11 @@
         }
     }else if([chart1 isKindOfClass:[ZiWeiMod class]]){
         ZiWeiMod *panModel = (ZiWeiMod *)chart1;
-        NSMutableDictionary *gongs = [NSMutableDictionary dictionary];
-        NSArray *arr = @[@(panModel.Ming), @((panModel.Ming + 6)%12), @((panModel.Ming + 4)%12), @((panModel.Ming + 10)%12)];
         [self.pan1 removeAllSubViews];
-        for(int i = 0; i < 4; i++){
-            NSInteger index = [[arr objectAtIndex:i] intValue];
-            ASZiWeiGrid *gd = [[ASZiWeiGrid alloc] initWithZiWei:panModel index:index lx:NO];
-            if(i < 3){
-                gd.borderEdge = UIEdgeInsetsMake(1, 1, 1, 0);
-            }else{
-                gd.borderEdge = UIEdgeInsetsMake(1, 1, 1, 1);
-            }
-            gd.origin = CGPointMake(i * gd.width, 0);
-            gd.tag = i + 100;
-            [gongs setObject:gd forKey:@(index)];
-            [self.pan1 addSubview:gd];
-        }
-        
-        //星旺宫
-        for(int i = 0; i < [panModel.Xing count]; i++){
-            if(i == 58 ||  i == 59 || i == 62 || i == 63 || i == 66 || i == 64 || i == 67){
-                continue;
-            }
-            ZiWeiStar *star = [panModel.Xing objectAtIndex:i];
-            if(![[gongs allKeys] containsObject:@(star.Gong)]){
-                continue;
-            }
-            ASZiWeiGrid *gd = [gongs objectForKey:@(star.Gong)];
-            [gd addStar:star withIndex:i];
-        }
-        self.pan1.size = CGSizeMake(__CellSize.width * 4, __CellSize.height);
+        UIImageView *iv = [panModel paipanSimple];
+        [self.pan1 addSubview:iv];
+        self.pan1.size = iv.size;
         self.pan1.transform = CGAffineTransformMakeScale(0.85, 0.85);
-        
         self.pan1.origin = CGPointMake(0, top);
         top = self.pan1.bottom + 5;
         self.pan1.hidden = NO;
@@ -162,7 +135,7 @@
     }
     
     if([context length] > 0){
-        height += [context sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+        height += [context boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12]} context:nil].size.height;
     }
     
     return height;

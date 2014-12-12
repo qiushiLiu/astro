@@ -64,4 +64,5 @@
 @property (nonatomic) BOOL RealTime;
 @property (nonatomic) BOOL IsDayLight;
 - (UIImageView *)paipan;
+- (UIImageView *)paipanSimple;
 @end

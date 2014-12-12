@@ -21,8 +21,6 @@
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
-
-@property (nonatomic, strong) AstroMod *astro;      //盘数据
 @property (nonatomic, strong) NSMutableArray *starsInfo;
 @property (nonatomic, strong) NSMutableArray *gongInfo;
 //@property (nonatomic, strong) UIImageView *panCenter;
