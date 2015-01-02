@@ -9,5 +9,5 @@
 #import "ASBaseViewController.h"
 #import "ASBaseSingleTableView.h"
 #import "ASAskDetailCellView.h"
-@interface ASCommentVc : ASBaseViewController<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UITextFieldDelegate, ASBaseSingleTableViewDelegate, ASAskDetailCellViewDelegate>
+@interface ASCommentVc : ASBaseViewController<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ASBaseSingleTableViewDelegate, ASAskDetailCellViewDelegate>
 @end

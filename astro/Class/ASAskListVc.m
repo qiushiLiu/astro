@@ -15,6 +15,7 @@
 #import "ASQaMinAstro.h"
 #import "ASQaMinBazi.h"
 #import "ASQaMinZiWei.h"
+#import "ASAppDelegate.h"
 
 @interface ASAskListVc ()
 @property (nonatomic, strong) UIView *headerView;
@@ -98,9 +99,8 @@
         vc.cate = [self.cate copy];
         [self.navigationController pushViewController:vc animated:YES];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-        alert.tag = NSAlertViewNeedLogin;
-        [alert show];
+        ASAppDelegate *appDelegate = (ASAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate showNeedLoginAlertView];
     }
 }
 
@@ -108,16 +108,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:sender.name object:nil];
     if([ASGlobal isLogined]){
         [self postNew];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == NSAlertViewNeedLogin
-       && alertView.cancelButtonIndex != buttonIndex){
-        UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
-        [self presentViewController:nc animated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
-        }];
     }
 }
 

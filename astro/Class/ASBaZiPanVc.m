@@ -9,6 +9,7 @@
 #import "ASBaZiPanVc.h"
 #import "ASBaZiPanFillInfoVc.h"
 #import "ASPostQuestionVc.h"
+#import "ASAppDelegate.h"
 
 @interface ASBaZiPanVc ()
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
@@ -68,9 +69,14 @@
 }
 
 - (void)btnClick_question:(UIButton *)sender{
-    ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
-    vc.topCateId = @"1";
-    [vc.question setBaziModel:self.model];
-    [self.navigationController pushViewController:vc animated:YES];
+    if([ASGlobal isLogined]){
+        ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
+        vc.topCateId = @"1";
+        [vc.question setBaziModel:self.model];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        ASAppDelegate *appDelegate = (ASAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate showNeedLoginAlertView];
+    }
 }
 @end

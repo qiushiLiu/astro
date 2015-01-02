@@ -32,10 +32,6 @@
     [btn addTarget:self action:@selector(btnClick_navBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
-    btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 56, 28) title:@"分享"];
-    [btn addTarget:self action:@selector(shareTo) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
     //添加手指点击事件
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.contentView addGestureRecognizer:tap];
@@ -130,10 +126,6 @@
 
 - (void)btnClick_navBack:(UIButton *)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)shareTo{
-    [self hideKeyboard];
 }
 
 - (void)login{

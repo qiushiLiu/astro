@@ -18,6 +18,7 @@
 #import "ASAstroPanVc.h"
 #import "ASZiWeiPanVc.h"
 #import "ASBaZiPanVc.h"
+#import "ASAppDelegate.h"
 
 @interface ASAskDetailVc ()
 @property (nonatomic, strong) NSString *title;
@@ -135,14 +136,7 @@
 }
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == NSAlertViewNeedLogin){
-        if(alertView.cancelButtonIndex != buttonIndex){
-            UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
-            [self presentViewController:nc animated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
-            }];
-        }
-    }else if(alertView.tag == NSAlertViewConfirm){
+    if(alertView.tag == NSAlertViewConfirm){
         if(alertView.cancelButtonIndex != buttonIndex){
             [self showWaiting];
             [HttpUtil load:@"qa/RemoveAnswer"
@@ -279,9 +273,8 @@
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
-        alert.tag = NSAlertViewNeedLogin;
-        [alert show];
+        ASAppDelegate *appDelegate = (ASAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate showNeedLoginAlertView];
     }
 }
 

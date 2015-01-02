@@ -13,4 +13,5 @@
 @interface ASAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *nav;
+- (void)showNeedLoginAlertView;
 @end

@@ -10,8 +10,9 @@
 #import "ASNav.h"
 #import "ASTabMainVc.h"
 #import "ASShareBindVc.h"
+#import "ASLoginVc.h"
 
-@interface ASAppDelegate ()
+@interface ASAppDelegate ()<UIAlertViewDelegate>
 //定位的计时器
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSTimer *gpsFetchTimer;
@@ -292,5 +293,23 @@
     [self.locationManager startUpdatingLocation];
 }
 
+#pragma mark - NeedLogin
+- (void)showNeedLoginAlertView{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录提示" message:@"请先登录您的Go省账号" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    alert.tag = 10086;
+    [alert show];
+}
+
+#pragma mark - alertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 10086){   //需要登录
+        if(alertView.cancelButtonIndex != buttonIndex){
+            ASLoginVc *vc = [[ASLoginVc alloc] init];
+            UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+            [[self.nav.viewControllers firstObject] presentViewController:nc animated:YES completion:nil];
+        }
+    }
+}
 
 @end

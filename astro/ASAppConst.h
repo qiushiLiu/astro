@@ -10,7 +10,7 @@
 
 // NSParagraphStyle
 typedef NS_ENUM(NSInteger, NSAlertViewTag) {		/* UIAlertView 的类型 */
-    NSAlertViewDefault = 0,     /* 默认 */
+    NSAlertViewDefault = 123,     /* 默认 */
     NSAlertViewOK,              /* 成功，提示，确认 */
     NSAlertViewError,           /* 错误 */
     NSAlertViewConfirm,         /* 确认 */
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, NSAlertViewTag) {		/* UIAlertView 的类型 */
 //通知
 #define Notification_Question_NeedUpdate    @"Notification_Question_NeedUpdate"
 #define Notification_Reply_NeedUpdate       @"Notification_Reply_NeedUpdate"
-#define Notification_LoginUser              @"Notification_LoginUser"
+//#define Notification_LoginUser              @"Notification_LoginUser"
 #define Notification_MainVc                 @"Notification_MainVc"  //返回首页
 
 

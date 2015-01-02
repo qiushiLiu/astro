@@ -11,6 +11,7 @@
 #import "ASQaComment.h"
 #import "ASUserCenterVc.h"
 #import "ASNav.h"
+#import "ASAppDelegate.h"
 
 @interface ASCommentVc ()
 @property (nonatomic, strong) UITableView *tbList;
@@ -108,9 +109,8 @@
 
 - (void)btnClick_submit{
     if(![ASGlobal isLogined]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能评论！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-        alert.tag = NSAlertViewNeedLogin;
-        [alert show];
+        ASAppDelegate *appDelegate = (ASAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate showNeedLoginAlertView];
         return;
     }
     
@@ -134,24 +134,6 @@
                 [self alert:message];
             }
         }];
-}
-
-
-- (void)notification_UserLogined:(NSNotification *)sender{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:sender.name object:nil];
-    if([ASGlobal isLogined]){
-        [self btnClick_submit];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(alertView.tag == NSAlertViewNeedLogin
-       && alertView.cancelButtonIndex != buttonIndex){
-        UINavigationController *nc = [[ASNav shared] newNav:vcLogin];
-        [self presentViewController:nc animated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notification_UserLogined:) name:Notification_LoginUser object:nil];
-        }];
-    }
 }
 
 #pragma mark - UITextFieldDelegate

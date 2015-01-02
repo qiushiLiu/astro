@@ -12,6 +12,7 @@
 #import "AstroStar.h"
 #import "ASAstroPanFillInfoVc.h"
 #import "ASPostQuestionVc.h"
+#import "ASAppDelegate.h"
 
 @interface ASAstroPanVc ()
 @property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
@@ -354,9 +355,14 @@
 }
 
 - (void)btnClick_question:(UIButton *)sender{
-    ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
-    vc.topCateId = @"1";
-    [vc.question setAstroModel:self.astro];
-    [self.navigationController pushViewController:vc animated:YES];
+    if([ASGlobal isLogined]){
+        ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
+        vc.topCateId = @"1";
+        [vc.question setAstroModel:self.astro];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        ASAppDelegate *appDelegate = (ASAppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate showNeedLoginAlertView];
+    }
 }
 @end
