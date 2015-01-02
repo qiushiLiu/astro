@@ -8,6 +8,7 @@
 
 #import "ASUrlImageView.h"
 #import "ASCache.h"
+
 @interface ASUrlImageView()
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
@@ -25,23 +26,17 @@
     if (self) {
         // Initialization code
         self.showProgress = NO;
+        self.scaleType = NSUrlImageViewScaleDefalut;
+        self.layer.masksToBounds = YES;
     }
     return self;
-}
-
-- (void)loadLocalImage:(NSString *)imageName{
-    UIImage *img = [UIImage imageNamed:imageName];
-    if(img){
-        self.imageView.image = img;
-    }else{
-        [self loadFaildImage];
-    }
 }
 
 - (void)load:(NSString *)url cacheDir:(NSString *)dir{
     if([dir length] == 0){
         dir = NSStringFromClass([self class]);
     }
+    self.imageView.image = nil;
     [self load:url cacheDir:dir failImageName:kLoadFaildImageName];
 }
 
@@ -72,11 +67,17 @@
     [self.req startAsynchronous];
 }
 
+- (void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
+    if(_imageView){
+        _imageView.frame = self.bounds;
+    }
+}
 
 - (UIImageView *)imageView{
     if(!_imageView){
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        _imageView.backgroundColor = [UIColor grayColor];
+        _imageView.backgroundColor = [UIColor clearColor];
         [self addSubview:_imageView];
     }
     return _imageView;
@@ -145,29 +146,49 @@
 }
 
 - (void)loadImage{
+    [self hideLoadAnimating];
     UIImage *img = [[ASCache shared] readImageWithDir:_dir url:_url];
-//    CGSize imageSize = img.size;
-//    CGSize targetSize = self.size;
-//    CGSize scaledSize = CGSizeZero;
-//    CGFloat scaleFactor = 0.0f;
-    
-//    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
-//    {
-//        CGFloat widthFactor = targetSize.width / imageSize.width;
-//        CGFloat heightFactor = targetSize.height / imageSize.height;
-//        
-//        if (widthFactor < heightFactor){
-//            scaleFactor = widthFactor; // scale to fit height
-//        } else {
-//            scaleFactor = heightFactor; // scale to fit width
-//        }
-//        scaledSize.width  = imageSize.width * scaleFactor;
-//        scaledSize.height = imageSize.height * scaleFactor;
-//    }
-//    
-//    self.imageView.size = scaledSize;
+    [self didLoadImage:img];
+}
+
+- (void)loadLocalImageName:(NSString *)imageName{
+    [self hideLoadAnimating];
+    [self didLoadImage:[UIImage imageNamed:imageName]];
+}
+
+- (void)didLoadImage:(UIImage *)img{
+    if(!CGSizeEqualToSize(img.size, self.size)
+       &&!CGSizeEqualToSize(img.size, CGSizeZero)){
+        if(self.scaleType == NSUrlImageViewScaleDefalut){
+            CGFloat widthFactor = self.width / img.size.width;
+            CGFloat heightFactor = self.height / img.size.height;
+            CGFloat scaleFactor = 0.0f;
+            if (widthFactor < heightFactor){
+                scaleFactor = widthFactor; // scale to fit height
+            } else {
+                scaleFactor = heightFactor; // scale to fit width
+            }
+            self.imageView.size = CGSizeMake(img.size.width * scaleFactor, img.size.height * scaleFactor);
+        }else if(self.scaleType == NSUrlImageViewScaleToFitWidth){
+            CGFloat widthFactor = self.width / img.size.width;
+            self.imageView.size = CGSizeMake(self.imageView.width, img.size.height * widthFactor);
+            self.height = self.imageView.height;
+        }else if(self.scaleType == NSUrlImageViewScaleToFitHeight){
+            CGFloat heightFactor = self.height / img.size.height;
+            self.imageView.size = CGSizeMake(img.size.width * heightFactor, img.size.height);
+            self.width = self.imageView.width;
+        }else if(self.scaleType == NSUrlImageViewScaleToFitImageSize){
+            self.imageView.size = img.size;
+            self.size = self.imageView.size;
+        }
+    }
+    self.imageView.center = CGPointMake(self.width/2, self.height/2);
     self.imageView.image = img;
 }
 
+-(void)dealloc{
+    self.req.delegate = nil;
+    self.req = nil;
+}
 
 @end

@@ -57,7 +57,7 @@
     }
     
     self.lbTitle.text = title;
-    self.lbTitle.height = [self.lbTitle.text sizeWithFont:self.lbTitle.font constrainedToSize:CGSizeMake(self.lbTitle.width, 40) lineBreakMode:NSLineBreakByCharWrapping].height;
+    self.lbTitle.height = [self.lbTitle.text boundingRectWithSize:CGSizeMake(self.lbTitle.width, 40) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.lbTitle.font} context:nil].size.height;
     
     self.height = self.lbTitle.bottom + 10;
     self.vline.bottom = self.height;

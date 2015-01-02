@@ -23,10 +23,6 @@
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
 @property (nonatomic, strong) NSMutableArray *starsInfo;
 @property (nonatomic, strong) NSMutableArray *gongInfo;
-//@property (nonatomic, strong) UIImageView *panCenter;
-
-//@property (nonatomic, strong) NSMutableArray *gongs;
-//@property (nonatomic, strong) ASZiWeiGrid *lastSelected;
 @end
 
 @implementation ASAstroPanVc
@@ -158,7 +154,7 @@
                 [tuiText appendString:[self.astro.transitTime toStrFormat:@"yyyy-MM-dd"]];
             }
             self.lbTuiyun.text = tuiText;
-            self.lbTuiyun.size = [tuiText sizeWithFont:self.lbTuiyun.font constrainedToSize:CGSizeMake(160, CGFLOAT_MAX) lineBreakMode:self.lbTuiyun.lineBreakMode];
+            self.lbTuiyun.size = [tuiText boundingRectWithSize:CGSizeMake(160, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.lbTuiyun.font} context:nil].size;
             self.lbTuiyun.top = self.page.top + 3;
             self.lbTuiyun.right = self.contentView.width- 5;
             self.lbP1Info.text = [self textForDayLight:self.astro.IsDayLight quan:[self.astro isZuhepan] ? 1 : 0 gender:self.astro.Gender birth:self.astro.birth lon:self.astro.position.longitude lat:self.astro.position.latitude];
@@ -256,11 +252,11 @@
     lbStars.font = [UIFont boldSystemFontOfSize:14];
     [bg addSubview:lbStars];
     
-    if(tableView == self.tbStarInfo){
+    if(tableView == self.tbGongInfo){
         lbGong.text = @"宫";
         lbAngle.text = @"所落星座&度数";
         lbStars.text = @"宫内行星";
-    }else if(tableView == self.tbGongInfo){
+    }else if(tableView == self.tbStarInfo){
         lbGong.text = @"行星";
         lbAngle.text = @"所落星座&度数";
         lbStars.text = @"所落宫位";
@@ -279,7 +275,7 @@
         if( indexPath.section < [self.gongInfo count]){
             NSArray *arr = self.gongInfo[indexPath.section];
             AstroShowInfo *item = arr[indexPath.row];
-            CGFloat height = [item.info sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(90, CGFLOAT_MAX) lineBreakMode:NSLineBreakByCharWrapping].height;
+            CGFloat height = [item.info boundingRectWithSize:CGSizeMake(90, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14]} context:nil].size.height;
             return MAX(30, height);
         }
         return 0;
@@ -337,7 +333,7 @@
                 lbAngle.text = item.angle;
                 lbStars.text = item.info;
                 lbStars.textAlignment = NSTextAlignmentLeft;
-                CGFloat height = [lbStars.text sizeWithFont:lbStars.font constrainedToSize:CGSizeMake(lbStars.width, CGFLOAT_MAX) lineBreakMode:lbStars.lineBreakMode].height;
+                CGFloat height = [lbStars.text boundingRectWithSize:CGSizeMake(lbStars.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: lbStars.font} context:nil].size.height;
                 lbStars.height = MAX(30, height);
             }
         }

@@ -101,7 +101,7 @@
 }
 
 - (void)gongSelected:(ASZiWeiGrid *)sender{
-    int i = sender.tag;
+    NSInteger i = sender.tag;
     for(ASZiWeiGrid *item in self.gongs){
         if(item.tag == i||
            item.tag == (i + 4)%12||

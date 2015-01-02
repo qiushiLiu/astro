@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIButton *btnEdit;
 @property (nonatomic, strong) UIView *bgScoreView;
 @property (nonatomic, strong) NSMutableArray *arrScoreLabel;
+@property (nonatomic, strong) UILabel *lbMedalPrefix;
 @property (nonatomic, strong) UITableView *tbList;
 
 @property (nonatomic, strong) ASCustomerShow *um;
@@ -38,6 +39,7 @@
     self.bgView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.bgView.layer.borderWidth = 0.5;
     self.bgView.layer.cornerRadius = 5.0;
+    self.bgView.hidden = YES;
     [self.contentView addSubview:self.bgView];
     
     self.ivFace = [[ASUrlImageView alloc] initWithFrame:CGRectMake(10, self.bgView.top + 10, 40, 40)];
@@ -95,7 +97,16 @@
         [self.arrScoreLabel addObject:lbScore];
     }
     
-    self.tbList = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, 80 * [kUserTableRowTitle count])];
+    self.lbMedalPrefix = [[UILabel alloc] init];
+    self.lbMedalPrefix.backgroundColor = [UIColor clearColor];
+    self.lbMedalPrefix.textColor = [UIColor blackColor];
+    self.lbMedalPrefix.font = [UIFont systemFontOfSize:13];
+    self.lbMedalPrefix.text = @"我的勋章: ";
+    [self.lbMedalPrefix sizeToFit];
+    [self.bgView addSubview:self.lbMedalPrefix];
+    
+    
+    self.tbList = [[UITableView alloc] initWithFrame:CGRectMake(0, 250, self.contentView.width, 80 * [kUserTableRowTitle count])];
     self.tbList.backgroundColor = [UIColor clearColor];
     self.tbList.delegate = self;
     self.tbList.dataSource = self;
@@ -147,6 +158,7 @@
 }
 
 - (void)loadUserInfo{
+    self.bgView.hidden = NO;
     [self.ivFace load:self.um.smallPhotoShow cacheDir:nil];
     NSMutableString *str = [NSMutableString stringWithString:self.um.NickName];
     [str appendFormat:@"    %@ 等级 ", (self.um.Gender == 1 ? @"男" : @"女")];
@@ -179,7 +191,24 @@
     }
     
     self.bgScoreView.top = top + 15;
-    self.bgView.height = self.bgScoreView.bottom + 25;
+    
+    self.lbMedalPrefix.origin = CGPointMake(self.ivFace.left, self.bgScoreView.bottom + 20);
+    CGFloat headerHeight = self.lbMedalPrefix.bottom + 10;
+    for(int i = 0; i < [self.um.Medals count]; i++){
+        int x = i % 5;
+        int y = i / 5;
+        if(x > 0){
+            y++;
+        }
+        ASUrlImageView *iv = [[ASUrlImageView alloc] initWithFrame:CGRectMake(self.lbMedalPrefix.right + 50*x, 0, 30, 30)];
+        iv.centerY = self.lbMedalPrefix.centerY + y * 40;
+        [self.contentView addSubview:iv];
+        if(i == [self.um.Medals count] - 1){
+            headerHeight = iv.bottom + 10;
+        }
+    }
+    
+    self.bgView.height = headerHeight;
     ((UILabel *)self.arrScoreLabel[0]).text = Int2String(self.um.Point);
     ((UILabel *)self.arrScoreLabel[1]).text = Int2String(self.um.TotalQuest);
     ((UILabel *)self.arrScoreLabel[2]).text = Int2String(self.um.TotalAnswer);
@@ -215,16 +244,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ASAskerCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pageKey];
     if(!cell){
         cell = [[ASAskerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
+        cell.bgView.frame = CGRectMake(15, 5, 300, 50);
+        cell.icon.size = CGSizeMake(35, 35);
+        cell.icon.left = 25;
+        cell.icon.centerY = 30;
+        cell.lbTitle.origin = CGPointMake(cell.icon.right + 10, cell.icon.top);
+        cell.arrow.centerY = 30;
     }
     
-    [cell.icon loadLocalImage:@""];
+    [cell.icon loadLocalImageName:[NSString stringWithFormat:@"icon_usercenter_%@", @(indexPath.row)]];
     NSString *whos = [self isCurrentUser] ? @"我的" : @"Ta的";
     NSInteger count = 0;
     if(indexPath.row == 0){   //回帖

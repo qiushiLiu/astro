@@ -8,6 +8,8 @@
 
 #import "JSONModel.h"
 #import "ASCustomer.h"
+#import "ASUSR_MedalMod.h"
+
 @interface ASCustomerShow : JSONModel <ASCustomerProtocol>
 @property (nonatomic) NSInteger BestAnswer;
 @property (nonatomic, strong) NSString *BigPhotoShow;
@@ -34,5 +36,5 @@
 @property (nonatomic) NSInteger TotalTalkReply;
 @property (nonatomic, strong) NSString *smallPhotoShow;
 @property (nonatomic) NSInteger NewMessage; //消息
-@property (nonatomic) NSInteger TotalMedal; //勋章
+@property (nonatomic, strong) NSArray<ASUSR_MedalMod, Optional> *Medals; //勋章
 @end

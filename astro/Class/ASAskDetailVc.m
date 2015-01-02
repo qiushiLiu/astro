@@ -97,11 +97,11 @@
             if(succ){
                 NSError *error;
                 if([ASGlobal shared].fateType == 1){
-                    self.question = [[ASQaFullAstro alloc] initWithDictionary:json error:NULL];
+                    self.question = [[ASQaFullAstro alloc] initWithDictionary:json error:&error];
                 }else if([ASGlobal shared].fateType == 2){
-                    self.question = [[ASQaFullZiWei alloc] initWithDictionary:json error:NULL];
+                    self.question = [[ASQaFullZiWei alloc] initWithDictionary:json error:&error];
                 }else{
-                    self.question = [[ASQaFullBazi alloc] initWithDictionary:json error:NULL];
+                    self.question = [[ASQaFullBazi alloc] initWithDictionary:json error:&error];
                 }
                 NSAssert(error == nil, @"%@", error);
                 [self.headerView setQuestion:self.question];

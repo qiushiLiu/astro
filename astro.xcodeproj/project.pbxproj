@@ -137,6 +137,7 @@
 		1BC823D0193DF1A4001CF44E /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC823C5193DF1A3001CF44E /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BC823D1193DF1A4001CF44E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC823C8193DF1A3001CF44E /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BC823E0193E129E001CF44E /* ASPanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC823DF193E129E001CF44E /* ASPanView.m */; };
+		1BC8B2C01A564F78003CA7E9 /* ASUSR_MedalMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8B2BF1A564F78003CA7E9 /* ASUSR_MedalMod.m */; };
 		1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365618D171A3001D0F30 /* ZiWeiMod.m */; };
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
@@ -409,6 +410,8 @@
 		1BC823C8193DF1A3001CF44E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1BC823DE193E129E001CF44E /* ASPanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPanView.h; sourceTree = "<group>"; };
 		1BC823DF193E129E001CF44E /* ASPanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPanView.m; sourceTree = "<group>"; };
+		1BC8B2BE1A564F78003CA7E9 /* ASUSR_MedalMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUSR_MedalMod.h; sourceTree = "<group>"; };
+		1BC8B2BF1A564F78003CA7E9 /* ASUSR_MedalMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUSR_MedalMod.m; sourceTree = "<group>"; };
 		1BD5365518D171A3001D0F30 /* ZiWeiMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiMod.h; sourceTree = "<group>"; };
 		1BD5365618D171A3001D0F30 /* ZiWeiMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiMod.m; sourceTree = "<group>"; };
 		1BD5365818D17385001D0F30 /* ZiWeiGong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiGong.h; sourceTree = "<group>"; };
@@ -693,6 +696,8 @@
 				1B2DA3E419F9363200E9C03D /* ASQaMinZiWei.h */,
 				1B2DA3E519F9363200E9C03D /* ASQaMinZiWei.m */,
 				1B1D5F2A1942BC7D00D23025 /* ASQaProtocol.h */,
+				1BC8B2BE1A564F78003CA7E9 /* ASUSR_MedalMod.h */,
+				1BC8B2BF1A564F78003CA7E9 /* ASUSR_MedalMod.m */,
 				1B7838741A241B4D000E30BA /* ASUSR_Message.h */,
 				1B7838751A241B4D000E30BA /* ASUSR_Message.m */,
 				1B7838771A2427D4000E30BA /* ASUSR_SMS.h */,
@@ -1128,6 +1133,7 @@
 				1B9F1F2B1872622500278E62 /* FMDatabase.m in Sources */,
 				1B5D5E9D187A54AF0030A7E8 /* ASNavKeyConst.m in Sources */,
 				1B7CAEDB18F4F46B005B8C30 /* ASCategory.m in Sources */,
+				1BC8B2C01A564F78003CA7E9 /* ASUSR_MedalMod.m in Sources */,
 				1B9F1EF1186C54DB00278E62 /* ASUrlImageView.m in Sources */,
 				1BECAC21194711AD005C330B /* ASQaComment.m in Sources */,
 				1B012BC6185F40A80046AD7A /* JSONKit.m in Sources */,
