@@ -9,11 +9,10 @@
 #import "ASZiWeiPanVc.h"
 #import "ASZiWeiGrid.h"
 #import "ASZiWeiPanFillInfoVc.h"
+#import "ASPostQuestionVc.h"
 
 @interface ASZiWeiPanVc ()
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
-@property (nonatomic, strong) UIButton *btnShare;
-@property (nonatomic, strong) UIButton *btnFav;
 @property (nonatomic, strong) UIButton *btnQueston;
 @end
 
@@ -32,17 +31,8 @@
     [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
-    self.btnShare = [ASControls newOrangeButton:CGRectMake(15, 0, 90, 28) title:@"分享"];
-    [self.btnShare addTarget:self action:@selector(btnClick_share:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnShare];
-
-    self.btnFav = [ASControls newOrangeButton:CGRectMake(0, 0, 90, 28) title:@"收藏"];
-    self.btnFav.centerX = self.contentView.width/2;
-    [self.btnFav addTarget:self action:@selector(btnClick_favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnFav];
-
-    self.btnQueston = [ASControls newOrangeButton:CGRectMake(0, 0, 90, 28) title:@"求解"];
-    self.btnQueston.right = 305;
+    self.btnQueston = [ASControls newOrangeButton:CGRectMake(0, 0, 200, 28) title:@"求解"];
+    self.btnQueston.centerX = self.contentView.width/2;
     [self.btnQueston addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnQueston];
 }
@@ -62,8 +52,8 @@
             }
             self.pan = [self.model paipan];
             [self.contentView addSubview:self.pan];
-            self.btnFav.top = self.btnQueston.top = self.btnShare.top = self.pan.bottom + 10;
-            self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnShare.bottom + 10);
+            self.btnQueston.top  = self.pan.bottom + 10;
+            self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnQueston.bottom + 10);
         }else{
             [self alert:message];
         }
@@ -80,15 +70,10 @@
     [self presentViewController:nc animated:YES completion:nil];
 }
 
-- (void)btnClick_share:(UIButton *)sender{
-    
-}
-
-- (void)btnClick_favorite:(UIButton *)sender{
-    
-}
-
 - (void)btnClick_question:(UIButton *)sender{
-    
+    ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
+    vc.topCateId = @"1";
+    [vc.question setZiWeiModel:self.model];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

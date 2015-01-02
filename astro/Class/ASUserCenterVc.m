@@ -12,6 +12,7 @@
 #import "ASAskerCell.h"
 #import "ASUserMessageVc.h"
 #import "ASUserTopicVc.h"
+#import "ASUSR_MedalMod.h"
 
 @interface ASUserCenterVc ()
 @property (nonatomic, strong) UIView *bgView;
@@ -197,12 +198,11 @@
     for(int i = 0; i < [self.um.Medals count]; i++){
         int x = i % 5;
         int y = i / 5;
-        if(x > 0){
-            y++;
-        }
-        ASUrlImageView *iv = [[ASUrlImageView alloc] initWithFrame:CGRectMake(self.lbMedalPrefix.right + 50*x, 0, 30, 30)];
-        iv.centerY = self.lbMedalPrefix.centerY + y * 40;
-        [self.contentView addSubview:iv];
+        ASUrlImageView *iv = [[ASUrlImageView alloc] initWithFrame:CGRectMake(self.lbMedalPrefix.right + 10 + 42*x, 0, 30, 30)];
+        iv.centerY = self.lbMedalPrefix.centerY + y * 36;
+        ASUSR_MedalMod *item = self.um.Medals[i];
+        [iv load:item.Pic cacheDir:nil];
+        [self.bgView addSubview:iv];
         if(i == [self.um.Medals count] - 1){
             headerHeight = iv.bottom + 10;
         }

@@ -10,6 +10,7 @@
 #import "ASUserSimpleView.h"
 #import "ASAskTableViewCell.h"
 #import "ASNav.h"
+#import "ASPostQuestionVc.h"
 #import "ASCustomerShow.h"
 #import "ASQaMinAstro.h"
 #import "ASQaMinBazi.h"
@@ -92,9 +93,10 @@
 
 - (void)postNew{
     if([ASGlobal isLogined]){
-        [self navTo:vcPostQuestion
-             params:@{@"topCateId" : self.topCateId,
-                      @"cate" : self.cate}];
+        ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
+        vc.topCateId = [self.topCateId copy];
+        vc.cate = [self.cate copy];
+        [self.navigationController pushViewController:vc animated:YES];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
         alert.tag = NSAlertViewNeedLogin;

@@ -18,5 +18,4 @@ extern NSString * const vcAskList;
 extern NSString * const vcAskDeltail;
 extern NSString * const vcComment;
 extern NSString * const vcShareBind;
-extern NSString * const vcPostQuestion;
 extern NSString * const vcPanMain;

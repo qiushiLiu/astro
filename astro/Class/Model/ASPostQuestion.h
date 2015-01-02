@@ -8,6 +8,9 @@
 
 #import "JSONModel.h"
 #import "ASFateChart.h"
+#import "AstroMod.h"
+#import "ZiWeiMod.h"
+#import "BaziMod.h"
 
 @interface ASPostQuestion : JSONModel
 @property (nonatomic) NSInteger SysNo;
@@ -17,5 +20,9 @@
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic) NSInteger Award;
 @property (nonatomic) NSInteger IsSecret;
-@property (nonatomic, strong) NSArray<ASFateChart> *Chart;
+@property (nonatomic, strong) ASFateChart<Optional> *Chart;
+
+- (void)setAstroModel:(AstroMod *)astro;
+- (void)setBaziModel:(BaziMod *)bazi;
+- (void)setZiWeiModel:(ZiWeiMod *)ziwei;
 @end

@@ -18,5 +18,4 @@ NSString * const vcAskList = @"vcAskList";
 NSString * const vcAskDeltail = @"vcAskDeltail";
 NSString * const vcComment = @"vcComment";
 NSString * const vcShareBind = @"vcShareBind";
-NSString * const vcPostQuestion = @"vcPostQuestion";
 NSString * const vcPanMain = @"vcPanMain";

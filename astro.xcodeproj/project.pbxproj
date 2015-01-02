@@ -17,8 +17,6 @@
 		1B012B4A185DCB4B0046AD7A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B012B49185DCB4B0046AD7A /* XCTest.framework */; };
 		1B012B4B185DCB4B0046AD7A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B012B2A185DCB4B0046AD7A /* Foundation.framework */; };
 		1B012B4C185DCB4B0046AD7A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B012B2E185DCB4B0046AD7A /* UIKit.framework */; };
-		1B012B54185DCB4B0046AD7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B012B52185DCB4B0046AD7A /* InfoPlist.strings */; };
-		1B012B56185DCB4B0046AD7A /* astroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012B55185DCB4B0046AD7A /* astroTests.m */; };
 		1B012B6B185DD4ED0046AD7A /* NSString+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012B63185DD4ED0046AD7A /* NSString+Addition.m */; };
 		1B012B6C185DD4ED0046AD7A /* UIDevice+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012B65185DD4ED0046AD7A /* UIDevice+Addition.m */; };
 		1B012B6D185DD4ED0046AD7A /* UIImage+Scale.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B012B67185DD4ED0046AD7A /* UIImage+Scale.m */; };
@@ -173,9 +171,6 @@
 		1B012B3A185DCB4B0046AD7A /* ASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASAppDelegate.m; sourceTree = "<group>"; };
 		1B012B48185DCB4B0046AD7A /* astroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = astroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B012B49185DCB4B0046AD7A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		1B012B51185DCB4B0046AD7A /* astroTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "astroTests-Info.plist"; sourceTree = "<group>"; };
-		1B012B53185DCB4B0046AD7A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1B012B55185DCB4B0046AD7A /* astroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = astroTests.m; sourceTree = "<group>"; };
 		1B012B62185DD4ED0046AD7A /* NSString+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Addition.h"; sourceTree = "<group>"; };
 		1B012B63185DD4ED0046AD7A /* NSString+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Addition.m"; sourceTree = "<group>"; };
 		1B012B64185DD4ED0046AD7A /* UIDevice+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Addition.h"; sourceTree = "<group>"; };
@@ -465,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				1B012B30185DCB4B0046AD7A /* astro */,
-				1B012B4F185DCB4B0046AD7A /* astroTests */,
 				1B012B29185DCB4B0046AD7A /* Frameworks */,
 				1B012B28185DCB4B0046AD7A /* Products */,
 			);
@@ -527,24 +521,6 @@
 				1B012B33185DCB4B0046AD7A /* InfoPlist.strings */,
 				1B012B36185DCB4B0046AD7A /* main.m */,
 				1B012B38185DCB4B0046AD7A /* astro-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		1B012B4F185DCB4B0046AD7A /* astroTests */ = {
-			isa = PBXGroup;
-			children = (
-				1B012B55185DCB4B0046AD7A /* astroTests.m */,
-				1B012B50185DCB4B0046AD7A /* Supporting Files */,
-			);
-			path = astroTests;
-			sourceTree = "<group>";
-		};
-		1B012B50185DCB4B0046AD7A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1B012B51185DCB4B0046AD7A /* astroTests-Info.plist */,
-				1B012B52185DCB4B0046AD7A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1042,7 +1018,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B012B54185DCB4B0046AD7A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,7 +1156,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B012B56185DCB4B0046AD7A /* astroTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,14 +1174,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				1B012B34185DCB4B0046AD7A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		1B012B52185DCB4B0046AD7A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1B012B53185DCB4B0046AD7A /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

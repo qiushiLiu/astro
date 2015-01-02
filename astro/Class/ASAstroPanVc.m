@@ -11,6 +11,7 @@
 #import "ZiWeiStar.h"
 #import "AstroStar.h"
 #import "ASAstroPanFillInfoVc.h"
+#import "ASPostQuestionVc.h"
 
 @interface ASAstroPanVc ()
 @property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
@@ -102,18 +103,9 @@
     [self.scPanView addSubview:self.lbP2Info];
     
     CGFloat top = self.lbP1Info.bottom + 10;
-    btn = [ASControls newOrangeButton:CGRectMake(0, top, 90, 28) title:@"分享"];
-    btn.left = self.lbP1Info.left + 5;
-    [btn addTarget:self action:@selector(btnClick_share:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scPanView addSubview:btn];
     
-    btn = [ASControls newOrangeButton:CGRectMake(0, top, 90, 28) title:@"收藏"];
-    btn.centerX = self.scPanView.width/2;
-    [btn addTarget:self action:@selector(btnClick_favorite:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scPanView addSubview:btn];
-    
-    btn = [ASControls newOrangeButton:CGRectMake(0, top, 90, 28) title:@"求解"];
-    btn.right = self.lbP2Info.right - 5;
+    btn = [ASControls newOrangeButton:CGRectMake(0, top, 200, 28) title:@"求解"];
+    btn.centerX = self.contentView.width/2;
     [btn addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
     [self.scPanView addSubview:btn];
 }
@@ -361,15 +353,10 @@
     [self presentViewController:nc animated:YES completion:nil];
 }
 
-- (void)btnClick_share:(UIButton *)sender{
-    
-}
-
-- (void)btnClick_favorite:(UIButton *)sender{
-    
-}
-
 - (void)btnClick_question:(UIButton *)sender{
-    
+    ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
+    vc.topCateId = @"1";
+    [vc.question setAstroModel:self.astro];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

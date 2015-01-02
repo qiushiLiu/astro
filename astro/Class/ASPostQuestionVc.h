@@ -12,8 +12,10 @@
 #import "ASFillPersonVc.h"
 
 @interface ASPostQuestionVc : ASBaseViewController<UITextFieldDelegate, UIAlertViewDelegate, ASFillPersonVcDelegate, ASPickerViewDelegate>
-@property (nonatomic, strong) ASPostQuestion *question;
-
+@property (nonatomic) BOOL hasReward;
+@property (nonatomic, readonly) ASPostQuestion *question;
+@property (nonatomic, strong) NSString *topCateId;
+@property (nonatomic, strong) NSString *cate;
 
 - (void)reloadQuestion;
 - (void)reloadPerson:(NSInteger)tag;

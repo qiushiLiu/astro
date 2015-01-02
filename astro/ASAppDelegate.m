@@ -79,6 +79,17 @@
     [[UINavigationBar appearance] setBarTintColor:ASColorDarkGray];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
+    /** 注册推送通知功能,*/
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+                                                                                             |UIRemoteNotificationTypeSound
+                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
+        [application registerUserNotificationSettings:settings];
+    } else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
+    
     self.locOpenCount = 0;
     [self handleNextQueryTimerForLm];
     
@@ -114,13 +125,29 @@
 
 #pragma mark - DeviceToken
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
-    //    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
 }
 
-- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
-    NSString *str = [NSString stringWithFormat: @"Error: %@", err];
-    NSLog(@"Error:%@",str);
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+    //handle the actions
+    if ([identifier isEqualToString:@"declineAction"]){
+    }
+    else if ([identifier isEqualToString:@"answerAction"]){
+    }
+}
+#endif
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    if(token){
+        [HttpUtil load:@"customer/DeviceToken"
+                params:@{@"deviceToken" : token} completion:nil];
+    }
 }
 
 

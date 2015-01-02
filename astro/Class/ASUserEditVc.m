@@ -117,6 +117,7 @@
     [self.contentView addSubview:line];
     
     self.sgFateType = [[UISegmentedControl alloc] initWithItems:FateTypeArray];
+    [self.sgFateType setTintColor:ASColorDarkRed];
     self.sgFateType.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.9, 0.9);
     self.sgFateType.top = line.bottom + margin;
     self.sgFateType.right = self.btnFace.right;

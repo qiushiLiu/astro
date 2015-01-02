@@ -191,6 +191,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSAssert(self.person, @"person 不能为空!");
     [self reloadData];
 }
 

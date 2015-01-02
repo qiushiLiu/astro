@@ -35,6 +35,7 @@
     [self.contentView addSubview:lb];
     
     self.sgPanType = [[UISegmentedControl alloc] initWithItems:@[@"天盘", @"流限盘"]];
+    [self.sgPanType setTintColor:ASColorDarkRed];
     [self.sgPanType addTarget:self action:@selector(panType_change) forControlEvents:UIControlEventValueChanged];
     self.sgPanType.frame = CGRectMake(lb.right, 0, 200, 26);
     self.sgPanType.centerY = lb.centerY;

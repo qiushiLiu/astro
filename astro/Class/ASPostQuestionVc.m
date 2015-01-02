@@ -14,9 +14,7 @@
 #import "ASQuestionButton.h"
 
 @interface ASPostQuestionVc()
-@property (nonatomic) BOOL hasReward;
-@property (nonatomic, strong) NSString *topCateId;
-@property (nonatomic, strong) NSString *cate;
+
 @property (nonatomic, strong) NSArray *cateList;
 @property (nonatomic, strong) NSMutableArray *pickerDataSource;
 
@@ -24,7 +22,7 @@
 @property (nonatomic) NSInteger panTypeSelected;            //排盘类型选中行
 
 @property (nonatomic, strong) UIButton *btnQuestionType;    //问题分类
-@property (nonatomic, strong) UIButton *btnPanType;         //排盘分类
+@property (nonatomic, strong) UISegmentedControl *sgPanType;//排盘分类
 @property (nonatomic, strong) UITextField *tfReward;        //悬赏输入
 @property (nonatomic, strong) UIView *rewardView;           //悬赏图层（可能会不显示）
 @property (nonatomic, strong) UIButton *btnQuestion;        //问题按钮
@@ -37,7 +35,7 @@
 @implementation ASPostQuestionVc
 - (id)init{
     if(self = [super init]){
-        self.question = [[ASPostQuestion alloc] init];
+        _question = [[ASPostQuestion alloc] init];
         self.question.CustomerSysNo = [ASGlobal shared].user.SysNo;
         self.questionTypeSelected = -1;
         self.panTypeSelected = 0;
@@ -75,11 +73,13 @@
     lb.origin = CGPointMake(left, top);
     [self.contentView addSubview:lb];
     
-    self.btnPanType = [self newRedButtom:@"不排盘"];
-    self.btnPanType.top = top;
-    [self.btnPanType addTarget:self action:@selector(btnClick_picker:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:self.btnPanType];
-    top = self.btnPanType.bottom + 10;
+    self.sgPanType = [[UISegmentedControl alloc] initWithItems:RelationArray];
+    [self.sgPanType setTintColor:ASColorDarkRed];
+    self.sgPanType.size = CGSizeMake(200, 30);
+    self.sgPanType.origin = CGPointMake(self.btnQuestionType.left, top);
+    [self.sgPanType addTarget:self action:@selector(sg_panType_changed:) forControlEvents:UIControlEventValueChanged];
+    [self.contentView addSubview:self.sgPanType];
+    top = self.sgPanType.bottom + 10;
     
     self.rewardView = [[UIView alloc] initWithFrame:CGRectMake(0, top, self.contentView.width, 50)];
     self.rewardView.backgroundColor = [UIColor clearColor];
@@ -135,8 +135,11 @@
     self.btnSecondPersonInfo.top = self.btnFirstPersonInfo.bottom + 10;
     
     self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnSecondPersonInfo.bottom + 20);
-    
     [self reloadPickerSelected];
+    [self reloadPerson:0];
+    if(self.panTypeSelected > 0){
+        [self reloadPerson:1];
+    }
 }
 
 - (void)setNavToParams:(NSDictionary *)params{
@@ -150,11 +153,13 @@
         NSData *data = [obj.value dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error;
         self.cateList = [ASCategory arrayOfModelsFromData:data error:&error];
-        if(error){
-            NSLog(@"%@", error.description);
-        }
+        NSAssert(!error, @"%@", error);
         self.pickerDataSource = [NSMutableArray array];
-        for(ASCategory *item in self.cateList){
+        for(int i = 0; i < [self.cateList count]; i++){
+            ASCategory *item  = self.cateList[i];
+            if(item.SysNo == [self.cate intValue]){
+                self.questionTypeSelected = i;
+            }
             [self.pickerDataSource addObject:item.Name];
         }
     }
@@ -169,21 +174,19 @@
         [self.btnQuestionType setTitle:item.Name forState:UIControlStateNormal];
     }
     if([RelationArray count] > self.panTypeSelected){
-        if([self.question.Chart count] > 0){
-            ASFateChart *chart = [self.question.Chart objectAtIndex:0];
-            chart.ChartType = self.panTypeSelected + 1;
+        if(self.question.Chart){
+            self.question.Chart.ChartType = self.panTypeSelected + 1;
         }
         if(self.panTypeSelected == 0){
             self.btnSecondPersonInfo.hidden = YES;
         }else{
             self.btnSecondPersonInfo.hidden = NO;
         }
-        [self.btnPanType setTitle:RelationArray[self.panTypeSelected] forState:UIControlStateNormal];
+        self.sgPanType.selectedSegmentIndex = self.panTypeSelected;
     }
 }
 
 #pragma mark - UIControl Create Method
-
 - (UIButton *)newQuestionButton{
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 280, 40)];
     btn.backgroundColor = [UIColor whiteColor];
@@ -209,7 +212,7 @@
     lbPrefix.centerY = btn.height/2;
     [btn addSubview:lbPrefix];
     
-    self.lbQuestion = [ASControls newGrayTextLabel:CGRectMake(lbPrefix.right + 10, 0, 180, 28)];
+    self.lbQuestion = [ASControls newGrayTextLabel:CGRectMake(lbPrefix.right + 10, 0, 150, 28)];
     self.lbQuestion.centerY = btn.height/2;
     [btn addSubview:self.lbQuestion];
     
@@ -230,8 +233,8 @@
 }
 
 - (void)reloadPerson:(NSInteger)tag{
-    if([self.question.Chart count] > 0){
-        ASFateChart *chart = [self.question.Chart objectAtIndex:0];
+    if(self.question.Chart){
+        ASFateChart *chart = self.question.Chart;
         if(tag == 0){ //第一当事人
             [self.btnFirstPersonInfo setInfoText:[ASFillPersonVc stringForBirth:chart.FirstBirth gender:chart.FirstGender daylight:chart.FirstDayLight poi:chart.FirstPoiName timeZone:chart.FirstTimeZone]];
         }else{ //第二当事人
@@ -245,12 +248,15 @@
     [self.picker hidePickerView];
 }
 
+- (void)sg_panType_changed:(UISegmentedControl *)sender{
+    self.panTypeSelected = sender.selectedSegmentIndex;
+    [self reloadPickerSelected];
+}
+
 #pragma mark - ASPickerView Delegate
 - (void)asPickerViewDidSelected:(ASPickerView *)picker{
     if(picker.trigger == self.btnQuestionType){
         self.questionTypeSelected = [self.picker selectedRowInComponent:0];
-    }else if(picker.trigger == self.btnPanType){
-        self.panTypeSelected = [self.picker selectedRowInComponent:0];
     }
     [self reloadPickerSelected];
 }
@@ -264,21 +270,23 @@
 
 #pragma mark - ASFillQuestionVcDelegate Method
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
-    ASFateChart *chart = nil;
-    if(self.question && [self.question.Chart count] > 0){
-        chart = [self.question.Chart objectAtIndex:0];
-    }
-    if(chart){
+    if(self.question.Chart){
         if(trigger == self.btnFirstPersonInfo){
-            chart.FirstBirth = (NSDate<NSDate> *)person.Birth;
-            chart.FirstDayLight = person.DayLight;
-            chart.FirstGender = person.Gender;
-            chart.FirstTimeZone = person.TimeZone;
+            self.question.Chart.FirstBirth = (NSDate<NSDate> *)person.Birth;
+            self.question.Chart.FirstDayLight = person.DayLight;
+            self.question.Chart.FirstGender = person.Gender;
+            self.question.Chart.FirstTimeZone = person.TimeZone;
+            self.question.Chart.FirstPoi = [NSString stringWithFormat:@"%f|%f", person.longitude, person.latitude];
+            self.question.Chart.FirstPoiName = person.poiName;
+            [self reloadPerson:0];
         }else if(trigger == self.btnSecondPersonInfo){
-            chart.SecondBirth = (NSDate<NSDate> *)person.Birth;
-            chart.SecondDayLight = person.DayLight;
-            chart.SecondGender = person.Gender;
-            chart.SecondTimeZone = person.TimeZone;
+            self.question.Chart.SecondBirth = (NSDate<NSDate> *)person.Birth;
+            self.question.Chart.SecondDayLight = person.DayLight;
+            self.question.Chart.SecondGender = person.Gender;
+            self.question.Chart.SecondTimeZone = person.TimeZone;
+            self.question.Chart.SecondPoi = [NSString stringWithFormat:@"%f|%f", person.longitude, person.latitude];
+            self.question.Chart.SecondPoiName = person.poiName;
+            [self reloadPerson:1];
         }
     }
 }
@@ -288,13 +296,6 @@
     self.picker.trigger = sender;
     if(sender == self.btnQuestionType){
         [self.picker setDataSource:self.pickerDataSource selected:@(self.questionTypeSelected)];
-    }else if(sender == self.btnPanType){
-        NSInteger selected = 0;
-        if([self.question.Chart count] > 0){
-            ASFateChart *chart = [self.question.Chart objectAtIndex:0];
-            selected = chart.ChartType - 1;
-        }
-        [self.picker setDataSource:RelationArray selected:@(selected)];
     }
     [self.picker showPickerView];
 }
@@ -307,9 +308,33 @@
 }
 
 - (void)btnClick_fillPerson:(UIButton *)sender{
-    ASFillPersonVc *vc = [[ASFillPersonVc alloc] init];
+    ASFillPersonVc *vc = [[ASFillPersonVc alloc] initWithType:0];
     vc.delegate = self;
     vc.trigger = sender;
+    if(sender == self.btnFirstPersonInfo){
+        vc.person.Birth = self.question.Chart.FirstBirth;
+        vc.person.Gender = self.question.Chart.FirstGender;
+        vc.person.DayLight = self.question.Chart.FirstDayLight;
+        vc.person.TimeZone = self.question.Chart.FirstTimeZone + 12;
+        NSArray *arr = [self.question.Chart.FirstPoi componentsSeparatedByString:@"|"];
+        if([arr count] == 2){
+            vc.person.latitude = [arr[0] floatValue];
+            vc.person.longitude = [arr[1] floatValue];
+        }
+        vc.person.poiName = self.question.Chart.FirstPoiName;
+    }else{
+        vc.person.Birth = self.question.Chart.SecondBirth;
+        vc.person.Gender = self.question.Chart.SecondGender;
+        vc.person.DayLight = self.question.Chart.SecondDayLight;
+        vc.person.TimeZone = self.question.Chart.SecondTimeZone + 12;
+        NSArray *arr = [self.question.Chart.SecondPoi componentsSeparatedByString:@"|"];
+        if([arr count] == 2){
+            vc.person.latitude = [arr[0] floatValue];
+            vc.person.longitude = [arr[1] floatValue];
+        }
+        vc.person.poiName = self.question.Chart.SecondPoiName;
+    }
+    
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }

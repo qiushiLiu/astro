@@ -31,6 +31,7 @@
     [self.contentView addSubview:lb];
     
     self.sgPanType = [[UISegmentedControl alloc] initWithItems:@[@"全盘", @"简盘"]];
+    [self.sgPanType setTintColor:ASColorDarkRed];
     self.sgPanType.frame = CGRectMake(lb.right, 0, 200, 26);
     self.sgPanType.centerY = lb.centerY;
     [self.contentView addSubview:self.sgPanType];

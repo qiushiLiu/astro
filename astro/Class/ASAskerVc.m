@@ -67,7 +67,9 @@
 
 - (void)btnClick_post{
     if([ASGlobal isLogined]){
-        [self navTo:vcPostQuestion];
+        ASPostQuestionVc *vc = [[ASPostQuestionVc alloc] init];
+        vc.topCateId = [self.topCateId copy];
+        [self.navigationController pushViewController:vc animated:YES];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您需要登录后才能发帖！" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"登录", nil];
         alert.tag = NSAlertViewNeedLogin;
