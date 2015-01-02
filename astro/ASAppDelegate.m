@@ -295,7 +295,7 @@
 
 #pragma mark - NeedLogin
 - (void)showNeedLoginAlertView{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录提示" message:@"请先登录您的Go省账号" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录提示" message:@"请先登录您的账号" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
     alert.tag = 10086;
     [alert show];
 }

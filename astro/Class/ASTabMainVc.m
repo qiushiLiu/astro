@@ -63,7 +63,7 @@
 
 - (void)notification:(NSNotification *)sender{
     if([sender.name isEqual:Notification_MainVc]){
-        self.tabBarController.selectedIndex = 0;
+        self.selectedIndex = 0;
     }
 }
 
