@@ -495,10 +495,10 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
 }
 
 - (NSString *)getAllDayTimeSpan:(long)time{
-    NSInteger day = time / D_DAY;
-    NSInteger hour = (time % D_DAY)/D_HOUR;
-    NSInteger min = (time % D_DAY % D_HOUR)/D_MINUTE;
-    return [NSString stringWithFormat:@"%4ld天%2ld小时%2ld分钟", day, hour, min];
+    int day = time / D_DAY;
+    int hour = (time % D_DAY)/D_HOUR;
+    int min = (time % D_DAY % D_HOUR)/D_MINUTE;
+    return [NSString stringWithFormat:@"%4d天%2d小时%2d分钟", day, hour, min];
 }
 
 - (NSString *)getNayin:(NSInteger)tag{

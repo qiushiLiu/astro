@@ -11,7 +11,7 @@
 NSString *const kAppVersion = @"1.1";
 NSString *const kAppChannel = @"0";
 NSString *const kAppHost = @"http://api.ssqian.com";
-BOOL kAppDebug = YES;
+BOOL kAppDebug = NO;
 
 NSString *const kAppAgent = @"app-agent";
 NSString *const kAppVerify = @"Restecname";

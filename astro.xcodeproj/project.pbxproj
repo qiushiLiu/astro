@@ -99,6 +99,7 @@
 		1B7F755819BE8A3100F01EF4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7F755719BE8A3100F01EF4 /* MapKit.framework */; };
 		1B7F755A19BE8A3B00F01EF4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7F755919BE8A3B00F01EF4 /* CoreLocation.framework */; };
 		1B81A7B9196D26F600055137 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81A7B8196D26F600055137 /* Images.xcassets */; };
+		1B8913A31A59507300E68704 /* ASDiceHouseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8913A11A59507300E68704 /* ASDiceHouseView.m */; };
 		1B8A039219867B780087A4E0 /* ASPaiPanMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */; };
 		1B96B97B1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B96B97A1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m */; };
 		1B9DC4E219AACF04006CBB3D /* ASPermitInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */; };
@@ -120,6 +121,8 @@
 		1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */; };
 		1BBF581118AB60E50081D93A /* ASAskerVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581018AB60E50081D93A /* ASAskerVc.m */; };
 		1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581318AB65B20081D93A /* ASAskerCell.m */; };
+		1BC12EE11A591E8900029A31 /* ASDiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC12EE01A591E8900029A31 /* ASDiceViewController.m */; };
+		1BC12EE51A59287800029A31 /* ASDiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC12EE41A59287800029A31 /* ASDiceView.m */; };
 		1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC6066218BC44C2004D317A /* ASGlobal.m */; };
 		1BC6066618BC7F14004D317A /* Cipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC6066518BC7F14004D317A /* Cipher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC74CEE18D1636B00FD9C34 /* BaziDayun.m */; };
@@ -140,6 +143,7 @@
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
+		1BE157C11A5A24F1009588DF /* FBGlowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE157C01A5A24F1009588DF /* FBGlowLabel.m */; };
 		1BEA34161A2FF32F00A3C382 /* ASSMSVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA34151A2FF32F00A3C382 /* ASSMSVc.m */; };
 		1BECAC21194711AD005C330B /* ASQaComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BECAC20194711AD005C330B /* ASQaComment.m */; };
 		1BF467C418DC246600CB3E4B /* Paipan.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF467C318DC246600CB3E4B /* Paipan.m */; };
@@ -331,6 +335,8 @@
 		1B7F755719BE8A3100F01EF4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1B7F755919BE8A3B00F01EF4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1B81A7B8196D26F600055137 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1B8913A01A59507300E68704 /* ASDiceHouseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDiceHouseView.h; sourceTree = "<group>"; };
+		1B8913A11A59507300E68704 /* ASDiceHouseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDiceHouseView.m; sourceTree = "<group>"; };
 		1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPaiPanMainVc.h; sourceTree = "<group>"; };
 		1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPaiPanMainVc.m; sourceTree = "<group>"; };
 		1B96B9791A3146E100D3D42F /* ASZiWeiPanFillInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiPanFillInfoVc.h; sourceTree = "<group>"; };
@@ -371,6 +377,10 @@
 		1BBF581018AB60E50081D93A /* ASAskerVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskerVc.m; sourceTree = "<group>"; };
 		1BBF581218AB65B20081D93A /* ASAskerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskerCell.h; sourceTree = "<group>"; };
 		1BBF581318AB65B20081D93A /* ASAskerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskerCell.m; sourceTree = "<group>"; };
+		1BC12EDF1A591E8900029A31 /* ASDiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDiceViewController.h; sourceTree = "<group>"; };
+		1BC12EE01A591E8900029A31 /* ASDiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDiceViewController.m; sourceTree = "<group>"; };
+		1BC12EE31A59287800029A31 /* ASDiceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDiceView.h; sourceTree = "<group>"; };
+		1BC12EE41A59287800029A31 /* ASDiceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDiceView.m; sourceTree = "<group>"; };
 		1BC6066118BC44C2004D317A /* ASGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASGlobal.h; sourceTree = "<group>"; };
 		1BC6066218BC44C2004D317A /* ASGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASGlobal.m; sourceTree = "<group>"; };
 		1BC6066418BC7F14004D317A /* Cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cipher.h; sourceTree = "<group>"; };
@@ -415,6 +425,8 @@
 		1BD5365C18D17435001D0F30 /* ZiWeiStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiStar.m; sourceTree = "<group>"; };
 		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
 		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
+		1BE157BF1A5A24F1009588DF /* FBGlowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGlowLabel.h; sourceTree = "<group>"; };
+		1BE157C01A5A24F1009588DF /* FBGlowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBGlowLabel.m; sourceTree = "<group>"; };
 		1BEA34141A2FF32F00A3C382 /* ASSMSVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSMSVc.h; sourceTree = "<group>"; };
 		1BEA34151A2FF32F00A3C382 /* ASSMSVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSMSVc.m; sourceTree = "<group>"; };
 		1BECAC1F194711AD005C330B /* ASQaComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaComment.h; sourceTree = "<group>"; };
@@ -528,6 +540,8 @@
 		1B012B5F185DCB7D0046AD7A /* category */ = {
 			isa = PBXGroup;
 			children = (
+				1BE157BF1A5A24F1009588DF /* FBGlowLabel.h */,
+				1BE157C01A5A24F1009588DF /* FBGlowLabel.m */,
 				1B7F755419BD92D600F01EF4 /* GpsData.h */,
 				1B7F755519BD92D600F01EF4 /* GpsData.m */,
 				1B7C47BE192501BA00924E44 /* ASHelper.h */,
@@ -613,6 +627,7 @@
 		1B5D5E97187A53520030A7E8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				1BC12EDE1A590F2700029A31 /* dice */,
 				1BAC95A71A033EE300B0FBF7 /* user */,
 				1BAC95A61A033B3B00B0FBF7 /* pan */,
 				1BAC95A51A033B0C00B0FBF7 /* qa */,
@@ -871,6 +886,27 @@
 			name = user;
 			sourceTree = "<group>";
 		};
+		1BC12EDE1A590F2700029A31 /* dice */ = {
+			isa = PBXGroup;
+			children = (
+				1BC12EE21A59286300029A31 /* view */,
+				1BC12EDF1A591E8900029A31 /* ASDiceViewController.h */,
+				1BC12EE01A591E8900029A31 /* ASDiceViewController.m */,
+			);
+			name = dice;
+			sourceTree = "<group>";
+		};
+		1BC12EE21A59286300029A31 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1B8913A01A59507300E68704 /* ASDiceHouseView.h */,
+				1B8913A11A59507300E68704 /* ASDiceHouseView.m */,
+				1BC12EE31A59287800029A31 /* ASDiceView.h */,
+				1BC12EE41A59287800029A31 /* ASDiceView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		1BC74CEC18D1632C00FD9C34 /* Bazi */ = {
 			isa = PBXGroup;
 			children = (
@@ -1046,11 +1082,13 @@
 				1BC823CD193DF1A3001CF44E /* ASIFormDataRequest.m in Sources */,
 				1B004D8019737B8E0018D14E /* ASPoiMapVc.m in Sources */,
 				1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */,
+				1BC12EE51A59287800029A31 /* ASDiceView.m in Sources */,
 				1B7CAEF818F6489C005B8C30 /* JSONModel+CoreData.m in Sources */,
 				1B7CAEF918F6489C005B8C30 /* JSONModel.m in Sources */,
 				1B1A970B18D929F40039413E /* AstroMod.m in Sources */,
 				1B1E6CED1A22E3FC00DE93B2 /* ASUserEditVc.m in Sources */,
 				1B012BC3185F35160046AD7A /* ASAppConst.m in Sources */,
+				1BC12EE11A591E8900029A31 /* ASDiceViewController.m in Sources */,
 				1B19A27E195BBBC700831568 /* ASPostQuestionVc.m in Sources */,
 				1BC823CF193DF1A4001CF44E /* ASIInputStream.m in Sources */,
 				1B9F1F2C1872622500278E62 /* FMDatabaseAdditions.m in Sources */,
@@ -1094,9 +1132,11 @@
 				1BC74CF318D1636B00FD9C34 /* BaziDayun.m in Sources */,
 				1B1D5F361942C2AC00D23025 /* ASQaFullBazi.m in Sources */,
 				1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */,
+				1B8913A31A59507300E68704 /* ASDiceHouseView.m in Sources */,
 				1BF467C418DC246600CB3E4B /* Paipan.m in Sources */,
 				1B318E80196A29AE003C157C /* ASPickerView.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
+				1BE157C11A5A24F1009588DF /* FBGlowLabel.m in Sources */,
 				1B3DBE0E198B2B1900C1F3D2 /* ASQuestionButton.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
