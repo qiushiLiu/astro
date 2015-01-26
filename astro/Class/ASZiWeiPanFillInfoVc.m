@@ -126,9 +126,10 @@
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
     self.model.RealTime = person.RealTime;
     self.model.Gender = person.Gender;
-    self.model.BirthTime.Date = (NSDate<NSDate> *)person.Birth;
+    self.model.BirthTime.Date = person.Birth;
     self.model.AreaName = person.poiName;
     self.model.Longitude = [NSString stringWithFormat:@"%.2f", person.longitude];
+    self.model.IsDayLight = person.DayLight;
     [self loadPersonInfo];
 }
 @end

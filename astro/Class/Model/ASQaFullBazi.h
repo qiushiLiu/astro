@@ -17,11 +17,11 @@
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic, strong) ASCustomerShow *Customer;
 @property (nonatomic) NSInteger CustomerSysNo;
-@property (nonatomic, strong) NSDate<NSDate> *TS;
+@property (nonatomic, strong) NSDate *TS;
 @property (nonatomic) NSInteger CateSysNo;
 @property (nonatomic) BOOL IsEnd;
 @property (nonatomic) BOOL IsSecret;
-@property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
+@property (nonatomic, strong) NSDate *LastReplyTime;
 @property (nonatomic) NSInteger LastReplyUser;
 @property (nonatomic) NSInteger ReadCount;
 @property (nonatomic) NSInteger ReplyCount;

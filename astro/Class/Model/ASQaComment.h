@@ -16,5 +16,5 @@
 @property (nonatomic, strong) ASCustomer *Customer;
 @property (nonatomic) NSInteger CustomerSysNo;
 @property (nonatomic) NSInteger SysNo;
-@property (nonatomic, strong) NSDate<NSDate> *TS;
+@property (nonatomic, strong) NSDate *TS;
 @end

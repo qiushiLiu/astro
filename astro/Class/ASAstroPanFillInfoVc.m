@@ -189,7 +189,7 @@
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
     if(trigger == self.btnFirstPersonInfo){
         self.model.Gender = person.Gender;
-        self.model.birth = (NSDate<NSDate> *)person.Birth;
+        self.model.birth = person.Birth;
         self.model.zone = person.TimeZone - 12;
         self.model.IsDayLight = person.DayLight;
         self.model.position.name = person.poiName;
@@ -197,7 +197,7 @@
         self.model.position.longitude = person.longitude;
     }else{
         self.model.Gender1 = person.Gender;
-        self.model.birth1 = (NSDate<NSDate> *)person.Birth;
+        self.model.birth1 = person.Birth;
         self.model.zone1 = person.TimeZone - 12;
         self.model.IsDayLight1 = person.DayLight;
         self.model.position1.name = person.poiName;

@@ -272,7 +272,7 @@
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{
     if(self.question.Chart){
         if(trigger == self.btnFirstPersonInfo){
-            self.question.Chart.FirstBirth = (NSDate<NSDate> *)person.Birth;
+            self.question.Chart.FirstBirth = person.Birth;
             self.question.Chart.FirstDayLight = person.DayLight;
             self.question.Chart.FirstGender = person.Gender;
             self.question.Chart.FirstTimeZone = person.TimeZone;
@@ -280,7 +280,7 @@
             self.question.Chart.FirstPoiName = person.poiName;
             [self reloadPerson:0];
         }else if(trigger == self.btnSecondPersonInfo){
-            self.question.Chart.SecondBirth = (NSDate<NSDate> *)person.Birth;
+            self.question.Chart.SecondBirth = person.Birth;
             self.question.Chart.SecondDayLight = person.DayLight;
             self.question.Chart.SecondGender = person.Gender;
             self.question.Chart.SecondTimeZone = person.TimeZone;

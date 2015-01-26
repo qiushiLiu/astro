@@ -107,7 +107,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.pageKey];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 220, 18)];
+        UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 4, 220, 18)];
         lbTitle.tag = 99;
         lbTitle.backgroundColor = [UIColor clearColor];
         lbTitle.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -115,7 +115,7 @@
         lbTitle.font = [UIFont systemFontOfSize:12];
         [cell.contentView addSubview:lbTitle];
         
-        UILabel *lbDate = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 18)];
+        UILabel *lbDate = [[UILabel alloc] initWithFrame:CGRectMake(0, 4, 80, 18)];
         lbDate.textAlignment = NSTextAlignmentRight;
         lbDate.tag = 100;
         lbDate.backgroundColor = [UIColor clearColor];
@@ -123,7 +123,7 @@
         lbDate.font = [UIFont systemFontOfSize:12];
         [cell.contentView addSubview:lbDate];
         
-        UILabel *lbContext = [[UILabel alloc] initWithFrame:CGRectMake(0, 18, 300, 18)];
+        UILabel *lbContext = [[UILabel alloc] initWithFrame:CGRectMake(10, 22, 300, 18)];
         lbContext.tag = 101;
         lbContext.lineBreakMode = NSLineBreakByTruncatingTail;
         lbContext.backgroundColor = [UIColor clearColor];
@@ -143,6 +143,7 @@
     id<ASQaProtocol> item = self.list[indexPath.row];
     lbTitle.text = item.Title;
     lbDate.text = [item.TS toStrFormat:@"yyyy/M/d"];
+    lbDate.right = 310;
     lbContext.text = item.Context;
     return cell;
 }

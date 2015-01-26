@@ -29,7 +29,7 @@
 @property (nonatomic) NSInteger YinYang;
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic, strong) NSArray<BaziDayun> *Dayun;
-@property (nonatomic) NSDate<NSDate> *JiaoYun;
+@property (nonatomic) NSDate *JiaoYun;
 @property (nonatomic) long QiYunShow;
 @property (nonatomic, strong) NSMutableArray *CangGanShow;
 @property (nonatomic, strong) NSMutableArray *NaYin;

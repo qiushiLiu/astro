@@ -698,15 +698,11 @@ static JSONKeyMapper* globalKeyMapper = nil;
             } else {
                 //one shot conversion
 				JSONModelError* arrayErr = nil;
-                if([@"NSDate" isEqualToString:property.protocol]){
-                    value = [NSDate dateArrayFromNet:value];
-                }else{
-                    value = [[protocolClass class] arrayOfModelsFromDictionaries:value error:&arrayErr];
-                    if((err != nil) && (arrayErr != nil))
-                    {
-                        *err = [arrayErr errorByPrependingKeyPathComponent:property.name];
-                        return nil;
-                    }
+                value = [[protocolClass class] arrayOfModelsFromDictionaries:value error:&arrayErr];
+                if((err != nil) && (arrayErr != nil))
+                {
+                    *err = [arrayErr errorByPrependingKeyPathComponent:property.name];
+                    return nil;
                 }
             }
         }

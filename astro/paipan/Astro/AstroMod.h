@@ -36,8 +36,8 @@
 @property (nonatomic, strong) NSArray<AstroStar, Optional> *Stars1;
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic) NSInteger Gender1;
-@property (nonatomic, strong) NSDate<NSDate> *birth;
-@property (nonatomic, strong) NSDate<NSDate> *birth1;
+@property (nonatomic, strong) NSDate *birth;
+@property (nonatomic, strong) NSDate *birth1;
 @property (nonatomic, strong) ASPosition<ASPosition> *position;
 @property (nonatomic, strong) ASPosition<ASPosition> *position1;
 @property (nonatomic) NSInteger zone;
@@ -45,7 +45,7 @@
 @property (nonatomic) BOOL IsDayLight;
 @property (nonatomic) BOOL IsDayLight1;
 //推运
-@property (nonatomic, strong) NSDate<NSDate, Optional> *transitTime;
+@property (nonatomic, strong) NSDate<Optional> *transitTime;
 @property (nonatomic, strong) ASPosition<ASPosition> *transitPosition;
 
 + (NSInteger)getStarsPermit;

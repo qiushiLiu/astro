@@ -15,6 +15,6 @@
 @interface ASUSR_Message : JSONModel
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic, strong) NSString *Title;
-@property (nonatomic, strong) NSDate<NSDate> *TS;
+@property (nonatomic, strong) NSDate *TS;
 @property (nonatomic) NSInteger IsRead;
 @end

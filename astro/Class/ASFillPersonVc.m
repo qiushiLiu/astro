@@ -118,6 +118,7 @@
     self.swDaylight.offText = @"否";
     [self.swDaylight setTintColor:ASColorBlue];
     [self.swDaylight setOnTintColor:ASColorDarkRed];
+    [self.swDaylight addTarget:self action:@selector(sw_change:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.swDaylight];
     top = self.swDaylight.bottom + 10;
     
@@ -132,6 +133,7 @@
     self.swGender.onText = @"男";
     [self.swGender setTintColor:ASColorBlue];
     [self.swGender setOnTintColor:ASColorDarkRed];
+    [self.swGender addTarget:self action:@selector(sw_change:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:self.swGender];
     top = self.swGender.bottom + 10;
     
@@ -161,7 +163,7 @@
     self.swRealTime.onText = @"是";
     [self.swRealTime setTintColor:ASColorBlue];
     [self.swRealTime setOnTintColor:ASColorDarkRed];
-    [self.swRealTime addTarget:self action:@selector(swRealTime_change:) forControlEvents:UIControlEventValueChanged];
+    [self.swRealTime addTarget:self action:@selector(sw_change:) forControlEvents:UIControlEventValueChanged];
     [self.viewRealTime addSubview:self.swRealTime];
 
     top = self.viewRealTime.bottom + 10;
@@ -235,8 +237,15 @@
     return btn;
 }
 
-- (void)swRealTime_change:(ZJSwitch *)sender{
-    self.viewPoi.hidden = !self.swRealTime.on;
+- (void)sw_change:(ZJSwitch *)sender{
+    if(sender == self.swRealTime){
+        self.person.RealTime = sender.on;
+        self.viewPoi.hidden = !self.swRealTime.on;
+    }else if(sender == self.swGender){
+        self.person.Gender = self.swGender.on;
+    }else if(sender == self.swDaylight){
+        self.person.DayLight = self.swDaylight.on;
+    }
 }
 
 - (void)btnClick_picker:(UIButton *)sender{

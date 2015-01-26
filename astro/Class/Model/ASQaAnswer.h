@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic, strong) ASCustomerShow *Customer;
 @property (nonatomic) NSInteger CustomerSysNo;
-@property (nonatomic, strong) NSDate<NSDate> *TS;
+@property (nonatomic, strong) NSDate *TS;
 
 //Others
 @property (nonatomic) BOOL HasMoreComment;

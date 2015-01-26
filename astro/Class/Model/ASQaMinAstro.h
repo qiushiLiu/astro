@@ -21,10 +21,10 @@
 @property (nonatomic, strong) NSString *Title;
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic) NSInteger IsSecret;
-@property (nonatomic, strong) NSDate<NSDate> *LastReplyTime;
+@property (nonatomic, strong) NSDate *LastReplyTime;
 @property (nonatomic) NSInteger LastReplyUser;
 @property (nonatomic) NSInteger ReplyCount;
 @property (nonatomic) NSInteger ReadCount;
-@property (nonatomic, strong) NSDate<NSDate> *TS;
+@property (nonatomic, strong) NSDate *TS;
 @property (nonatomic, strong) NSArray<AstroMod> *Chart;
 @end

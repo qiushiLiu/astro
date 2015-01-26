@@ -30,8 +30,6 @@ lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Property Protocols
-@protocol NSDate
-@end
 //@protocol NSArray
 //@end
 /**
