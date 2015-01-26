@@ -110,8 +110,8 @@
         self.datePicker.hidden = NO;
         self.datePicker.datePickerMode = self.datePickerMode;
         if(self.datePickerMode == UIDatePickerModeDate){
-            self.datePicker.minimumDate = [[NSDate alloc] initWithYear:1900 month:1 day:1 hour:0 minute:0 second:0];
-            self.datePicker.maximumDate = [[NSDate alloc] initWithYear:2200 month:12 day:31 hour:23 minute:59 second:59];
+            self.datePicker.minimumDate = [NSDate initWithYear:1900 month:1 day:1 hour:0 minute:0 second:0];
+            self.datePicker.maximumDate = [NSDate initWithYear:2200 month:12 day:31 hour:23 minute:59 second:59];
         }
         self.datePicker.date = [NSDate date];
     }

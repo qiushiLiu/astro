@@ -31,7 +31,7 @@
 + (NSArray *)dateArrayFromNet:(NSDictionary *)values;
 + (id)dateFromNet:(id)obj;
 
-- (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second;
++ (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second;
 - (NSString *)toStrFormat:(NSString *)format;
 - (NSTimeInterval)compareWithDate:(NSDate *)date;
 @end

@@ -11,6 +11,9 @@
 #import "NSDate+Addition.h"
 #import "Paipan.h"
 
+#define __BaziFullPanSize CGSizeMake(320, 460)
+#define __BaziSimplePanSize CGSizeMake(320, 300)
+
 @implementation BaziMod
 - (id)initWithDateEntity:(DateEntity *)entity{
     if (self = [super init]) {
@@ -212,7 +215,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
     }
 }
 
-- (UIImage *)paipan
+- (UIImage *)paipan:(BOOL)fullTag
 {
     NSInteger fontSize = 10;
     
@@ -234,7 +237,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
                                        UIColorFromRGB(0xfe30d9), NSForegroundColorAttributeName,nil];
     
     
-    CGSize size = __BaiZiPanSize;
+    CGSize size = fullTag ? __BaziFullPanSize : __BaziSimplePanSize;
     UIGraphicsBeginImageContextWithOptions(size, YES, 0);
     [UIColorFromRGB(0xf7f4ee) setFill];
     UIRectFill(CGRectMake(0, 0, size.width, size.height));
@@ -399,7 +402,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@岁\t", @(dy.Begin - self.BirthTime.Date.year)] attributes:textAttributes]];
     }
 
-    if(true){
+    if(fullTag){
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n始于:\t" attributes:prefixAttributes]];
         for(int i = 0; i < 8; i++){
             BaziDayun *dy = [self.Dayun objectAtIndex:i];
@@ -495,7 +498,7 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
 }
 
 - (NSString *)getAllDayTimeSpan:(long)time{
-    int day = time / D_DAY;
+    int day = (int)(time / D_DAY);
     int hour = (time % D_DAY)/D_HOUR;
     int min = (time % D_DAY % D_HOUR)/D_MINUTE;
     return [NSString stringWithFormat:@"%4d天%2d小时%2d分钟", day, hour, min];

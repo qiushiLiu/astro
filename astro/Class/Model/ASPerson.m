@@ -13,7 +13,7 @@
     if(self = [super init]){
         self.TimeZone = 4;  //东八区
         self.Gender = 1;    //男
-        self.Birth = [[NSDate alloc] initWithYear:1990 month:1 day:1 hour:12 minute:0 second:0];
+        self.Birth = [NSDate initWithYear:1990 month:1 day:1 hour:12 minute:0 second:0];
     }
     return self;
 }

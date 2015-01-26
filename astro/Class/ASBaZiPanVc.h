@@ -12,4 +12,5 @@
 
 @interface ASBaZiPanVc : ASBaseViewController
 @property (nonatomic, strong) BaziMod *model;      //盘数据
+@property (nonatomic) BOOL hideButton;
 @end

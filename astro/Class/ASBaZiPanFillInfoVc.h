@@ -10,6 +10,5 @@
 #import "BaziMod.h"
 #import "ASFillPersonVc.h"
 @interface ASBaZiPanFillInfoVc : ASBaseViewController<ASFillPersonVcDelegate>
-@property (nonatomic) NSInteger Type;
 @property (nonatomic, weak) BaziMod *model;
 @end

@@ -11,4 +11,5 @@
 #import "AstroMod.h"
 @interface ASAstroPanVc : ASBaseViewController<UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) AstroMod *astro;      //盘数据
+@property (nonatomic) BOOL hideButton;
 @end

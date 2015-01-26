@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1B012B26185DCB4B0046AD7A"
-               BuildableName = "astro.app"
+               BuildableName = "&#x4e0a;&#x4e0a;&#x7b7e;.app"
                BlueprintName = "astro"
                ReferencedContainer = "container:astro.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B012B26185DCB4B0046AD7A"
-            BuildableName = "astro.app"
+            BuildableName = "&#x4e0a;&#x4e0a;&#x7b7e;.app"
             BlueprintName = "astro"
             ReferencedContainer = "container:astro.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B012B26185DCB4B0046AD7A"
-            BuildableName = "astro.app"
+            BuildableName = "&#x4e0a;&#x4e0a;&#x7b7e;.app"
             BlueprintName = "astro"
             ReferencedContainer = "container:astro.xcodeproj">
          </BuildableReference>
@@ -89,7 +89,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B012B26185DCB4B0046AD7A"
-            BuildableName = "astro.app"
+            BuildableName = "&#x4e0a;&#x4e0a;&#x7b7e;.app"
             BlueprintName = "astro"
             ReferencedContainer = "container:astro.xcodeproj">
          </BuildableReference>

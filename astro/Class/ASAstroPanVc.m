@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
+@property (nonatomic, strong) UIButton *btnQuestion;
 @property (nonatomic, strong) NSMutableArray *starsInfo;
 @property (nonatomic, strong) NSMutableArray *gongInfo;
 @end
@@ -105,15 +106,15 @@
     
     CGFloat top = self.lbP1Info.bottom + 10;
     
-    btn = [ASControls newOrangeButton:CGRectMake(0, top, 200, 28) title:@"求解"];
-    btn.centerX = self.contentView.width/2;
-    [btn addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scPanView addSubview:btn];
+    self.btnQuestion = [ASControls newOrangeButton:CGRectMake(0, top, 200, 28) title:@"求解"];
+    self.btnQuestion.centerX = self.contentView.width/2;
+    [self.btnQuestion addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scPanView addSubview:self.btnQuestion];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    self.btnQuestion.hidden = self.hideButton;
     self.contentView.contentSize = CGSizeMake(self.contentView.width * 3, self.contentView.height);
     self.scPanView.height = self.contentView.height;
     self.tbGongInfo.height = self.contentView.height - self.tbGongInfo.top - 10;

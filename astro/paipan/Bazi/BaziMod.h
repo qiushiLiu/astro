@@ -10,8 +10,6 @@
 #import "BaziDayun.h"
 #import "DateEntity.h"
 
-#define __BaiZiPanSize CGSizeMake(320, 460)
-
 @protocol BaziMod
 @end
 
@@ -42,9 +40,10 @@
 @property (nonatomic) BOOL IsDayLight;
 @property (nonatomic, strong) NSString *AreaName;
 @property (nonatomic, strong) NSString *Longitude;
+@property (nonatomic, strong) NSNumber<Ignore> *panType;
 
 - (id)initWithDateEntity:(DateEntity *)entity;
 - (NSInteger)getCangGanByX:(NSInteger)x andY:(NSInteger)y;
-- (UIImage *)paipan;
+- (UIImage *)paipan:(BOOL)fullTag;
 - (UIImage *)paipanSimple;
 @end

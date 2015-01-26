@@ -40,7 +40,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    self.btnQueston.hidden = self.hideButton;
     [self showWaiting];
     [HttpUtil post:@"input/TimeToZiWei" params:nil body:[self.model toJSONString] completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];

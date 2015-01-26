@@ -50,7 +50,7 @@
 }
 
 - (void)loadPanType{
-    self.sgPanType.selectedSegmentIndex = self.Type == 0 ? 0 : 1;
+    self.sgPanType.selectedSegmentIndex = [self.model.panType intValue];
 }
 
 - (void)loadPersonInfo{
@@ -58,7 +58,7 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    self.Type = self.sgPanType.selectedSegmentIndex;
+    self.model.panType = @(self.sgPanType.selectedSegmentIndex);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

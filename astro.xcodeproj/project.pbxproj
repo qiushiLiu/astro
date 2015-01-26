@@ -163,7 +163,7 @@
 /* Begin PBXFileReference section */
 		1B004D7E19737B8E0018D14E /* ASPoiMapVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPoiMapVc.h; sourceTree = "<group>"; };
 		1B004D7F19737B8E0018D14E /* ASPoiMapVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPoiMapVc.m; sourceTree = "<group>"; };
-		1B012B27185DCB4B0046AD7A /* astro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = astro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B012B27185DCB4B0046AD7A /* 上上签.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "上上签.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B012B2A185DCB4B0046AD7A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1B012B2C185DCB4B0046AD7A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1B012B2E185DCB4B0046AD7A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -480,7 +480,7 @@
 		1B012B28185DCB4B0046AD7A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1B012B27185DCB4B0046AD7A /* astro.app */,
+				1B012B27185DCB4B0046AD7A /* 上上签.app */,
 				1B012B48185DCB4B0046AD7A /* astroTests.xctest */,
 			);
 			name = Products;
@@ -981,7 +981,7 @@
 			);
 			name = astro;
 			productName = astro;
-			productReference = 1B012B27185DCB4B0046AD7A /* astro.app */;
+			productReference = 1B012B27185DCB4B0046AD7A /* 上上签.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1B012B47185DCB4B0046AD7A /* astroTests */ = {
@@ -1307,7 +1307,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/astro/Frame/libWeiboSDK";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "上上签";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -1331,7 +1331,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/astro/Frame/libWeiboSDK";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "上上签";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";

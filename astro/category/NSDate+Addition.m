@@ -23,7 +23,7 @@ static NSRegularExpression *regDate;
     });
 }
 
-- (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
++ (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day hour:(NSInteger)hour minute:(NSInteger)minute second:(NSInteger)second{
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setYear:year];

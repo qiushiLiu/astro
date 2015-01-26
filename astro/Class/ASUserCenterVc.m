@@ -142,8 +142,10 @@
             if(succ){
                 NSError *error;
                 self.um = [[ASCustomerShow alloc] initWithDictionary:json error:&error];
+                NSAssert(!error, @"%@", error);
                 if(self.um){
                     [self loadUserInfo];
+                    [self.tbList reloadData];
                 }
             }else{
                 [self alert:message];

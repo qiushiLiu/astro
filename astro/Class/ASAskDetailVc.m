@@ -242,14 +242,17 @@
     if([pan isKindOfClass:[AstroMod class]]){
         ASAstroPanVc *vc = [[ASAstroPanVc alloc] init];
         vc.astro = [[AstroMod alloc] initWithString:[pan toJSONString] error:nil];
+        vc.hideButton = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else if([pan isKindOfClass:[BaziMod class]]){
         ASBaZiPanVc *vc = [[ASBaZiPanVc alloc] init];
         vc.model = [[BaziMod alloc] initWithString:[pan toJSONString] error:nil];
+        vc.hideButton = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else if([pan isKindOfClass:[ZiWeiMod class]]){
         ASZiWeiPanVc *vc = [[ASZiWeiPanVc alloc] init];
         vc.model = [[ZiWeiMod alloc] initWithString:[pan toJSONString] error:nil];
+        vc.hideButton = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

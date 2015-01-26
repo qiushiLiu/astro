@@ -11,4 +11,5 @@
 #import "ZiWeiMod.h"
 @interface ASZiWeiPanVc : ASBaseViewController
 @property (nonatomic, strong) ZiWeiMod *model;
+@property (nonatomic) BOOL hideButton;
 @end

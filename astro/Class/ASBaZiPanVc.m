@@ -12,6 +12,7 @@
 #import "ASAppDelegate.h"
 
 @interface ASBaZiPanVc ()
+@property (nonatomic) NSInteger panType;
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
 @property (nonatomic, strong) UIButton *btnQueston;
 @end
@@ -30,25 +31,35 @@
     [btn addTarget:self action:@selector(btnClick_fillInfo) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     
-    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, __BaiZiPanSize.width, __BaiZiPanSize.height)];
+    self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, 0, 0)];
     [self.contentView addSubview:self.pan];
     
     self.btnQueston = [ASControls newOrangeButton:CGRectMake(0, 0, 200, 28) title:@"求解"];
     self.btnQueston.centerX = self.contentView.width/2;
     [self.btnQueston addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnQueston];
+    
+    self.panType = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.btnQueston.hidden = self.hideButton;
     [self showWaiting];
+    if(self.model){
+        self.panType = [self.model.panType intValue];
+    }
     [HttpUtil post:@"input/TimeToBazi" params:nil body:[self.model toJSONString] completion:^(BOOL succ, NSString *message, id json) {
         [self hideWaiting];
         if(succ){
             NSError *error;
             self.model = [[BaziMod alloc] initWithDictionary:json error:&error];
             NSAssert(!error, @"%@", error);
-            self.pan.image = [self.model paipan];
+            if(self.panType == 0){
+                self.pan.image = [self.model paipan:YES];
+            }else{
+                self.pan.image = [self.model paipan:NO];
+            }
             self.pan.size = self.pan.image.size;
             self.btnQueston.top  = self.pan.bottom + 10;
             self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnQueston.bottom + 10);
@@ -62,6 +73,7 @@
     if(!self.model){
         return;
     }
+    self.model.panType = @(self.panType);
     ASBaZiPanFillInfoVc *vc = [[ASBaZiPanFillInfoVc alloc] init];
     vc.model = self.model;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
