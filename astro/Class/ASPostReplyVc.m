@@ -27,7 +27,6 @@
     CGFloat left = 20, top = 20;
     UIView *titleView = [ASControls titleView:CGRectMake(left, top, self.contentView.width - 2 * left, 30) title:@"请输入您的回复"];
     [self.contentView addSubview:titleView];
-    top = titleView.bottom + 10;
     
     self.lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(left, titleView.bottom + 10, titleView.width, 1)];
     self.lbTitle.backgroundColor = [UIColor clearColor];

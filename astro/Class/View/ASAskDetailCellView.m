@@ -212,7 +212,7 @@
         self.btnComment.hidden = NO;
         self.btnComment.right = btnRight;
         self.btnComment.top = self.panView.bottom;
-        btnRight = self.btnComment.left - 5;
+//        btnRight = self.btnComment.left - 5;
     }else{
         self.btnComment.hidden = YES;
     }
