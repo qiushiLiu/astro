@@ -42,23 +42,26 @@
     [super viewWillAppear:animated];
     self.btnQueston.hidden = self.hideButton;
     [self showWaiting];
-    [HttpUtil post:@"input/TimeToZiWei" params:nil body:[self.model toJSONString] completion:^(BOOL succ, NSString *message, id json) {
-        [self hideWaiting];
-        if(succ){
-            NSError *error;
-            self.model = [[ZiWeiMod alloc] initWithDictionary:json error:&error];
-            NSAssert(!error, @"%@", error);
-            if(self.pan){
-                [self.pan removeFromSuperview];
+    [HttpUtil post:@"input/TimeToZiWei"
+            params:nil
+              body:[self.model toJSONString]
+        completion:^(BOOL succ, NSString *message, id json) {
+            [self hideWaiting];
+            if(succ){
+                NSError *error;
+                self.model = [[ZiWeiMod alloc] initWithDictionary:json error:&error];
+                NSAssert(!error, @"%@", error);
+                if(self.pan){
+                    [self.pan removeFromSuperview];
+                }
+                self.pan = [self.model paipan];
+                [self.contentView addSubview:self.pan];
+                self.btnQueston.top  = self.pan.bottom + 10;
+                self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnQueston.bottom + 10);
+            }else{
+                [self alert:message];
             }
-            self.pan = [self.model paipan];
-            [self.contentView addSubview:self.pan];
-            self.btnQueston.top  = self.pan.bottom + 10;
-            self.contentView.contentSize = CGSizeMake(self.contentView.width, self.btnQueston.bottom + 10);
-        }else{
-            [self alert:message];
-        }
-    }];
+        }];
 }
 
 - (void)btnClick_fillInfo{

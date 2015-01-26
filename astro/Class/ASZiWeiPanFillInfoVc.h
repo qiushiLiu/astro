@@ -9,7 +9,8 @@
 #import "ASBaseViewController.h"
 #import "ZiWeiMod.h"
 #import "ASFillPersonVc.h"
+#import "ASAstroTransitVc.h"
 
-@interface ASZiWeiPanFillInfoVc : ASBaseViewController<ASFillPersonVcDelegate>
+@interface ASZiWeiPanFillInfoVc : ASBaseViewController<ASFillPersonVcDelegate, ASAstroTransitVcDelegate>
 @property (nonatomic, weak) ZiWeiMod *model;
 @end

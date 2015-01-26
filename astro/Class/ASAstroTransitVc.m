@@ -107,6 +107,9 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
+    if([self.delegate respondsToSelector:@selector(transiteTo:postion:)]){
+        [self.delegate transiteTo:self.transitTime postion:self.transitPosition];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

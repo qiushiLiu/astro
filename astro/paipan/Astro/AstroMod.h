@@ -38,15 +38,15 @@
 @property (nonatomic) NSInteger Gender1;
 @property (nonatomic, strong) NSDate *birth;
 @property (nonatomic, strong) NSDate *birth1;
-@property (nonatomic, strong) ASPosition<ASPosition> *position;
-@property (nonatomic, strong) ASPosition<ASPosition> *position1;
+@property (nonatomic, strong) ASPosition *position;
+@property (nonatomic, strong) ASPosition *position1;
 @property (nonatomic) NSInteger zone;
 @property (nonatomic) NSInteger zone1;
 @property (nonatomic) BOOL IsDayLight;
 @property (nonatomic) BOOL IsDayLight1;
 //推运
 @property (nonatomic, strong) NSDate<Optional> *transitTime;
-@property (nonatomic, strong) ASPosition<ASPosition> *transitPosition;
+@property (nonatomic, strong) ASPosition *transitPosition;
 
 + (NSInteger)getStarsPermit;
 + (NSIndexPath *)getStarsPermitCount;

@@ -81,7 +81,6 @@ static NSRegularExpression *regDate;
     return destDateString;
 }
 
-
 #pragma mark Decomposing Dates
 
 - (NSInteger) nearestHour

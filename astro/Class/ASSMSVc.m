@@ -84,7 +84,28 @@
 }
 
 - (void)btnClick_submit{
-    
+    NSString *content = [self.tfComment.text trim];
+    if([content length] <= 0)
+    {
+        [self alert:@"输入的内容不能为空"];
+        return;
+    }
+    [self.tfComment resignFirstResponder];
+    [self showWaiting];
+    [HttpUtil load:@"customer/AddSMS"
+            params:@{@"fromsysno" : @([ASGlobal shared].user.SysNo),
+                     @"tosysno" : @"",
+                     @"title" : @"",
+                     @"context" : content,
+                     @"topicsysno" : Int2String(self.sysNo)}
+        completion:^(BOOL succ, NSString *message, id json) {
+            [self hideWaiting];
+            if(succ){
+                [self loadMore];
+            }else{
+                [self alert:message];
+            }
+        }];
 }
 
 #pragma mark - UITableView Delegate & Data Source

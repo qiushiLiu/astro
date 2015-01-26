@@ -203,6 +203,10 @@
         ASSMSVc *vc = [[ASSMSVc alloc] init];
         vc.sysNo = msg.SysNo;
         [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        ASUSR_Message *msg = self.list[indexPath.row];
+        [self navTo:vcAskDeltail params:@{@"title" : msg.Title,
+                                          @"sysno" : Int2String(msg.RelSysNo)}];
     }
 }
 

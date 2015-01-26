@@ -8,13 +8,12 @@
 
 #import "ASZiWeiPanFillInfoVc.h"
 #import "ASQuestionButton.h"
-#import "ASAstroTransitVc.h"
 #import "ASZiWeiSeniorVc.h"
 
 @interface ASZiWeiPanFillInfoVc ()
 @property (nonatomic, strong) UISegmentedControl *sgPanType;
 @property (nonatomic, strong) ASQuestionButton *btnPersonInfo;      //第一当事人
-@property (nonatomic, strong) ASQuestionButton *btnTransit;         //退运
+@property (nonatomic, strong) ASQuestionButton *btnTransit;         //推运
 @property (nonatomic, strong) ASQuestionButton *btnSenior;          //高级
 @end
 
@@ -65,6 +64,7 @@
     [self loadPanType];
     [self loadPersonInfo];
     [self loadTransit];
+    [self panType_change];
 }
 
 - (void)loadPanType{
@@ -73,7 +73,8 @@
 }
 
 - (void)panType_change{
-    if(self.sgPanType.selectedSegmentIndex == 0){
+    self.model.Type = self.sgPanType.selectedSegmentIndex;
+    if(self.model.Type == 0){
         self.btnTransit.hidden = YES;
         self.btnSenior.top = self.btnTransit.top;
     }else{
@@ -112,6 +113,7 @@
     }else if(sender == self.btnTransit){
         ASAstroTransitVc *vc = [[ASAstroTransitVc alloc] init];
         vc.transitTime = self.model.TransitTime.Date;
+        vc.delegate = self;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnSenior){
@@ -121,6 +123,14 @@
         [self presentViewController:nc animated:YES completion:nil];
     }
 }
+
+#pragma mark - ASAstroTransitVcDelegate Method
+- (void)transiteTo:(NSDate *)date postion:(ASPosition *)transitPosition{
+    if(self.model){
+        self.model.TransitTime.Date = date;
+    }
+}
+
 
 #pragma mark - ASFillPersonVc Delegate Method
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{

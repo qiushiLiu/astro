@@ -776,12 +776,6 @@ static JSONKeyMapper* globalKeyMapper = nil;
             }
             return [NSDictionary dictionaryWithDictionary:res];
         }
-        
-        //check if should export NSDate
-        if(property.type == [NSDate class]){
-            NSNumber *dateValue = @([value timeIntervalSince1970] * 1000.0);
-            return [NSString stringWithFormat:@"/Date(%lld+0800)/", [dateValue longLongValue]];
-        }
     }
     
     return value;
@@ -957,6 +951,9 @@ static JSONKeyMapper* globalKeyMapper = nil;
             // 1) check for built-in transformation
             if (p.protocol) {
                 value = [self __reverseTransform:value forProperty:p];
+            }else if(p.type == [NSDate class]){ //check if should export NSDate
+                NSNumber *dateValue = @([value timeIntervalSince1970] * 1000.0);
+                value = [NSString stringWithFormat:@"/Date(%lld+0800)/", [dateValue longLongValue]];
             }
             
             // 2) check for standard types OR 2.1) primitives

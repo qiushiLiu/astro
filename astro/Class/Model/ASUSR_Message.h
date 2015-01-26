@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSString *Context;
 @property (nonatomic, strong) NSString *Title;
 @property (nonatomic, strong) NSDate *TS;
+@property (nonatomic) NSInteger RelSysNo;
 @property (nonatomic) NSInteger IsRead;
 @end

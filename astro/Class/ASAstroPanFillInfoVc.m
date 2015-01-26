@@ -159,6 +159,7 @@
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnTransit){
         ASAstroTransitVc *vc = [[ASAstroTransitVc alloc] init];
+        vc.delegate = self;
         vc.transitTime = self.model.transitTime;
         vc.transitPosition = self.model.transitPosition;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
@@ -182,6 +183,14 @@
         [self.panTypePicker.picker selectRow:self.model.compose - 1 inComponent:1 animated:YES];
     }else if(self.model.type == 3){
         [self.panTypePicker.picker selectRow:self.model.transit - 1 inComponent:1 animated:YES];
+    }
+}
+
+#pragma mark - ASAstroTransitVcDelegate Method
+- (void)transiteTo:(NSDate *)date postion:(ASPosition *)transitPosition{
+    if(self.model){
+        self.model.transitTime = date;
+        self.model.transitPosition = transitPosition;
     }
 }
 
