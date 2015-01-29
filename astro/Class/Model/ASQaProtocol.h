@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSDate *TS;
 
 @optional
+@property (nonatomic, strong) NSDate *LastReplyTime;
 @property (nonatomic) NSInteger ReplyCount;
 @property (nonatomic) NSInteger ReadCount;
 @property (nonatomic, strong) NSArray *Chart;

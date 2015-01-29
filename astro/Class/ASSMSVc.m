@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UITextField *tfComment;
 @property (nonatomic, strong) UIButton *btnSumbit;
 @property (nonatomic, strong) NSMutableArray *list;
+@property (nonatomic) NSInteger toSysNo;
 @end
 
 @implementation ASSMSVc
@@ -75,6 +76,14 @@
             [self hideWaiting];
             if(succ){
                 [self.list addObjectsFromArray:[ASUSR_SMS arrayOfModelsFromDictionaries:json]];
+                if([self.list count] > 0){
+                    ASUSR_SMS *item = [self.list firstObject];
+                    if(item.FromSysNo != [ASGlobal shared].user.SysNo){
+                        self.toSysNo = item.FromSysNo;
+                    }else{
+                        self.toSysNo = item.ToSysNo;
+                    }
+                }
                 [self.tbList reloadData];
             }else{
                 [self alert:message];
@@ -94,7 +103,7 @@
     [self showWaiting];
     [HttpUtil load:@"customer/AddSMS"
             params:@{@"fromsysno" : @([ASGlobal shared].user.SysNo),
-                     @"tosysno" : @"",
+                     @"tosysno" : @(self.toSysNo),
                      @"title" : @"",
                      @"context" : content,
                      @"topicsysno" : Int2String(self.sysNo)}

@@ -103,12 +103,30 @@
     self.lbOffer.left = self.ivOffer.right + 2;
     self.lbOffer.centerY = self.ivOffer.centerY;
     
-    self.lbFrom.text = [NSString stringWithFormat:@"%@ %@", nickName, [model.TS toStrFormat:@"HH:mm"]];
+    NSString *dateStr = @"";
+    if([model LastReplyTime]){
+        dateStr = [self formatDateStr:[model LastReplyTime]];
+    }else{
+        dateStr = [self formatDateStr:model.TS];
+    }
+    
+    self.lbFrom.text = [NSString stringWithFormat:@"%@ %@", nickName, dateStr];
     [self.lbFrom sizeToFit];
     self.lbFrom.right = self.lbTitle.right;
     self.lbFrom.centerY = self.lbReply.centerY;
     
     self.bg.height = self.lbFrom.bottom + 5;
+}
+
+- (NSString *)formatDateStr:(NSDate *)date{
+    NSTimeInterval tt = [[NSDate date] compareWithDate:date];
+    if(tt >= D_YEAR){
+        return [date toStrFormat:@"yyyy-MM-dd"];
+    }else if(tt >= D_DAY){
+        return [date toStrFormat:@"MM-dd"];
+    }else{
+        return [date toStrFormat:@"HH:mm"];
+    }
 }
 
 @end

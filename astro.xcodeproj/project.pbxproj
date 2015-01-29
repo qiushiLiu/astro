@@ -1307,7 +1307,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/astro/Frame/libWeiboSDK";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "上上签";
+				PRODUCT_NAME = astro;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -1331,7 +1331,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/astro/Frame/libWeiboSDK";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "上上签";
+				PRODUCT_NAME = astro;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";

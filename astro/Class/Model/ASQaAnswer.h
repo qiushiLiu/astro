@@ -18,7 +18,6 @@
 @property (nonatomic, strong) ASCustomerShow *Customer;
 @property (nonatomic) NSInteger CustomerSysNo;
 @property (nonatomic, strong) NSDate *TS;
-
 //Others
 @property (nonatomic) BOOL HasMoreComment;
 @property (nonatomic) NSInteger Hate;

@@ -11,8 +11,6 @@
 
 @interface ASAskDetailHeaderView : UIView
 @property (nonatomic, strong) UILabel *lbTitle;
-@property (nonatomic, strong) UIImageView *ivDing;
-@property (nonatomic, strong) UIImageView *ivJing;
 @property (nonatomic, strong) UIView *vline;
 - (void)setQuestion:(id<ASQaProtocol>)obj;
 @end
