@@ -348,8 +348,11 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
         for(int i = 0; i < 4; i++){
             NSInteger cg = [self getCangGanByX:i andY:j];
             if(!(j != 0 && cg == 0)){
-                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:GetTianGan(cg) attributes:textAttributes]];
-                [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetShiChenByTg(cg,self.DayTG)] attributes:blueAttributes]];
+                NSInteger cgLast = [self getCangGanByX:i andY:j - 1];
+                if(!(j != 0 && cg == cgLast)){
+                    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:GetTianGan(cg) attributes:textAttributes]];
+                    [ret appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\t", GetShiChenByTg(cg,self.DayTG)] attributes:blueAttributes]];
+                }
             }
         }
         [ret appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
