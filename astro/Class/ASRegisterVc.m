@@ -129,7 +129,7 @@ static CGFloat kInputWith = 220;
     
     CGFloat top = 20;
     self.tfPwd = [ASControls newTextField:CGRectMake(50, top, 220, 40)];
-    self.tfPwd.SecureTextEntry = YES;
+    self.tfPwd.secureTextEntry = YES;
     self.tfPwd.placeholder = @"请输入密码";
     self.tfPwd.returnKeyType = UIReturnKeyNext;
     self.tfPwd.delegate = self;

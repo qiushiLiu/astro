@@ -26,7 +26,6 @@
 @property (nonatomic) NSInteger type;
 @property (nonatomic, strong) NSString *topCateId;
 @property (nonatomic, strong) NSString *cate;
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;
 

@@ -19,7 +19,6 @@
 @property (nonatomic, strong) UITextField *tfComment;
 @property (nonatomic, strong) UIButton *btnSumbit;
 @property (nonatomic, strong) ASQaAnswer *answer;
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic) BOOL becomeEdit;
 @end
 

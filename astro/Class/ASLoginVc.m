@@ -9,7 +9,6 @@
 #import "ASLoginVc.h"
 #import "ASCustomer.h"
 @interface ASLoginVc ()
-@property (nonatomic, strong) UIScrollView *contentView;
 @property (nonatomic, strong) UITextField *tfName;
 @property (nonatomic, strong) UITextField *tfPsw;
 @property (nonatomic, strong) UIButton *btnSumbit;

@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ASDiceView;
+@protocol ASDiceViewDelegate <NSObject>
+- (void)didFinishedDiceView:(ASDiceView *)dv;
+@end
 
 @interface ASDiceView : UIView
-@property (nonatomic) NSInteger selectedIndex;
+@property (nonatomic) NSInteger star;
+@property (nonatomic, readonly) BOOL animateing;
+@property (nonatomic, readonly) NSInteger constellation;
+@property (nonatomic) NSInteger gong;
+@property (nonatomic, assign) id<ASDiceViewDelegate> delegate;
 - (void)start;
 @end

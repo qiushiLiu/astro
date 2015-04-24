@@ -21,7 +21,6 @@
 #import "ASAppDelegate.h"
 
 @interface ASAskDetailVc ()
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSInteger sysNo;
 @property (nonatomic) NSInteger pageNo;
 @property (nonatomic) BOOL hasMore;

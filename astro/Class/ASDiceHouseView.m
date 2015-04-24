@@ -10,6 +10,7 @@
 #import "FBGlowLabel.h"
 
 @interface ASDiceHouseView ()
+@property (nonatomic, strong) UIImageView *ivDelta;
 @property (nonatomic, strong) FBGlowLabel *lbIndex;
 @end
 
@@ -20,10 +21,15 @@
 }
 
 - (id)initWithIndex:(NSInteger)index{
-    if(self = [super initWithFrame:CGRectMake(0, 0, 50, 60)]){
+    
+    if(self = [super initWithFrame:CGRectMake(0, 0, 56, 50)]){
+        self.ivDelta = [[UIImageView alloc] initWithFrame:self.bounds];
+        self.ivDelta.image = [UIImage imageNamed:@"delta_nl"];
+        [self addSubview:self.ivDelta];
+        
         _gongIndex = index;
         self.backgroundColor = [UIColor clearColor];
-        self.lbIndex = [[FBGlowLabel alloc] initWithFrame:CGRectMake(0, self.height * 0.4, self.width, 20)];
+        self.lbIndex = [[FBGlowLabel alloc] initWithFrame:CGRectMake(0, self.height * 0.35, self.width, 20)];
         self.lbIndex.textAlignment = NSTextAlignmentCenter;
         self.lbIndex.clipsToBounds = YES;
         self.lbIndex.backgroundColor = [UIColor clearColor];
@@ -38,16 +44,18 @@
     _selected = selected;
     if(_selected){
         self.lbIndex.textColor = [UIColor whiteColor];
-        self.lbIndex.innerGlowColor = [UIColor whiteColor];
-        self.lbIndex.innerGlowSize = 20;
-        self.lbIndex.glowColor = [UIColor redColor];
-        self.lbIndex.glowSize = 4;
+        self.lbIndex.innerGlowColor = [UIColor redColor];
+        self.lbIndex.innerGlowSize = 4;
+        self.lbIndex.glowColor = [UIColor whiteColor];
+        self.lbIndex.glowSize = 20;
+        self.ivDelta.image = [UIImage imageNamed:@"delta"];
     }else{
-        self.lbIndex.textColor = [UIColor blueColor];
-        self.lbIndex.innerGlowColor = [UIColor blueColor];
-        self.lbIndex.innerGlowSize = 20;
-        self.lbIndex.glowColor = [UIColor clearColor];
-        self.lbIndex.glowSize = 0;
+        self.lbIndex.textColor = UIColorFromRGB(0x034EA0);
+        self.lbIndex.innerGlowColor = UIColorFromRGB(0x034EA0);
+        self.lbIndex.innerGlowSize = 4;
+        self.lbIndex.glowColor = [UIColor redColor];
+        self.lbIndex.glowSize = 20;
+        self.ivDelta.image = [UIImage imageNamed:@"delta_nl"];
     }
     [self setNeedsDisplay];
 }
