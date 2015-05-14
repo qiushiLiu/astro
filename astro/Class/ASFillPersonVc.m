@@ -8,6 +8,7 @@
 
 #import "ASFillPersonVc.h"
 #import "ZJSwitch.h"
+#import "ASHistoryPersonTableView.h"
 
 @interface ASFillPersonVc ()
 @property (nonatomic) NSInteger type;   //0:Astro  1:BaZi&ZiWei
@@ -284,6 +285,7 @@
 - (void)btnClick_navBack:(UIButton *)sender{
     self.person.DayLight = self.swDaylight.on ? 1 : 0;
     self.person.Gender = self.swGender.on ? 1 : 0;
+    [[ASHistoryPersonTableView shared] addPerson:self.person];
     if([self.delegate respondsToSelector:@selector(ASFillPerson:trigger:)]){
         [self.delegate ASFillPerson:self.person trigger:self.trigger];
     }

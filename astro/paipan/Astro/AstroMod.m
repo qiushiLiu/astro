@@ -94,16 +94,16 @@ static CGFloat kSpace = 8.0;
 - (NSString *)panTypeName{
     NSString *str = @"";
     switch (self.type) {
-        case 1:
-            str = AstroTypeArray[self.type - 1];
-            break;
         case 2:
             str = AstroZuheArray[self.compose - 1];
             break;
         case 3:
             str = AstroTuiyunArray[self.transit - 1];
             break;
+        case 1:
         default:
+            str = AstroTypeArray[self.type - 1];
+            break;
             break;
     }
     return str;

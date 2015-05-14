@@ -8,6 +8,7 @@
 
 #import "ASAstroPanFillInfoVc.h"
 #import "ASQuestionButton.h"
+#import "ASHistoryPersonTableView.h"
 
 @interface ASAstroPanFillInfoVc ()
 @property (nonatomic, strong) UIButton *btnPanType;
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) ASQuestionButton *btnPermitInfo;      //容许度
 @property (nonatomic, strong) ASQuestionButton *btnStarsInfo;       //星体信息
 @property (nonatomic, strong) ASPickerView *panTypePicker;          //选择
+@property (nonatomic, strong) ASHistoryPersonTableView *tbHistory;  //历史
 @end
 
 @implementation ASAstroPanFillInfoVc
@@ -89,11 +91,6 @@
 - (void)loadPanType{
     CGFloat top = 0;
     switch (self.model.type) {
-        case 1:
-            self.btnTransit.hidden = YES;
-            self.btnSecondPersonInfo.hidden = YES;
-            top = self.btnFirstPersonInfo.bottom + 10;
-            break;
         case 2:
             self.btnTransit.hidden = YES;
             self.btnSecondPersonInfo.hidden = NO;
@@ -104,7 +101,12 @@
             self.btnSecondPersonInfo.hidden = YES;
             top = self.btnTransit.bottom + 10;
             break;
+        case 1:
         default:
+            self.btnTransit.hidden = YES;
+            self.btnSecondPersonInfo.hidden = YES;
+            top = self.btnFirstPersonInfo.bottom + 10;
+            break;
             break;
     }
     [self.btnPanType setTitle:[self.model panTypeName] forState:UIControlStateNormal];

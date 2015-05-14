@@ -101,6 +101,7 @@
 		1B81A7B9196D26F600055137 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B81A7B8196D26F600055137 /* Images.xcassets */; };
 		1B8913A31A59507300E68704 /* ASDiceHouseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8913A11A59507300E68704 /* ASDiceHouseView.m */; };
 		1B8A039219867B780087A4E0 /* ASPaiPanMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */; };
+		1B92A23C1AF0743B0010C36A /* ASHistoryPersonTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B92A23B1AF0743B0010C36A /* ASHistoryPersonTableView.m */; };
 		1B96B97B1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B96B97A1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m */; };
 		1B9DC4E219AACF04006CBB3D /* ASPermitInfoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DC4E119AACF04006CBB3D /* ASPermitInfoVc.m */; };
 		1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */; };
@@ -339,6 +340,8 @@
 		1B8913A11A59507300E68704 /* ASDiceHouseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDiceHouseView.m; sourceTree = "<group>"; };
 		1B8A039019867B780087A4E0 /* ASPaiPanMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPaiPanMainVc.h; sourceTree = "<group>"; };
 		1B8A039119867B780087A4E0 /* ASPaiPanMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPaiPanMainVc.m; sourceTree = "<group>"; };
+		1B92A23A1AF0743B0010C36A /* ASHistoryPersonTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASHistoryPersonTableView.h; sourceTree = "<group>"; };
+		1B92A23B1AF0743B0010C36A /* ASHistoryPersonTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASHistoryPersonTableView.m; sourceTree = "<group>"; };
 		1B96B9791A3146E100D3D42F /* ASZiWeiPanFillInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiPanFillInfoVc.h; sourceTree = "<group>"; };
 		1B96B97A1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASZiWeiPanFillInfoVc.m; sourceTree = "<group>"; };
 		1B9DC4E019AACF04006CBB3D /* ASPermitInfoVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPermitInfoVc.h; sourceTree = "<group>"; };
@@ -774,6 +777,8 @@
 				1B7A15621915CA4900AECD59 /* ASAskTableViewCell.m */,
 				1B1F7D0818B309FF00186229 /* ASBaseSingleTableView.h */,
 				1B1F7D0918B309FF00186229 /* ASBaseSingleTableView.m */,
+				1B92A23A1AF0743B0010C36A /* ASHistoryPersonTableView.h */,
+				1B92A23B1AF0743B0010C36A /* ASHistoryPersonTableView.m */,
 				1B1F7D0518B2E48A00186229 /* ASLoadMoreView.h */,
 				1B1F7D0618B2E48A00186229 /* ASLoadMoreView.m */,
 				1BC823DE193E129E001CF44E /* ASPanView.h */,
@@ -1109,6 +1114,7 @@
 				1B7CAEFA18F6489C005B8C30 /* JSONModelArray.m in Sources */,
 				1BC6066318BC44C2004D317A /* ASGlobal.m in Sources */,
 				1B628F0F1925B6DB00C802B6 /* ASPosition.m in Sources */,
+				1B92A23C1AF0743B0010C36A /* ASHistoryPersonTableView.m in Sources */,
 				1B2DA3E619F9363200E9C03D /* ASQaMinZiWei.m in Sources */,
 				1B608A8E1A34511C008B3645 /* ASBaZiPanFillInfoVc.m in Sources */,
 				1BAC959E1A032E6800B0FBF7 /* ASQaFullAstro.m in Sources */,

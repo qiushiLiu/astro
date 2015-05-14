@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ASPerson : NSObject
+@interface ASPerson : JSONModel<NSCopying>
 @property (nonatomic, strong) NSDate *Birth;
 @property (nonatomic) NSInteger Gender;
 @property (nonatomic) NSInteger DayLight;

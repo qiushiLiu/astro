@@ -217,7 +217,7 @@
 //定位成功
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     NSTimeInterval eventAge = [newLocation.timestamp timeIntervalSinceNow];
-    if (abs(eventAge) > 5) {
+    if (fabs(eventAge) > 5) {
         return;
     }
     if (newLocation.horizontalAccuracy < 0) {

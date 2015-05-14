@@ -492,6 +492,8 @@ NSInteger _GetWangShuai(NSInteger source, NSInteger riyuan){
 }
 
 - (NSInteger)getCangGanByX:(NSInteger)x andY:(NSInteger)y{
+    if(x < 0 || y < 0)
+        return 0;
     NSMutableArray *arr = self.CangGanShow[x];
     return [[arr objectAtIndex:y] intValue];
 }

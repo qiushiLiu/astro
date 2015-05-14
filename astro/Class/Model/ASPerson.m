@@ -18,4 +18,17 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    ASPerson *p = [[[self class] allocWithZone:zone] init];
+    p.Birth = [_Birth copy];
+    p.Gender = _Gender;
+    p.DayLight = _DayLight;
+    p.TimeZone = _TimeZone;
+    p.latitude = _latitude;
+    p.longitude = _longitude;
+    p.RealTime = _RealTime;
+    p.poiName = [_poiName copy];
+    return p;
+}
+
 @end
