@@ -56,7 +56,15 @@ static NSString *kCacheKey = @"kHistoryPersonKey";
 }
 
 - (void)addPerson:(ASPerson *)person{
-    [self.dataArray addObject:[person copy]];
+    if(!person
+       ||[self.dataArray containsObject:person]){
+        return;
+    }
+    
+    [self.dataArray insertObject:[person copy] atIndex:0];
+    if([self.dataArray count] > 20){
+        self.dataArray = [NSMutableArray arrayWithArray:[self.dataArray subarrayWithRange:NSMakeRange(0, 20)]];
+    }
     [self reloadData];
     [self saveToCache];
 }
@@ -71,18 +79,28 @@ static NSString *kCacheKey = @"kHistoryPersonKey";
     if(!cell){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:NSStringFromClass([self class])];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     if(indexPath.row < [self.dataArray count]){
+        if(indexPath.row%2 == 0){
+            cell.backgroundColor = [UIColor whiteColor];
+            cell.textLabel.textColor = [UIColor blackColor];
+        }else{
+            cell.backgroundColor = [UIColor lightGrayColor];
+            cell.textLabel.textColor = [UIColor whiteColor];
+        }
+        
         ASPerson *item = self.dataArray[indexPath.row];
-        NSMutableString *str = [NSMutableString stringWithString:[item.Birth toStrFormat:@"yyyy-MM-dd HH:mm"]];
+        NSMutableString *str = [NSMutableString stringWithString:[item.Birth toStrFormat:@"yyyy-MM-dd HH:mm "]];
         if(item.DayLight > 0){
-            [str appendString:@" 夏令时"];
+            [str appendString:@"夏令时 "];
         }
         if(item.Gender == 1){
-            [str appendString:@" 男"];
+            [str appendString:@"男 "];
         }else{
-            [str appendString:@" 女"];
+            [str appendString:@"女 "];
         }
+        [str appendString:item.poiName];
         
         cell.textLabel.text = str;
     }
@@ -90,7 +108,12 @@ static NSString *kCacheKey = @"kHistoryPersonKey";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if(indexPath.row >= 0 && indexPath.row < [self.dataArray count]){
+        ASPerson *ps = self.dataArray[indexPath.row];
+        if([self.personDelegate respondsToSelector:@selector(historyPersonSelected:)]){
+            [self.personDelegate historyPersonSelected:ps];
+        }
+    }
 }
 
 @end

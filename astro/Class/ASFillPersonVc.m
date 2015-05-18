@@ -8,10 +8,12 @@
 
 #import "ASFillPersonVc.h"
 #import "ZJSwitch.h"
+#import "ASPersonHistoryVc.h"
 #import "ASHistoryPersonTableView.h"
 
 @interface ASFillPersonVc ()
 @property (nonatomic) NSInteger type;   //0:Astro  1:BaZi&ZiWei
+@property (nonatomic, strong) UIButton *btnHistory; //历史
 @property (nonatomic, strong) ASPickerView *picker; //选择器
 @property (nonatomic, strong) UIButton *btnDate;
 @property (nonatomic, strong) UIButton *btnTime;
@@ -91,6 +93,15 @@
     UIView *titleView = [ASControls titleView:CGRectMake(left, top, 280, 30) title:@"请输入当事人信息"];
     [self.contentView addSubview:titleView];
     top = titleView.bottom + 10;
+    
+    self.btnHistory = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    self.btnHistory.centerY = titleView.centerY;
+    self.btnHistory.right = titleView.right - 10;
+    self.btnHistory.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    [self.btnHistory setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.btnHistory setTitle:@"历史 >" forState:UIControlStateNormal];
+    [self.btnHistory addTarget:self action:@selector(btnClick_getHistoryUser) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.btnHistory];
     
     UILabel *lb = [self newPerfixTextLabel];
     lb.origin = CGPointMake(titleView.left, top);
@@ -263,10 +274,7 @@
 }
 
 - (void)btnClick_poi:(UIButton *)sender{
-    self.person.Gender = self.swGender.on;
-    self.person.DayLight = self.swDaylight.on;
-    ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
-    vc.delegate = self;
+    ASPersonHistoryVc *vc = [[ASPersonHistoryVc alloc] init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }
@@ -285,11 +293,18 @@
 - (void)btnClick_navBack:(UIButton *)sender{
     self.person.DayLight = self.swDaylight.on ? 1 : 0;
     self.person.Gender = self.swGender.on ? 1 : 0;
-    [[ASHistoryPersonTableView shared] addPerson:self.person];
     if([self.delegate respondsToSelector:@selector(ASFillPerson:trigger:)]){
+        [[ASHistoryPersonTableView shared] addPerson:self.person];
         [self.delegate ASFillPerson:self.person trigger:self.trigger];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)btnClick_getHistoryUser{
+    ASPersonHistoryVc *vc = [[ASPersonHistoryVc alloc] init];
+    vc.parent = self;
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 #pragma mark - ASPoiMapDelegate Method

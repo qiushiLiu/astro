@@ -18,6 +18,8 @@
 @end
 
 @interface ASHistoryPersonTableView : UITableView
+@property (nonatomic, assign) id<ASHistoryPersonDelegate> personDelegate;
+
 + (ASHistoryPersonTableView *)shared;
 - (void)addPerson:(ASPerson *)person;
 @end

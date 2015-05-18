@@ -9,7 +9,7 @@
 #import "ASDiceViewController.h"
 #import "ASDiceView.h"
 
-@interface ASDiceViewController ()<ASDiceViewDelegate>
+@interface ASDiceViewController ()<ASDiceViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *tfQuestion;
 @property (nonatomic, strong) ASDiceView *panView;
 @property (nonatomic, strong) UIButton *btnStart;
@@ -38,6 +38,8 @@
     self.tfQuestion.textColor = UIColorFromRGB(0x00FFFF);
     self.tfQuestion.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入您要占卜的事情~" attributes:@{NSForegroundColorAttributeName: UIColorFromRGB(0x00FFFF)}];
     self.tfQuestion.leftViewMode = UITextFieldViewModeAlways;
+    self.tfQuestion.returnKeyType = UIReturnKeyDone;
+    self.tfQuestion.delegate = self;
     [self.contentView addSubview:self.tfQuestion];
     
     self.btnStart = [ASControls newRedButton:CGRectMake(0, 15, 60, 30) title:@"开始"];
@@ -53,6 +55,9 @@
     ivLogo.bottom = self.panView.bottom - 5;
     ivLogo.left = 5;
     [self.contentView addSubview:ivLogo];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_background)];
+    [self.contentView addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -60,12 +65,24 @@
     self.panView.centerX = self.contentView.width/2;
 }
 
+- (void)tap_background{
+    [self.tfQuestion resignFirstResponder];
+}
+
 - (void)btnClick_start{
+    [self.tfQuestion resignFirstResponder];
     [self.panView start];
 }
 
 - (void)btnClick_history{
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if(textField == self.tfQuestion){
+        [self btnClick_start];
+    }
+    return YES;
 }
 
 #pragma mark - ASDiceViewDelegate

@@ -25,5 +25,6 @@
 - (id)initWithType:(NSInteger)type; //0:Astro  1:BaZi&ZiWei
 + (NSString *)stringForBirth:(NSDate *)birth gender:(NSInteger)gender daylight:(NSInteger)daylight poi:(NSString *)poi timeZone:(NSInteger)timeZone;
 + (NSString *)stringForBirth:(NSDate *)birth gender:(NSInteger)gender daylight:(NSInteger)daylight poi:(NSString *)poi;
+- (void)reloadData;
 @end
 

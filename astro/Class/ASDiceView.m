@@ -12,7 +12,7 @@
 
 #define ILTransform2Angle(transform) atan2(transform.b, transform.a)
 #define kVelocity M_PI * 0.3
-#define kSeziDuration 0.2
+#define kSeziDuration 0.4
 
 @interface ASDiceView ()
 @property (nonatomic, strong) UIImageView *cycleView;
@@ -162,10 +162,6 @@
     
     [CATransaction flush];
     [self.ivSezi.layer addAnimation:group forKey:@"animationKey"];
-    
-    if(self.animateing){
-        [self performSelector:@selector(animateSezi) withObject:nil afterDelay:0.6];
-    }
 }
 
 // 计时器暂停,便可以暂停圆盘的旋转
@@ -187,8 +183,14 @@
     }
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+- (void)animationDidStart:(CAAnimation *)anim{
     self.star = arc4random()%12;
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+    if(flag && self.animateing){
+        [self performSelector:@selector(animateSezi) withObject:nil afterDelay:0.4];
+    }
 }
 
 @end

@@ -13,8 +13,10 @@
 #import "ASAstroPanFillInfoVc.h"
 #import "ASPostQuestionVc.h"
 #import "ASAppDelegate.h"
+#import "ASTimeChangeView.h"
+#import "ASFridariaGroupView.h"
 
-@interface ASAstroPanVc ()
+@interface ASAstroPanVc ()<ASTimeChangeViewDelegate>
 @property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
 @property (nonatomic, strong) UITableView *tbGongInfo;  //宫位信息
 @property (nonatomic, strong) UITableView *tbStarInfo;  //星位信息
@@ -24,7 +26,8 @@
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
 @property (nonatomic, strong) UILabel *lbMoreTitle;     //更多信息标题
-@property (nonatomic, strong) UISegmentedControl *segmentTimeUnit;  //生时调整单位
+@property (nonatomic, strong) ASTimeChangeView *timeChangeView;  //生时调整单位
+@property (nonatomic, strong) ASFridariaGroupView *fridaView;
 @property (nonatomic, strong) UIButton *btnQuestion;
 @property (nonatomic, strong) NSMutableArray *starsInfo;
 @property (nonatomic, strong) NSMutableArray *gongInfo;
@@ -120,35 +123,19 @@
     self.lbMoreTitle.textAlignment = NSTextAlignmentCenter;
     self.lbMoreTitle.textColor = [UIColor blackColor];
     [self.scPanView addSubview:self.lbMoreTitle];
+
+    self.timeChangeView = [ASTimeChangeView newTimeChangeView];
+    self.timeChangeView.delegate = self;
+    self.timeChangeView.top = self.lbMoreTitle.bottom + 5;
+    [self.scPanView addSubview:self.timeChangeView];
     
-    self.segmentTimeUnit = [[UISegmentedControl alloc] initWithItems:@[@"", @"", @"", @""]];
-    self.segmentTimeUnit.size = CGSizeMake(210, 25);
-    [self.segmentTimeUnit setTintColor:ASColorDarkRed];
-    self.segmentTimeUnit.top = ivTop.bottom + 5;
-    self.segmentTimeUnit.centerX = self.contentView.width/2;
-    self.segmentTimeUnit.selectedSegmentIndex = 1;
-    [self.scPanView addSubview:self.segmentTimeUnit];
-    
-    UIButton *btnLeft = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    btnLeft.tag = 1;
-    btnLeft.centerY = self.segmentTimeUnit.centerY;
-    btnLeft.right = self.segmentTimeUnit.left - 10;
-    [btnLeft setBackgroundImage:[UIImage imageNamed:@"btn_around"] forState:UIControlStateNormal];
-    [btnLeft addTarget:self action:@selector(btnClick_birthTimeChange:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scPanView addSubview:btnLeft];
-    
-    UIButton *btnRight = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    btnRight.tag = 2;
-    btnRight.centerY = self.segmentTimeUnit.centerY;
-    btnRight.left = self.segmentTimeUnit.right + 15;
-    [btnRight setBackgroundImage:[UIImage imageNamed:@"btn_around"] forState:UIControlStateNormal];
-    btnRight.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
-    [btnRight addTarget:self action:@selector(btnClick_birthTimeChange:) forControlEvents:UIControlEventTouchUpInside];
-    [self.scPanView addSubview:btnRight];
+//    self.fridaView = [ASFridariaGroupView newGroupView];
+//    self.fridaView.center = self.timeChangeView.center;
+//    [self.scPanView addSubview:self.fridaView];
     
     UIImageView *ivBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"astro_line_bottom"]];
     ivBottom.centerX = self.contentView.width/2;
-    ivBottom.top = self.segmentTimeUnit.bottom + 15;
+    ivBottom.top = self.timeChangeView.bottom + 15;
     [self.scPanView addSubview:ivBottom];
     top = ivBottom.bottom + 10;
     
@@ -213,16 +200,10 @@
             
             if(self.astro.type == 1){
                 self.lbMoreTitle.text = @"生时调整";
-                [self.segmentTimeUnit setTitle:@"十天" forSegmentAtIndex:0];
-                [self.segmentTimeUnit setTitle:@"一天" forSegmentAtIndex:1];
-                [self.segmentTimeUnit setTitle:@"一小时" forSegmentAtIndex:2];
-                [self.segmentTimeUnit setTitle:@"一分钟" forSegmentAtIndex:3];
+                [self.timeChangeView setItems:@[@"十天", @"一天", @"一小时", @"一分钟"]];
             }else if(self.astro.type == 3){
-                self.lbMoreTitle.text = @"退运调整";
-                [self.segmentTimeUnit setTitle:@"一年" forSegmentAtIndex:0];
-                [self.segmentTimeUnit setTitle:@"一个月" forSegmentAtIndex:1];
-                [self.segmentTimeUnit setTitle:@"十天" forSegmentAtIndex:2];
-                [self.segmentTimeUnit setTitle:@"一天" forSegmentAtIndex:3];
+                self.lbMoreTitle.text = @"推运调整";
+                [self.timeChangeView setItems:@[@"一年", @"一个月", @"十天", @"一天"]];
             }else if(self.astro.type == 4){
                 self.lbMoreTitle.text = @"法达星限";
             }
@@ -435,28 +416,26 @@
     }
 }
 
-- (void)btnClick_birthTimeChange:(UIButton *)sender{
-    if(!self.astro){
-        return;
-    }
-    NSInteger flag = (sender.tag == 1) ? -1 : 1;
+#pragma mark - TimeChangeView Delegate
+- (void)timeChangView:(ASTimeChangeView *)tcView withDirection:(NSInteger)direction andSelectedIndex:(NSInteger)selectedIndex{
+    NSInteger flag = direction;
     if(self.astro.type == 1){   //本命
-        if(self.segmentTimeUnit.selectedSegmentIndex == 0){ //十天
+        if(selectedIndex == 0){ //十天
             self.astro.birth = [self.astro.birth dateByAddingTimeInterval:flag * 10 * D_DAY];
-        }else if(self.segmentTimeUnit.selectedSegmentIndex == 1){   //一天
+        }else if(selectedIndex == 1){   //一天
             self.astro.birth = [self.astro.birth dateByAddingTimeInterval:flag * D_DAY];
-        }else if(self.segmentTimeUnit.selectedSegmentIndex == 2){   //一小时
+        }else if(selectedIndex == 2){   //一小时
             self.astro.birth = [self.astro.birth dateByAddingTimeInterval:flag * D_HOUR];
         }else{  //一分钟
             self.astro.birth = [self.astro.birth dateByAddingTimeInterval:flag * D_MINUTE];
         }
     }else if(self.astro.type == 3){
         NSDate *date = self.astro.transitTime;
-        if(self.segmentTimeUnit.selectedSegmentIndex == 0){ //一年
+        if(selectedIndex == 0){ //一年
             self.astro.transitTime = [NSDate initWithYear:date.year + flag month:date.month day:date.day hour:date.hour minute:date.minute second:date.seconds];
-        }else if(self.segmentTimeUnit.selectedSegmentIndex == 1){   //一个月
+        }else if(selectedIndex == 1){   //一个月
             self.astro.transitTime = [NSDate initWithYear:date.year month:date.month + flag day:date.day hour:date.hour minute:date.minute second:date.seconds];
-        }else if(self.segmentTimeUnit.selectedSegmentIndex == 2){   //十天
+        }else if(selectedIndex == 2){   //十天
             self.astro.transitTime = [self.astro.birth dateByAddingTimeInterval:flag * 10 * D_DAY];
         }else{  //一天
             self.astro.transitTime = [self.astro.birth dateByAddingTimeInterval:flag * D_DAY];

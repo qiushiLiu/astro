@@ -29,6 +29,7 @@
 		1B035F0418C5580E006F3A7E /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035F0118C5580D006F3A7E /* libWeiboSDK.a */; };
 		1B035F0518C5580E006F3A7E /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B035F0218C5580E006F3A7E /* WeiboSDK.bundle */; };
 		1B0DA52518A4C72E00A5D4CE /* ASRegisterVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */; };
+		1B122B681B060F07003D0E06 /* ASPersonHistoryVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B122B671B060F07003D0E06 /* ASPersonHistoryVc.m */; };
 		1B1760FD1925ACBE000A864C /* ASAskDetailVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */; };
 		1B19A27E195BBBC700831568 /* ASPostQuestionVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B19A27D195BBBC700831568 /* ASPostQuestionVc.m */; };
 		1B19A281195D126400831568 /* ASFillQuestionVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B19A280195D126400831568 /* ASFillQuestionVc.m */; };
@@ -140,6 +141,9 @@
 		1BC823D1193DF1A4001CF44E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC823C8193DF1A3001CF44E /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BC823E0193E129E001CF44E /* ASPanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC823DF193E129E001CF44E /* ASPanView.m */; };
 		1BC8B2C01A564F78003CA7E9 /* ASUSR_MedalMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8B2BF1A564F78003CA7E9 /* ASUSR_MedalMod.m */; };
+		1BC8F63B1B042CD50020AB61 /* ASFridariaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8F63A1B042CD50020AB61 /* ASFridariaView.m */; };
+		1BC8F63E1B042EB60020AB61 /* ASTimeChangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8F63D1B042EB60020AB61 /* ASTimeChangeView.m */; };
+		1BC8F6411B0450BD0020AB61 /* ASFridariaGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC8F6401B0450BD0020AB61 /* ASFridariaGroupView.m */; };
 		1BD5365718D171A3001D0F30 /* ZiWeiMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365618D171A3001D0F30 /* ZiWeiMod.m */; };
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
@@ -198,6 +202,8 @@
 		1B035F0318C5580E006F3A7E /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		1B0DA52318A4C72E00A5D4CE /* ASRegisterVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASRegisterVc.h; sourceTree = "<group>"; };
 		1B0DA52418A4C72E00A5D4CE /* ASRegisterVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASRegisterVc.m; sourceTree = "<group>"; };
+		1B122B661B060F07003D0E06 /* ASPersonHistoryVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPersonHistoryVc.h; sourceTree = "<group>"; };
+		1B122B671B060F07003D0E06 /* ASPersonHistoryVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPersonHistoryVc.m; sourceTree = "<group>"; };
 		1B1760FB1925ACBE000A864C /* ASAskDetailVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailVc.h; sourceTree = "<group>"; };
 		1B1760FC1925ACBE000A864C /* ASAskDetailVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailVc.m; sourceTree = "<group>"; };
 		1B19A27C195BBBC700831568 /* ASPostQuestionVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPostQuestionVc.h; sourceTree = "<group>"; };
@@ -420,6 +426,12 @@
 		1BC823DF193E129E001CF44E /* ASPanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPanView.m; sourceTree = "<group>"; };
 		1BC8B2BE1A564F78003CA7E9 /* ASUSR_MedalMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASUSR_MedalMod.h; sourceTree = "<group>"; };
 		1BC8B2BF1A564F78003CA7E9 /* ASUSR_MedalMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASUSR_MedalMod.m; sourceTree = "<group>"; };
+		1BC8F6391B042CD50020AB61 /* ASFridariaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFridariaView.h; sourceTree = "<group>"; };
+		1BC8F63A1B042CD50020AB61 /* ASFridariaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFridariaView.m; sourceTree = "<group>"; };
+		1BC8F63C1B042EB60020AB61 /* ASTimeChangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTimeChangeView.h; sourceTree = "<group>"; };
+		1BC8F63D1B042EB60020AB61 /* ASTimeChangeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTimeChangeView.m; sourceTree = "<group>"; };
+		1BC8F63F1B0450BD0020AB61 /* ASFridariaGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFridariaGroupView.h; sourceTree = "<group>"; };
+		1BC8F6401B0450BD0020AB61 /* ASFridariaGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFridariaGroupView.m; sourceTree = "<group>"; };
 		1BD5365518D171A3001D0F30 /* ZiWeiMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiMod.h; sourceTree = "<group>"; };
 		1BD5365618D171A3001D0F30 /* ZiWeiMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiMod.m; sourceTree = "<group>"; };
 		1BD5365818D17385001D0F30 /* ZiWeiGong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiWeiGong.h; sourceTree = "<group>"; };
@@ -791,6 +803,12 @@
 				1B9DF44F18A614A900D4DCF4 /* ASToolBar.m */,
 				1B7CAF0918F7C99B005B8C30 /* ASUserSimpleView.h */,
 				1B7CAF0A18F7C99B005B8C30 /* ASUserSimpleView.m */,
+				1BC8F6391B042CD50020AB61 /* ASFridariaView.h */,
+				1BC8F63A1B042CD50020AB61 /* ASFridariaView.m */,
+				1BC8F63C1B042EB60020AB61 /* ASTimeChangeView.h */,
+				1BC8F63D1B042EB60020AB61 /* ASTimeChangeView.m */,
+				1BC8F63F1B0450BD0020AB61 /* ASFridariaGroupView.h */,
+				1BC8F6401B0450BD0020AB61 /* ASFridariaGroupView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -833,6 +851,8 @@
 				1B19A27D195BBBC700831568 /* ASPostQuestionVc.m */,
 				1B3FC8DA19EE6DBC002B49D4 /* ASPostReplyVc.h */,
 				1B3FC8DB19EE6DBC002B49D4 /* ASPostReplyVc.m */,
+				1B122B661B060F07003D0E06 /* ASPersonHistoryVc.h */,
+				1B122B671B060F07003D0E06 /* ASPersonHistoryVc.m */,
 			);
 			name = qa;
 			sourceTree = "<group>";
@@ -1079,6 +1099,7 @@
 				1B19A281195D126400831568 /* ASFillQuestionVc.m in Sources */,
 				1B1D5F451942CC4400D23025 /* ASQaAnswer.m in Sources */,
 				1B608A8B1A342101008B3645 /* ASZiWeiSeniorVc.m in Sources */,
+				1BC8F6411B0450BD0020AB61 /* ASFridariaGroupView.m in Sources */,
 				1B2DA3E319F935E200E9C03D /* ASQaMinAstro.m in Sources */,
 				1BC823CC193DF1A3001CF44E /* ASIDownloadCache.m in Sources */,
 				1BC823CE193DF1A4001CF44E /* ASIHTTPRequest.m in Sources */,
@@ -1107,6 +1128,7 @@
 				1BC823C9193DF1A3001CF44E /* ASIAuthenticationDialog.m in Sources */,
 				1BA69372187FD1B900478D08 /* ASControls.m in Sources */,
 				1B7A15631915CA4900AECD59 /* ASAskTableViewCell.m in Sources */,
+				1BC8F63B1B042CD50020AB61 /* ASFridariaView.m in Sources */,
 				1B1A970518D929320039413E /* AstroStar.m in Sources */,
 				1BC823CA193DF1A3001CF44E /* ASIDataCompressor.m in Sources */,
 				1B1D5F1D1941F3AD00D23025 /* ASCustomerShow.m in Sources */,
@@ -1117,7 +1139,9 @@
 				1B92A23C1AF0743B0010C36A /* ASHistoryPersonTableView.m in Sources */,
 				1B2DA3E619F9363200E9C03D /* ASQaMinZiWei.m in Sources */,
 				1B608A8E1A34511C008B3645 /* ASBaZiPanFillInfoVc.m in Sources */,
+				1BC8F63E1B042EB60020AB61 /* ASTimeChangeView.m in Sources */,
 				1BAC959E1A032E6800B0FBF7 /* ASQaFullAstro.m in Sources */,
+				1B122B681B060F07003D0E06 /* ASPersonHistoryVc.m in Sources */,
 				1B6CF44418C88216005F1A70 /* ASAstroPanVc.m in Sources */,
 				1B012BC0185F31910046AD7A /* HttpUtil.m in Sources */,
 				1B29B4B4196B8C6B00EC73C6 /* ASPostQuestion.m in Sources */,
