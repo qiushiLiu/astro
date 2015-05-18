@@ -59,6 +59,9 @@
 		1B3FC8DC19EE6DBC002B49D4 /* ASPostReplyVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3FC8DB19EE6DBC002B49D4 /* ASPostReplyVc.m */; };
 		1B40FF1918FFABE50022B87B /* ASPageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B40FF1818FFABE50022B87B /* ASPageInfo.m */; };
 		1B442C401925D70E008350BD /* ASAskDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */; };
+		1B47163D1B09ED120054486F /* ASFirdaria.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B47163C1B09ED120054486F /* ASFirdaria.m */; };
+		1B4716401B09EDCC0054486F /* ASFirdariaDecade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B47163F1B09EDCC0054486F /* ASFirdariaDecade.m */; };
+		1B4716431B09FCDA0054486F /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4716421B09FCDA0054486F /* UIView+Toast.m */; };
 		1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */; };
 		1B4DA2E818D8241800E6E039 /* ASZiWeiGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DA2E718D8241800E6E039 /* ASZiWeiGrid.m */; };
 		1B5D5E96187A4C850030A7E8 /* ASNav.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5D5E95187A4C850030A7E8 /* ASNav.m */; };
@@ -263,6 +266,12 @@
 		1B40FF1818FFABE50022B87B /* ASPageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPageInfo.m; sourceTree = "<group>"; };
 		1B442C3E1925D70E008350BD /* ASAskDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskDetailHeaderView.h; sourceTree = "<group>"; };
 		1B442C3F1925D70E008350BD /* ASAskDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAskDetailHeaderView.m; sourceTree = "<group>"; };
+		1B47163B1B09ED120054486F /* ASFirdaria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFirdaria.h; sourceTree = "<group>"; };
+		1B47163C1B09ED120054486F /* ASFirdaria.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFirdaria.m; sourceTree = "<group>"; };
+		1B47163E1B09EDCC0054486F /* ASFirdariaDecade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFirdariaDecade.h; sourceTree = "<group>"; };
+		1B47163F1B09EDCC0054486F /* ASFirdariaDecade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFirdariaDecade.m; sourceTree = "<group>"; };
+		1B4716411B09FCDA0054486F /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		1B4716421B09FCDA0054486F /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		1B4DA2E318D8007800E6E039 /* UITabBarItem+Universal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+Universal.h"; sourceTree = "<group>"; };
 		1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+Universal.m"; sourceTree = "<group>"; };
 		1B4DA2E618D8241800E6E039 /* ASZiWeiGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASZiWeiGrid.h; sourceTree = "<group>"; };
@@ -555,12 +564,12 @@
 		1B012B5F185DCB7D0046AD7A /* category */ = {
 			isa = PBXGroup;
 			children = (
+				1B7C47BE192501BA00924E44 /* ASHelper.h */,
+				1B7C47BF192501BA00924E44 /* ASHelper.m */,
 				1BE157BF1A5A24F1009588DF /* FBGlowLabel.h */,
 				1BE157C01A5A24F1009588DF /* FBGlowLabel.m */,
 				1B7F755419BD92D600F01EF4 /* GpsData.h */,
 				1B7F755519BD92D600F01EF4 /* GpsData.m */,
-				1B7C47BE192501BA00924E44 /* ASHelper.h */,
-				1B7C47BF192501BA00924E44 /* ASHelper.m */,
 				1B012BBE185F31910046AD7A /* HttpUtil.h */,
 				1B012BBF185F31910046AD7A /* HttpUtil.m */,
 				1B012BC4185F40A80046AD7A /* JSONKit.h */,
@@ -579,6 +588,8 @@
 				1B4DA2E418D8007800E6E039 /* UITabBarItem+Universal.m */,
 				1B012B68185DD4ED0046AD7A /* UIView+Layout.h */,
 				1B012B69185DD4ED0046AD7A /* UIView+Layout.m */,
+				1B4716411B09FCDA0054486F /* UIView+Toast.h */,
+				1B4716421B09FCDA0054486F /* UIView+Toast.m */,
 			);
 			path = category;
 			sourceTree = "<group>";
@@ -679,6 +690,10 @@
 				1B1D5F1C1941F3AD00D23025 /* ASCustomerShow.m */,
 				1B29B4B5196B9C2100EC73C6 /* ASFateChart.h */,
 				1B29B4B6196B9C2100EC73C6 /* ASFateChart.m */,
+				1B47163B1B09ED120054486F /* ASFirdaria.h */,
+				1B47163C1B09ED120054486F /* ASFirdaria.m */,
+				1B47163E1B09EDCC0054486F /* ASFirdariaDecade.h */,
+				1B47163F1B09EDCC0054486F /* ASFirdariaDecade.m */,
 				1B40FF1718FFABE50022B87B /* ASPageInfo.h */,
 				1B40FF1818FFABE50022B87B /* ASPageInfo.m */,
 				1B64BA11199C56260018C43A /* ASPerson.h */,
@@ -1191,13 +1206,16 @@
 				1B7CAF1118F7CEF8005B8C30 /* ASAskListVc.m in Sources */,
 				1B7F755619BD92D600F01EF4 /* GpsData.m in Sources */,
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
+				1B4716431B09FCDA0054486F /* UIView+Toast.m in Sources */,
 				1B96B97B1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m in Sources */,
 				1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */,
 				1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */,
+				1B4716401B09EDCC0054486F /* ASFirdariaDecade.m in Sources */,
 				1B7CAF0B18F7C99B005B8C30 /* ASUserSimpleView.m in Sources */,
 				1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */,
 				1B1F7D0718B2E48A00186229 /* ASLoadMoreView.m in Sources */,
 				1B7838B11A2604FB000E30BA /* ASBaZiPanVc.m in Sources */,
+				1B47163D1B09ED120054486F /* ASFirdaria.m in Sources */,
 				1B7838761A241B4D000E30BA /* ASUSR_Message.m in Sources */,
 				1B1D5F1A1941F22100D23025 /* ASCustomer.m in Sources */,
 				1B7CAF0218F6489C005B8C30 /* JSONValueTransformer.m in Sources */,

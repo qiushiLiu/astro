@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ASFirdariaDecade.h"
+#import "ASFridariaView.h"
 @interface ASFridariaGroupView : UITableView
+@property (nonatomic, weak) NSArray<ASFirdariaDecade> *data;
+@property (nonatomic, assign) id<ASFridariaViewDelegate> firdariaDelegate;
 + (instancetype)newGroupView;
 @end

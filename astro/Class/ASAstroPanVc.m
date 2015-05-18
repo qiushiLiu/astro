@@ -15,8 +15,9 @@
 #import "ASAppDelegate.h"
 #import "ASTimeChangeView.h"
 #import "ASFridariaGroupView.h"
+#import "UIView+Toast.h"
 
-@interface ASAstroPanVc ()<ASTimeChangeViewDelegate>
+@interface ASAstroPanVc ()<ASTimeChangeViewDelegate, ASFridariaViewDelegate>
 @property (nonatomic, strong) UIScrollView *scPanView;  //星盘view
 @property (nonatomic, strong) UITableView *tbGongInfo;  //宫位信息
 @property (nonatomic, strong) UITableView *tbStarInfo;  //星位信息
@@ -25,9 +26,11 @@
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片
+@property (nonatomic, strong) UIView *moreView;         //更多信息
 @property (nonatomic, strong) UILabel *lbMoreTitle;     //更多信息标题
 @property (nonatomic, strong) ASTimeChangeView *timeChangeView;  //生时调整单位
 @property (nonatomic, strong) ASFridariaGroupView *fridaView;
+@property (nonatomic, strong) UIImageView *ivBottom;
 @property (nonatomic, strong) UIButton *btnQuestion;
 @property (nonatomic, strong) NSMutableArray *starsInfo;
 @property (nonatomic, strong) NSMutableArray *gongInfo;
@@ -111,10 +114,13 @@
     
     CGFloat top = self.lbP1Info.bottom + 10;
     
+    self.moreView = [[UIView alloc] initWithFrame:CGRectMake(0, top, DF_WIDTH, 1)];
+    self.moreView.backgroundColor = [UIColor clearColor];
+    [self.scPanView addSubview:self.moreView];
+    
     UIImageView *ivTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"astro_line_top"]];
     ivTop.centerX = self.contentView.width/2;
-    ivTop.top = top;
-    [self.scPanView addSubview:ivTop];
+    [self.moreView addSubview:ivTop];
     
     self.lbMoreTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 25)];
     self.lbMoreTitle.center = ivTop.center;
@@ -122,22 +128,27 @@
     self.lbMoreTitle.font = [UIFont systemFontOfSize:10];
     self.lbMoreTitle.textAlignment = NSTextAlignmentCenter;
     self.lbMoreTitle.textColor = [UIColor blackColor];
-    [self.scPanView addSubview:self.lbMoreTitle];
+    [self.moreView addSubview:self.lbMoreTitle];
 
     self.timeChangeView = [ASTimeChangeView newTimeChangeView];
     self.timeChangeView.delegate = self;
     self.timeChangeView.top = self.lbMoreTitle.bottom + 5;
-    [self.scPanView addSubview:self.timeChangeView];
+    [self.moreView addSubview:self.timeChangeView];
     
-//    self.fridaView = [ASFridariaGroupView newGroupView];
-//    self.fridaView.center = self.timeChangeView.center;
-//    [self.scPanView addSubview:self.fridaView];
+    self.fridaView = [ASFridariaGroupView newGroupView];
+    self.fridaView.center = self.timeChangeView.center;
+    self.fridaView.top = self.timeChangeView.top;
+    self.fridaView.hidden = YES;
+    self.fridaView.firdariaDelegate = self;
+    [self.moreView addSubview:self.fridaView];
     
-    UIImageView *ivBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"astro_line_bottom"]];
-    ivBottom.centerX = self.contentView.width/2;
-    ivBottom.top = self.timeChangeView.bottom + 15;
-    [self.scPanView addSubview:ivBottom];
-    top = ivBottom.bottom + 10;
+    self.ivBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"astro_line_bottom"]];
+    self.ivBottom.centerX = self.contentView.width/2;
+    self.ivBottom.top = self.timeChangeView.bottom + 15;
+    [self.moreView addSubview:self.ivBottom];
+    self.moreView.height = self.ivBottom.bottom;
+    
+    top = self.moreView.bottom + 10;
     
     self.btnQuestion = [ASControls newOrangeButton:CGRectMake(0, top, 200, 28) title:@"求解"];
     self.btnQuestion.centerX = self.contentView.width/2;
@@ -198,15 +209,37 @@
                 self.lbP2Info.hidden = YES;
             }
             
-            if(self.astro.type == 1){
-                self.lbMoreTitle.text = @"生时调整";
-                [self.timeChangeView setItems:@[@"十天", @"一天", @"一小时", @"一分钟"]];
-            }else if(self.astro.type == 3){
-                self.lbMoreTitle.text = @"推运调整";
-                [self.timeChangeView setItems:@[@"一年", @"一个月", @"十天", @"一天"]];
-            }else if(self.astro.type == 4){
-                self.lbMoreTitle.text = @"法达星限";
+            self.moreView.hidden = self.astro.type == 2;
+            if(!self.moreView.isHidden){
+                if(self.astro.type == 1){
+                    self.timeChangeView.hidden = NO;
+                    self.fridaView.hidden = YES;
+                    self.lbMoreTitle.text = @"生时调整";
+                    [self.timeChangeView setItems:@[@"十天", @"一天", @"一小时", @"一分钟"]];
+                    self.ivBottom.top = self.timeChangeView.bottom + 10;
+                    self.moreView.height = self.ivBottom.bottom;
+                    self.btnQuestion.top = self.moreView.bottom + 10;
+                }else if(self.astro.type == 3){
+                    self.timeChangeView.hidden = NO;
+                    self.fridaView.hidden = YES;
+                    self.lbMoreTitle.text = @"推运调整";
+                    [self.timeChangeView setItems:@[@"一年", @"一个月", @"十天", @"一天"]];
+                    self.ivBottom.top = self.timeChangeView.bottom + 10;
+                    self.moreView.height = self.ivBottom.bottom;
+                    self.btnQuestion.top = self.moreView.bottom + 10;
+                }else if(self.astro.type == 4){
+                    self.lbMoreTitle.text = @"法达星限";
+                    self.timeChangeView.hidden = YES;
+                    self.fridaView.hidden = NO;
+                    [self.fridaView setData:self.astro.Firdaria];
+                    self.ivBottom.top = self.fridaView.bottom + 10;
+                    self.moreView.height = self.ivBottom.bottom;
+                    self.btnQuestion.top = self.moreView.bottom + 10;
+                }
+            }else{
+                self.btnQuestion.top = self.pan.bottom + 20;
             }
+            self.scPanView.contentSize = CGSizeMake(self.scPanView.width, self.btnQuestion.bottom + 10);
             [self.tbStarInfo reloadData];
             [self.tbGongInfo reloadData];
         }else{
@@ -414,6 +447,19 @@
         ASAppDelegate *appDelegate = (ASAppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate showNeedLoginAlertView];
     }
+}
+
+#pragma mark - ASFridariaView Delegate
+- (void)fridariaView:(NSInteger)section selectedIndex:(NSInteger)index{
+    ASFirdariaDecade *fGroup = self.astro.Firdaria[section];
+    ASFirdaria *item = fGroup.FirdariaShort[index];
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:__AstroStar[fGroup.FirdariaLong.Star]];
+    [str appendString:@" "];
+    [str appendString:__AstroStar[item.Star]];
+    [str appendString:@"\n"];
+    [str appendFormat:@"%@~%@", [item.Begin toStrFormat:@"yyyy-MM-dd"], [item.End toStrFormat:@"yyyy-MM-dd"]];
+    [self.view makeToast:str duration:5.0 position:CSToastPositionBottom];
 }
 
 #pragma mark - TimeChangeView Delegate

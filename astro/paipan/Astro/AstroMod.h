@@ -8,6 +8,8 @@
 
 #import "AstroStar.h"
 #import "ASPosition.h"
+#import "ASFirdariaDecade.h"
+
 @protocol AstroMod
 @end
 
@@ -31,7 +33,7 @@
 @property (nonatomic) NSInteger type;       //盘类型
 @property (nonatomic) NSInteger compose;    //合盘类型
 @property (nonatomic) NSInteger transit;    //退运类型
-
+@property (nonatomic, strong) NSArray<ASFirdariaDecade, Optional> *Firdaria;
 @property (nonatomic, strong) NSArray<AstroStar> *Stars;
 @property (nonatomic, strong) NSArray<AstroStar, Optional> *Stars1;
 @property (nonatomic) NSInteger Gender;

@@ -7,7 +7,7 @@
 //
 
 #import "ASFridariaGroupView.h"
-#import "ASFridariaView.h"
+
 
 @interface ASFridariaGroupView ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -16,14 +16,15 @@
 @implementation ASFridariaGroupView
 
 + (instancetype)newGroupView{
-    return [[self alloc] initWithFrame:CGRectMake(0, 0, DF_WIDTH, 495) style:UITableViewStylePlain];
+    return [[self alloc] initWithFrame:CGRectMake(0, 0, DF_WIDTH, 1) style:UITableViewStylePlain];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
     if(self = [super initWithFrame:frame style:style]){
-        self.rowHeight = 55;
         self.delegate = self;
         self.dataSource = self;
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.separatorColor = [UIColor clearColor];
         self.scrollEnabled = NO;
     }
     return self;
@@ -31,6 +32,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 9;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row >=0 && indexPath.row < [_data count]){
+        ASFirdariaDecade *item = _data[indexPath.row];
+        if([item.FirdariaShort count] != 7){
+            return 28;
+        }
+    }
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -42,10 +53,20 @@
         cell.contentView.backgroundColor = [UIColor clearColor];
         
         ASFridariaView *fv = [[ASFridariaView alloc] initWithSection:indexPath.row];
+        fv.delegate = self.firdariaDelegate;
         fv.tag = 100;
         [cell.contentView addSubview:fv];
     }
+    ASFridariaView *fv = (ASFridariaView *)[cell.contentView viewWithTag:100];
+    [fv setData:_data[indexPath.row]];
     return cell;
+}
+
+- (void)setData:(NSArray<ASFirdariaDecade> *)data{
+    if([data count] != 9) return;
+    _data = data;
+    [self reloadData];
+    self.size = self.contentSize;
 }
 
 
