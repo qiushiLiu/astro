@@ -115,9 +115,9 @@ static NSMutableParagraphStyle *style = nil;
         self.liuYao = [[NSMutableArray alloc] init];
         self.yunYao = [[NSMutableArray alloc] init];
         if(self.lx){
-            self.origin = [[lxCellAuchor objectAtIndex:self.gongIndex] CGPointValue];
+            self.origin = [[lxCellAuchor objectAtIndex:self.index] CGPointValue];
         }else{
-            self.origin = [[cellAuchor objectAtIndex:self.gongIndex] CGPointValue];
+            self.origin = [[cellAuchor objectAtIndex:self.index] CGPointValue];
         }
         
         CGFloat centerX = self.width/2 + 5;
