@@ -12,7 +12,7 @@
 
 #define ILTransform2Angle(transform) atan2(transform.b, transform.a)
 #define kVelocity M_PI * 0.3
-#define kSeziDuration 0.4
+#define kSeziDuration 0.5
 
 @interface ASDiceView ()
 @property (nonatomic, strong) UIImageView *cycleView;
@@ -21,6 +21,10 @@
 @property (nonatomic, strong) NSMutableArray *houses;
 @property (nonatomic) CGFloat startSpeed;
 @property (nonatomic) CGFloat speed;
+
+@property (nonatomic) CGAffineTransform gongTransform;
+@property (nonatomic) CGFloat gongStartSpeed;
+@property (nonatomic) CGFloat gongSpeed;
 @property (nonatomic) BOOL isFront;     //中间色子的正反面
 
 @end
@@ -29,6 +33,7 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
+        self.backgroundColor = [UIColor clearColor];
         self.houses = [NSMutableArray array];
         
         self.cycleView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -54,6 +59,7 @@
         _animateing = NO;
         _isFront = YES;
         _star = arc4random()%12;
+        _gongTransform = CGAffineTransformIdentity;
         self.ivSezi.image = [self addImage:[UIImage imageNamed:[NSString stringWithFormat:@"dice_xing_%@", @(self.star)]] toImage:[UIImage imageNamed:@"dice_126"]];
     }
     return self;
@@ -61,7 +67,11 @@
 
 - (NSInteger)constellation{
     CGFloat angle = ILTransform2Angle(self.cycleView.transform);
-    return angle * 6.0 / M_PI + 6;
+    CGFloat ret = angle * 6.0 / M_PI;
+    if(ret <= 0){
+        ret += 12;
+    }
+    return ret;
 }
 
 - (void)setStar:(NSInteger)star{
@@ -78,6 +88,10 @@
     self.userInteractionEnabled = NO;
     self.startSpeed = ((arc4random() % 101) + 200) * 0.01 * M_PI;
     self.speed = self.startSpeed;
+
+    self.gongStartSpeed = self.startSpeed * ((arc4random() % 50) + 100) * 0.01;
+    self.gongSpeed = self.gongStartSpeed;
+    
     _animateing = YES;
     [self startRotate];
 }
@@ -116,11 +130,15 @@
 
 - (void)rotating:(CADisplayLink *)timer
 {
-    CGFloat angle = ILTransform2Angle(self.cycleView.transform);
+    CGFloat angle = ILTransform2Angle(self.gongTransform);
     self.gong = -angle * 6.0 / M_PI + 6;
+    
     CGFloat angledelta = self.speed * timer.duration - 0.5 * (self.startSpeed/3.0) * timer.duration * timer.duration;
+    CGFloat gongdelta = self.gongSpeed * timer.duration - 0.5 * (self.gongStartSpeed/3.0) * timer.duration * timer.duration;
     self.speed -= kVelocity * timer.duration;
+    self.gongSpeed -= kVelocity * timer.duration;
     // 旋转一定的角度
+    self.gongTransform = CGAffineTransformRotate(self.gongTransform, gongdelta);
     self.cycleView.transform = CGAffineTransformRotate(self.cycleView.transform, angledelta);
     if(self.speed <= 0){
         [self stopRotate];
@@ -131,21 +149,19 @@
 {
     if(!self.animateing) return;
     NSInteger direction = arc4random()%5;       //5个方向
-    NSInteger lastStar = self.star;
+    NSInteger lastStar = self.star + 1;
     self.star = arc4random()%12;
-    
     NSString *rootImageName = self.isFront ? @"dice_127" : @"dice_126";
     UIImage *ann1 = [self.ivSezi.image copy];
     UIImage *ann2 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @(direction*12 + lastStar)]];
     UIImage *ann3 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @(121 + direction)]];
-    UIImage *ann4 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @((direction + 5)*12 + self.star)]];
+    UIImage *ann4 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @((direction + 5)*12 + self.star + 1)]];
     UIImage *ann5 = [self addImage:[UIImage imageNamed:[NSString stringWithFormat:@"dice_xing_%@", @(self.star)]] toImage:[UIImage imageNamed:rootImageName]];
-
+    self.ivSezi.image = ann5;
     self.ivSezi.animationImages = @[ann1, ann2, ann3, ann4, ann5];
-    self.ivSezi.animationDuration = 0.3;
+    self.ivSezi.animationDuration = kSeziDuration;
     self.ivSezi.animationRepeatCount = 1;
     [self.ivSezi startAnimating];
-    self.ivSezi.image = ann5;
     self.isFront = !self.isFront;
     
     [self performSelector:@selector(animateSezi) withObject:nil afterDelay:1.0];
@@ -165,7 +181,6 @@
     [self.ivSezi stopAnimating];
     [_timer invalidate];
     _timer = nil;
-    self.ivSezi.layer.transform = CATransform3DIdentity;
     if([self.delegate respondsToSelector:@selector(didFinishedDiceView:)]){
         [self.delegate didFinishedDiceView:self];
     }
@@ -180,6 +195,48 @@
     UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return resultingImage;
+}
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextBeginPath(ctx);
+    //外外圈
+    CGContextSetLineWidth(ctx, 1.0);
+    [self drawArc:ctx radius:153 color:UIColorFromRGB(0x95BDE5)];
+    //外内圈
+    CGContextSetLineWidth(ctx, 2.0);
+    [self drawArc:ctx radius:140 color:UIColorFromRGB(0x2C4166)];
+    //内圈三根线
+    CGContextSetLineWidth(ctx, 1.0);
+    [self drawArc:ctx radius:87 color:UIColorFromRGB(0x145391)];
+    CGContextSetLineWidth(ctx, 1.0);
+    [self drawArc:ctx radius:86 color:UIColorFromRGB(0x133062)];
+    CGContextSetLineWidth(ctx, 1.0);
+    [self drawArc:ctx radius:85 color:UIColorFromRGB(0x145391)];
+    
+    CGContextSetLineWidth(ctx, 2.0);
+    CGFloat delta = M_PI / 6.0;
+    for(int i = 0; i < 12;i++){
+        CGFloat start = i*delta + delta * 0.225;
+        CGContextAddArc(ctx, self.width/2, self.height/2, 73, start, start + delta * 0.55, 0);
+        CGContextSetStrokeColorWithColor(ctx, UIColorFromRGB(0x718199).CGColor);
+        CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
+        CGContextDrawPath(ctx, kCGPathFillStroke);
+        CGContextStrokePath(ctx);
+    }
+    //连接上面定义的坐标点
+//    CGContextStrokePath(ctx);
+    
+}
+
+- (void)drawArc:(CGContextRef)ctx radius:(CGFloat)radius color:(UIColor *)color{
+    CGContextAddArc(ctx, self.width/2, self.height/2, radius, 0, M_PI*2, 0);
+    CGContextSetStrokeColorWithColor(ctx, color.CGColor);
+    CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
+    CGContextDrawPath(ctx, kCGPathFillStroke);
+    CGContextStrokePath(ctx);
 }
 
 @end

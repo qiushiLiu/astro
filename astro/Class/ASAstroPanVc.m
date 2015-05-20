@@ -94,7 +94,7 @@
     self.lbTuiyun.numberOfLines = 3;
     self.lbTuiyun.lineBreakMode = NSLineBreakByCharWrapping;
     self.lbTuiyun.right = self.contentView.width - 5;
-    [self.contentView addSubview:self.lbTuiyun];
+    [self.scPanView addSubview:self.lbTuiyun];
     
     self.pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, ivLogo.bottom - 10, 320, 320)];
     [self.scPanView addSubview:self.pan];
@@ -210,6 +210,7 @@
             }
             
             self.moreView.hidden = self.astro.type == 2;
+            NSInteger segmentSelectedIndex = self.timeChangeView.selectedIndex;
             if(!self.moreView.isHidden){
                 if(self.astro.type == 1){
                     self.timeChangeView.hidden = NO;
@@ -220,22 +221,25 @@
                     self.moreView.height = self.ivBottom.bottom;
                     self.btnQuestion.top = self.moreView.bottom + 10;
                 }else if(self.astro.type == 3){
-                    self.timeChangeView.hidden = NO;
-                    self.fridaView.hidden = YES;
-                    self.lbMoreTitle.text = @"推运调整";
-                    [self.timeChangeView setItems:@[@"一年", @"一个月", @"十天", @"一天"]];
-                    self.ivBottom.top = self.timeChangeView.bottom + 10;
-                    self.moreView.height = self.ivBottom.bottom;
-                    self.btnQuestion.top = self.moreView.bottom + 10;
-                }else if(self.astro.type == 4){
-                    self.lbMoreTitle.text = @"法达星限";
-                    self.timeChangeView.hidden = YES;
-                    self.fridaView.hidden = NO;
-                    [self.fridaView setData:self.astro.Firdaria];
-                    self.ivBottom.top = self.fridaView.bottom + 10;
-                    self.moreView.height = self.ivBottom.bottom;
-                    self.btnQuestion.top = self.moreView.bottom + 10;
+                    if(self.astro.transit == [AstroTuiyunArray count]){
+                        self.lbMoreTitle.text = @"法达星限";
+                        self.timeChangeView.hidden = YES;
+                        self.fridaView.hidden = NO;
+                        [self.fridaView setData:self.astro.Firdaria];
+                        self.ivBottom.top = self.fridaView.bottom + 10;
+                        self.moreView.height = self.ivBottom.bottom;
+                        self.btnQuestion.top = self.moreView.bottom + 10;
+                    }else{
+                        self.timeChangeView.hidden = NO;
+                        self.fridaView.hidden = YES;
+                        self.lbMoreTitle.text = @"推运调整";
+                        [self.timeChangeView setItems:@[@"一年", @"一个月", @"十天", @"一天"]];
+                        self.ivBottom.top = self.timeChangeView.bottom + 10;
+                        self.moreView.height = self.ivBottom.bottom;
+                        self.btnQuestion.top = self.moreView.bottom + 10;
+                    }
                 }
+                self.timeChangeView.selectedIndex = segmentSelectedIndex;
             }else{
                 self.btnQuestion.top = self.pan.bottom + 20;
             }
@@ -475,16 +479,16 @@
         }else{  //一分钟
             self.astro.birth = [self.astro.birth dateByAddingTimeInterval:flag * D_MINUTE];
         }
-    }else if(self.astro.type == 3){
+    }else if(self.astro.type == 3 && self.astro.transit != [AstroTuiyunArray count]){
         NSDate *date = self.astro.transitTime;
         if(selectedIndex == 0){ //一年
             self.astro.transitTime = [NSDate initWithYear:date.year + flag month:date.month day:date.day hour:date.hour minute:date.minute second:date.seconds];
         }else if(selectedIndex == 1){   //一个月
             self.astro.transitTime = [NSDate initWithYear:date.year month:date.month + flag day:date.day hour:date.hour minute:date.minute second:date.seconds];
         }else if(selectedIndex == 2){   //十天
-            self.astro.transitTime = [self.astro.birth dateByAddingTimeInterval:flag * 10 * D_DAY];
+            self.astro.transitTime = [date dateByAddingTimeInterval:flag * 10 * D_DAY];
         }else{  //一天
-            self.astro.transitTime = [self.astro.birth dateByAddingTimeInterval:flag * D_DAY];
+            self.astro.transitTime = [date dateByAddingTimeInterval:flag * D_DAY];
         }
     }
     [self loadData];

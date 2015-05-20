@@ -55,6 +55,14 @@
     self.segmentTimeUnit.selectedSegmentIndex = 0;
 }
 
+- (NSInteger)selectedIndex{
+    return self.segmentTimeUnit.selectedSegmentIndex;
+}
+
+- (void)setSelectedIndex:(int)selectedIndex{
+    self.segmentTimeUnit.selectedSegmentIndex = selectedIndex;
+}
+
 - (void)btnClick_birthTimeChange:(UIButton *)sender{
     NSInteger direction = sender.tag == 1 ? -1 : 1;
     if([self.delegate respondsToSelector:@selector(timeChangView:withDirection:andSelectedIndex:)]){

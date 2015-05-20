@@ -17,6 +17,7 @@
 
 @interface ASTimeChangeView : UIView
 @property (nonatomic, assign) id<ASTimeChangeViewDelegate> delegate;
+@property (nonatomic) NSInteger selectedIndex;
 
 - (void)setItems:(NSArray *)items;
 + (instancetype)newTimeChangeView;

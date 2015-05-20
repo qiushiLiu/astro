@@ -30,6 +30,7 @@
         _gongIndex = index;
         self.backgroundColor = [UIColor clearColor];
         self.lbIndex = [[FBGlowLabel alloc] initWithFrame:CGRectMake(0, self.height * 0.35, self.width, 20)];
+        self.lbIndex.font = [UIFont systemFontOfSize:14];
         self.lbIndex.textAlignment = NSTextAlignmentCenter;
         self.lbIndex.clipsToBounds = YES;
         self.lbIndex.backgroundColor = [UIColor clearColor];
@@ -47,14 +48,14 @@
         self.lbIndex.innerGlowColor = [UIColor redColor];
         self.lbIndex.innerGlowSize = 4;
         self.lbIndex.glowColor = [UIColor whiteColor];
-        self.lbIndex.glowSize = 18;
+        self.lbIndex.glowSize = 14;
         self.ivDelta.image = [UIImage imageNamed:@"delta"];
     }else{
         self.lbIndex.textColor = UIColorFromRGB(0x034EA0);
         self.lbIndex.innerGlowColor = UIColorFromRGB(0x034EA0);
         self.lbIndex.innerGlowSize = 4;
         self.lbIndex.glowColor = [UIColor redColor];
-        self.lbIndex.glowSize = 18;
+        self.lbIndex.glowSize = 14;
         self.ivDelta.image = [UIImage imageNamed:@"delta_nl"];
     }
     [self setNeedsDisplay];
