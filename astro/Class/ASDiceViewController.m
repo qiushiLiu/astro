@@ -84,6 +84,7 @@
 - (void)btnClick_start{
     [self hideKeyBoard];
     self.tfQuestion.enabled = NO;
+    self.contentView.scrollEnabled = NO;
     [self.panView start];
 }
 
@@ -171,6 +172,7 @@
 #pragma mark - ASDiceViewDelegate
 - (void)didFinishedDiceView:(ASDiceView *)dv{
     self.tfQuestion.enabled = YES;
+    self.contentView.scrollEnabled = YES;
     [self showWaiting];
     NSInteger star = self.panView.star + 1;
     NSInteger gong = self.panView.gong + 1;
