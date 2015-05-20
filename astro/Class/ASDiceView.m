@@ -17,12 +17,11 @@
 @interface ASDiceView ()
 @property (nonatomic, strong) UIImageView *cycleView;
 @property (nonatomic, strong) UIImageView *ivSezi;  //色字
-@property (nonatomic, strong) UIImageView *ivXing;  //中间的星
 @property (nonatomic, strong) CADisplayLink *timer;
 @property (nonatomic, strong) NSMutableArray *houses;
 @property (nonatomic) CGFloat startSpeed;
 @property (nonatomic) CGFloat speed;
-
+@property (nonatomic) BOOL isFront;     //中间色子的正反面
 
 @end
 
@@ -49,15 +48,13 @@
         }
         
         self.ivSezi = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 52, 52)];
-        self.ivSezi.image = [UIImage imageNamed:@"dice_xing_bg01"];
         self.ivSezi.center = center;
         [self addSubview:self.ivSezi];
         
-        self.ivXing = [[UIImageView alloc] initWithFrame:self.ivSezi.bounds];
-        [self.ivSezi addSubview:self.ivXing];
-        
         _animateing = NO;
-        self.star = arc4random()%12;
+        _isFront = YES;
+        _star = arc4random()%12;
+        self.ivSezi.image = [self addImage:[UIImage imageNamed:[NSString stringWithFormat:@"dice_xing_%@", @(self.star)]] toImage:[UIImage imageNamed:@"dice_126"]];
     }
     return self;
 }
@@ -73,7 +70,6 @@
     }else{
         _star = star;
     }
-    self.ivXing.image = [UIImage imageNamed:[NSString stringWithFormat:@"dice_xing_%@", @(_star)]];
 }
 
 - (void)start{
@@ -133,35 +129,26 @@
 
 -(void)animateSezi
 {
-    CAAnimationGroup *group = [CAAnimationGroup animation];
-    group.delegate = self;
-    group.duration = kSeziDuration;
+    if(!self.animateing) return;
+    NSInteger direction = arc4random()%5;       //5个方向
+    NSInteger lastStar = self.star;
+    self.star = arc4random()%12;
     
-    NSInteger rd = arc4random()%3;
+    NSString *rootImageName = self.isFront ? @"dice_127" : @"dice_126";
+    UIImage *ann1 = [self.ivSezi.image copy];
+    UIImage *ann2 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @(direction*12 + lastStar)]];
+    UIImage *ann3 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @(121 + direction)]];
+    UIImage *ann4 = [UIImage imageNamed:[NSString stringWithFormat:@"dice_%@", @((direction + 5)*12 + self.star)]];
+    UIImage *ann5 = [self addImage:[UIImage imageNamed:[NSString stringWithFormat:@"dice_xing_%@", @(self.star)]] toImage:[UIImage imageNamed:rootImageName]];
+
+    self.ivSezi.animationImages = @[ann1, ann2, ann3, ann4, ann5];
+    self.ivSezi.animationDuration = 0.3;
+    self.ivSezi.animationRepeatCount = 1;
+    [self.ivSezi startAnimating];
+    self.ivSezi.image = ann5;
+    self.isFront = !self.isFront;
     
-    CGFloat directionX = 1.0;
-    CGFloat directionY = 1.0;
-    if(rd == 1){
-        directionX = -1;
-    }else if(rd == 2){
-        directionY = -1;
-    }else if(rd == 3){
-        directionX = -1;
-        directionY = - 1;
-    }
-    
-    CABasicAnimation *rotationX = [CABasicAnimation animationWithKeyPath:@"transform.rotation.x"];
-    rotationX.toValue = [NSNumber numberWithFloat:directionX * M_PI * 2];
-    
-    CABasicAnimation *rotationY = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    rotationY.toValue = [NSNumber numberWithFloat:directionY * M_PI * 2];
-    
-    group.animations = [NSArray arrayWithObjects: rotationX, rotationY, nil];
-    group.fillMode = kCAFillModeForwards;
-    group.removedOnCompletion = NO;
-    
-    [CATransaction flush];
-    [self.ivSezi.layer addAnimation:group forKey:@"animationKey"];
+    [self performSelector:@selector(animateSezi) withObject:nil afterDelay:1.0];
 }
 
 // 计时器暂停,便可以暂停圆盘的旋转
@@ -175,6 +162,7 @@
 - (void)stopRotate
 {
     _animateing = NO;
+    [self.ivSezi stopAnimating];
     [_timer invalidate];
     _timer = nil;
     self.ivSezi.layer.transform = CATransform3DIdentity;
@@ -183,14 +171,15 @@
     }
 }
 
-- (void)animationDidStart:(CAAnimation *)anim{
-    self.star = arc4random()%12;
-}
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-    if(flag && self.animateing){
-        [self performSelector:@selector(animateSezi) withObject:nil afterDelay:0.4];
-    }
+- (UIImage *)addImage:(UIImage *)topImage toImage:(UIImage*)rootImage{
+    UIGraphicsBeginImageContext(rootImage.size);
+    CGFloat x = (rootImage.size.width - topImage.size.width)/2;
+    CGFloat y = (rootImage.size.height - topImage.size.height)/2;
+    [rootImage drawInRect:CGRectMake(0, 0, rootImage.size.width, rootImage.size.height)];
+    [topImage drawInRect:CGRectMake(x, y, topImage.size.width, topImage.size.height)];
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return resultingImage;
 }
 
 @end

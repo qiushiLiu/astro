@@ -223,7 +223,7 @@
 
  @see setApplicationIDString:
  */
-
+#if TARGET_OS_MAC && !TARGET_OS_IPHONE
 - (NSString*)applicationIDString;
 
 /** Set the application ID string
@@ -234,6 +234,8 @@
  */
 
 - (void)setApplicationIDString:(NSString*)string;
+#endif
+
 #endif
 
 

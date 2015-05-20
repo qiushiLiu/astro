@@ -107,7 +107,6 @@
         
         UIImageView *ivBg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, DF_WIDTH - 10, 100)];
         ivBg.image = [[UIImage imageNamed:@"dice_text_bg"] stretchableImageWithLeftCapWidth:30 topCapHeight:30];
-        ivBg.userInteractionEnabled = NO;
         [cell.contentView addSubview:ivBg];
         
         UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(ivBg.left + 20, ivBg.top + 5, ivBg.width -40, ivBg.height - 10)];

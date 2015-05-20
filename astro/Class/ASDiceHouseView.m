@@ -47,14 +47,14 @@
         self.lbIndex.innerGlowColor = [UIColor redColor];
         self.lbIndex.innerGlowSize = 4;
         self.lbIndex.glowColor = [UIColor whiteColor];
-        self.lbIndex.glowSize = 20;
+        self.lbIndex.glowSize = 18;
         self.ivDelta.image = [UIImage imageNamed:@"delta"];
     }else{
         self.lbIndex.textColor = UIColorFromRGB(0x034EA0);
         self.lbIndex.innerGlowColor = UIColorFromRGB(0x034EA0);
         self.lbIndex.innerGlowSize = 4;
         self.lbIndex.glowColor = [UIColor redColor];
-        self.lbIndex.glowSize = 20;
+        self.lbIndex.glowSize = 18;
         self.ivDelta.image = [UIImage imageNamed:@"delta_nl"];
     }
     [self setNeedsDisplay];
