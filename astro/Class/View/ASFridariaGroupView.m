@@ -23,6 +23,7 @@
     if(self = [super initWithFrame:frame style:style]){
         self.delegate = self;
         self.dataSource = self;
+        self.backgroundColor = [UIColor clearColor];
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.separatorColor = [UIColor clearColor];
         self.scrollEnabled = NO;
@@ -31,17 +32,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 9;
+    return [self.data count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row >=0 && indexPath.row < [_data count]){
         ASFirdariaDecade *item = _data[indexPath.row];
         if([item.FirdariaShort count] != 7){
-            return 28;
+            return 33;
         }
     }
-    return 60;
+    return 65;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -52,13 +53,13 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.contentView.backgroundColor = [UIColor clearColor];
         
-        ASFridariaView *fv = [[ASFridariaView alloc] initWithSection:indexPath.row];
+        ASFridariaView *fv = [ASFridariaView newFridariaView];
         fv.delegate = self.firdariaDelegate;
         fv.tag = 100;
         [cell.contentView addSubview:fv];
     }
     ASFridariaView *fv = (ASFridariaView *)[cell.contentView viewWithTag:100];
-    [fv setData:_data[indexPath.row]];
+    [fv setSection:indexPath.row forData:_data[indexPath.row]];
     return cell;
 }
 

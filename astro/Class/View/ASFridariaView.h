@@ -20,5 +20,7 @@
 @property (nonatomic, readonly) NSInteger section;
 @property (nonatomic, weak) ASFirdariaDecade *data;
 @property (nonatomic, assign) id<ASFridariaViewDelegate> delegate;
-- (instancetype)initWithSection:(NSInteger)section;
+
++ (instancetype)newFridariaView;
+- (void)setSection:(NSInteger)section forData:(ASFirdariaDecade *)data;
 @end

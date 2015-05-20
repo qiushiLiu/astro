@@ -123,6 +123,7 @@
 		1BAC959E1A032E6800B0FBF7 /* ASQaFullAstro.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC959D1A032E6800B0FBF7 /* ASQaFullAstro.m */; };
 		1BAC95A11A032E7F00B0FBF7 /* ASQaFullZiWei.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC95A01A032E7F00B0FBF7 /* ASQaFullZiWei.m */; };
 		1BAC95A41A033AF600B0FBF7 /* ASCommentVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC95A31A033AF600B0FBF7 /* ASCommentVc.m */; };
+		1BB2B2541B0C31E300F8D7F5 /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB2B2531B0C31E300F8D7F5 /* CustomIOSAlertView.m */; };
 		1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */; };
 		1BBF581118AB60E50081D93A /* ASAskerVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581018AB60E50081D93A /* ASAskerVc.m */; };
 		1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581318AB65B20081D93A /* ASAskerCell.m */; };
@@ -389,6 +390,8 @@
 		1BAC95A01A032E7F00B0FBF7 /* ASQaFullZiWei.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASQaFullZiWei.m; sourceTree = "<group>"; };
 		1BAC95A21A033AF600B0FBF7 /* ASCommentVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASCommentVc.h; sourceTree = "<group>"; };
 		1BAC95A31A033AF600B0FBF7 /* ASCommentVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCommentVc.m; sourceTree = "<group>"; };
+		1BB2B2521B0C31E300F8D7F5 /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
+		1BB2B2531B0C31E300F8D7F5 /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTabMainVc.h; sourceTree = "<group>"; };
 		1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTabMainVc.m; sourceTree = "<group>"; };
 		1BBF580F18AB60E50081D93A /* ASAskerVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskerVc.h; sourceTree = "<group>"; };
@@ -564,6 +567,8 @@
 		1B012B5F185DCB7D0046AD7A /* category */ = {
 			isa = PBXGroup;
 			children = (
+				1BB2B2521B0C31E300F8D7F5 /* CustomIOSAlertView.h */,
+				1BB2B2531B0C31E300F8D7F5 /* CustomIOSAlertView.m */,
 				1B7C47BE192501BA00924E44 /* ASHelper.h */,
 				1B7C47BF192501BA00924E44 /* ASHelper.m */,
 				1BE157BF1A5A24F1009588DF /* FBGlowLabel.h */,
@@ -1178,6 +1183,7 @@
 				1B1D5F361942C2AC00D23025 /* ASQaFullBazi.m in Sources */,
 				1B4DA2E518D8007800E6E039 /* UITabBarItem+Universal.m in Sources */,
 				1B8913A31A59507300E68704 /* ASDiceHouseView.m in Sources */,
+				1BB2B2541B0C31E300F8D7F5 /* CustomIOSAlertView.m in Sources */,
 				1BF467C418DC246600CB3E4B /* Paipan.m in Sources */,
 				1B318E80196A29AE003C157C /* ASPickerView.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,

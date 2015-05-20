@@ -64,7 +64,7 @@
     self.page.centerX = self.contentView.width/2;
     self.page.top = 10;
     self.page.enabled = NO;
-    [self.view addSubview:self.page];
+    [self.contentView addSubview:self.page];
     
     self.scPanView = [[UIScrollView alloc] initWithFrame:self.contentView.bounds];
     self.scPanView.backgroundColor = [UIColor clearColor];
@@ -455,11 +455,11 @@
     ASFirdaria *item = fGroup.FirdariaShort[index];
     NSMutableString *str = [NSMutableString string];
     [str appendString:__AstroStar[fGroup.FirdariaLong.Star]];
-    [str appendString:@" "];
+    [str appendString:@"-"];
     [str appendString:__AstroStar[item.Star]];
-    [str appendString:@"\n"];
+    [str appendString:@"  限\n"];
     [str appendFormat:@"%@~%@", [item.Begin toStrFormat:@"yyyy-MM-dd"], [item.End toStrFormat:@"yyyy-MM-dd"]];
-    [self.view makeToast:str duration:5.0 position:CSToastPositionBottom];
+    [self.view makeToast:str duration:5.0 position:[NSValue valueWithCGPoint:CGPointMake(self.contentView.width/2, self.contentView.height - 30)]];
 }
 
 #pragma mark - TimeChangeView Delegate

@@ -8,11 +8,18 @@
 
 #import "ASDiceViewController.h"
 #import "ASDiceView.h"
+#import "Paipan.h"
+#import "CustomIOSAlertView.h"
+@implementation ASDiceResult
+@end
 
-@interface ASDiceViewController ()<ASDiceViewDelegate, UITextFieldDelegate>
+
+@interface ASDiceViewController ()<ASDiceViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITextField *tfQuestion;
 @property (nonatomic, strong) ASDiceView *panView;
 @property (nonatomic, strong) UIButton *btnStart;
+@property (nonatomic, strong) UITableView *tbResult;
+@property (nonatomic, strong) NSMutableArray *arr;
 @end
 
 @implementation ASDiceViewController
@@ -22,13 +29,7 @@
     // Do any additional setup after loading the view.
     
     self.title = @"占星骰子";
-    
-    //左侧按钮
-    UIButton *btn = [ASControls newDarkRedButton:CGRectMake(0, 0, 54, 28) title:@"历史"];
-    [btn addTarget:self action:@selector(btnClick_history) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dice_bg"]];
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_01"]]; //dice_bg
     
     self.tfQuestion = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, 230, 30)];
     self.tfQuestion.background = [UIImage imageNamed:@"dice_input"];
@@ -56,28 +57,104 @@
     ivLogo.left = 5;
     [self.contentView addSubview:ivLogo];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap_background)];
-    [self.contentView addGestureRecognizer:tap];
+    self.tbResult = [[UITableView alloc] initWithFrame:CGRectMake(0, self.panView.bottom + 20, DF_WIDTH, 1) style:UITableViewStylePlain];
+    self.tbResult.backgroundColor = [UIColor clearColor];
+    self.tbResult.separatorColor = [UIColor clearColor];
+    self.tbResult.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tbResult.scrollEnabled = NO;
+    self.tbResult.rowHeight = 120;
+    self.tbResult.delegate = self;
+    self.tbResult.dataSource = self;
+    [self.contentView addSubview:self.tbResult];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+    [self.panView addGestureRecognizer:tap];
+    
+    self.arr = [NSMutableArray array];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.panView.centerX = self.contentView.width/2;
 }
 
-- (void)tap_background{
+- (void)hideKeyBoard{
     [self.tfQuestion resignFirstResponder];
 }
 
 - (void)btnClick_start{
-    [self.tfQuestion resignFirstResponder];
+    [self hideKeyBoard];
+    self.tfQuestion.enabled = NO;
     [self.panView start];
 }
 
-- (void)btnClick_history{
-    
+#pragma mark - UITableView Delegate Method
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    [self hideKeyBoard];
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.arr count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identifier = @"DiceCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if(!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        
+        UIImageView *ivBg = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, DF_WIDTH - 10, 100)];
+        ivBg.image = [[UIImage imageNamed:@"dice_text_bg"] stretchableImageWithLeftCapWidth:30 topCapHeight:30];
+        ivBg.userInteractionEnabled = NO;
+        [cell.contentView addSubview:ivBg];
+        
+        UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(ivBg.left + 20, ivBg.top + 5, ivBg.width -40, ivBg.height - 10)];
+        lb.textAlignment = NSTextAlignmentLeft;
+        lb.tag = 100;
+        lb.backgroundColor = [UIColor clearColor];
+        lb.lineBreakMode = NSLineBreakByCharWrapping;
+        lb.numberOfLines = 0;
+        [cell.contentView addSubview:lb];
+    }
+    ASDiceResult *item = self.arr[indexPath.row];
+    UILabel *lb = (UILabel *)[cell.contentView viewWithTag:100];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] init];
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"#占卜结果#\n"
+                                                                attributes:@{NSForegroundColorAttributeName : ASColorBlue,
+                                                                             NSFontAttributeName : [UIFont systemFontOfSize:14]}]];
+    if([item.question length] > 0){
+        NSString *question = [NSString stringWithFormat:@"%@\n", item.question];
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:question
+                                                                    attributes:@{NSForegroundColorAttributeName : ASColorDarkGray,
+                                                                                 NSFontAttributeName : [UIFont systemFontOfSize:14]}]];
+    }
+    [str appendAttributedString:[[NSAttributedString alloc] initWithString:item.info
+                                                                attributes:@{NSForegroundColorAttributeName : ASColorBlue,
+                                                                             NSFontAttributeName : [UIFont boldSystemFontOfSize:16]}]];
+    lb.attributedText = str;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ASDiceResult *item = self.arr[indexPath.row];
+    if(item){
+        NSString *html = [NSString stringWithFormat:@"<body style=\"background-color: transparent;\">%@</body>", item.result];
+        CustomIOSAlertView *alert = [[CustomIOSAlertView alloc] init];
+        UIWebView *wbView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, DF_WIDTH - 40, 240)];
+        wbView.opaque = NO;
+        wbView.backgroundColor = [UIColor clearColor];
+        [wbView loadHTMLString:html baseURL:nil];
+        [alert setContainerView:wbView];
+        [alert setButtonTitles:@[@"确定"]];
+        [alert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+            [alertView close];
+        }];
+        [alert show];
+    }
+}
+
+#pragma mark - UITextField Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if(textField == self.tfQuestion){
         [self btnClick_start];
@@ -85,18 +162,33 @@
     return YES;
 }
 
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    //limit the size :
+    int limit = 40;
+    return !([textField.text length]>limit && [string length] > range.length);
+}
+
 #pragma mark - ASDiceViewDelegate
 - (void)didFinishedDiceView:(ASDiceView *)dv{
+    self.tfQuestion.enabled = YES;
     [self showWaiting];
+    NSInteger star = self.panView.star + 1;
+    NSInteger gong = self.panView.gong + 1;
+    NSInteger constellation = self.panView.constellation + 1;
     [HttpUtil load:@"pp/GetDiceInfo"
             params:@{@"star" : @(self.panView.star),
-                     @"house" : @(self.panView.gong),
+                     @"house" : @(gong),
                      @"constellation" : @(self.panView.constellation)}
         completion:^(BOOL succ, NSString *message, id json) {
-            NSString *val = json;
-            val = [val stringByReplacingOccurrencesOfString:@"<br />" withString:@""];
+            ASDiceResult *item = [[ASDiceResult alloc] init];
+            item.question = [self.tfQuestion.text trim];
+            item.info = [NSString stringWithFormat:@"%@ %@宫 %@", __AstroStar[star], @(gong), __Constellation[constellation]];
+            item.result = json;
+            [self.arr insertObject:item atIndex:0];
+            [self.tbResult reloadData];
+            self.tbResult.height = self.tbResult.contentSize.height;
+            self.contentView.contentSize = CGSizeMake(DF_WIDTH, self.tbResult.bottom);
             [self hideWaiting];
-            [self alert:val];
         }];
 }
 

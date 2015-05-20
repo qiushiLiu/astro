@@ -16,62 +16,69 @@
 #define FridariaBrown           UIColorFromRGB(0xd7d3c7)
 #define FridariaRed             UIColorFromRGB(0xf9ceaf)
 
-#define Array_Fridaria_Colors @[FridariaColorsRed,\
-                    FridariaColorsBlue,\
-                    FridariaColorsYellow,\
-                    FridariaColorsGreen,\
-                    FridariaColorsRed,\
-                    FridariaColorsRed,\
-                    FridariaColorsYellow,\
-                    FridariaColorsCyan,\
-                    FridariaColorsCyan]
+#define Array_Fridaria_Colors @{@"1" : FridariaColorsRed,\
+                    @"2" : FridariaColorsBlue,\
+                    @"3" : FridariaColorsYellow,\
+                    @"4" : FridariaColorsGreen,\
+                    @"5" : FridariaColorsRed,\
+                    @"6" : FridariaColorsRed,\
+                    @"7" : FridariaColorsYellow,\
+                    @"16" : FridariaColorsCyan,\
+                    @"33" : FridariaColorsCyan}
 
 @interface ASFridariaView()
 @property (nonatomic, strong) NSArray *buttons;
+@property (nonatomic, strong) UIView *leftTopView;
+@property (nonatomic, strong) UIView *rightTopView;
 @property (nonatomic, strong) UILabel *lbTitle;
 @property (nonatomic, strong) UIView *bottomView;
 @end
 
 @implementation ASFridariaView
 
-- (instancetype)initWithSection:(NSInteger)section{
-    if(self = [super initWithFrame:CGRectMake(0, 0, DF_WIDTH, 56)]){
-        _section = section;
-        NSAssert(section < [Array_Fridaria_Colors count] && section >= 0, @"Fridaria Section out of limit");
++ (instancetype)newFridariaView{
+    return [[self alloc] initWithFrame:CGRectMake(0, 0, DF_WIDTH, 56)];
+}
+
+- (id)initWithFrame:(CGRect)frame{
+    if(self = [super initWithFrame:frame]){
+
+        self.leftTopView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 10, 24)];
+        [self addSubview:self.leftTopView];
         
-        NSArray *colors = Array_Fridaria_Colors[_section];
+        self.rightTopView = [[UIView alloc] initWithFrame:CGRectMake(self.leftTopView.right, self.leftTopView.top, DF_WIDTH - 5 - self.leftTopView.right, self.leftTopView.height)];
+        [self addSubview:self.rightTopView];
         
-        UIView *leftTopView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, 10, 24)];
-        leftTopView.backgroundColor = colors[0];
-        [self addSubview:leftTopView];
-        
-        UIView *rightTopView = [[UIView alloc] initWithFrame:CGRectMake(leftTopView.right, leftTopView.top, DF_WIDTH - 5 - leftTopView.right, leftTopView.height)];
-        CAGradientLayer *gradient = [CAGradientLayer layer];
-        gradient.frame = rightTopView.bounds;
-        gradient.startPoint = CGPointMake(0, 0);
-        gradient.endPoint = CGPointMake(1, 0);
-        gradient.colors = @[(id)[colors[1] CGColor], (id)[colors[2] CGColor]];
-        [rightTopView.layer insertSublayer:gradient atIndex:0];
-        [self addSubview:rightTopView];
-        
-        self.lbTitle = [[UILabel alloc] initWithFrame:rightTopView.frame];
-        self.lbTitle.left = rightTopView.left + 10;
+        self.lbTitle = [[UILabel alloc] initWithFrame:self.rightTopView.frame];
+        self.lbTitle.left = self.rightTopView.left + 10;
         self.lbTitle.backgroundColor = [UIColor clearColor];
         self.lbTitle.font = [UIFont systemFontOfSize:12];
         self.lbTitle.textColor = [UIColor blackColor];
         [self addSubview:self.lbTitle];
         
-        self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(leftTopView.left, leftTopView.bottom, DF_WIDTH - 10, 34)];
+        self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(self.leftTopView.left, self.leftTopView.bottom, DF_WIDTH - 10, 34)];
         self.bottomView.backgroundColor = ASColorDarkGray;
         [self addSubview:self.bottomView];
     }
     return self;
 }
 
-- (void)setData:(ASFirdariaDecade *)data{
-    if(!data) return;
+- (void)setSection:(NSInteger)section forData:(ASFirdariaDecade *)data{
+    if(section < 0 || !data) return;
     
     _data = data;
+    _section = section;
+    NSInteger star = data.FirdariaLong.Star;
+    NSArray *colors = [Array_Fridaria_Colors objectForKey:Int2String(star)];
+    self.leftTopView.backgroundColor = colors[0];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.rightTopView.bounds;
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(1, 0);
+    gradient.colors = @[(id)[colors[1] CGColor], (id)[colors[2] CGColor]];
+    self.rightTopView.layer.sublayers = nil;
+    [self.rightTopView.layer insertSublayer:gradient atIndex:0];
+    
     self.lbTitle.text = [NSString stringWithFormat:@"%@(%@ ~ %@)", __AstroStar[_data.FirdariaLong.Star], [_data.FirdariaLong.Begin toStrFormat:@"yyyy-MM-dd"], [_data.FirdariaLong.Begin toStrFormat:@"yyyy-MM-dd"]];
     [self.buttons enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [obj removeFromSuperview];
@@ -80,14 +87,22 @@
         self.bottomView.hidden = NO;
         CGFloat left = self.bottomView.left + 1.5;
         CGFloat top = self.bottomView.top + 1;
+        NSDate *dtNow = [NSDate date];
         for(int i = 0; i < [_data.FirdariaShort count]; i++){
             ASFirdaria *item = _data.FirdariaShort[i];
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(left, top, 43, self.bottomView.height - 2)];
             btn.tag = i;
             btn.titleLabel.font = [UIFont systemFontOfSize:12];
-            btn.backgroundColor = FridariaBrown;
-            [btn setTitle:__AstroStar[item.Star] forState:UIControlStateNormal];
+            if([item.Begin compare:dtNow] != NSOrderedDescending
+               && [item.End compare:dtNow] == NSOrderedDescending){
+                btn.backgroundColor = FridariaColorsRed[1];
+                btn.layer.borderWidth = 1;
+                btn.layer.borderColor = ((UIColor *)FridariaColorsRed[0]).CGColor;
+            }else{
+                btn.backgroundColor = FridariaBrown;
+            }
             [btn setTitleColor:ASColorDarkGray forState:UIControlStateNormal];
+            [btn setTitle:__AstroStar[item.Star] forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(btnClick_cell:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
             left = btn.right + 1;
