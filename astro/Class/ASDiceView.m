@@ -67,7 +67,7 @@
 
 - (NSInteger)constellation{
     CGFloat angle = ILTransform2Angle(self.cycleView.transform);
-    CGFloat ret = angle * 6.0 / M_PI;
+    CGFloat ret = angle * 6.0 / M_PI - self.gong;
     if(ret <= 0){
         ret += 12;
     }
@@ -86,7 +86,7 @@
     if(_animateing) return;
     
     self.userInteractionEnabled = NO;
-    self.startSpeed = ((arc4random() % 101) + 200) * 0.01 * M_PI;
+    self.startSpeed = ((arc4random() % 101) + 150) * 0.01 * M_PI;
     self.speed = self.startSpeed;
 
     self.gongStartSpeed = self.startSpeed * ((arc4random() % 50) + 100) * 0.01;

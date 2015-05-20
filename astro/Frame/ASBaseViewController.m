@@ -23,6 +23,7 @@
         // Custom initialization
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_dl"]];
         self.watingView = [[ASWaitingView alloc] initWithBaseViewController:self];
+        self.pageKey = NSStringFromClass([self class]);
     }
     return self;
 }

@@ -10,6 +10,8 @@
 #import "ASDiceView.h"
 #import "Paipan.h"
 #import "CustomIOSAlertView.h"
+#import "ASCache.h"
+
 @implementation ASDiceResult
 @end
 
@@ -53,11 +55,11 @@
     [self.contentView addSubview:self.panView];
     
     UIImageView *ivLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dice_logo"]];
-    ivLogo.bottom = self.panView.bottom - 5;
+    ivLogo.bottom = self.panView.bottom + 5;
     ivLogo.left = 5;
     [self.contentView addSubview:ivLogo];
     
-    self.tbResult = [[UITableView alloc] initWithFrame:CGRectMake(0, self.panView.bottom + 20, DF_WIDTH, 1) style:UITableViewStylePlain];
+    self.tbResult = [[UITableView alloc] initWithFrame:CGRectMake(0, self.panView.bottom + 20, DF_WIDTH, 120) style:UITableViewStylePlain];
     self.tbResult.backgroundColor = [UIColor clearColor];
     self.tbResult.separatorColor = [UIColor clearColor];
     self.tbResult.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -66,15 +68,24 @@
     self.tbResult.delegate = self;
     self.tbResult.dataSource = self;
     [self.contentView addSubview:self.tbResult];
+    self.contentView.contentSize = CGSizeMake(self.contentView.width, self.tbResult.bottom + 20);
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
     [self.panView addGestureRecognizer:tap];
-    
-    self.arr = [NSMutableArray array];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.arr = [NSMutableArray array];
+    ASCacheObject *cf = [[ASCache shared] readDicFiledsWithDir:self.pageKey key:self.pageKey];
+    if (cf) {
+        //设置登录信息
+        NSData *data = [cf.value dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *tmp = [ASDiceResult arrayOfModelsFromData:data error:nil];
+        if([tmp count] > 0){
+            [self.arr addObjectsFromArray:tmp];
+        }
+    }
 }
 
 - (void)hideKeyBoard{
@@ -94,7 +105,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.arr count];
+    return MAX(1, [self.arr count]);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -117,22 +128,26 @@
         lb.numberOfLines = 0;
         [cell.contentView addSubview:lb];
     }
-    ASDiceResult *item = self.arr[indexPath.row];
     UILabel *lb = (UILabel *)[cell.contentView viewWithTag:100];
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] init];
-    [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"#占卜结果#\n"
-                                                                attributes:@{NSForegroundColorAttributeName : ASColorBlue,
-                                                                             NSFontAttributeName : [UIFont systemFontOfSize:14]}]];
-    if([item.question length] > 0){
-        NSString *question = [NSString stringWithFormat:@"%@\n", item.question];
-        [str appendAttributedString:[[NSAttributedString alloc] initWithString:question
-                                                                    attributes:@{NSForegroundColorAttributeName : ASColorDarkGray,
+    if(indexPath.row < [self.arr count]){
+        ASDiceResult *item = self.arr[indexPath.row];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] init];
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"#占卜结果#\n"
+                                                                    attributes:@{NSForegroundColorAttributeName : ASColorBlue,
                                                                                  NSFontAttributeName : [UIFont systemFontOfSize:14]}]];
+        if([item.question length] > 0){
+            NSString *question = [NSString stringWithFormat:@"%@\n", item.question];
+            [str appendAttributedString:[[NSAttributedString alloc] initWithString:question
+                                                                        attributes:@{NSForegroundColorAttributeName : ASColorDarkGray,
+                                                                                     NSFontAttributeName : [UIFont systemFontOfSize:14]}]];
+        }
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:item.info
+                                                                    attributes:@{NSForegroundColorAttributeName : ASColorBlue,
+                                                                                 NSFontAttributeName : [UIFont boldSystemFontOfSize:16]}]];
+        lb.attributedText = str;
+    }else{
+        lb.attributedText = nil;
     }
-    [str appendAttributedString:[[NSAttributedString alloc] initWithString:item.info
-                                                                attributes:@{NSForegroundColorAttributeName : ASColorBlue,
-                                                                             NSFontAttributeName : [UIFont boldSystemFontOfSize:16]}]];
-    lb.attributedText = str;
     return cell;
 }
 
@@ -154,6 +169,24 @@
     }
 }
 
+- (void)addResult:(ASDiceResult *)result{
+    if(!result){
+        return;
+    }
+    [self.arr insertObject:result atIndex:0];
+    if([self.arr count] > 10){
+        self.arr = [NSMutableArray arrayWithArray:[self.arr subarrayWithRange:NSMakeRange(0, 10)]];
+    }
+    [self saveToCache];
+}
+
+
+- (void)saveToCache{
+    if([self.arr count] > 0){
+        [[ASCache shared] storeValue:[self.arr toJSONString] dir:self.pageKey key:self.pageKey];
+    }
+}
+
 #pragma mark - UITextField Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if(textField == self.tfQuestion){
@@ -172,7 +205,6 @@
 - (void)didFinishedDiceView:(ASDiceView *)dv{
     self.tfQuestion.enabled = YES;
     self.contentView.scrollEnabled = YES;
-    [self showWaiting];
     NSInteger star = self.panView.star + 1;
     NSInteger gong = self.panView.gong + 1;
     NSInteger constellation = self.panView.constellation + 1;
@@ -185,11 +217,10 @@
             item.question = [self.tfQuestion.text trim];
             item.info = [NSString stringWithFormat:@"%@ %@宫 %@", __AstroStar[star], @(gong), __Constellation[constellation]];
             item.result = json;
-            [self.arr insertObject:item atIndex:0];
+            [self addResult:item];
             [self.tbResult reloadData];
             self.tbResult.height = self.tbResult.contentSize.height;
             self.contentView.contentSize = CGSizeMake(DF_WIDTH, self.tbResult.bottom);
-            [self hideWaiting];
         }];
 }
 

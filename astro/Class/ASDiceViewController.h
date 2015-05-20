@@ -8,7 +8,7 @@
 
 #import "ASBaseViewController.h"
 
-@interface ASDiceResult : NSObject
+@interface ASDiceResult : JSONModel
 @property (nonatomic, strong) NSString *question;
 @property (nonatomic, strong) NSString *info;
 @property (nonatomic, strong) NSString *result;
