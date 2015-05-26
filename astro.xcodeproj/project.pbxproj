@@ -124,6 +124,8 @@
 		1BAC95A11A032E7F00B0FBF7 /* ASQaFullZiWei.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC95A01A032E7F00B0FBF7 /* ASQaFullZiWei.m */; };
 		1BAC95A41A033AF600B0FBF7 /* ASCommentVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAC95A31A033AF600B0FBF7 /* ASCommentVc.m */; };
 		1BB2B2541B0C31E300F8D7F5 /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB2B2531B0C31E300F8D7F5 /* CustomIOSAlertView.m */; };
+		1BB2B25A1B142CC700F8D7F5 /* Effects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB2B2571B142CC700F8D7F5 /* Effects.m */; };
+		1BB2B25B1B142CC700F8D7F5 /* GlowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB2B2591B142CC700F8D7F5 /* GlowLabel.m */; };
 		1BBF580E18AB5CC60081D93A /* ASTabMainVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */; };
 		1BBF581118AB60E50081D93A /* ASAskerVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581018AB60E50081D93A /* ASAskerVc.m */; };
 		1BBF581418AB65B20081D93A /* ASAskerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF581318AB65B20081D93A /* ASAskerCell.m */; };
@@ -152,7 +154,6 @@
 		1BD5365A18D17385001D0F30 /* ZiWeiGong.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365918D17385001D0F30 /* ZiWeiGong.m */; };
 		1BD5365D18D17435001D0F30 /* ZiWeiStar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD5365C18D17435001D0F30 /* ZiWeiStar.m */; };
 		1BDFC47D18BDDEDF00EC4E71 /* ASShareBindVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */; };
-		1BE157C11A5A24F1009588DF /* FBGlowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE157C01A5A24F1009588DF /* FBGlowLabel.m */; };
 		1BEA34161A2FF32F00A3C382 /* ASSMSVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEA34151A2FF32F00A3C382 /* ASSMSVc.m */; };
 		1BECAC21194711AD005C330B /* ASQaComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BECAC20194711AD005C330B /* ASQaComment.m */; };
 		1BF467C418DC246600CB3E4B /* Paipan.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BF467C318DC246600CB3E4B /* Paipan.m */; };
@@ -392,6 +393,10 @@
 		1BAC95A31A033AF600B0FBF7 /* ASCommentVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASCommentVc.m; sourceTree = "<group>"; };
 		1BB2B2521B0C31E300F8D7F5 /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		1BB2B2531B0C31E300F8D7F5 /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		1BB2B2561B142CC700F8D7F5 /* Effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Effects.h; sourceTree = "<group>"; };
+		1BB2B2571B142CC700F8D7F5 /* Effects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Effects.m; sourceTree = "<group>"; };
+		1BB2B2581B142CC700F8D7F5 /* GlowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlowLabel.h; sourceTree = "<group>"; };
+		1BB2B2591B142CC700F8D7F5 /* GlowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlowLabel.m; sourceTree = "<group>"; };
 		1BBF580C18AB5CC60081D93A /* ASTabMainVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTabMainVc.h; sourceTree = "<group>"; };
 		1BBF580D18AB5CC60081D93A /* ASTabMainVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTabMainVc.m; sourceTree = "<group>"; };
 		1BBF580F18AB60E50081D93A /* ASAskerVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAskerVc.h; sourceTree = "<group>"; };
@@ -452,8 +457,6 @@
 		1BD5365C18D17435001D0F30 /* ZiWeiStar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiWeiStar.m; sourceTree = "<group>"; };
 		1BDFC47B18BDDEDF00EC4E71 /* ASShareBindVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASShareBindVc.h; sourceTree = "<group>"; };
 		1BDFC47C18BDDEDF00EC4E71 /* ASShareBindVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASShareBindVc.m; sourceTree = "<group>"; };
-		1BE157BF1A5A24F1009588DF /* FBGlowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGlowLabel.h; sourceTree = "<group>"; };
-		1BE157C01A5A24F1009588DF /* FBGlowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBGlowLabel.m; sourceTree = "<group>"; };
 		1BEA34141A2FF32F00A3C382 /* ASSMSVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASSMSVc.h; sourceTree = "<group>"; };
 		1BEA34151A2FF32F00A3C382 /* ASSMSVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASSMSVc.m; sourceTree = "<group>"; };
 		1BECAC1F194711AD005C330B /* ASQaComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASQaComment.h; sourceTree = "<group>"; };
@@ -567,12 +570,11 @@
 		1B012B5F185DCB7D0046AD7A /* category */ = {
 			isa = PBXGroup;
 			children = (
+				1BB2B2551B142CB700F8D7F5 /* GlowLabel */,
 				1BB2B2521B0C31E300F8D7F5 /* CustomIOSAlertView.h */,
 				1BB2B2531B0C31E300F8D7F5 /* CustomIOSAlertView.m */,
 				1B7C47BE192501BA00924E44 /* ASHelper.h */,
 				1B7C47BF192501BA00924E44 /* ASHelper.m */,
-				1BE157BF1A5A24F1009588DF /* FBGlowLabel.h */,
-				1BE157C01A5A24F1009588DF /* FBGlowLabel.m */,
 				1B7F755419BD92D600F01EF4 /* GpsData.h */,
 				1B7F755519BD92D600F01EF4 /* GpsData.m */,
 				1B012BBE185F31910046AD7A /* HttpUtil.h */,
@@ -931,6 +933,17 @@
 			name = user;
 			sourceTree = "<group>";
 		};
+		1BB2B2551B142CB700F8D7F5 /* GlowLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1BB2B2561B142CC700F8D7F5 /* Effects.h */,
+				1BB2B2571B142CC700F8D7F5 /* Effects.m */,
+				1BB2B2581B142CC700F8D7F5 /* GlowLabel.h */,
+				1BB2B2591B142CC700F8D7F5 /* GlowLabel.m */,
+			);
+			name = GlowLabel;
+			sourceTree = "<group>";
+		};
 		1BC12EDE1A590F2700029A31 /* dice */ = {
 			isa = PBXGroup;
 			children = (
@@ -1187,7 +1200,6 @@
 				1BF467C418DC246600CB3E4B /* Paipan.m in Sources */,
 				1B318E80196A29AE003C157C /* ASPickerView.m in Sources */,
 				1B9F1F2D1872622500278E62 /* FMDatabasePool.m in Sources */,
-				1BE157C11A5A24F1009588DF /* FBGlowLabel.m in Sources */,
 				1B3DBE0E198B2B1900C1F3D2 /* ASQuestionButton.m in Sources */,
 				1B9F1EB31861BD6D00278E62 /* NSObject+JSON.m in Sources */,
 				1B9F1F301872622500278E62 /* FMResultSet.m in Sources */,
@@ -1213,6 +1225,7 @@
 				1B7F755619BD92D600F01EF4 /* GpsData.m in Sources */,
 				1B012BBD185F2D230046AD7A /* ASBaseViewController.m in Sources */,
 				1B4716431B09FCDA0054486F /* UIView+Toast.m in Sources */,
+				1BB2B25B1B142CC700F8D7F5 /* GlowLabel.m in Sources */,
 				1B96B97B1A3146E100D3D42F /* ASZiWeiPanFillInfoVc.m in Sources */,
 				1B5D5E9A187A53B50030A7E8 /* ASLoginVc.m in Sources */,
 				1B9DF45018A614A900D4DCF4 /* ASToolBar.m in Sources */,
@@ -1240,6 +1253,7 @@
 				1B9F1F3518726CBB00278E62 /* ASCache.m in Sources */,
 				1B7EDF6A18AE3A0A00C82F0C /* ASAskerHeaderView.m in Sources */,
 				1B318E7A1966A4DE003C157C /* ASWaitingView.m in Sources */,
+				1BB2B25A1B142CC700F8D7F5 /* Effects.m in Sources */,
 				1BC6066618BC7F14004D317A /* Cipher.m in Sources */,
 				1BFBDFAD195161660063DDE2 /* ASUserCenterVc.m in Sources */,
 				1B9F1F2E1872622500278E62 /* FMDatabaseQueue.m in Sources */,

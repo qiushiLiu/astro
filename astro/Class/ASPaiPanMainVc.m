@@ -37,7 +37,7 @@
         }else if(col == 2){
             btn.centerX = 260;
         }
-        btn.top = 40 + row * 85;
+        btn.top = 40 + row * 95;
         [btn addTarget:self action:@selector(btnClick_panType:) forControlEvents:UIControlEventTouchUpInside];
         
         UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"pan_icon_%@", @(i + 1)]]];

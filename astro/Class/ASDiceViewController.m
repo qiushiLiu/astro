@@ -31,9 +31,11 @@
     // Do any additional setup after loading the view.
     
     self.title = @"占星骰子";
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bj_01"]]; //dice_bg
+    self.contentView.backgroundColor = UIColorFromRGB(0x083951);
+    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bj_01"]];
+    [self.contentView addSubview:bg];
     
-    self.tfQuestion = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, 230, 30)];
+    self.tfQuestion = [[UITextField alloc] initWithFrame:CGRectMake(10, 15, 205, 32)];
     self.tfQuestion.background = [UIImage imageNamed:@"dice_input"];
     self.tfQuestion.clearButtonMode = UITextFieldViewModeAlways;
     self.tfQuestion.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, self.tfQuestion.height)];
@@ -45,8 +47,10 @@
     self.tfQuestion.delegate = self;
     [self.contentView addSubview:self.tfQuestion];
     
-    self.btnStart = [ASControls newRedButton:CGRectMake(0, 15, 60, 30) title:@"开始"];
-    self.btnStart.right = DF_WIDTH - 10;
+    self.btnStart = [[UIButton alloc] initWithFrame:CGRectMake(0, 15, 91, 32)];
+    [self.btnStart setBackgroundImage:[UIImage imageNamed:@"dice_btn"] forState:UIControlStateNormal];
+    [self.btnStart setBackgroundImage:[UIImage imageNamed:@"dice_btn_hl"] forState:UIControlStateHighlighted];
+    self.btnStart.right = DF_WIDTH - 5;
     [self.btnStart addTarget:self action:@selector(btnClick_start) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.btnStart];
     
@@ -64,7 +68,7 @@
     self.tbResult.separatorColor = [UIColor clearColor];
     self.tbResult.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tbResult.scrollEnabled = NO;
-    self.tbResult.rowHeight = 120;
+    self.tbResult.rowHeight = 115;
     self.tbResult.delegate = self;
     self.tbResult.dataSource = self;
     [self.contentView addSubview:self.tbResult];
@@ -84,8 +88,15 @@
         NSArray *tmp = [ASDiceResult arrayOfModelsFromData:data error:nil];
         if([tmp count] > 0){
             [self.arr addObjectsFromArray:tmp];
+            [self reloadDataTable];
         }
     }
+}
+
+- (void)reloadDataTable{
+    [self.tbResult reloadData];
+    self.tbResult.height = self.tbResult.contentSize.height;
+    self.contentView.contentSize = CGSizeMake(DF_WIDTH, self.tbResult.bottom);
 }
 
 - (void)hideKeyBoard{
@@ -218,9 +229,7 @@
             item.info = [NSString stringWithFormat:@"%@ %@宫 %@", __AstroStar[star], @(gong), __Constellation[constellation]];
             item.result = json;
             [self addResult:item];
-            [self.tbResult reloadData];
-            self.tbResult.height = self.tbResult.contentSize.height;
-            self.contentView.contentSize = CGSizeMake(DF_WIDTH, self.tbResult.bottom);
+            [self reloadDataTable];
         }];
 }
 
