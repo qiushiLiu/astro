@@ -210,7 +210,7 @@
             }
             
             self.moreView.hidden = self.astro.type == 2;
-            NSInteger segmentSelectedIndex = self.timeChangeView.selectedIndex;
+            NSInteger segmentSelectedIndex = MAX(0, self.timeChangeView.selectedIndex);
             if(!self.moreView.isHidden){
                 if(self.astro.type == 1){
                     self.timeChangeView.hidden = NO;

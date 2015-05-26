@@ -54,8 +54,12 @@
     return pan;
 }
 
+- (BOOL)isLxPan{
+    return self.Type == 1;
+}
+
 - (UIImageView *)paipan{
-    BOOL lxTag = self.Type == 1;
+    BOOL lxTag = [self isLxPan];
     self.gongs = [NSMutableArray array];
     CGSize cellSize = lxTag ? __LxCellSize : __CellSize;
     

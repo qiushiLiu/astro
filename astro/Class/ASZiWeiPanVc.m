@@ -63,9 +63,6 @@
     [self.moreView addSubview:self.ivBottom];
     self.moreView.height = self.ivBottom.bottom;
     
-    self.lbMoreTitle.text = @"生时调整";
-    [self.timeChangeView setItems:@[@"十天", @"一天", @"一小时", @"一分钟"]];
-    
     self.btnQueston = [ASControls newOrangeButton:CGRectMake(0, 0, 200, 28) title:@"求解"];
     self.btnQueston.centerX = self.contentView.width/2;
     [self.btnQueston addTarget:self action:@selector(btnClick_question:) forControlEvents:UIControlEventTouchUpInside];
@@ -75,6 +72,15 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.btnQueston.hidden = self.hideButton;
+    NSInteger segmentSelectedIndex = MAX(0, self.timeChangeView.selectedIndex);
+    if([self.model isLxPan]){
+        self.lbMoreTitle.text = @"推运调整";
+        [self.timeChangeView setItems:@[@"一年", @"一限"]];
+    }else{
+        self.lbMoreTitle.text = @"生时调整";
+        [self.timeChangeView setItems:@[@"十分钟", @"一个时辰"]];
+    }
+    self.timeChangeView.selectedIndex = segmentSelectedIndex;
     [self loadData];
 }
 
@@ -128,14 +134,19 @@
 #pragma mark - TimeChangeView Delegate
 - (void)timeChangView:(ASTimeChangeView *)tcView withDirection:(NSInteger)direction andSelectedIndex:(NSInteger)selectedIndex{
     NSInteger flag = direction;
-    if(selectedIndex == 0){ //十天
-        self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * 10 * D_DAY];
-    }else if(selectedIndex == 1){   //一天
-        self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * D_DAY];
-    }else if(selectedIndex == 2){   //一小时
-        self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * D_HOUR];
-    }else{  //一分钟
-        self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * D_MINUTE];
+    if(![self.model isLxPan]){   //本命
+        if(selectedIndex == 0){ //十分钟
+            self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * 10 * D_MINUTE];
+        }else if(selectedIndex == 1){   //一个时辰
+            self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * 2 * D_HOUR];
+        }
+    }else{
+        NSDate *date = self.model.TransitTime.Date;
+        if(selectedIndex == 0){ //一年
+            self.model.TransitTime.Date = [date dateByAddingTimeInterval:flag * D_YEAR];
+        }else if(selectedIndex == 1){   //一个月
+            self.model.TransitTime.Date = [date dateByAddingTimeInterval:flag * 10 * D_YEAR];
+        }
     }
     [self loadData];
 }

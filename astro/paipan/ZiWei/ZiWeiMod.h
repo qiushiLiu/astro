@@ -65,4 +65,5 @@
 @property (nonatomic) BOOL IsDayLight;
 - (UIImageView *)paipan;
 - (UIImageView *)paipanSimple;
+- (BOOL)isLxPan;
 @end
