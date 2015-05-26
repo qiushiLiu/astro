@@ -158,8 +158,8 @@ static NSMutableParagraphStyle *style = nil;
         self.lbGong.text = gn;
         
         if(self.lx){
-            [self.lbLiuGong setText:[NSString stringWithFormat:@"流%@", [GetZiWeiGong(self.gong.YunGongName) substringToIndex:2]]];
-            [self.lbYunGong setText:[NSString stringWithFormat:@"运%@", [GetZiWeiGong(self.gong.LiuGongName) substringToIndex:2]]];
+            [self.lbLiuGong setText:[NSString stringWithFormat:@"流%@", [GetZiWeiGong(self.gong.LiuGongName) substringToIndex:2]]];
+            [self.lbYunGong setText:[NSString stringWithFormat:@"运%@", [GetZiWeiGong(self.gong.YunGongName) substringToIndex:2]]];
         }
         
         NSMutableAttributedString *tran = nil;
@@ -200,12 +200,12 @@ static NSMutableParagraphStyle *style = nil;
         [self.lbYunGong setTextColor:[UIColor whiteColor]];
         
         self.lbGong.backgroundColor = ZWColorRed;
-        [self.lbLiuGong setBackgroundColor:ZWColorGreen];
-        [self.lbYunGong setBackgroundColor:ZWColorBlue];
+        [self.lbYunGong setBackgroundColor:ZWColorGreen];
+        [self.lbLiuGong setBackgroundColor:ZWColorBlue];
     }else{
         self.lbGong.textColor = ZWColorRed;
-        [self.lbLiuGong setTextColor:ZWColorGreen];
-        [self.lbYunGong setTextColor:ZWColorBlue];
+        [self.lbYunGong setTextColor:ZWColorGreen];
+        [self.lbLiuGong setTextColor:ZWColorBlue];
         
         self.lbGong.backgroundColor = [UIColor clearColor];
         [self.lbLiuGong setBackgroundColor:[UIColor clearColor]];
@@ -347,7 +347,7 @@ static NSMutableParagraphStyle *style = nil;
                 if(count == 4){
                     break;
                 }
-                str = [[NSMutableAttributedString alloc] initWithString:[self.liuYao objectAtIndex:i] attributes:gAttribute];
+                str = [[NSMutableAttributedString alloc] initWithString:[self.liuYao objectAtIndex:i] attributes:blAttribute];
                 [str drawInRect:CGRectMake(plx.x, plx.y, __FontSize.width, __FontSize.height * 2)];
                 plx.x -= __FontSize.width;
                 count++;
@@ -356,7 +356,7 @@ static NSMutableParagraphStyle *style = nil;
                 if(count == 4){
                     break;
                 }
-                str = [[NSMutableAttributedString alloc] initWithString:[self.yunYao objectAtIndex:i] attributes:blAttribute];
+                str = [[NSMutableAttributedString alloc] initWithString:[self.yunYao objectAtIndex:i] attributes:gAttribute];
                 [str drawInRect:CGRectMake(plx.x, plx.y, __FontSize.width, __FontSize.height * 2)];
                 plx.x -= __FontSize.width;
                 count++;
