@@ -22,7 +22,7 @@
 @property (nonatomic, strong) UITableView *tbGongInfo;  //宫位信息
 @property (nonatomic, strong) UITableView *tbStarInfo;  //星位信息
 @property (nonatomic, strong) UIPageControl *page;      //分页控件
-@property (nonatomic, strong) UILabel *lbTuiyun;    //退运说明
+@property (nonatomic, strong) UILabel *lbTuiyun;    //推运说明
 @property (nonatomic, strong) UILabel *lbP1Info;    //第一当事人
 @property (nonatomic, strong) UILabel *lbP2Info;    //第二当事人
 @property (nonatomic, strong) UIImageView *pan;     //盘的图片

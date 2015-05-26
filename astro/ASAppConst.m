@@ -13,7 +13,7 @@ NSString *const kAppChannel = @"0";
 //NSString *const kAppHost = @"http://api.ssqian.com";
 NSString *const kAppHost = @"http://42.121.116.88:43000";
 
-BOOL kAppDebug = YES;
+BOOL kAppDebug = NO;
 
 NSString *const kAppAgent = @"app-agent";
 NSString *const kAppVerify = @"Restecname";

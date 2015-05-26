@@ -59,7 +59,7 @@
     return self.segmentTimeUnit.selectedSegmentIndex;
 }
 
-- (void)setSelectedIndex:(int)selectedIndex{
+- (void)setSelectedIndex:(NSInteger)selectedIndex{
     self.segmentTimeUnit.selectedSegmentIndex = selectedIndex;
 }
 

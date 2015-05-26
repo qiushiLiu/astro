@@ -141,11 +141,10 @@
             self.model.BirthTime.Date = [self.model.BirthTime.Date dateByAddingTimeInterval:flag * 2 * D_HOUR];
         }
     }else{
-        NSDate *date = self.model.TransitTime.Date;
         if(selectedIndex == 0){ //一年
-            self.model.TransitTime.Date = [date dateByAddingTimeInterval:flag * D_YEAR];
+            self.model.TransitTime.Date = [self.model.TransitTime.Date dateByAddingTimeInterval:flag * D_YEAR];
         }else if(selectedIndex == 1){   //一个月
-            self.model.TransitTime.Date = [date dateByAddingTimeInterval:flag * 10 * D_YEAR];
+            self.model.TransitTime.Date = [self.model.TransitTime.Date dateByAddingTimeInterval:flag * 10 * D_YEAR];
         }
     }
     [self loadData];

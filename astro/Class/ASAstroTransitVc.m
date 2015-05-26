@@ -14,17 +14,15 @@
 @property (nonatomic, strong) UIView *viewPoi;
 @property (nonatomic, strong) UIButton *btnPoi;     //地址
 @property (nonatomic, strong) ASPickerView *picker;
+@property (nonatomic, strong) TransitCallback callBack;
 @end
 
 @implementation ASAstroTransitVc
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
++ (instancetype)newTransitVc:(TransitCallback)callBack{
+    ASAstroTransitVc *vc = [[self alloc] init];
+    vc.callBack = callBack;
+    return vc;
 }
 
 - (void)viewDidLoad
@@ -107,8 +105,8 @@
 }
 
 - (void)btnClick_navBack:(UIButton *)sender{
-    if([self.delegate respondsToSelector:@selector(transiteTo:postion:)]){
-        [self.delegate transiteTo:self.transitTime postion:self.transitPosition];
+    if(self.callBack){
+        self.callBack(self.transitTime, self.transitPosition);
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

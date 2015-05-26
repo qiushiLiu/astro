@@ -111,9 +111,13 @@
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnTransit){
-        ASAstroTransitVc *vc = [[ASAstroTransitVc alloc] init];
+        ASAstroTransitVc *vc = [ASAstroTransitVc newTransitVc:^(NSDate *date, ASPosition *poi) {
+            if(date){
+                self.model.TransitTime.Date = date;
+                [self loadTransit];
+            }
+        }];
         vc.transitTime = self.model.TransitTime.Date;
-        vc.delegate = self;
         UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
     }else if(sender == self.btnSenior){
@@ -123,14 +127,6 @@
         [self presentViewController:nc animated:YES completion:nil];
     }
 }
-
-#pragma mark - ASAstroTransitVcDelegate Method
-- (void)transiteTo:(NSDate *)date postion:(ASPosition *)transitPosition{
-    if(self.model){
-        self.model.TransitTime.Date = date;
-    }
-}
-
 
 #pragma mark - ASFillPersonVc Delegate Method
 - (void)ASFillPerson:(ASPerson *)person trigger:(id)trigger{

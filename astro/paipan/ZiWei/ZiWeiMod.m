@@ -60,7 +60,10 @@
 
 - (UIImageView *)paipan{
     BOOL lxTag = [self isLxPan];
-    self.gongs = [NSMutableArray array];
+    if(!self.gongs){
+        self.gongs = [NSMutableArray array];
+    }
+    [self.gongs removeAllObjects];
     CGSize cellSize = lxTag ? __LxCellSize : __CellSize;
     
     UIImageView *pan = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellSize.width * 4, cellSize.height * 4)];
@@ -170,7 +173,7 @@
     
     if(lxTag){
         //退运到
-        tmp = [NSString stringWithFormat:@"退运至：%@", [self.TransitTime.Date toStrFormat:@"yyyy-M-d HH:mm"]];
+        tmp = [NSString stringWithFormat:@"推运至：%@", [self.TransitTime.Date toStrFormat:@"yyyy-M-d"]];
         str = [[NSMutableAttributedString alloc] initWithString:tmp attributes:bAttribute];
         [str addAttributes:rAttribute range:NSMakeRange(4, [tmp length] - 4)];
         [str drawAtPoint:CGPointMake(10, top)];

@@ -11,6 +11,6 @@
 #import "ASFillPersonVc.h"
 #import "ASAstroTransitVc.h"
 
-@interface ASZiWeiPanFillInfoVc : ASBaseViewController<ASFillPersonVcDelegate, ASAstroTransitVcDelegate>
+@interface ASZiWeiPanFillInfoVc : ASBaseViewController<ASFillPersonVcDelegate>
 @property (nonatomic, weak) ZiWeiMod *model;
 @end
