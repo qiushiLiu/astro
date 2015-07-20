@@ -274,7 +274,8 @@
 }
 
 - (void)btnClick_poi:(UIButton *)sender{
-    ASPersonHistoryVc *vc = [[ASPersonHistoryVc alloc] init];
+    ASPoiMapVc *vc = [[ASPoiMapVc alloc] init];
+    vc.delegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
 }
